@@ -1,0 +1,25 @@
+.box-search-advance-2 {
+  position: absolute;
+  top: 70px;
+  right: 75px;
+  max-width: 522px;
+}
+
+.box-search-advance-2 .box-bottom-search {
+  flex-wrap: wrap;
+  background-color: var(--bs-neutral-100);
+  padding-top: 21px;
+  padding-bottom: 0px;
+  margin-bottom: 30px;
+}
+
+.box-search-advance-2 .box-bottom-search .item-search {
+  width: 50%;
+  margin-bottom: 25px;
+}
+
+.box-search-advance-2 .bottom-search-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

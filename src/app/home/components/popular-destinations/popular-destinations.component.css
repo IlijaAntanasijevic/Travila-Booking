@@ -1,0 +1,116 @@
+.card-popular {
+  padding: 15px;
+  border-radius: 24px;
+  border: 1px solid var(--bs-border-color);
+  margin-bottom: 24px;
+  background-color: #292828;
+}
+
+.card-popular .card-image {
+  position: relative;
+  overflow: hidden;
+  height: auto;
+  width: 100%;
+  border-radius: 20px;
+  margin-bottom: 18px;
+}
+
+.card-popular .card-image img {
+  display: block;
+  width: 100%;
+}
+
+.card-popular .card-info .card-title {
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 700;
+  color: var(--bs-neutral-1000);
+  margin-bottom: 4px;
+  display: block;
+}
+
+.card-popular .card-info .card-title:hover {
+  color: var(--bs-warning) !important;
+}
+
+.card-popular .card-info .card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-popular .card-info .card-meta .meta-links a {
+  color: var(--bs-neutral-500);
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+}
+
+.card-popular .card-info .card-meta .card-button a {
+  display: inline-block;
+  height: 27px;
+  width: 27px;
+  text-align: center;
+  line-height: 24px;
+  border-radius: 50%;
+  background-color: var(--bs-neutral-100);
+}
+
+.card-popular .card-info .card-meta .card-button a svg {
+  stroke: var(--bs-neutral-1000);
+}
+
+.card-popular .card-info .card-meta .card-button a:hover {
+  background-color: var(--bs-neutral-1000);
+}
+
+.card-popular .card-info .card-meta .card-button a:hover svg {
+  stroke: var(--bs-neutral-0);
+}
+
+.card-popular.card-top-destination {
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.card-popular.card-top-destination:hover {
+  box-shadow: 0px 6px 22px 0px rgba(0, 0, 0, 0.09);
+}
+
+.card-popular.card-top-destination .card-image {
+  width: 80px;
+  min-width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 18px;
+  margin-bottom: 0px;
+}
+
+.card-popular.card-top-destination .card-image img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.card-popular.card-top-destination .card-info {
+  position: relative;
+  width: 100%;
+}
+
+.card-popular.card-top-destination .card-info .card-title {
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: bold;
+}
+
+.card-popular.card-top-destination .card-info .card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.card-popular.card-top-destination .card-info .card-meta .meta-links {
+  margin-bottom: 10px;
+}

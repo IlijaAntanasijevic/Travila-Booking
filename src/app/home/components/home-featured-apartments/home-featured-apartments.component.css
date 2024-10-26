@@ -1,0 +1,23 @@
+.popular-categories {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.popular-categories .dropdown-filter {
+  margin-left: 8px;
+  margin-bottom: 8px;
+}
+
+.box-our-featured-2 {
+  padding: 90px 0px 90px 0px;
+}
+
+
+.box-our-featured {
+  padding-top: 0px;
+}
+
+.box-list-featured {
+  margin-top: 26px;
+}
