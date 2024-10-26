@@ -1965,7 +1965,7 @@ h4 {
   -webkit-animation: spinner 1.2s infinite ease-in-out;
   -o-animation: spinner 1.2s infinite ease-in-out;
   animation: spinner 1.2s infinite ease-in-out;
-  background: url(./assets/imgs/favicon.svg);
+  background: url(./assets/images/favicon.svg);
   box-shadow: 0 0 10px #fff;
 }
 
@@ -2224,7 +2224,7 @@ body {
 }
 
 .btn.btn-print {
-  background: var(--bs-neutral-100) url(./assets/imgs/template/icons/print.svg) no-repeat left 10px center;
+  background: var(--bs-neutral-100) url(./assets/images/template/icons/print.svg) no-repeat left 10px center;
   font-size: 1rem;
   border-radius: 4px;
   padding-left: 30px;
@@ -2238,7 +2238,7 @@ body {
   font-size: 14px;
   line-height: 22px;
   font-weight: 500;
-  background: var(--bs-neutral-200) url(./assets/imgs/template/icons/arrow-down.svg) no-repeat right 15px center;
+  background: var(--bs-neutral-200) url(./assets/images/template/icons/arrow-down.svg) no-repeat right 15px center;
 }
 
 .btn.btn-dropdown:after {
@@ -6840,7 +6840,7 @@ label {
 }
 
 .title-quicklinks {
-  background: url(./assets/imgs/template/icons/quick-link.svg) no-repeat left center;
+  background: url(./assets/images/template/icons/quick-link.svg) no-repeat left center;
   padding: 0px 0px 0px 32px;
   margin-bottom: 32px;
 }
@@ -9620,7 +9620,7 @@ a.icon-socials:hover svg {
   padding-top: 80px;
 }
 
-.box-list-numbers {
+/* .box-list-numbers {
   background: var(--bs-background-1000) url(./assets/imgs/page/homepage3/bg-number.png) no-repeat center;
   background-size: contain;
   border-radius: 32px;
@@ -9628,7 +9628,7 @@ a.icon-socials:hover svg {
   display: flex;
   align-items: center;
   justify-content: center;
-}
+} */
 
 .box-list-numbers .item-numbers {
   width: auto;
@@ -10267,15 +10267,18 @@ a.icon-socials:hover svg {
   max-width: 100%;
 }
 
-/* 
 .block-banner-home6 {
-  padding: 100px 0px 150px 0px;
-  background: url(./assets/imgs/page/homepage6/banner.png) no-repeat center;
+  padding: 200px 0px 150px 0px;
+  background: url(./assets/images/page/homepage6/banner.png) no-repeat center;
   background-size: cover;
   position: relative;
-} */
+}
 
-/* .block-banner-home6::before {
+.block-banner-home6 h2 {
+  font-weight: 600;
+}
+
+.block-banner-home6::before {
   content: "";
   position: absolute;
   top: 0px;
@@ -10283,8 +10286,8 @@ a.icon-socials:hover svg {
   width: 100%;
   height: 100%;
   z-index: 1;
-  background: url(./assets/imgs/page/homepage5/trans.png);
-} */
+  background: url(./assets/images/page/homepage5/trans.png);
+}
 
 .block-banner-home6 .container {
   position: relative;
