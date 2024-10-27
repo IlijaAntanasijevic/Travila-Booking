@@ -38,9 +38,12 @@
   <div class="container-fluid background-body">
     <div class="main-header">
       <div class="header-left">
-        <div class="header-logo"><a class="d-flex" href="index.html"><img class="light-mode" alt="Travila"
-              src="assets/images/template/logo.svg"><img class="dark-mode" alt="Travila"
-              src="assets/images/template/logo-w.svg"></a></div>
+        <div class="header-logo">
+          <a class="d-flex" routerLink="home">
+            <img class="light-mode" alt="Travila" src="assets/images/template/logo.svg">
+            <img class="dark-mode" alt="Travila" src="assets/images/template/logo-w.svg">
+          </a>
+        </div>
         <div class="header-nav">
           <nav class="nav-main-menu">
             <ul class="main-menu">
@@ -65,10 +68,12 @@
       <div class="header-right">
         <div class="d-none d-xxl-inline-block align-middle mr-15">
           <a class="btn btn-mode change-mode mr-15" href="#" data-bs-theme-value="dark">
-          </a><a class="btn btn-default btn-signin" href="#">Sign in</a>
+          </a><a class="btn btn-default btn-signin" routerLink="auth">Sign In</a>
         </div>
-        <div class="burger-icon-2 burger-icon-white"><img src="assets/images/template/icons/menu.svg" alt="Travila">
-        </div>
+        <!-- IS LOGGED IN -->
+        <!-- <div class="burger-icon-2 burger-icon-white">
+          <img src="assets/images/template/icons/menu.svg" alt="Travila">
+        </div> -->
 
       </div>
     </div>
