@@ -1,5 +1,6 @@
 .container-footer {
-  padding: 42px 35px 0px 35px;
+  padding: 42px 50px 0px 50px;
+  border-top: 1px solid var(--bs-border-color);
 }
 
 .footer-1 {
