@@ -1,57 +1,45 @@
 <div class="container">
   <div class="box-search-advance background-card">
-    <div class="box-top-search">
-      <div class="left-top-search"><a class="category-link btn-click active" href="#">Tours</a><a
-          class="category-link btn-click" href="#">Hotels</a><a class="category-link btn-click" href="#">Tickets</a><a
-          class="category-link btn-click" href="#">Rental</a><a class="category-link btn-click" href="#">Activities</a>
-      </div>
-    </div>
     <div class="box-bottom-search background-card">
-      <div class="item-search">
-        <label class="text-sm-bold neutral-500">Location</label>
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle btn-dropdown-search location-search" type="button"
-            data-bs-toggle="dropdown" aria-expanded="false">New York, USA</button>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Paris, France</a></li>
-            <li><a class="dropdown-item" href="#">Tokyo, Japan</a></li>
-            <li><a class="dropdown-item" href="#">New York City, USA</a></li>
-          </ul>
+      <form>
+        <div class="row">
+          <div class="col-sm-5">
+            <mat-form-field color="primary">
+              <mat-label>Location <mat-icon style="height: 15px;">location_on</mat-icon></mat-label>
+              <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+              <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                @for (option of filteredOptions | async; track option) {
+                <mat-option [value]="option">{{option.name}}</mat-option>
+                }
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-5">
+
+            <mat-form-field>
+              <mat-date-range-input [rangePicker]="picker" [min]="minDate">
+                <input matStartDate placeholder="Check in" disabled>
+                <input matEndDate placeholder="Check out" (dateChange)="calculateTotalNights()" disabled>
+              </mat-date-range-input>
+              <mat-hint class="color-white">{{totalNights != null ? totalNights + " nights" : '' }} </mat-hint>
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-date-range-picker touchUi #picker disabled="false"></mat-date-range-picker>
+            </mat-form-field>
+
+
+          </div>
+
         </div>
-      </div>
-      <div class="item-search item-search-2">
-        <label class="text-sm-bold neutral-500">Check In</label>
-        <div class="box-calendar-date">
-          <input class="search-input datepicker" type="text" placeholder="" value="02 January 2024">
-        </div>
-      </div>
-      <div class="item-search item-search-3">
-        <label class="text-sm-bold neutral-500">Check Out</label>
-        <div class="box-calendar-date">
-          <input class="search-input datepicker" type="text" placeholder="" value="02 January 2024">
-        </div>
-      </div>
-      <div class="item-search bd-none">
-        <label class="text-sm-bold neutral-500">Guest</label>
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle btn-dropdown-search passenger-search" type="button"
-            data-bs-toggle="dropdown" aria-expanded="false">2 adults, 2 children</button>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">2 adults, 1 children</a></li>
-            <li><a class="dropdown-item" href="#">2 adults, 2 children</a></li>
-            <li><a class="dropdown-item" href="#">2 adults, 3 children</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="item-search bd-none d-flex justify-content-end">
-        <button class="btn btn-black-lg">
-          <svg width="20" height="20" viewbox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M19 19L14.6569 14.6569M14.6569 14.6569C16.1046 13.2091 17 11.2091 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17C11.2091 17 13.2091 16.1046 14.6569 14.6569Z"
-              stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-          </svg>Search
-        </button>
-      </div>
+        <!-- <div class="item-search bd-none d-flex justify-content-end">
+          <button class="btn btn-black-lg">
+            <svg width="20" height="20" viewbox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M19 19L14.6569 14.6569M14.6569 14.6569C16.1046 13.2091 17 11.2091 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17C11.2091 17 13.2091 16.1046 14.6569 14.6569Z"
+                stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>Search
+          </button>
+        </div> -->
+      </form>
     </div>
   </div>
 </div>
