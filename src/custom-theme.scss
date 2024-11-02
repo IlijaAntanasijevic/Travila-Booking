@@ -1,37 +1,71 @@
 
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
-// Plus imports for other components in your app.
 
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
 @include mat.core();
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$travila-front-primary: mat.define-palette(mat.$indigo-palette);
-$travila-front-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$custom-primary-palette: (
+  50: #fffdcc,   
+  100: #fffc99,  
+  200: #fff966,  
+  300: #fff733, 
+  400: #fef81a,  
+  500: #FEFA17,  
+  600: #e0db14, 
+  700: #b3ae10,  
+  800: #86810c, 
+  900: #5a5608,  
+  contrast: (
+    50: #000,
+    100: #000,
+    200: #000,
+    300: #fff,
+    400: #fff,
+    500: #fff,
+    600: #fff,
+  )
+);
 
-// The warn palette is optional (defaults to red).
+$custom-neutral-palette: (
+  50: #F2F4F6,   // Very light neutral
+  100: #E4E6E8,  // Light neutral
+  200: #D6D7D8,  // Lighter neutral
+  300: #B8BABC,  // Intermediate light (added to smooth gradation)
+  400: #8E8E8E,  // Medium-light neutral
+  500: #737373,  // Neutral (main color)
+  600: #575756,  // Darker neutral
+  700: #4D4D4D,  // Dark neutral
+  800: #454545,  // Darker neutral
+  900: #313131,  // Very dark neutral
+  contrast: (
+    50: #000000,  // Black contrast for lighter shades
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #ffffff,  // White contrast for medium to darker shades
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+  )
+);
+
+$travila-front-primary: mat.define-palette($custom-primary-palette);
+$travila-front-accent: mat.define-palette($custom-neutral-palette);
+
 $travila-front-warn: mat.define-palette(mat.$red-palette);
 
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
+
 $travila-front-theme: mat.define-light-theme((
   color: (
     primary: $travila-front-primary,
     accent: $travila-front-accent,
-    warn: $travila-front-warn,
+    warn: $travila-front-warn
   ),
   typography: mat.define-typography-config(),
   density: 0
 ));
 
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include mat.all-component-themes($travila-front-theme);
+
+ @include mat.all-component-themes($travila-front-theme);
 
