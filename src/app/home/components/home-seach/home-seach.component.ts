@@ -1,12 +1,15 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Observable} from 'rxjs';
+import {FormControl} from '@angular/forms';
+import {Observable, Subscription} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { BlHomeSearchFormService } from './services/form/bl-home-search-form.service';
+import { BlHomeSearchRequestsService } from './services/requests/bl-home-search-requests.service';
+import { IBase } from '../../../core/interfaces/i-base';
+import { ISearchHome, ISearchHomeRequest } from './interfaces/i-search-home';
+import { Spinner } from '../../../core/functions/spinner';
+import { locationValidator } from './validators/location-validator';
 
-export interface User {
-  name: string;
-}
 @Component({
   selector: 'app-home-seach',
   templateUrl: './home-seach.component.html',
@@ -15,44 +18,118 @@ export interface User {
 })
 export class HomeSeachComponent implements OnInit {
 
-  myControl = new FormControl<string|User>('');
-  options: User[] = [{name: 'Mary'}, {name: 'Shelley'}, {name: 'Igor'}];
-  filteredOptions: Observable<User[]>;
-  totalNights: number | null = null;
-  minDate: Date = new Date(new Date().setDate(new Date().getDate() + 1));
+  constructor(
+    public formService: BlHomeSearchFormService,
+    private homeSearchReqService: BlHomeSearchRequestsService
+  ) { }
 
-  ngOnInit() {
-    this.filteredOptions = this.myControl.valueChanges.pipe(
+  myControl = new FormControl<string | IBase>('');
+  filteredOptions: Observable<IBase[]>;
+  cities: IBase[] = null;
+
+  public form = this.formService.getForm();
+
+
+  public totalNights: number = null;
+  public minDate: Date = new Date(new Date().setDate(new Date().getDate() + 1));
+  public maxDate: Date = new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+  public adultGuests: number = 1;
+
+  private subscription: Subscription = new Subscription();
+
+  ngOnInit() {    
+    // this.form.get("checkIn").disable();
+    // this.form.get("checkOut").disable();
+   this.getAllCities();
+  }
+
+  getAllCities(): void {
+    Spinner.show();
+    this.subscription.add(
+      this.homeSearchReqService.getAllCities().subscribe({
+        next: (data) => {
+          this.cities = data;
+          this.initializeFilteredOptions();
+          this.form.get("city").setValidators(locationValidator(this.cities));
+          Spinner.hide();
+        },
+        error: (err) => {
+          Spinner.hide();
+        }
+      })
+    )
+  }
+
+  private initializeFilteredOptions(): void {
+    this.filteredOptions = this.form.controls['city'].valueChanges.pipe(
       startWith(''),
       map(value => {
         const name = typeof value === 'string' ? value : value?.name;
-        return name ? this._filter(name as string) : this.options.slice();
+        return name ? this._filter(name as string) : this.cities.slice();
       }),
     );
   }
 
-  calculateTotalNights() {
-    // const startDate = this.form.value.start
-    // const endDate = this.form.value.end
+  calculateTotalNights(): void {
+    const checkIn = this.form.value.checkIn
+    const checkOut = this.form.value.checkOut
 
-    // if (startDate !== null && endDate !== null) {
-    //   const dateDifference = new Date(endDate).getTime() - new Date(startDate).getTime();
-    //   this.totalNights = dateDifference / (1000 * 60 * 60 * 24);
-    // }  
-    this.totalNights = 5;
+    if (checkIn !== null && checkOut !== null) {
+      const dateDifference = new Date(checkOut).getTime() - new Date(checkIn).getTime();
+      this.totalNights = dateDifference / (1000 * 60 * 60 * 24);
+    }  
+    else {
+      this.totalNights = 0;
+    }
+    console.log(this.totalNights);
+  }
+
+  increaseGuests(type: string): void {
+    let formControl = this.form.get(type);
+    let value = formControl.value;
+
+    if(value == 20 && type != "rooms") 
+      return;
+    else if (value == 10 && type == "rooms") 
+      return;
+
+    value++;
+    formControl.setValue(value);   
+  }
+
+  decreaseGuests(type: string): void {
+    let formControl = this.form.get(type);
+    let value = formControl.value;
+
+    if(value == 1) 
+      return;
+    value--;
+    formControl.setValue(value);   
+  }
+
+  search(): void {
+    const formData: ISearchHome = this.formService.getFormData();
+
+    let dataToSend: ISearchHomeRequest = {
+      checkIn: formData.checkIn,
+      checkOut: formData.checkOut,
+      adults: formData.adults,
+      childrens: formData.childrens,
+      rooms: formData.rooms,
+      cityId: formData.city.id 
+    };
+
+    console.log(dataToSend);
   }
 
 
-  displayFn(user: User): string {
-    return user && user.name ? user.name : '';
+  displayFn(city: IBase): string {
+    return city && city.name ? city.name : '';
   }
 
-  private _filter(name: string): User[] {
+  private _filter(name: string): IBase[] {
     const filterValue = name.toLowerCase();
-
-    return this.options.filter(option => option.name.toLowerCase().includes(filterValue));
+    return this.cities.filter(city => city.name.toLowerCase().includes(filterValue));
   }
-
-
   
 }

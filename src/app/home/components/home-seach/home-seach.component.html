@@ -1,12 +1,12 @@
 <div class="container">
   <div class="box-search-advance background-card">
     <div class="box-bottom-search background-card">
-      <form>
-        <div class="row">
-          <div class="col-sm-5">
-            <mat-form-field color="primary">
-              <mat-label>Location <mat-icon style="height: 15px;">location_on</mat-icon></mat-label>
-              <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+      <form class="w-100" [formGroup]="form">
+        <div class="d-flex justify-content-between">
+          <div>
+            <mat-form-field color="primary" [hideRequiredMarker]="true">
+              <mat-label>Location <mat-icon style="height: 14px;">location_on</mat-icon></mat-label>
+              <input type="text" formControlName="city" class="text-light" matInput [matAutocomplete]="auto">
               <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
                 @for (option of filteredOptions | async; track option) {
                 <mat-option [value]="option">{{option.name}}</mat-option>
@@ -14,31 +14,71 @@
               </mat-autocomplete>
             </mat-form-field>
           </div>
-          <div class="col-sm-5">
+          <div>
 
-            <mat-form-field>
-              <mat-date-range-input [rangePicker]="picker" [min]="minDate">
-                <input matStartDate placeholder="Check in" disabled>
-                <input matEndDate placeholder="Check out" (dateChange)="calculateTotalNights()" disabled>
+            <mat-form-field color="primary" (click)="picker.open()" [hideRequiredMarker]="true">
+              @if(totalNights != 0){
+              <mat-label>{{ totalNights !== null ? totalNights + " nights" : 'Check in - Check out' }}</mat-label>
+              }
+              <mat-date-range-input [rangePicker]="picker" [min]="minDate" [max]="maxDate" (click)="picker.open()">
+                <input matStartDate formControlName="checkIn" placeholder="Check in" (click)="picker.open()"
+                  (dateChange)="calculateTotalNights()">
+                <input matEndDate formControlName="checkOut" placeholder="Check out"
+                  (dateChange)="calculateTotalNights()" (click)="picker.open()">
               </mat-date-range-input>
-              <mat-hint class="color-white">{{totalNights != null ? totalNights + " nights" : '' }} </mat-hint>
               <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-date-range-picker touchUi #picker disabled="false"></mat-date-range-picker>
+              <mat-date-range-picker touchUi #picker disabled="false"
+                (closed)="calculateTotalNights()"></mat-date-range-picker>
             </mat-form-field>
+          </div>
+          <div>
+            <button mat-flat-button [matMenuTriggerFor]="menu" class="guests" color="accent"
+              (click)="$event.stopPropagation()">
+              <mat-icon>person</mat-icon>
+              {{adultGuests}} adulsts | {{adultGuests}} children | {{adultGuests}} room
+              <mat-icon>arrow_drop_down</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" class="w-100">
+              <div class="d-flex justify-content-around align-items-center mt-3" (click)="$event.stopPropagation()">
+                <span class="guestsTitle">Adult</span>
+                <div class="d-flex w-50 align-items-center">
+                  <span class="guestsBtn" (click)="decreaseGuests('adults')"><mat-icon>remove</mat-icon></span>
+                  <input type="number" formControlName="adults" class="guestsInput" [value]="adultGuests" />
+                  <span class="guestsBtn" (click)="increaseGuests('adults')"><mat-icon>add</mat-icon></span>
+                </div>
+              </div>
 
+              <div class="d-flex justify-content-around align-items-center my-3" (click)="$event.stopPropagation()">
+                <span class="guestsTitle">Children</span>
+                <div class="d-flex w-50 align-items-center">
+                  <span class="guestsBtn" (click)="decreaseGuests('childrens')"><mat-icon>remove</mat-icon></span>
+                  <input type="number" formControlName="childrens" class="guestsInput" [value]="adultGuests" />
+                  <span class="guestsBtn" (click)="increaseGuests('childrens')"><mat-icon>add</mat-icon></span>
+                </div>
+              </div>
 
+              <div class="d-flex justify-content-around align-items-center mb-3" (click)="$event.stopPropagation()">
+                <span class="guestsTitle">Rooms</span>
+                <div class="d-flex w-50 align-items-center">
+                  <span class="guestsBtn" (click)="decreaseGuests('rooms')"><mat-icon>remove</mat-icon></span>
+                  <input type="number" formControlName="rooms" class="guestsInput" [value]="adultGuests" />
+                  <span class="guestsBtn" (click)="increaseGuests('rooms')"><mat-icon>add</mat-icon></span>
+                </div>
+              </div>
+            </mat-menu>
           </div>
 
+          <div>
+            <button class="btn btn-black-lg" (click)="search()" [disabled]="form.invalid">
+              <svg width="20" height="20" viewbox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M19 19L14.6569 14.6569M14.6569 14.6569C16.1046 13.2091 17 11.2091 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17C11.2091 17 13.2091 16.1046 14.6569 14.6569Z"
+                  stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>Search
+            </button>
+          </div>
         </div>
-        <!-- <div class="item-search bd-none d-flex justify-content-end">
-          <button class="btn btn-black-lg">
-            <svg width="20" height="20" viewbox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M19 19L14.6569 14.6569M14.6569 14.6569C16.1046 13.2091 17 11.2091 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17C11.2091 17 13.2091 16.1046 14.6569 14.6569Z"
-                stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg>Search
-          </button>
-        </div> -->
+
       </form>
     </div>
   </div>

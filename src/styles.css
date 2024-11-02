@@ -9878,7 +9878,7 @@ a.icon-socials:hover svg {
 }
 
 .box-banner-home5-search .box-search-advance {
-  top: -70px;
+  top: -85px;
 }
 
 .box-new-year {
@@ -14369,3 +14369,10 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+
+/* ----------------------------------------- */
+
+/* ::ng-deep div.mat-mdc-autocomplete-panel {
+  background-color: red !important;
+} */

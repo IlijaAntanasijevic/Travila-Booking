@@ -7,7 +7,7 @@ import { HomeSeachComponent } from './components/home-seach/home-seach.component
 import { HomeFeaturedApartmentsComponent } from './components/home-featured-apartments/home-featured-apartments.component';
 import { PopularDestinationsComponent } from './components/popular-destinations/popular-destinations.component';
 import { HomeFlightsComponent } from './components/home-flights/home-flights.component';
-import { SharedModule } from '../shared/shared/shared.module';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
