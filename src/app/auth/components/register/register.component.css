@@ -1,3 +1,66 @@
 .box-login-page h5 {
   font-weight: bold;
 }
+
+
+/* Custom input */
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: var(--bs-neutral-100) !important;
+  color: white !important;
+}
+
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-floating-label {
+  color: var(--bs-brand-secondary) !important;
+}
+
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-floating-label,
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-text-field__input {
+  color: white !important;
+}
+
+::ng-deep .mat-mdc-form-field-error-wrapper {
+  padding: 0px;
+}
+
+/* Button */
+::ng-deep .mat-mdc-unelevated-button:not(:disabled) {
+  background-color: var(--bs-neutral-100) !important;
+  color: white !important;
+  border-top-left-radius: var(--mdc-filled-text-field-container-shape);
+  border-top-right-radius: var(--mdc-filled-text-field-container-shape);
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  -webkit-font-smoothing: antialiased;
+  font-family: var(--mat-form-field-container-text-font);
+  line-height: var(--mat-form-field-container-text-line-height);
+  font-size: var(--mat-form-field-container-text-size);
+  letter-spacing: var(--mat-form-field-container-text-tracking);
+  font-weight: var(--mat-form-field-container-text-weight);
+  --mat-mdc-form-field-floating-label-scale: 0.75;
+  width: 236px !important;
+  height: 53px !important;
+}
+
+::ng-deep .mdc-button {
+  justify-content: start !important;
+}
+
+/* End Custom input */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+}
+
+
+
+/* Firefox */
+/* input[type=number] {
+  -moz-appearance: textfield;
+} */

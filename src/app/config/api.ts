@@ -4,5 +4,8 @@ export const apiPaths = {
     featuredApartments: "api/apartment?"
   },
   apartment: "api/apartment",
-  cities: "api/city"
+  cities: "api/city",
+  auth: {
+    login: "api/login"
+  }
 }

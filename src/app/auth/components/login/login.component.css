@@ -75,3 +75,49 @@
 .box-login-form {
   padding-right: 45px;
 }
+
+
+/* MAJNE */
+
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: var(--bs-neutral-100) !important;
+  color: white !important;
+}
+
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-floating-label {
+  color: var(--bs-brand-secondary) !important;
+}
+
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-floating-label,
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-text-field__input {
+  color: white !important;
+
+}
+
+::ng-deep .mat-mdc-form-field-error-wrapper {
+  padding: 0px;
+}
+
+/* ::ng-deep .mdc-checkbox */
+::ng-deep .mdc-form-field {
+  color: var(--bs-neutral-500) !important;
+  font-size: 12px !important;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+::ng-deep .mdc-checkbox .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not([data-indeterminate=true])~.mdc-checkbox__background {
+  border-color: var(--bs-neutral-500) !important;
+  background-color: var(--bs-neutral-200) !important;
+}
+
+::ng-deep .mdc-checkbox__background {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* ::ng-deep .mdc-checkbox .mdc-checkbox__background {
+  top: calc((var(--mdc-checkbox-state-layer-size) - 22px) / 2) !important;
+  left: calc((var(--mdc-checkbox-state-layer-size) - 35px) / 2) !important;
+} */
