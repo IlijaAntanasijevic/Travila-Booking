@@ -9,7 +9,7 @@ import { apiPaths } from '../../../../../config/api';
 export class HomeSearchService extends ApiService<any>{
 
   constructor(http: HttpClient) {
-    super(apiPaths.cities, http)
+    super(apiPaths.home.search, http)
   }
 
 }

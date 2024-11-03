@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable, Subscription} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
@@ -16,7 +16,7 @@ import { locationValidator } from './validators/location-validator';
   styleUrl: './home-seach.component.css',
   providers: [provideNativeDateAdapter()],
 })
-export class HomeSeachComponent implements OnInit {
+export class HomeSeachComponent implements OnInit, OnDestroy {
 
   constructor(
     public formService: BlHomeSearchFormService,
@@ -38,8 +38,6 @@ export class HomeSeachComponent implements OnInit {
   private subscription: Subscription = new Subscription();
 
   ngOnInit() {    
-    // this.form.get("checkIn").disable();
-    // this.form.get("checkOut").disable();
    this.getAllCities();
   }
 
@@ -81,7 +79,6 @@ export class HomeSeachComponent implements OnInit {
     else {
       this.totalNights = 0;
     }
-    console.log(this.totalNights);
   }
 
   increaseGuests(type: string): void {
@@ -119,7 +116,14 @@ export class HomeSeachComponent implements OnInit {
       cityId: formData.city.id 
     };
 
-    console.log(dataToSend);
+    this.homeSearchReqService.search(dataToSend).subscribe({
+      next: (data) => {
+        console.log(data);
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
   }
 
 
@@ -130,6 +134,11 @@ export class HomeSeachComponent implements OnInit {
   private _filter(name: string): IBase[] {
     const filterValue = name.toLowerCase();
     return this.cities.filter(city => city.name.toLowerCase().includes(filterValue));
+  }
+
+  ngOnDestroy(): void {
+    this.formService.reset();
+    this.subscription.unsubscribe()
   }
   
 }

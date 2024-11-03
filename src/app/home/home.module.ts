@@ -8,6 +8,7 @@ import { HomeFeaturedApartmentsComponent } from './components/home-featured-apar
 import { PopularDestinationsComponent } from './components/popular-destinations/popular-destinations.component';
 import { HomeFlightsComponent } from './components/home-flights/home-flights.component';
 import { SharedModule } from '../shared/shared.module';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     CommonModule,
     HomeRoutingModule,
-    SharedModule
+    SharedModule,
+    NgxSkeletonLoaderModule
   ]
 })
 export class HomeModule { }

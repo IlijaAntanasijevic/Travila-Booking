@@ -21,3 +21,62 @@
 .box-list-featured {
   margin-top: 26px;
 }
+
+.btn.btn-brand-secondary {
+  padding: 15px 80px;
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 700;
+  background-color: var(--bs-brand-secondary);
+  border-radius: 50px;
+  color: var(--bs-color-1000) !important;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+}
+
+.btn.btn-brand-secondary:hover {
+  color: var(--bs-neutral-1000) !important;
+  background-color: var(--bs-neutral-200);
+}
+
+.card-journey-small .card-info .card-rating .card-right .rating {
+  display: inline-block;
+  padding: 6px 16px 6px 30px;
+  background-color: var(--bs-neutral-0);
+  border-radius: 50px;
+  color: var(--bs-neutral-1000);
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 700;
+  border: 1px solid var(--bs-border-color);
+  box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.07);
+  background-image: url('../../../../assets/images/template/icons/star.svg');
+  background-repeat: no-repeat;
+  background-position: left 12px center;
+}
+
+/* Skeleton */
+.item {
+  width: auto;
+  height: auto;
+  margin: 10px auto;
+  padding: 10px;
+}
+
+.skeleton-wrapper-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  z-index: 1;
+}
+
+.skeleton-wrapper-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  z-index: 1;
+  transform: translateY(-112%);
+}
