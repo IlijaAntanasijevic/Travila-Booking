@@ -79,9 +79,9 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+/* input[type=number] {
   -moz-appearance: textfield;
-}
+} */
 
 ::ng-deep .mat-mdc-menu-panel {
   max-width: 330px !important;
