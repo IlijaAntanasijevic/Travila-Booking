@@ -89,8 +89,10 @@ input[type=number] {
 
 /* Custom fields */
 ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled),
-::ng-deep .mdc-text-field--filled.mdc-text-field--disabled {
-  background-color: var(--bs-neutral-500) !important;
+::ng-deep .mdc-text-field--filled.mdc-text-field--disabled,
+::ng-deep .mat-mdc-unelevated-button:not(:disabled) {
+  background-color: var(--bs-neutral-100) !important;
+  color: white !important;
 }
 
 ::ng-deep .mat-datepicker-content {
@@ -151,10 +153,14 @@ input[type=number] {
 
 ::ng-deep div.mat-mdc-autocomplete-panel {
   border-radius: 5px !important;
-  background-color: var(--bs-neutral-300) !important;
+  background-color: var(--bs-neutral-200) !important;
+}
+
+::ng-deep .mat-mdc-option:hover:not(.mdc-list-item--disabled) {
+  background-color: var(--bs-neutral-100) !important;
 }
 
 ::ng-deep .mat-mdc-menu-panel {
-  background-color: var(--bs-neutral-300) !important;
+  background-color: var(--bs-neutral-200) !important;
   color: white !important;
 }

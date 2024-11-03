@@ -1,0 +1,62 @@
+[
+  {
+      "id": 34,
+      "name": "Test 2",
+      "maxGuests": 5,
+      "pricePerNight": 20,
+      "mainImage": "wwwroot\\apartments\\mainImages\\fb4320f3-be36-4dae-8efd-0ee95969e450.png",
+      "city": "Wien",
+      "country": "Austria",
+      "apartmentType": "Apartment"
+  },
+  {
+      "id": 35,
+      "name": "New1 test2@",
+      "maxGuests": 3,
+      "pricePerNight": 25,
+      "mainImage": "wwwroot\\apartments\\mainImages\\48412900-23be-45ce-9281-4c16f0581b85.jpg",
+      "city": "Amsterdam",
+      "country": "Holland",
+      "apartmentType": "Apartment"
+  },
+  {
+      "id": 36,
+      "name": "New2 test2@",
+      "maxGuests": 6,
+      "pricePerNight": 10,
+      "mainImage": "wwwroot\\apartments\\mainImages\\4cd2b628-bbb4-4fa3-84ab-57524023e061.jpg",
+      "city": "Belgrade",
+      "country": "Serbia",
+      "apartmentType": "House"
+  },
+  {
+      "id": 37,
+      "name": "New3 test2@",
+      "maxGuests": 4,
+      "pricePerNight": 10,
+      "mainImage": "wwwroot\\apartments\\mainImages\\40c23602-8b21-4b81-9415-df4afa9d71cd.jpg",
+      "city": "Wien",
+      "country": "Austria",
+      "apartmentType": "Villas"
+  },
+  {
+      "id": 38,
+      "name": "New4 test2@",
+      "maxGuests": 7,
+      "pricePerNight": 100,
+      "mainImage": "wwwroot\\apartments\\mainImages\\7c860740-6aa5-489c-92f1-19c2ad0fb2ac.jpg",
+      "city": "Belgrade",
+      "country": "Serbia",
+      "apartmentType": "Apartment"
+  },
+  {
+      "id": 39,
+      "name": "New5 test2@",
+      "maxGuests": 5,
+      "pricePerNight": 120,
+      "mainImage": "wwwroot\\apartments\\mainImages\\35b7191e-9c8d-4b50-b7f1-976a819007e1.jpg",
+      "city": "Amsterdam",
+      "country": "Holland",
+      "apartmentType": "Hotel"
+  }
+]

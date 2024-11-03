@@ -21,6 +21,22 @@ export class ApiService<T> {
     );
   }
 
+  getAllByQueryParams(query: object | string = null): Observable<T[]> {
+    const queryUrl: string = this.url.includes('?') ? this.url : `${this.url}?`;
+    let queryParams: string = ""
+
+    if(typeof query === "object") {
+      queryParams =  new URLSearchParams(query as any).toString();
+    }
+    else {
+      queryParams = query;
+    }
+   
+    return this.http.get<T[]>(this.apiUrl + queryUrl + queryParams).pipe(
+      catchError(this.handleErrors)
+    );
+  }
+
   private handleErrors(error: any): Observable<never> {
     let errorMessage = 'An unknown error occurred!';
     if (error.error instanceof ErrorEvent) {
