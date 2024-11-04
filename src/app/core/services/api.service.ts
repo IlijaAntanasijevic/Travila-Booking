@@ -1,19 +1,21 @@
 import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, Injector } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { config } from '../../config/global';
+import { ToastrService } from 'ngx-toastr';
+import { AppInjector } from '../helpers/app-injector';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService<T> {
-
   constructor(
     @Inject('apiUrl') protected url: string,
     protected http : HttpClient
   ) { }
 
   private apiUrl = config.apiUrl;
+  private alertServiceReference: ToastrService = null;
 
   getAll(): Observable<T[]> {
     return this.http.get<T[]>(this.apiUrl + this.url).pipe(
@@ -33,24 +35,45 @@ export class ApiService<T> {
     }
    
     return this.http.get<T[]>(this.apiUrl + queryUrl + queryParams).pipe(
-      catchError(this.handleErrors)
+      catchError((error) => this.handleErrors(error)) 
     );
   }
 
   create(data: any): Observable<T> {
     return this.http.post<T>(`${ this.apiUrl + this.url }`, data).pipe(
-      catchError(this.handleErrors)
+      catchError((error) => this.handleErrors(error)) 
     );
   }
 
-  private handleErrors(error: any): Observable<never> {
+  private handleErrors(error: any): Observable<any> {
     let errorMessage = 'An unknown error occurred!';
+
     if (error.error instanceof ErrorEvent) {
-      errorMessage = `Error: ${error.error.message}`;
+      errorMessage = error.error.message;
     } else {
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      errorMessage = error.message;
     }
-    console.error(errorMessage); 
+
+    console.log(error);
+
+    // switch(error.status){
+    //   case 401:
+    //     errorMessage = "Unauthorized."
+    //     break;
+    //   default:
+    //     errorMessage = "Server error!";
+    // }
+    
+    errorMessage = "Server error!";
+    this.alertService.error(errorMessage);
     return throwError(() => new Error(errorMessage));
+  }
+
+  private get alertService(): ToastrService {
+    if (!this.alertServiceReference) {
+      const injector = AppInjector.getInjector();
+      this.alertServiceReference = injector.get(ToastrService);
+    }
+    return this.alertServiceReference;
   }
 }

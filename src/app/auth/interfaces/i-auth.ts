@@ -2,6 +2,9 @@ export interface ILogin {
   email: string;
   password: string;
 }
+export interface ILoginRequest extends ILogin {
+
+}
 
 export interface IToken {
   token: string;
@@ -13,5 +16,10 @@ export interface IRegister {
   firstName: string;
   lastName: string;
   phone: string;
-  // avatar: Blob;
+  avatar: string;
+}
+
+
+export interface IRegisterRequest extends IRegister {
+
 }

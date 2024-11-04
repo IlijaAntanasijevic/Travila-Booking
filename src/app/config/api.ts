@@ -6,6 +6,7 @@ export const apiPaths = {
   apartment: "api/apartment",
   cities: "api/city",
   auth: {
-    login: "api/login"
+    login: "api/login",
+    regiter: "api/register"
   }
 }

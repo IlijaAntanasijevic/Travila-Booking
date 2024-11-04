@@ -1,16 +1,20 @@
 import { Injectable } from '@angular/core';
 import { IFormService } from '../../../core/interfaces/i-form-service';
-import { IRegister } from '../../interfaces/i-auth';
+import { IRegister, IRegisterRequest } from '../../interfaces/i-auth';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { charactersOnlyValidator } from '../../../core/validators/characters-only-validator';
 import { passwordValidator } from '../../../core/validators/password-validator';
+import { Observable } from 'rxjs';
+import { RegisterService } from '../api/register.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BlRegisterFormService implements IFormService<IRegister>{
 
-  constructor() { }
+  constructor(
+    private registerService: RegisterService
+  ) { }
 
   form: FormGroup<any> = this.init();
 
@@ -21,7 +25,7 @@ export class BlRegisterFormService implements IFormService<IRegister>{
       firstName: new FormControl("", [Validators.required, Validators.minLength(3), charactersOnlyValidator()]),
       lastName: new FormControl("", [Validators.required, Validators.minLength(3), charactersOnlyValidator()]),
       phone: new FormControl("", [Validators.required, Validators.minLength(5), Validators.maxLength(17)]),
-      avatar: new FormControl(""),
+      avatar: new FormControl(null),
     })
   }
 
@@ -31,6 +35,26 @@ export class BlRegisterFormService implements IFormService<IRegister>{
 
   getFormData(): IRegister {
     return this.form.getRawValue();
+  }
+
+  prepareDataToSend(): IRegisterRequest {
+    const data = this.getFormData();
+
+   let dataToSend: IRegisterRequest = {
+     email: data.email,
+     password: data.password,
+     firstName: data.firstName,
+     lastName: data.lastName,
+     phone: data.phone.toString(),
+     avatar: null
+   }
+
+    return dataToSend;
+  }
+
+  submit(): Observable<any> {
+    let data = this.prepareDataToSend();
+    return this.registerService.create(data);
   }
 
   reset(): void {
