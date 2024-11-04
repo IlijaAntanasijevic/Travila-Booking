@@ -14,13 +14,23 @@ export class RegisterComponent {
     private formService: BlRegisterFormService
   ) { }
 
+
   public form: FormGroup = this.formService.getForm();
 
-  register(): void {
-    let data: IRegister = this.formService.getFormData();
+  ngOnInit(): void {
+    // this.form.markAllAsTouched();
+  }
 
-    console.log(data);
-    
+
+  register(): void {
+    this.formService.submit().subscribe({
+      next: (data) => {
+        console.log(data);
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
   }
 
   fileUpload(event: any): void {

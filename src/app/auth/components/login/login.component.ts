@@ -1,8 +1,8 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { BlLoginFormService } from '../../services/forms/bl-login-form.service';
 import { FormGroup } from '@angular/forms';
-import { ILogin } from '../../interfaces/i-auth';
 import { BlLoginRequestsService } from '../../services/requests/bl-login-requests.service';
+import { Spinner } from '../../../core/functions/spinner';
 
 @Component({
   selector: 'app-login',
@@ -28,14 +28,15 @@ export class LoginComponent implements OnInit{
   }
 
   login(): void {
-    let data: ILogin = this.formService.getFormData();
-    this.requestsService.login(data).subscribe({
+    Spinner.show();
+    this.formService.submit().subscribe({
       next: (data) => {
         console.log(data);
+        Spinner.hide();
       },
       error: (err) => {
-        console.log(err.error);
-        
+        Spinner.hide();
+        console.log(err.error); 
       }
     })
     

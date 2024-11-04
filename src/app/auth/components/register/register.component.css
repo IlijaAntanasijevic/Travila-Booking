@@ -58,7 +58,15 @@ input::-webkit-inner-spin-button {
   align-items: center;
 }
 
+.avatar-hint {
+  color: #4d4d4d;
+  line-height: 1.2;
+  margin-top: 5px;
+}
 
+::ng-deep .mat-mdc-form-field-error-wrapper {
+  padding: 0px !important;
+}
 
 /* Firefox */
 /* input[type=number] {

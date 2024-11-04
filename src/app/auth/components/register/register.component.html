@@ -19,7 +19,7 @@
           <div class="form-login">
             <form [formGroup]="form">
               <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-6 mb-2">
                   <mat-form-field class="w-100">
                     <mat-label>First name</mat-label>
                     <input matInput formControlName="firstName">
@@ -31,19 +31,31 @@
                     }
                   </mat-form-field>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 mb-2">
                   <mat-form-field class="w-100">
                     <mat-label>Last name</mat-label>
                     <input matInput formControlName="lastName">
+                    @if(form.get('lastName')?.hasError('required')){
+                    <mat-error>Last name is required</mat-error>
+                    }
+                    @else if(form.get('lastName')?.hasError('charactersOnly')){
+                    <mat-error>Only letters are allowed.</mat-error>
+                    }
                   </mat-form-field>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 mb-2">
                   <mat-form-field class="w-100">
                     <mat-label>Email</mat-label>
                     <input matInput formControlName="email">
+                    @if(form.get('email')?.hasError('required')){
+                    <mat-error>Email is required</mat-error>
+                    }
+                    @else if(form.get('email')?.hasError('email')){
+                    <mat-error>Email is not valid format</mat-error>
+                    }
                   </mat-form-field>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 mb-2">
                   <mat-form-field class="w-100">
                     <mat-label>Password</mat-label>
                     <input matInput [type]="hide() ? 'password' : 'text'" formControlName="password" autocomplete="off">
@@ -51,13 +63,23 @@
                       [attr.aria-pressed]="hide()">
                       <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
+                    @if(form.get('password')?.hasError('required')){
+                    <mat-error>Password is required</mat-error>
+                    }
+                    @else if(form.get('password')?.hasError('password')){
+                    <mat-error>Minimum eight characters, at least one letter, one number and one special
+                      character</mat-error>
+                    }
                   </mat-form-field>
                 </div>
 
-                <div class="col-sm-6">
+                <div class="col-sm-6 mb-2">
                   <mat-form-field class="w-100">
                     <mat-label>Phone</mat-label>
                     <input matInput formControlName="phone" type="number" placeholder="+351xxxxx">
+                    @if(form.get('phone')?.hasError('required')){
+                    <mat-error>Phone is required</mat-error>
+                    }
                   </mat-form-field>
                 </div>
                 <div class="col-sm-6">
@@ -65,23 +87,26 @@
                     <!-- @if(selectedAvatar){
                       <img src="{{imgUrl + selectedAvatar}}" class="avatar-img" />
                       } -->
-                    <button type="button" mat-flat-button (click)="imgFileInput.click()">Add avatar</button>
-                    <input hidden type="file" #imgFileInput (change)="previewImage($event)" />
+                    <button type="button" mat-flat-button (click)="imgFileInput.click()">Upload profile photo
+                      <mat-icon>upload</mat-icon></button>
+                    <input hidden type="file" accept=".png, .jpeg, .jpg" #imgFileInput
+                      (change)="previewImage($event)" />
                   </div>
 
-                  <mat-hint style="color: #4d4d4d;">If you do not select a picture, you will have a default avatar
-                  </mat-hint>
+                  <p class="avatar-hint">If you don’t choose a picture, a default avatar will be applied.
+                  </p>
 
                 </div>
               </div>
               <div class="form-group mt-45 mb-30">
-                <span (click)="register()" class="btn btn-black-lg" href="#">Create New Account
+                <button [disabled]="form.invalid" (click)="register()" class="btn btn-black-lg" href="#">Create New
+                  Account
                   <svg width="16" height="16" viewbox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M8 15L15 8L8 1M15 8L1 8" stroke="" stroke-width="1.5" stroke-linecap="round"
                       stroke-linejoin="round">
                     </path>
                   </svg>
-                </span>
+                </button>
               </div>
               <p class="text-sm-medium neutral-500">Already have an account
                 <a class="neutral-1000 btn-signin" routerLink="/auth">Login Here !</a>
