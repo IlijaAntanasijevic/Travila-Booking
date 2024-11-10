@@ -1,8 +1,10 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { BlLoginFormService } from '../../services/forms/bl-login-form.service';
 import { FormGroup } from '@angular/forms';
-import { BlLoginRequestsService } from '../../services/requests/bl-login-requests.service';
 import { Spinner } from '../../../core/functions/spinner';
+import { Router } from '@angular/router';
+import { IToken } from '../../interfaces/i-auth';
+import { AuthService } from '../../services/shared/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,12 +15,17 @@ export class LoginComponent implements OnInit{
 
   constructor(
     private formService: BlLoginFormService,
-    private requestsService: BlLoginRequestsService
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   public form: FormGroup = this.formService.getForm();
 
   ngOnInit(): void {
+    if(this.authService.isLoggedIn()){
+      Spinner.show();
+      this.router.navigateByUrl("/home");
+    }
     // this.form.markAllAsTouched();
   }
 
@@ -30,8 +37,10 @@ export class LoginComponent implements OnInit{
   login(): void {
     Spinner.show();
     this.formService.submit().subscribe({
-      next: (data) => {
-        console.log(data);
+      next: (data: IToken) => {
+        let token: string = data.token;
+        this.authService.setJwtToken(token);
+        this.router.navigateByUrl("/home");
         Spinner.hide();
       },
       error: (err) => {

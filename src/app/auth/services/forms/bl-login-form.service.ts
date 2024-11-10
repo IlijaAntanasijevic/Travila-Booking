@@ -18,8 +18,8 @@ export class BlLoginFormService implements IFormService<ILogin>{
 
   init(): FormGroup {
     return new FormGroup({
-      email: new FormControl("test@gmail.com", [Validators.required, Validators.email]),
-      password: new FormControl("Ilija123", Validators.required)
+      email: new FormControl("test1@gmail.com", [Validators.required, Validators.email]),
+      password: new FormControl("Ilija123!", Validators.required)
     })
   }
   getForm(): FormGroup {

@@ -39,32 +39,39 @@ export class ApiService<T> {
     );
   }
 
+  getOne(id: number): Observable<T> {
+    return this.http.get<T>(this.apiUrl + this.url + "/" + id).pipe(
+      catchError(this.handleErrors)
+    );
+  }
+
   create(data: any): Observable<T> {
     return this.http.post<T>(`${ this.apiUrl + this.url }`, data).pipe(
       catchError((error) => this.handleErrors(error)) 
     );
   }
 
+
   private handleErrors(error: any): Observable<any> {
     let errorMessage = 'An unknown error occurred!';
 
-    if (error.error instanceof ErrorEvent) {
-      errorMessage = error.error.message;
-    } else {
-      errorMessage = error.message;
-    }
+    // if (error.error instanceof ErrorEvent) {
+    //   errorMessage = error.error.message;
+    // } else {
+    //   errorMessage = error.message;
+    // }
 
     console.log(error);
 
-    // switch(error.status){
-    //   case 401:
-    //     errorMessage = "Unauthorized."
-    //     break;
-    //   default:
-    //     errorMessage = "Server error!";
-    // }
+    switch(error.status){
+      case 401:
+        errorMessage = "Unauthorized."
+        break;
+      default:
+        errorMessage = "Server error!";
+    }
     
-    errorMessage = "Server error!";
+    //errorMessage = "Server error!";
     this.alertService.error(errorMessage);
     return throwError(() => new Error(errorMessage));
   }
