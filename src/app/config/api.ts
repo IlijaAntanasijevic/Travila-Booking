@@ -8,5 +8,8 @@ export const apiPaths = {
   auth: {
     login: "api/login",
     regiter: "api/register"
+  },
+  user: {
+    userApi: "api/users" 
   }
 }

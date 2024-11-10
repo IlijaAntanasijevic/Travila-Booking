@@ -31,8 +31,10 @@ import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor } from './helpers/auth.interceptor';
+import { AuthService } from '../auth/services/shared/auth.service';
 
 
 
@@ -109,7 +111,16 @@ import { HttpClientModule } from '@angular/common/http';
     MatPaginatorModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+  ],
+  providers: [
+    AuthService, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    provideHttpClient(withInterceptorsFromDi())
+
   ]
 })
 export class SharedModule { }

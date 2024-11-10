@@ -21,8 +21,9 @@ import { AppInjector } from './core/helpers/app-injector';
     SharedModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
-      timeOut: 3000,
-      positionClass: 'toast-top-center'
+      timeOut: 4500,
+      positionClass: 'toast-top-right',
+      progressBar: true
     }),
   ],
   providers: [

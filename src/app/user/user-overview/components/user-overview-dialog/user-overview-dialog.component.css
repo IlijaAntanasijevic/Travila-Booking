@@ -1,0 +1,19 @@
+.sidebar-user {
+  height: 100bh;
+  background-color: var(--bs-button-bg-2) !important;
+  color: white;
+}
+
+.close-canvas {
+  cursor: pointer;
+}
+
+.profile-info {
+  border: 1px solid var(--bs-color-700);
+  border-radius: 5px;
+}
+
+.container {
+  padding: 0px 30px;
+  margin: 20px 0px;
+}
