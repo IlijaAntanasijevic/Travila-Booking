@@ -1,0 +1,47 @@
+<div class="sidebar-user">
+  <div class="header py-3 d-flex justify-content-between">
+    <img class="dark-mode ms-4" alt="Travila" src="assets/images/template/logo-w.svg">
+    <span class="close-canvas me-4" (click)="close()">
+      <img alt="Travila" src="assets/images/template/icons/close.png">
+    </span>
+  </div>
+
+  <div class="container">
+    @if(userData){
+    <div class="box-author-profile">
+      <div class="card-author">
+        <div class="card-image">
+          <img src="{{userData.avatar}}" alt="userAvatar">
+        </div>
+        <div class="card-info">
+          <p class="text-md-bold neutral-1000">{{userData.firstName}} {{userData.lastName}}</p>
+          <p class="text-xs neutral-1000">{{userData.phone}}</p>
+        </div>
+      </div><a class="btn btn-black" (click)="logout()">Logout</a>
+    </div>
+    }
+
+    <div class="box-quicklinks">
+      <h6 class="title-quicklinks neutral-1000">Quick Links</h6>
+      <div class="box-list-quicklinks">
+        @for(item of userLinks; track item){
+        <div class="item-quicklinks">
+          <div class="item-icon">
+            <mat-icon>{{item.icon}}</mat-icon>
+          </div>
+          <div class="item-info">
+            <a routerLink="{{item.link}}">
+              <h6 class="text-md-bold neutral-1000">{{item.name}}</h6>
+            </a>
+            <p class="text-xs neutral-500 online">{{item?.description}}</p>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+
+    <!-- <app-calendar></app-calendar> -->
+
+  </div>
+
+</div>

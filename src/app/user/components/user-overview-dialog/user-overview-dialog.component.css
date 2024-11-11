@@ -1,5 +1,5 @@
 .sidebar-user {
-  height: 100bh;
+  height: 100vh;
   background-color: var(--bs-button-bg-2) !important;
   color: white;
 }
@@ -16,4 +16,14 @@
 .container {
   padding: 0px 30px;
   margin: 20px 0px;
+}
+
+.item-quicklinks {
+  cursor: pointer;
+}
+
+::ng-deep .mat-icon {
+  display: inline-block !important;
+  vertical-align: middle !important;
+  color: rgb(10, 10, 10);
 }

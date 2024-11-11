@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, NavigationEnd } from '@angular/router';
-import { UserOverviewDialogComponent } from '../../../user/user-overview/components/user-overview-dialog/user-overview-dialog.component';
+import { UserOverviewDialogComponent } from '../../../user/components/user-overview-dialog/user-overview-dialog.component';
 import { AuthService } from '../../../auth/services/shared/auth.service';
 
 @Component({

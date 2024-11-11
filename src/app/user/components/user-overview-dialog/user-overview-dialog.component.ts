@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { BlUserRequestsService } from '../../../services/requests/bl-user-requests.service';
-import { AuthService } from '../../../../auth/services/shared/auth.service';
-import { IUser } from '../../../interfaces/i-user';
-import { ImageUtils } from '../../../../core/helpers/utility';
-import { ImagePaths } from '../../../../core/consts/image-paths';
+import { BlUserRequestsService } from '../../services/requests/bl-user-requests.service';
+import { AuthService } from '../../../auth/services/shared/auth.service';
+import { IUser } from '../../interfaces/i-user';
+import { IUserOverviewLinks } from '../../interfaces/i-user-overview-links';
+import { USER_OVERVIEW_LINKS } from '../../consts/user-overview-links';
 
 @Component({
   selector: 'app-user-overview-dialog',
@@ -20,7 +20,8 @@ export class UserOverviewDialogComponent {
   ) {}
 
   public userData: IUser = null;
-  
+  public userLinks: IUserOverviewLinks[] = USER_OVERVIEW_LINKS;
+
   ngOnInit(): void {
     this.getUser();
   }
@@ -30,9 +31,7 @@ export class UserOverviewDialogComponent {
     
     this.userRequestService.getUserData(id).subscribe({
       next: (data: IUser) => {
-        this.userData = data;
-        console.log(this.userData);
-        
+        this.userData = data;        
       },
       error: (err) => {
         console.log(err);

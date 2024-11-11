@@ -1,0 +1,38 @@
+<link href="https://unpkg.com/bootstrap-css-only@4.1.1/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://unpkg.com/font-awesome@4.7.0/css/font-awesome.css" rel="stylesheet">
+<link href="https://unpkg.com/angular-calendar@0.26.4/css/angular-calendar.css" rel="stylesheet">
+<link href="https://unpkg.com/flatpickr@4.5.2/dist/flatpickr.css" rel="stylesheet">
+<div class="row text-center calendar-header">
+  <div class="col-md-4">
+    <div class="btn-group">
+      <button mat-flat-button type="button" class="text-dark" color="primary"
+        (click)="previousMonth()">Previous</button>
+      <button mat-flat-button type="button" class="mx-3" color="accent" (click)="today()">Today</button>
+      <button mat-flat-button type="button" class="text-dark" color="primary" (click)="nextMonth()">Next</button>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+  </div>
+</div>
+<mwl-calendar-month-view [cellTemplate]="customCellTemplate" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
+  (dayClicked)="dayClicked($event.day)">
+</mwl-calendar-month-view>
+
+<ng-template #customCellTemplate let-day="day">
+  <div class="cal-cell-top">
+    <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':'en' }}</span>
+  </div>
+  @if(day.events) {
+  <div class="ms-1 mb-1 d-flex">
+    @for(event of day.events; track event; let i = $index) {
+
+    <span class="cellCircle" [ngStyle]="{'background-color': event.color['primary']}">
+      <!-- <span>{{event?.title}}</span> -->
+
+    </span>
+    }
+  </div>
+
+  }
+</ng-template>
