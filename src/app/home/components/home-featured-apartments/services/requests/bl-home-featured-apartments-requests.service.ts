@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ApartmentService } from '../../../../../shared/api/apartment.service';
+import { ApartmentService } from '../../../../../apartment/services/api/apartment.service';
 import { map, Observable } from 'rxjs';
-import { IApartment } from '../../../../../shared/interfaces/i-apartment';
+import { IApartment } from '../../../../../apartment/interfaces/i-apartment';
 import { IPaginatedResponse } from '../../../../../core/interfaces/i-base';
 
 @Injectable({

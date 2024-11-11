@@ -1,7 +1,7 @@
 /* HEADER */
 .header {
   padding: 0;
-  float: left;
+  /* float: left; */
   width: 100%;
   position: relative;
   z-index: 123;
