@@ -43,7 +43,6 @@ import { AuthService } from '../auth/services/shared/auth.service';
   imports: [
     CommonModule,
     MatCheckboxModule,
-    MatCheckboxModule,
     MatButtonModule,
     MatInputModule,
     MatAutocompleteModule,
@@ -78,7 +77,6 @@ import { AuthService } from '../auth/services/shared/auth.service';
     HttpClientModule
   ],
   exports: [
-    MatCheckboxModule,
     MatCheckboxModule,
     MatButtonModule,
     MatInputModule,
