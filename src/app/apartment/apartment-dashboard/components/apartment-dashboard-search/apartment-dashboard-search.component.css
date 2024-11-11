@@ -1,0 +1,24 @@
+::ng-deep .box-search-advance {
+  position: static;
+
+}
+
+.apartment-dashboard-search {
+  background-image: url("../../../../../assets/images/page/tour/banner5.png");
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 70vh;
+  padding-top: 60px;
+}
+
+.container {
+  position: relative;
+  top: 20%;
+}
+
+.test {
+  width: 180px;
+  height: 150px;
+  background-color: aqua;
+}

@@ -24,6 +24,9 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     HomeRoutingModule,
     SharedModule,
     NgxSkeletonLoaderModule
+  ],
+  exports: [
+    HomeSeachComponent
   ]
 })
 export class HomeModule { }
