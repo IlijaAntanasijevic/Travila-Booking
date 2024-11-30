@@ -35,11 +35,14 @@ import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@a
 import { HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './helpers/auth.interceptor';
 import { AuthService } from '../auth/services/shared/auth.service';
+import { PaginatorComponent } from './components/paginator/paginator.component';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    PaginatorComponent
+  ],
   imports: [
     CommonModule,
     MatCheckboxModule,
@@ -74,7 +77,7 @@ import { AuthService } from '../auth/services/shared/auth.service';
     MatPaginatorModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   exports: [
     MatCheckboxModule,

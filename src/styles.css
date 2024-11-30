@@ -2665,18 +2665,6 @@ body {
   margin-left: 0px;
 }
 
-.btn.btn-sort {
-  padding: 8px 10px;
-}
-
-.btn.btn-sort svg {
-  stroke: var(--bs-neutral-1000);
-}
-
-.btn.btn-sort:hover svg {
-  stroke: var(--bs-warning);
-}
-
 .btn.btn-share {
   padding: 9px 18px;
   border: 1px solid var(--bs-border-color);
@@ -3574,22 +3562,6 @@ label {
   
   background-repeat: no-repeat;
   background-position: left 15px center;
-} */
-
-/* .card-journey-small .card-info .card-rating .card-right .rating {
-  display: inline-block;
-  padding: 6px 16px 6px 30px;
-  background-color: var(--bs-neutral-0);
-  border-radius: 50px;
-  color: var(--bs-neutral-1000);
-  font-size: 14px;
-  line-height: 22px;
-  font-weight: 700;
-  border: 1px solid var(--bs-border-color);
-  box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.07);
-  
-  background-repeat: no-repeat;
-  background-position: left 12px center;
 } */
 
 .card-journey-small .card-info .card-title {
@@ -11335,11 +11307,6 @@ h1 span {
   margin-bottom: 24px;
 }
 
-.box-content-main {
-  display: flex;
-  margin-left: -12px;
-  margin-right: -12px;
-}
 
 .box-content-main .content-left {
   width: 100%;
@@ -11360,12 +11327,6 @@ h1 span {
 .box-content-main #dropdownSort {
   padding-right: 0px;
 
-}
-
-.box-item-sort {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
 }
 
 .item-sort {

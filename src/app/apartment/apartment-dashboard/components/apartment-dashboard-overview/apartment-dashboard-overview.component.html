@@ -1,3 +1,16 @@
 <app-apartment-dashboard-search></app-apartment-dashboard-search>
 
-<p>apartment-dashboard-overview works!</p>
+<section class="background-body">
+  <div class="container">
+    <div class="box-content-main">
+      @if(currentViewMode == ApartmentViewMode.LIST){
+      <app-apartment-dashboard-list [data]="apartmentsData"></app-apartment-dashboard-list>
+      }
+      @else {
+      <app-apartment-dashboard-grid [data]="apartmentsData"></app-apartment-dashboard-grid>
+      }
+      <!-- FILTER -->
+      <app-apartment-dashboard-filter></app-apartment-dashboard-filter>
+    </div>
+  </div>
+</section>

@@ -147,6 +147,11 @@ input::-webkit-inner-spin-button {
   cursor: default;
 }
 
+::ng-deep .mat-calendar-body-disabled>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
+  color: #888888 !important;
+
+}
+
 ::ng-deep .mat-calendar-body-disabled {
   cursor: default !important;
 }
