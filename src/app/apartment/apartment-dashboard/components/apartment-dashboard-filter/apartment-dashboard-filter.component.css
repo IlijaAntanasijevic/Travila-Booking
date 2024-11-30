@@ -1,0 +1,47 @@
+::ng-deep .mat-mdc-select-value {
+  color: white !important;
+
+}
+
+::ng-deep .mat-expansion-panel {
+  background-color: transparent !important;
+  border: 1px solid var(--bs-neutral-200) !important;
+  color: white !important;
+}
+
+::ng-deep .mat-accordion .mat-expansion-panel {
+  border-radius: 20px !important;
+  margin-bottom: 10px !important;
+}
+
+::ng-deep .mdc-form-field {
+  color: white !important;
+}
+
+::ng-deep .mdc-checkbox .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not([data-indeterminate=true])~.mdc-checkbox__background {
+  border-color: var(--bs-neutral-200) !important;
+}
+
+/* ::ng-deep .mat-expansion-indicator svg {
+  fill: white !important;
+} */
+
+::ng-deep .accordionHeader>.mat-expansion-indicator:after {
+  color: white;
+}
+
+::ng-deep .apartmentsSortShow .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label {
+  top: calc(42px / 2) !important;
+}
+
+::ng-deep .mat-mdc-slider {
+  width: 90% !important;
+}
+
+::ng-deep .mat-mdc-select-panel {
+  background-color: var(--bs-neutral-200) !important;
+}
+
+::ng-deep .apartmentsSortShow .mat-mdc-form-field-infix {
+  padding-top: 15px !important;
+}
