@@ -13,3 +13,23 @@
   background-repeat: no-repeat;
   background-position: left 12px center;
 }
+
+
+.card-journey-small .card-info .card-program .endtime {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-journey-small .card-info .card-program .endtime .card-price {
+  display: flex;
+  align-items: flex-end;
+}
+
+.card-journey-small .card-info .card-program .endtime .card-price h6 {
+  margin-right: 6px;
+}
+
+.card-journey-small .card-info .card-program .card-duration-tour {
+  margin-bottom: 40px;
+}

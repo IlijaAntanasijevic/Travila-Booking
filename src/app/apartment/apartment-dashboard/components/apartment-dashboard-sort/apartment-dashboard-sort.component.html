@@ -10,36 +10,38 @@
           (click)="changeView(viewMode.LIST)">
           <mat-icon>view_list</mat-icon>
         </span>
-        <span class="text-sm-medium neutral-500 ms-3">64 apartments found</span>
+        <span class="text-sm-medium neutral-500 ms-3">{{totalApartments}} apartments found</span>
       </div>
     </div>
     <div class="col-xl-8 col-md-8 mb-10 text-lg-end text-center">
       <div class="box-item-sort">
-        <a class="btn btn-sort" href="#">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8.25 6L5.25 3M5.25 3L2.25 6M5.25 3L5.25 15" stroke="" stroke-width="1.5" stroke-linecap="round"
-              stroke-linejoin="round"></path>
-            <path d="M9.75 12L12.75 15M12.75 15L15.75 12M12.75 15L12.75 3" stroke="" stroke-width="1.5"
-              stroke-linecap="round" stroke-linejoin="round"></path>
-          </svg>
-        </a>
-        <mat-form-field class="apartmentsSortShow me-3">
-          <mat-label>Show</mat-label>
-          <mat-select>
-            @for (food of show; track food) {
-            <mat-option [value]="food">{{food}}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
+        <form [formGroup]="form">
+          <span class="btn btn-sort" (click)="changeSortDirection()">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8.25 6L5.25 3M5.25 3L2.25 6M5.25 3L5.25 15" stroke="" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round"></path>
+              <path d="M9.75 12L12.75 15M12.75 15L15.75 12M12.75 15L12.75 3" stroke="" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </span>
+          <mat-form-field class="apartmentsSortShow me-3">
+            <mat-label>Show</mat-label>
+            <mat-select formControlName="perPage" (selectionChange)="sortChanged()">
+              @for (option of show; track option) {
+              <mat-option [value]="option">{{option}}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
 
-        <mat-form-field class="apartmentsSortShow apartmentSortBy">
-          <mat-label>Sort By</mat-label>
-          <mat-select>
-            @for (food of sortBy; track food) {
-            <mat-option [value]="food.id">{{food.name}}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
+          <mat-form-field class="apartmentsSortShow apartmentSortBy">
+            <mat-label>Sort By</mat-label>
+            <mat-select [formControl]="getSortPropertyControl()" (selectionChange)="sortChanged()">
+              @for (prop of sortBy; track prop) {
+              <mat-option [value]="prop[0]">{{prop[1]}}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </form>
       </div>
     </div>
   </div>

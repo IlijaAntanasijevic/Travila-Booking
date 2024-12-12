@@ -12,7 +12,7 @@ export const apiPaths = {
   user: {
     userApi: "api/users" 
   },
-  apartmetsDashboard: {
-    weatherApi: "https://api.open-meteo.com/v1/forecast"
+  apartmentTypes: {
+    api: "api/ApartmentType"
   }
 }

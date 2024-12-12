@@ -113,6 +113,7 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    PaginatorComponent
   ],
   providers: [
     AuthService, {

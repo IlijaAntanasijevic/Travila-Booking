@@ -2,6 +2,7 @@
   <app-apartment-dashboard-sort></app-apartment-dashboard-sort>
   <div class="box-list-tours list-tours">
     <div class="row">
+      @for(item of apartmentsData; track item) {
       <div class="col-xl-4 col-lg-6 col-md-6">
         <div class="card-journey-small background-card">
           <div class="card-image">
@@ -12,7 +13,7 @@
                   stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg>
             </a>
-            <img src="assets/images/page/tour/tour.png" alt="Travila">
+            <img src="{{item.mainImage}}" alt="{{item.name}}">
           </div>
           <div class="card-info background-card">
             <div class="card-rating">
@@ -23,16 +24,17 @@
               </div>
             </div>
             <div class="card-title">
-              <a class="text-lg-bold neutral-1000" href="#">1-Hour Bay Cruise by Boat in San Francisco </a>
+              <a class="text-lg-bold neutral-1000" href="#">{{item.name}}</a>
             </div>
             <div class="card-program">
               <div class="card-duration-tour">
-                <p class="icon-duration text-sm-medium neutral-500">2 days, 3 nights</p>
-                <p class="icon-guest text-sm-medium neutral-500">6-8 guest</p>
+                <p class="icon-guest text-sm-medium neutral-500">City: {{item.city}}</p>
+                <p class="icon-guest text-sm-medium neutral-500">Type: {{item.apartmentType}}</p>
+                <p class="icon-guest text-sm-medium neutral-500">Max guests: {{item.maxGuests}}</p>
               </div>
               <div class="endtime">
                 <div class="card-price">
-                  <h6 class="heading-6 neutral-1000">$48.25</h6>
+                  <h6 class="heading-6 neutral-1000">${{item.pricePerNight}}</h6>
                 </div>
                 <div class="card-button">
                   <a class="btn btn-gray" href="#">Book Now</a>
@@ -42,26 +44,11 @@
           </div>
         </div>
       </div>
+      }
+      @empty {
+      <h3 class="neutral-1000"> <span>We </span>Can’t Find <span>any apartment</span></h3>
+      }
     </div>
   </div>
-  <nav aria-label="Page navigation example">
-    <ul class="pagination">
-      <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M6.00016 1.33325L1.3335 5.99992M1.3335 5.99992L6.00016 10.6666M1.3335 5.99992H10.6668" stroke=""
-                stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg></span></a></li>
-      <li class="page-item"><a class="page-link" href="#">1</a></li>
-      <li class="page-item"><a class="page-link active" href="#">2</a></li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
-      <li class="page-item"><a class="page-link" href="#">4</a></li>
-      <li class="page-item"><a class="page-link" href="#">5</a></li>
-      <li class="page-item"><a class="page-link" href="#">...</a></li>
-      <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M5.99967 10.6666L10.6663 5.99992L5.99968 1.33325M10.6663 5.99992L1.33301 5.99992" stroke=""
-                stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg></span></a></li>
-    </ul>
-  </nav>
+  <app-paginator [paginationData]="data" (pageChange)="onPageChange($event)"></app-paginator>
 </div>

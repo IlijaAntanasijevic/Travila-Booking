@@ -1,0 +1,72 @@
+.pagination {
+  justify-content: flex-start;
+  margin-top: 30px;
+  flex-wrap: wrap;
+  list-style: none !important;
+  padding-left: 0px !important;
+}
+
+.pagination li {
+  margin-bottom: 8px;
+}
+
+.pagination li button {
+  display: inline-block;
+  width: 48px;
+  height: 48px;
+  line-height: 48px;
+  border: 0px solid var(--bs-neutral-100);
+  border-radius: 50%;
+  text-align: center;
+  padding: 0px;
+  font-family: "Manrope", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--bs-neutral-500);
+  margin: 2px 4px;
+  background-color: var(--bs-button-bg-2);
+}
+
+.pagination li button:hover,
+.pagination li button .active {
+  background-color: var(--bs-button-bg);
+  color: var(--bs-button-text);
+}
+
+.pagination li .active {
+  background-color: var(--bs-button-bg);
+  color: var(--bs-button-text);
+}
+
+.pagination .page-item:not(:first-child) .page-link {
+  margin-left: 2px;
+  cursor: pointer;
+}
+
+.pagination .page-item:last-child .page-link {
+  border: 0px;
+  line-height: 42px;
+  border-radius: 50%;
+}
+
+.pagination .page-item:last-child .page-link svg {
+  stroke: var(--bs-button-text-2);
+}
+
+.pagination .page-item:last-child .page-link:hover svg {
+  stroke: #AFAFAF;
+}
+
+.pagination .page-item:first-child .page-link {
+  border: 0px;
+  line-height: 42px;
+  border-radius: 50%;
+}
+
+.pagination .page-item:first-child .page-link svg {
+  stroke: var(--bs-button-text-2);
+}
+
+.pagination .page-item:first-child .page-link:hover svg {
+  stroke: #AFAFAF;
+}

@@ -4,13 +4,14 @@
   <div class="container">
     <div class="box-content-main">
       @if(currentViewMode == ApartmentViewMode.LIST){
-      <app-apartment-dashboard-list [data]="apartmentsData"></app-apartment-dashboard-list>
+      <app-apartment-dashboard-list class="w-100" [data]="apartmentsData"></app-apartment-dashboard-list>
       }
       @else {
-      <app-apartment-dashboard-grid [data]="apartmentsData"></app-apartment-dashboard-grid>
+      <app-apartment-dashboard-grid class="w-100" [data]="apartmentsData"></app-apartment-dashboard-grid>
       }
       <!-- FILTER -->
-      <app-apartment-dashboard-filter></app-apartment-dashboard-filter>
+      <app-apartment-dashboard-filter [maxFilterPrice]="maxFilterPrice"
+        [minFilterPrice]="minFilterPrice"></app-apartment-dashboard-filter>
     </div>
   </div>
 </section>

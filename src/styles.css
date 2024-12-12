@@ -842,44 +842,6 @@ h6,
   background-color: var(--bs-button-bg-2);
 }
 
-.pagination li a:hover,
-.pagination li a.active {
-  background-color: var(--bs-button-bg);
-  color: var(--bs-button-text);
-}
-
-.pagination .page-item:not(:first-child) .page-link {
-  margin-left: 2px;
-}
-
-.pagination .page-item:last-child .page-link {
-  border: 0px;
-  line-height: 42px;
-  border-radius: 50%;
-}
-
-.pagination .page-item:last-child .page-link svg {
-  stroke: var(--bs-button-text-2);
-}
-
-.pagination .page-item:last-child .page-link:hover svg {
-  stroke: #AFAFAF;
-}
-
-.pagination .page-item:first-child .page-link {
-  border: 0px;
-  line-height: 42px;
-  border-radius: 50%;
-}
-
-.pagination .page-item:first-child .page-link svg {
-  stroke: var(--bs-button-text-2);
-}
-
-.pagination .page-item:first-child .page-link:hover svg {
-  stroke: #AFAFAF;
-}
-
 .box-count {
   text-align: left;
   margin: 0px 0px 20px 0px;
@@ -3646,11 +3608,6 @@ label {
   margin-right: 6px;
 }
 
-.card-journey-small .card-info .card-program .card-duration-tour {
-  display: flex;
-  align-items: center;
-  margin-bottom: 35px;
-}
 
 /* .card-journey-small .card-info .card-program .icon-duration {
   padding: 0px 20px 0px 22px;
@@ -3661,21 +3618,6 @@ label {
   padding: 0px 0px 0px 22px;
   background: url(./assets/imgs/template/icons/guest.svg) no-repeat left center;
 } */
-
-.card-journey-small .card-info .card-program .endtime {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.card-journey-small .card-info .card-program .endtime .card-price {
-  display: flex;
-  align-items: flex-end;
-}
-
-.card-journey-small .card-info .card-program .endtime .card-price h6 {
-  margin-right: 6px;
-}
 
 /* .card-journey-small.card-journey-small-type-2 .card-info .card-rating .sign {
   
@@ -11482,9 +11424,9 @@ h1 span {
     line-height: 32px;
   }
 
-  .box-list-tours.list-tours .card-journey-small .card-info .card-duration-tour {
+  /* .box-list-tours.list-tours .card-journey-small .card-info .card-duration-tour {
     margin-bottom: 24px;
-  }
+  } */
 }
 
 .box-best-places {
