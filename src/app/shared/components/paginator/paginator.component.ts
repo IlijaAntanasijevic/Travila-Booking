@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { IApartment } from '../../../apartment/interfaces/i-apartment';
 import { IPaginatedResponse } from '../../../core/interfaces/i-base';
 
@@ -13,19 +13,37 @@ export class PaginatorComponent {
 
   totalPages: number;
   currentPage: number = 1;
-  perPage: number = 9;
+  ellipsisToShow: number = 4;
 
-  apartments: IApartment[] = [];
-
-
-  ngOnChanges(): void {
-    this.apartments = this.paginationData.data;
-    this.totalPages = this.paginationData.pages;
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes['paginationData'] && changes['paginationData'].currentValue){
+      this.totalPages = this.paginationData.pages;      
+    }
   }
 
   onPageChange(pageNumber: number): void {
     this.currentPage = pageNumber;
     this.pageChange.emit(pageNumber);
+  }
+
+  getDisplayedPages(): any {
+    if(this.totalPages <= 5)
+      return this.getRange(this.totalPages);
+
+    const pages: (number | string)[] = [];
+
+    pages.push(1);
+    if (this.currentPage > 3) {
+      pages.push('...'); 
+    }
+
+    if (this.currentPage > 2 && this.currentPage < this.totalPages - 1) {
+      pages.push(this.currentPage);
+    }
+
+    pages.push(this.totalPages); // Always include the last page
+
+    return pages;
   }
 
   getRange(rate: number) {    

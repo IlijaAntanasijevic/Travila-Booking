@@ -45,3 +45,15 @@
 ::ng-deep .apartmentsSortShow .mat-mdc-form-field-infix {
   padding-top: 15px !important;
 }
+
+
+.btn.btn-filter {
+  padding: 11px 30px;
+  background-color: var(--bs-brand-secondary);
+  width: 100%;
+}
+
+.btn.btn-filter:hover {
+  background-color: var(--bs-border-color);
+  color: var(--bs-neutral-1000);
+}

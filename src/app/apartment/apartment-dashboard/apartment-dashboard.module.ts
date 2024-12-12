@@ -24,7 +24,7 @@ import { ApartmentDashboardSortComponent } from './components/apartment-dashboar
     CommonModule,
     ApartmentDashboardRoutingModule,
     HomeModule,
-    SharedModule
+    SharedModule,
   ]
 })
 export class ApartmentDashboardModule { }

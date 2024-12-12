@@ -14,7 +14,7 @@ export class BlHomeFeaturedApartmentsRequestsService {
   ) { }
 
   getFeatured(page: number = 1): Observable<IPaginatedResponse<IApartment>> {
-    return this.apartmentService.getAllByQueryParams("Sorts[0].SortProperty=popular&PerPage=6&Page=" + page).pipe(
+    return this.apartmentService.getAllByQueryParams("Sorts[0].SortProperty=MostPopular&PerPage=6&Page=" + page).pipe(
       map((response: any) => ({
         ...response
       }) as IPaginatedResponse<IApartment>)

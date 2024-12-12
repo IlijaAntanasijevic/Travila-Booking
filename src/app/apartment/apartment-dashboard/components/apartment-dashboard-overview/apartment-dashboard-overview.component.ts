@@ -3,8 +3,9 @@ import { ApartmentViewMode } from '../../enums/view-mode-enum';
 import { BlApartmentDashboardDataService } from '../../services/shared/bl-apartment-dashboard-data.service';
 import { BlApartmentsRequestsService } from '../../../services/requests/bl-apartments-requests.service';
 import { Spinner } from '../../../../core/functions/spinner';
-import { IApartment } from '../../../interfaces/i-apartment';
+import { IApartment, IApartmentSearch } from '../../../interfaces/i-apartment';
 import { IPaginatedResponse } from '../../../../core/interfaces/i-base';
+import { BlApartmentFilterFormService } from '../../services/forms/bl-apartment-filter-form.service';
 
 @Component({
   selector: 'app-apartment-dashboard-overview',
@@ -15,23 +16,37 @@ export class ApartmentDashboardOverviewComponent implements OnInit {
 
   constructor(
     private dataService: BlApartmentDashboardDataService,
-    private requestsService: BlApartmentsRequestsService
+    private requestsService: BlApartmentsRequestsService,
   ) { }
 
   public currentViewMode: ApartmentViewMode = ApartmentViewMode.LIST;
   public ApartmentViewMode = ApartmentViewMode;
   public apartmentsData: IPaginatedResponse<IApartment>;
+  private params: IApartmentSearch = {};
+
+  public maxFilterPrice: number;
+  public minFilterPrice: number;
 
   ngOnInit(): void {
     this.getData();
     this.trackViewMode();   
+    this.trackPageChange();
+    this.trackFilterChanges();
   }
 
   getData(): void {
     Spinner.show();
-    this.requestsService.getAll().subscribe({
+    this.requestsService.getAllByQueryParams(this.params).subscribe({
       next: (data) => {
         this.apartmentsData = data;
+        this.dataService.totalApartments.next(data.totalCount)
+        
+        // this.minFilterPrice = data.minPrice;
+        // this.maxFilterPrice = data.maxPrice;
+        
+        this.minFilterPrice = 10;
+        this.maxFilterPrice = 120;
+
         Spinner.hide();
       },
       error: (err) => {
@@ -42,8 +57,38 @@ export class ApartmentDashboardOverviewComponent implements OnInit {
 
   trackViewMode(): void {
     this.dataService.viewMode.subscribe({
-      next: (data) => {                
+      next: (data) => {
+        this.params.perPage = data === ApartmentViewMode.LIST ? 6 : 9
+        this.params.page = 1;   
          this.currentViewMode = data;
+         this.getData();
+      }
+    })
+  }
+
+  trackPageChange(): void {
+    this.dataService.pageChanged.subscribe({
+      next: (data) => {        
+        if(data != this.apartmentsData?.currentPage){
+          this.params.page = data;
+          this.getData();
+
+          window.scrollTo({
+            top: 0,
+            left: 0
+          })
+        }
+      }
+    })
+  }
+
+  trackFilterChanges(): void {
+    this.dataService.filter.subscribe({
+      next: (data) => {
+        if(data){
+          this.params = data;
+          this.getData();    
+        }
       }
     })
   }

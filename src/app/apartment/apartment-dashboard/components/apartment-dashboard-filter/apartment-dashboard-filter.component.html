@@ -1,33 +1,40 @@
 <div class="content-left order-lg-first">
-  <!-- Price -->
-  <mat-accordion class="background-brand pb-3">
-    <mat-expansion-panel [expanded]="true" (opened)="filterPriceOpenState.set(true)"
-      (closed)="filterPriceOpenState.set(false)">
-      <mat-expansion-panel-header class="accordionHeader">
-        <mat-panel-title class="text-light">Filter Price</mat-panel-title>
-      </mat-expansion-panel-header>
-      <div class="d-flex justify-content-between">
-        <label>Per night</label>
-        <label>{{slider.value}} ($)</label>
-      </div>
-      <mat-slider [min]="10" [max]="100" [step]="10">
-        <input matSliderThumb [(ngModel)]="value" #slider>
-      </mat-slider>
-    </mat-expansion-panel>
-  </mat-accordion>
+  <form [formGroup]="form">
+    <!-- Price -->
+    <mat-accordion class="background-brand pb-3">
+      <mat-expansion-panel [expanded]="true" (opened)="filterPriceOpenState.set(true)"
+        (closed)="filterPriceOpenState.set(false)">
+        <mat-expansion-panel-header class="accordionHeader">
+          <mat-panel-title class="text-light">Filter Price</mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="d-flex justify-content-between">
+          <label>Per night</label>
+          <label>{{form.get('maxPrice').value}} ($)</label>
+        </div>
+        <mat-slider [min]="minFilterPrice" [max]="maxFilterPrice" [step]="10">
+          <input matSliderThumb #slider formControlName="maxPrice">
+        </mat-slider>
+      </mat-expansion-panel>
+    </mat-accordion>
 
-  <mat-accordion>
-    <mat-expansion-panel [expanded]="true" (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
-      <mat-expansion-panel-header class="accordionHeader">
-        <mat-panel-title class="text-light">Type</mat-panel-title>
-      </mat-expansion-panel-header>
-      <div class="d-flex flex-column ">
-        <mat-checkbox color="primary">Apartment</mat-checkbox>
-        <mat-checkbox color="primary">Hotel</mat-checkbox>
-        <mat-checkbox color="primary">Motel</mat-checkbox>
-        <mat-checkbox color="primary">Villa</mat-checkbox>
-        <mat-checkbox color="primary">Other</mat-checkbox>
-      </div>
-    </mat-expansion-panel>
-  </mat-accordion>
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="true" (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
+        <mat-expansion-panel-header class="accordionHeader">
+          <mat-panel-title class="text-light">Type</mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="d-flex flex-column" formArrayName="apartmentTypeIds">
+          @for(type of apartmentTypesForm().controls; track type; let i = $index){
+          <ng-container [formGroupName]="i">
+            <mat-checkbox color="primary" formControlName="selected">{{type.get('name').value}}</mat-checkbox>
+          </ng-container>
+          }
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <div class="d-flex justify-content-center">
+      <span class="btn btn-default btn-filter" (click)="searchFilter()">Search</span>
+    </div>
+
+  </form>
 </div>

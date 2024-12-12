@@ -52,7 +52,7 @@ export class ApiService<T> {
   }
 
 
-  private handleErrors(error: any): Observable<any> {
+  protected handleErrors(error: any): Observable<any> {
     let errorMessage = 'An unknown error occurred!';
 
     // if (error.error instanceof ErrorEvent) {
