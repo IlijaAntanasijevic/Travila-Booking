@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable, Subscription} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
@@ -9,6 +9,7 @@ import { IBase } from '../../../core/interfaces/i-base';
 import { ISearchHome, ISearchHomeRequest } from './interfaces/i-search-home';
 import { Spinner } from '../../../core/functions/spinner';
 import { locationValidator } from './validators/location-validator';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-seach',
@@ -20,12 +21,15 @@ export class HomeSeachComponent implements OnInit, OnDestroy {
 
   constructor(
     public formService: BlHomeSearchFormService,
-    private homeSearchReqService: BlHomeSearchRequestsService
+    private homeSearchReqService: BlHomeSearchRequestsService,
+    private router: Router
   ) { }
 
   myControl = new FormControl<string | IBase>('');
   filteredOptions: Observable<IBase[]>;
   cities: IBase[] = null;
+
+  @Input() filterData: ISearchHomeRequest = null;
 
   public form = this.formService.getForm();
 
@@ -38,8 +42,15 @@ export class HomeSeachComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
 
   ngOnInit() {    
+    if(this.filterData){
+      this.formService.fillForm(this.filterData);
+      this.calculateTotalNights();
+      
+      
+    }
    this.getAllCities();
   }
+
 
   getAllCities(): void {
     Spinner.show();
@@ -47,8 +58,13 @@ export class HomeSeachComponent implements OnInit, OnDestroy {
       this.homeSearchReqService.getAllCities().subscribe({
         next: (data) => {
           this.cities = data;
-          this.initializeFilteredOptions();
           this.form.get("city").setValidators(locationValidator(this.cities));
+
+          if(this.filterData){
+            const selectedCity = this.cities.find((city) => city.id === Number(this.filterData.cityId)) || null;            
+            this.form.get('city').setValue(selectedCity);
+          }
+          this.initializeFilteredOptions();        
           Spinner.hide();
         },
         error: (err) => {
@@ -62,7 +78,7 @@ export class HomeSeachComponent implements OnInit, OnDestroy {
     this.filteredOptions = this.form.controls['city'].valueChanges.pipe(
       startWith(''),
       map(value => {
-        const name = typeof value === 'string' ? value : value?.name;
+        const name = typeof value === 'string' ? value : value?.name;        
         return name ? this._filter(name as string) : this.cities.slice();
       }),
     );
@@ -107,23 +123,32 @@ export class HomeSeachComponent implements OnInit, OnDestroy {
   search(): void {
     const formData: ISearchHome = this.formService.getFormData();
 
-    let dataToSend: ISearchHomeRequest = {
+    // let dataToSend: ISearchHomeRequest = {
+    //   checkIn: formData.checkIn,
+    //   checkOut: formData.checkOut,
+    //   adults: formData.adults,
+    //   childrens: formData.childrens,
+    //   rooms: formData.rooms,
+    //   cityId: formData.city.id 
+    // };
+
+    this.router.navigate(['/apartments'], { queryParams: { 
       checkIn: formData.checkIn,
       checkOut: formData.checkOut,
       adults: formData.adults,
       childrens: formData.childrens,
       rooms: formData.rooms,
-      cityId: formData.city.id 
-    };
+      cityId: formData.city.id
+    } });
 
-    this.homeSearchReqService.search(dataToSend).subscribe({
-      next: (data) => {
-        console.log(data);
-      },
-      error: (err) => {
-        console.log(err);
-      }
-    })
+    // this.homeSearchReqService.search(dataToSend).subscribe({
+    //   next: (data) => {
+
+    //   },
+    //   error: (err) => {
+    //     console.log(err);
+    //   }
+    // })
   }
 
 

@@ -1,11 +1,11 @@
 import { IBase } from "../../../../core/interfaces/i-base";
 
 interface ISearchHomeBase {
-  checkIn: Date;
-  checkOut: Date;
-  adults: number;
-  childrens: number;
-  rooms: number;
+  checkIn?: Date;
+  checkOut?: Date;
+  adults?: number;
+  childrens?: number;
+  rooms?: number;
 }
 
 export interface ISearchHome extends ISearchHomeBase {
@@ -13,6 +13,6 @@ export interface ISearchHome extends ISearchHomeBase {
 }
 
 export interface ISearchHomeRequest extends ISearchHomeBase {
-  cityId: number;
+  cityId?: number;
 
 }

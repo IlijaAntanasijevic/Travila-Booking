@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IFormService } from '../../../../../core/interfaces/i-form-service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ISearchHome } from '../../interfaces/i-search-home';
+import { ISearchHome, ISearchHomeRequest } from '../../interfaces/i-search-home';
 import { IBase } from '../../../../../core/interfaces/i-base';
 import { locationValidator } from '../../validators/location-validator';
 
@@ -31,6 +31,17 @@ export class BlHomeSearchFormService implements IFormService<ISearchHome>{
 
   getFormData(): ISearchHome {
     return this.form.getRawValue();
+  }
+
+  fillForm(filteredData: ISearchHomeRequest): void {    
+    this.form.setValue({
+      city: Number(filteredData.cityId), 
+      checkIn: new Date(filteredData.checkIn), 
+      checkOut: new Date(filteredData.checkOut),
+      adults: filteredData.adults,
+      childrens: filteredData.childrens,
+      rooms: filteredData.rooms,
+    })
   }
 
   reset(): void {
