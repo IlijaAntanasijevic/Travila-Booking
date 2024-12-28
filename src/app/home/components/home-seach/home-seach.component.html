@@ -34,7 +34,8 @@
           <div>
             <button mat-flat-button [matMenuTriggerFor]="menu" class="guests" (click)="$event.stopPropagation()">
               <mat-icon>person</mat-icon>
-              {{adultGuests}} adulsts | {{adultGuests}} children | {{adultGuests}} room
+              {{ form.get('adults')?.value }} adults | {{ form.get('childrens')?.value }} children | {{
+              form.get('rooms')?.value }} room
               <mat-icon>arrow_drop_down</mat-icon>
             </button>
             <mat-menu #menu="matMenu" class="w-100">
@@ -42,7 +43,7 @@
                 <span class="guestsTitle">Adult</span>
                 <div class="d-flex w-50 align-items-center">
                   <span class="guestsBtn" (click)="decreaseGuests('adults')"><mat-icon>remove</mat-icon></span>
-                  <input type="number" formControlName="adults" class="guestsInput" [value]="adultGuests" />
+                  <input type="number" formControlName="adults" class="guestsInput" />
                   <span class="guestsBtn" (click)="increaseGuests('adults')"><mat-icon>add</mat-icon></span>
                 </div>
               </div>
@@ -51,7 +52,7 @@
                 <span class="guestsTitle">Children</span>
                 <div class="d-flex w-50 align-items-center">
                   <span class="guestsBtn" (click)="decreaseGuests('childrens')"><mat-icon>remove</mat-icon></span>
-                  <input type="number" formControlName="childrens" class="guestsInput" [value]="adultGuests" />
+                  <input type="number" formControlName="childrens" class="guestsInput" />
                   <span class="guestsBtn" (click)="increaseGuests('childrens')"><mat-icon>add</mat-icon></span>
                 </div>
               </div>
@@ -60,7 +61,7 @@
                 <span class="guestsTitle">Rooms</span>
                 <div class="d-flex w-50 align-items-center">
                   <span class="guestsBtn" (click)="decreaseGuests('rooms')"><mat-icon>remove</mat-icon></span>
-                  <input type="number" formControlName="rooms" class="guestsInput" [value]="adultGuests" />
+                  <input type="number" formControlName="rooms" class="guestsInput" />
                   <span class="guestsBtn" (click)="increaseGuests('rooms')"><mat-icon>add</mat-icon></span>
                 </div>
               </div>
