@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { ISearchHomeRequest } from '../../../../home/components/home-seach/interfaces/i-search-home';
 
 @Component({
   selector: 'app-apartment-dashboard-search',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class ApartmentDashboardSearchComponent {
 
+  @Input() searchedData: ISearchHomeRequest; 
 }

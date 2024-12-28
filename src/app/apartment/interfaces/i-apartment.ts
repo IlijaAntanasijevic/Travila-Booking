@@ -1,3 +1,4 @@
+import { ISearchHomeRequest } from "../../home/components/home-seach/interfaces/i-search-home";
 import { ISorts } from "../apartment-dashboard/interfaces/i-filter";
 
 export interface IApartment {
@@ -12,9 +13,8 @@ export interface IApartment {
 }
 
 
-export interface IApartmentSearch {
+export interface IApartmentSearch extends ISearchHomeRequest{
   keyword?: string;
-  cityId?: number;
   countryId?: number;
   apartmentTypeIds?: number[];
   perPage?: number;
