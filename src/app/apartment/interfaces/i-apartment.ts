@@ -24,11 +24,16 @@ export interface IApartmentSearch extends ISearchHomeRequest{
   maxPrice?: number;
 }
 
-export interface ApartmentDetail extends IApartment{
+export interface IApartmentDetail extends IApartment{
   description: string;
   owner: IUser;
   paymentMethods: string[];
   features: string[];
   images: string[];
+}
+
+export interface IApartmentImages {
+  id: number;
+  path: string;
 }
 

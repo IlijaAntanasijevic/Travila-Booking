@@ -3,7 +3,7 @@ import { BlApartmentsRequestsService } from '../../../services/requests/bl-apart
 import { ActivatedRoute, Router } from '@angular/router';
 import { Spinner } from '../../../../core/functions/spinner';
 import { Subscription } from 'rxjs';
-import { ApartmentDetail } from '../../../interfaces/i-apartment';
+import { IApartmentDetail, IApartmentImages } from '../../../interfaces/i-apartment';
 
 @Component({
   selector: 'app-apartment-view',
@@ -18,8 +18,8 @@ export class ApartmentViewComponent implements OnInit, OnDestroy{
     private requestsService: BlApartmentsRequestsService
   ) {}
 
-  public apartment: ApartmentDetail;
-  public images: object[] = [];
+  public apartment: IApartmentDetail;
+  public images: IApartmentImages[] = [];
   private subscription: Subscription = new Subscription();
 
   ngOnInit(): void {
@@ -43,14 +43,15 @@ export class ApartmentViewComponent implements OnInit, OnDestroy{
       next: (data) => {
         console.log(data);
         this.apartment = data;
-        Spinner.hide();
-        data?.images.forEach((x: string) => {
-          this.images.push({
-            image: x,
-            thumbImage: x
-          })
+        this.images.push({
+          path: data.mainImage,
+          id: 0
+        });
+        data?.images.forEach((x: string, index: number) => {
+          this.images.push({path: x, id: ++index});
         })
 
+        Spinner.hide();
         console.log(this.images);
         
       },
