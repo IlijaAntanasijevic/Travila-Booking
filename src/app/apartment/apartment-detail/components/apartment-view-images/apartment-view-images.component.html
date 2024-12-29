@@ -4,40 +4,65 @@
       <div class="row">
         <div class="col-xl-3 col-lg-3 col-sm-6">
           <div class="banner-property-detail-2">
-            <img src="assets/images/page/property/banner3.png" alt="Travile">
+            <img src="{{images[0].path}}" alt="Travile" (click)="openModal(images[0].id)">
           </div>
-          <div class="banner-property-detail-3 position-relative text-center">
+          <div class="banner-property-detail-2 position-relative text-center">
             <span class=" btn btn-brand-secondary btn-all-photos text-center" (click)="openModal()">See All Photos
               <mat-icon class="ms-3">apps</mat-icon></span>
-            <img src="assets/images/page/property/banner4.png" alt="Travile">
+            <img src="{{images[1].path}}" alt="Travile" (click)="openModal(images[1].id)">
 
           </div>
         </div>
         <div class="col-xl-3 col-lg-3 col-sm-6">
           <div class="banner-property-detail-2">
-            <img src="assets/images/page/property/banner3.png" alt="Travile">
+            <img src="{{images[2].path}}" alt="Travile" (click)="openModal(images[2].id)">
           </div>
-          <div class="banner-property-detail-3">
-            <img src="assets/images/page/property/banner4.png" alt="Travile">
+          <div class="banner-property-detail-2">
+            <img src="{{images[3].path}}" alt="Travile" (click)="openModal(images[3].id)">
           </div>
         </div>
+        @if(images[4] != null){
         <div class="col-xl-3 col-lg-3 col-sm-6">
           <div class="banner-property-detail-2">
-            <img src="assets/images/page/property/banner3.png" alt="Travile">
+            <img src="{{images[4].path}}" alt="Travile" (click)="openModal(images[4].id)">
           </div>
-          <div class="banner-property-detail-3">
-            <img src="assets/images/page/property/banner4.png" alt="Travile">
+          @if(images[5] != null){
+          <div class="banner-property-detail-2">
+            <img src="{{images[5].path}}" alt="Travile" (click)="openModal(images[5].id)">
           </div>
+          }
+          c
         </div>
+        }
+
+        @if(images[6] != null){
         <div class="col-xl-3 col-lg-3 col-sm-6">
-          <div class="banner-property-detail-4">
-            <img src="assets/images/page/property/banner5.png" alt="Travile">
+          <div class="banner-property-detail-2">
+            <img src="{{images[6].path}}" alt="Travile" (click)="openModal(images[6].id)">
           </div>
-          <div class="banner-property-detail-5">
-            <img src="assets/images/page/property/banner6.png" alt="Travile">
+          @if(images[7] != null){
+          <div class="banner-property-detail-2">
+            <img src="{{images[7].path}}" alt="Travile" (click)="openModal(images[7].id)">
           </div>
+          }
+
         </div>
+        }
       </div>
     </div>
   </div>
 </section>
+
+
+@if(showModal){
+<div class="overlay">
+  <div class="image-container">
+    <button class="close-button" (click)="closeModal($event)">&#10005;</button>
+    <button class="prev-button" (click)="prevImage()">&#10094;</button>
+
+    <img [src]="images[currentIndex].path" alt="Full Screen Image" class="full-image" />
+
+    <button class="next-button" (click)="nextImage()">&#10095;</button>
+  </div>
+</div>
+}

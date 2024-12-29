@@ -1,40 +1,47 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Image, ModalGalleryConfig, ModalGalleryRef, ModalGalleryService } from '@ks89/angular-modal-gallery';
+import { Component, Input } from '@angular/core';
+import { IApartmentImages } from '../../../interfaces/i-apartment';
 
 @Component({
   selector: 'app-apartment-view-images',
   templateUrl: './apartment-view-images.component.html',
   styleUrl: './apartment-view-images.component.css'
 })
-export class ApartmentViewImagesComponent implements OnInit{
+export class ApartmentViewImagesComponent{
 
-  constructor(
-    private modalGalleryService: ModalGalleryService
-  ) {}
+  @Input() images: IApartmentImages[];
 
-  //@Input() images: Image[];
+  public showModal: boolean = false;
+  currentIndex: number = 0;
 
-  private images: Image[]
-
-
-  ngOnInit(): void {
-      this.images = [
-        {
-          id: 1,
-          modal: {
-            img: "http://localhost:5000/apartments\\images\\370308ee-0968-4579-956a-c1016c26fb50.jpg"
-          }
-        } as Image
-      ]
+  openModal(index: number = 0): void {
+    this.currentIndex = index;
+    this.showModal = true;
+    document.body.classList.add('modal-open');
   }
 
-  openModal(): void {
-    console.log(this.images);
+  nextImage(): void {
+    if (this.currentIndex < this.images.length - 1) {
+      this.currentIndex++;
+    } 
+    else {
+      this.currentIndex = 0; 
+    }
+  }
+
+  prevImage(): void {
+    if (this.currentIndex > 0) {
+      this.currentIndex--;
+    } 
+    else {
+      this.currentIndex = this.images.length - 1; 
+    }
     
-    const dialogRef: ModalGalleryRef = this.modalGalleryService.open({
-      id: 1,
-      images: this.images,
-      currentImage: this.images[0],
-    } as ModalGalleryConfig) as ModalGalleryRef;
+  }
+
+  closeModal(event: MouseEvent): void {
+    if (event.target === event.currentTarget) {
+      this.showModal = false;
+    }
+    document.body.classList.remove('modal-open');
   }
 }

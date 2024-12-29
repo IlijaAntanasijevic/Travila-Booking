@@ -4,7 +4,7 @@ import { ApartmentDetailRoutingModule } from './apartment-detail-routing.module'
 import { SharedModule } from '../../shared/shared.module';
 import { ApartmentViewComponent } from './components/apartment-view/apartment-view.component';
 import { ApartmentViewImagesComponent } from './components/apartment-view-images/apartment-view-images.component';
-import { GalleryModule } from '@ks89/angular-modal-gallery';
+
 @NgModule({
   declarations: [
     ApartmentViewComponent,
@@ -13,8 +13,7 @@ import { GalleryModule } from '@ks89/angular-modal-gallery';
   imports: [
     CommonModule,
     ApartmentDetailRoutingModule,
-    SharedModule,
-    GalleryModule
+    SharedModule
   ]
 })
 export class ApartmentDetailModule { }
