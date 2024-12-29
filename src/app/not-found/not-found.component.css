@@ -1,0 +1,4 @@
+svg {
+  pointer-events: none;
+  /* Ensures the SVG doesn't block clicks */
+}

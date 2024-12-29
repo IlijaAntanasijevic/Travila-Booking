@@ -1,4 +1,5 @@
 import { ISearchHomeRequest } from "../../home/components/home-seach/interfaces/i-search-home";
+import { IUser } from "../../user/interfaces/i-user";
 import { ISorts } from "../apartment-dashboard/interfaces/i-filter";
 
 export interface IApartment {
@@ -22,3 +23,12 @@ export interface IApartmentSearch extends ISearchHomeRequest{
   sorts?: ISorts[]; 
   maxPrice?: number;
 }
+
+export interface ApartmentDetail extends IApartment{
+  description: string;
+  owner: IUser;
+  paymentMethods: string[];
+  features: string[];
+  images: string[];
+}
+

@@ -16,6 +16,10 @@ export class BlApartmentsRequestsService {
     return this.apartmentService.getAll();
   }
 
+  getOne(id: number): Observable<any> {
+    return this.apartmentService.getOne(id);
+  }
+
 
   getAllByQueryParams(params: IApartmentSearch = null): Observable<any> {
     let paramsToSend: string | IApartmentSearch = this.prepareQuery(params);
