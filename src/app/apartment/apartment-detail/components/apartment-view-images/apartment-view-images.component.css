@@ -1,0 +1,7 @@
+.btn-all-photos {
+  position: absolute;
+  transform: translateX(-50%);
+  bottom: 10px;
+  left: 50%;
+  width: 70%;
+}

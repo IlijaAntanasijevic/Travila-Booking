@@ -36,14 +36,14 @@
                   routerLink="/apartments/{{apartment.id}}">{{apartment.name}} </a>
                 <p class="neutral-1000">{{apartment.city}}</p>
               </div>
-              <div class="card-program">
-                <div class="endtime">
-                  <div class="card-price">
-                    <h6 class="heading-6 neutral-1000">${{apartment.pricePerNight}}</h6>
-                    <p class="text-md-medium neutral-500">/ night</p>
-                  </div>
-                  <div class="card-button"> <a class='btn btn-gray' routerLink="/apartments/{{apartment.id}}">View</a>
-                  </div>
+              <div class="card-price d-flex align-items-center justify-content-between mt-35">
+                <div class=" d-flex align-items-center">
+                  <h6 class="heading-6 neutral-1000 me-2">${{apartment.pricePerNight}}</h6>
+                  <p class="text-md-medium neutral-500">/ night</p>
+                </div>
+
+
+                <div class="card-button"> <a class='btn btn-gray' routerLink="/apartments/{{apartment.id}}">View</a>
                 </div>
               </div>
             </div>

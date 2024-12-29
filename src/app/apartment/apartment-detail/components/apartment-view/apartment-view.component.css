@@ -1,0 +1,10 @@
+.btn.btn-filter {
+  padding: 11px 30px;
+  background-color: var(--bs-brand-secondary);
+  width: 50%;
+}
+
+.btn.btn-filter:hover {
+  background-color: var(--bs-border-color);
+  color: var(--bs-neutral-1000);
+}

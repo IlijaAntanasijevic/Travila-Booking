@@ -20,7 +20,7 @@
               </div>
             </div>
             <div class="card-title">
-              <a class="text-lg-bold neutral-1000" href="#">{{item.name}}</a>
+              <a class="text-lg-bold neutral-1000" routerLink="/apartments/{{item.id}}">{{item.name}}</a>
             </div>
             <div class="card-program">
               <div class="card-duration-tour">
@@ -32,7 +32,7 @@
                   <h6 class="heading-6 neutral-1000">${{item.pricePerNight}}</h6>
                 </div>
                 <div class="card-button">
-                  <a class="btn btn-gray" href="#">View</a>
+                  <a class="btn btn-gray" routerLink="/apartments/{{item.id}}">View</a>
                 </div>
               </div>
             </div>
