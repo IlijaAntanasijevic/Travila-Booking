@@ -7,9 +7,9 @@ import { apiPaths } from '../../../config/api';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService extends ApiService<IUser>{
+export class UserService extends ApiService<IUser> {
 
   constructor(http: HttpClient) {
-    super(apiPaths.user.userApi, http)
-   }
+    super(apiPaths.user.api, http)
+  }
 }

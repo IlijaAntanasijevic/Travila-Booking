@@ -2667,11 +2667,6 @@ body {
   font-weight: bold;
 }
 
-.btn.btn-wishlish svg {
-  fill: var(--bs-neutral-1000);
-  margin-right: 6px;
-}
-
 .btn.btn-book {
   border-radius: 8px;
   padding: 15px;
@@ -12683,29 +12678,6 @@ a.link-black:hover svg {
   margin-right: 7px;
 }
 
-.tour-metas {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-}
-
-.tour-metas .tour-meta-left {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  margin-bottom: 15px;
-}
-
-.tour-metas .tour-meta-left a {
-  text-decoration: underline;
-  font-weight: 700;
-}
-
-.tour-metas .tour-meta-right {
-  min-width: 230px;
-  margin-bottom: 15px;
-}
-
 .box-content-tour-detail {
   padding-top: 45px;
 }
@@ -12731,27 +12703,6 @@ a.link-black:hover svg {
   display: flex;
   align-items: center;
   margin-bottom: 28px;
-}
-
-.box-info-tour .tour-info-group {
-  width: 25%;
-  display: flex;
-  align-items: center;
-}
-
-.box-info-tour .tour-info-group .icon-item {
-  height: 45px;
-  width: 45px;
-  border: 1px solid var(--bs-border-color);
-  background-color: var(--bs-background-2);
-  text-align: center;
-  line-height: 45px;
-  margin-right: 13px;
-  border-radius: 8px;
-}
-
-.box-info-tour .tour-info-group .icon-item svg {
-  fill: var(--bs-neutral-1000);
 }
 
 .box-popular-posts-md .card-post .card-image {

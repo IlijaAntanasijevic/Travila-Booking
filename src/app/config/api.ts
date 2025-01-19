@@ -3,16 +3,19 @@ export const apiPaths = {
     search: "api/apartment?",
     featuredApartments: "api/apartment?"
   },
-  apartment: "api/apartment",
+  apartment: {
+    api: "api/apartment",
+    review: "api/review"
+  },
   cities: "api/city",
   auth: {
     login: "api/login",
     regiter: "api/register"
   },
   user: {
-    userApi: "api/users" 
+    api: "api/users"
   },
   apartmentTypes: {
     api: "api/ApartmentType"
-  }
+  },
 }

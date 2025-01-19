@@ -7,9 +7,9 @@ import { IApartment } from '../../interfaces/i-apartment';
 @Injectable({
   providedIn: 'root'
 })
-export class ApartmentService extends ApiService<IApartment>{
+export class ApartmentService extends ApiService<IApartment> {
 
   constructor(http: HttpClient) {
-    super(apiPaths.apartment, http)
+    super(apiPaths.apartment.api, http)
   }
 }

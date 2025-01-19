@@ -7,8 +7,10 @@ import { IPaginatedResponse } from '../../../core/interfaces/i-base';
   templateUrl: './paginator.component.html',
   styleUrl: './paginator.component.css'
 })
+
 export class PaginatorComponent {
-  @Input() paginationData: IPaginatedResponse<IApartment>;
+
+  @Input() data: IPaginatedResponse<any>;
   @Output() pageChange: EventEmitter<number> = new EventEmitter<number>();
 
   totalPages: number;
@@ -16,8 +18,8 @@ export class PaginatorComponent {
   ellipsisToShow: number = 4;
 
   ngOnChanges(changes: SimpleChanges): void {
-    if(changes['paginationData'] && changes['paginationData'].currentValue){
-      this.totalPages = this.paginationData.pages;      
+    if(changes['data'] && changes['data'].currentValue){
+      this.totalPages = this.data.pages;     
     }
   }
 
@@ -41,7 +43,7 @@ export class PaginatorComponent {
       pages.push(this.currentPage);
     }
 
-    pages.push(this.totalPages); // Always include the last page
+    pages.push(this.totalPages);
 
     return pages;
   }

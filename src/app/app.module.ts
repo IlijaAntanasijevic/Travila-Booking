@@ -23,7 +23,6 @@ import { AppInjector } from './core/helpers/app-injector';
     ToastrModule.forRoot({
       timeOut: 4500,
       positionClass: 'toast-top-right',
-      progressBar: true
     }),
   ],
   providers: [
@@ -31,7 +30,7 @@ import { AppInjector } from './core/helpers/app-injector';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { 
+export class AppModule {
   constructor(injector: Injector) {
     AppInjector.setInjector(injector);
   }

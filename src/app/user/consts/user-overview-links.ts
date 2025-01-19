@@ -3,27 +3,27 @@ import { IUserOverviewLinks } from "../interfaces/i-user-overview-links";
 export const USER_OVERVIEW_LINKS: IUserOverviewLinks[] = [
   {
     name: "Profile",
-    link: "/",
+    link: "user/profile",
     icon: "manage_accounts",
   },
   {
     name: "Favorite",
-    link: "/",
+    link: "user/favorite",
     icon: "favorite"
   },
   {
     name: "Messages",
-    link: "/",
+    link: "user/messages",
     icon: "chat"
   },
   {
     name: "Reservations",
-    link: "/",
+    link: "user/reservations",
     icon: "event"
   },
   {
     name: "Apartments",
-    link: "/",
+    link: "/404",
     icon: "apartment",
   }
 ]

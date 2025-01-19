@@ -8,7 +8,7 @@ import { BlApartmentDashboardDataService } from '../../services/shared/bl-apartm
   templateUrl: './apartment-dashboard-list.component.html',
   styleUrl: './apartment-dashboard-list.component.css'
 })
-export class ApartmentDashboardListComponent implements OnInit, OnChanges {
+export class ApartmentDashboardListComponent implements OnChanges {
 
   constructor(
     private dataService: BlApartmentDashboardDataService
@@ -16,9 +16,6 @@ export class ApartmentDashboardListComponent implements OnInit, OnChanges {
   
   @Input() data: IPaginatedResponse<IApartment>;
   public apartmentsData: IApartment[] = [];
-
-  ngOnInit(): void {
-  }
 
 
   ngOnChanges(changes: SimpleChanges): void {

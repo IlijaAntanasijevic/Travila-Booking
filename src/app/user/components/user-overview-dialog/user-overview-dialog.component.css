@@ -27,3 +27,7 @@
   vertical-align: middle !important;
   color: rgb(10, 10, 10);
 }
+
+.active .item-icon {
+  background-color: var(--bs-brand-secondary);
+}
