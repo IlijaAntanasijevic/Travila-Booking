@@ -25,14 +25,12 @@
       <h6 class="title-quicklinks neutral-1000">Quick Links</h6>
       <div class="box-list-quicklinks">
         @for(item of userLinks; track item){
-        <div class="item-quicklinks">
+        <div class="item-quicklinks" routerLink="{{item.link}}" routerLinkActive="active">
           <div class="item-icon">
             <mat-icon>{{item.icon}}</mat-icon>
           </div>
           <div class="item-info">
-            <a routerLink="{{item.link}}">
-              <h6 class="text-md-bold neutral-1000">{{item.name}}</h6>
-            </a>
+            <h6 class="text-md-bold neutral-1000">{{item.name}}</h6>
             <p class="text-xs neutral-500 online">{{item?.description}}</p>
           </div>
         </div>

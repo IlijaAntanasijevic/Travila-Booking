@@ -4,6 +4,7 @@ import { catchError, Observable, throwError } from 'rxjs';
 import { config } from '../../config/global';
 import { ToastrService } from 'ngx-toastr';
 import { AppInjector } from '../helpers/app-injector';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { AppInjector } from '../helpers/app-injector';
 export class ApiService<T> {
   constructor(
     @Inject('apiUrl') protected url: string,
-    protected http : HttpClient
+    protected http : HttpClient,
   ) { }
 
   private apiUrl = config.apiUrl;
@@ -41,7 +42,7 @@ export class ApiService<T> {
 
   getOne(id: number): Observable<T> {
     return this.http.get<T>(this.apiUrl + this.url + "/" + id).pipe(
-      catchError(this.handleErrors)
+      catchError((error) => this.handleErrors(error)) 
     );
   }
 
@@ -54,24 +55,17 @@ export class ApiService<T> {
 
   protected handleErrors(error: any): Observable<any> {
     let errorMessage = 'An unknown error occurred!';
-
-    // if (error.error instanceof ErrorEvent) {
-    //   errorMessage = error.error.message;
-    // } else {
-    //   errorMessage = error.message;
-    // }
-
-    console.log(error);
-
     switch(error.status){
       case 401:
         errorMessage = "Unauthorized."
+        break;
+      case 404:
+        errorMessage = "Not Found."
         break;
       default:
         errorMessage = "Server error!";
     }
     
-    //errorMessage = "Server error!";
     this.alertService.error(errorMessage);
     return throwError(() => new Error(errorMessage));
   }

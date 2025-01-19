@@ -6,11 +6,19 @@ import { UserOverviewDialogComponent } from './components/user-overview-dialog/u
 import { CalendarDateFormatter, CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { CalendarComponent } from './components/user-overview-dialog/calendar-component/calendar/calendar.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { FavoriteApartmentsComponent } from './components/favorite-apartments/favorite-apartments.component';
+import { MessagesComponent } from './components/messages/messages.component';
+import { ReservationsComponent } from './components/reservations/reservations.component';
 
 @NgModule({
   declarations: [
     UserOverviewDialogComponent,
-    CalendarComponent
+    CalendarComponent,
+    ProfileComponent,
+    FavoriteApartmentsComponent,
+    MessagesComponent,
+    ReservationsComponent
   ],
   imports: [
     CommonModule,
