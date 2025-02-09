@@ -71,6 +71,11 @@
   --bs-neutral-950: #1E1E1E;
 }
 
+.primary-button-color {
+  background-color: var(--bs-brand-secondary);
+
+}
+
 /*import vendors*/
 /*import plugins*/
 /*RESET*/
@@ -6078,13 +6083,6 @@ label {
   width: 48px;
   height: 48px;
   margin-right: 12px;
-}
-
-.card-author .card-image img {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  display: block;
 }
 
 .user-account {

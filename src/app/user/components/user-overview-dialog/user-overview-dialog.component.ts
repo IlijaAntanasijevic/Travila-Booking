@@ -27,27 +27,12 @@ export class UserOverviewDialogComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
 
   ngOnInit(): void {
-    this.getUser();
+    this.userData = this.userRequestService.getUserDataFromLS();
 
     this.subscription.add(
       this.router.events.subscribe(event => {
         if (event instanceof NavigationStart) {
           this.close();
-        }
-      })
-    )
-  }
-
-  getUser(): void {
-    let id = this.authService.getUserId();
-
-    this.subscription.add(
-      this.userRequestService.getUserData(id).subscribe({
-        next: (data: IUser) => {
-          this.userData = data;
-        },
-        error: (err) => {
-          console.log(err);
         }
       })
     )

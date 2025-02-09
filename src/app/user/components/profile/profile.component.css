@@ -1,0 +1,29 @@
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: var(--bs-neutral-400) !important;
+}
+
+::ng-deep .mdc-text-field--filled {
+  border-radius: 4px !important;
+}
+
+.form-control:focus {
+  background-color: #575756 !important;
+}
+
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-text-field__input {
+  color: white !important;
+}
+
+::ng-deep .mdc-text-field--filled.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-text-field__input {
+  caret-color: var(--bs-brand-secondary) !important;
+}
+
+#avatar {
+  height: 110px;
+  border-radius: 50%;
+}
+
+
+.mat-mdc-unelevated-button:not(:disabled).submitBtn {
+  background-color: var(--bs-brand-secondary) !important;
+}

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, Injector } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, EMPTY, Observable, throwError } from 'rxjs';
 import { config } from '../../config/global';
 import { ToastrService } from 'ngx-toastr';
 import { AppInjector } from '../helpers/app-injector';
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class ApiService<T> {
   constructor(
     @Inject('apiUrl') protected url: string,
-    protected http : HttpClient,
+    protected http: HttpClient,
   ) { }
 
   private apiUrl = config.apiUrl;
@@ -28,44 +28,56 @@ export class ApiService<T> {
     const queryUrl: string = this.url.includes('?') ? this.url : `${this.url}?`;
     let queryParams: string = ""
 
-    if(typeof query === "object") {
-      queryParams =  new URLSearchParams(query as any).toString();
+    if (typeof query === "object") {
+      queryParams = new URLSearchParams(query as any).toString();
     }
     else {
       queryParams = query;
     }
-   
+
     return this.http.get<T[]>(this.apiUrl + queryUrl + queryParams).pipe(
-      catchError((error) => this.handleErrors(error)) 
+      catchError((error) => this.handleErrors(error))
     );
   }
 
   getOne(id: number): Observable<T> {
     return this.http.get<T>(this.apiUrl + this.url + "/" + id).pipe(
-      catchError((error) => this.handleErrors(error)) 
+      catchError((error) => this.handleErrors(error))
     );
   }
 
   create(data: any): Observable<T> {
-    return this.http.post<T>(`${ this.apiUrl + this.url }`, data).pipe(
-      catchError((error) => this.handleErrors(error)) 
+    return this.http.post<T>(`${this.apiUrl + this.url}`, data).pipe(
+      catchError((error) => this.handleErrors(error))
+    );
+  }
+
+  update(id: number, data: any): Observable<T> {
+    return this.http.put<T>(this.apiUrl + this.url + "/" + id, data).pipe(
+      catchError((error) => this.handleErrors(error))
     );
   }
 
 
   protected handleErrors(error: any): Observable<any> {
     let errorMessage = 'An unknown error occurred!';
-    switch(error.status){
+    switch (error.status) {
       case 401:
         errorMessage = "Unauthorized."
         break;
       case 404:
         errorMessage = "Not Found."
         break;
+      case 422:
+        if (error.error.length == 1) {
+          errorMessage = error.error[0].error;
+          break;
+        }
+        return EMPTY;
       default:
         errorMessage = "Server error!";
     }
-    
+
     this.alertService.error(errorMessage);
     return throwError(() => new Error(errorMessage));
   }
