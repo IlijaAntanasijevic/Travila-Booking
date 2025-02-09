@@ -31,3 +31,14 @@
 .active .item-icon {
   background-color: var(--bs-brand-secondary);
 }
+
+.card-author {
+  cursor: pointer;
+}
+
+.card-author .card-image img {
+  width: 48px;
+  /* height: 48px; */
+  border-radius: 50%;
+  display: block;
+}

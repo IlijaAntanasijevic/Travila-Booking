@@ -13,7 +13,8 @@ export const apiPaths = {
     regiter: "api/register"
   },
   user: {
-    api: "api/users"
+    api: "api/users",
+    avatar: "api/users/avatar"
   },
   apartmentTypes: {
     api: "api/ApartmentType"

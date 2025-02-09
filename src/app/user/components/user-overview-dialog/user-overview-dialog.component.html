@@ -9,7 +9,7 @@
   <div class="container">
     @if(userData){
     <div class="box-author-profile">
-      <div class="card-author">
+      <div class="card-author" routerLink="/user/profile">
         <div class="card-image">
           <img src="{{userData.avatar}}" alt="userAvatar">
         </div>
@@ -17,7 +17,8 @@
           <p class="text-md-bold neutral-1000">{{userData.firstName}} {{userData.lastName}}</p>
           <p class="text-xs neutral-1000">{{userData.phone}}</p>
         </div>
-      </div><a class="btn btn-black" (click)="logout()">Logout</a>
+      </div>
+      <a class="btn btn-black" (click)="logout()">Logout</a>
     </div>
     }
 

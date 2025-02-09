@@ -26,12 +26,12 @@ export class AuthService {
     localStorage.setItem("token", data);
   }
 
-  isLoggedIn(): boolean {    
-    return !!this.getJwtToken(); 
+  isLoggedIn(): boolean {
+    return !!this.getJwtToken();
   }
 
   getUserId(): number {
-    let jwtData = this.getJwtTokenData();    
+    let jwtData = this.getJwtTokenData();
     return jwtData.Id;
   }
 
