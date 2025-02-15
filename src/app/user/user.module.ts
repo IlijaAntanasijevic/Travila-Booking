@@ -10,6 +10,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { FavoriteApartmentsComponent } from './components/favorite-apartments/favorite-apartments.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { ReservationsComponent } from './components/reservations/reservations.component';
+import { UserTabsComponent } from './components/user-tabs/user-tabs.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ReservationsComponent } from './components/reservations/reservations.co
     ProfileComponent,
     FavoriteApartmentsComponent,
     MessagesComponent,
-    ReservationsComponent
+    ReservationsComponent,
+    UserTabsComponent
   ],
   imports: [
     CommonModule,
@@ -28,6 +30,9 @@ import { ReservationsComponent } from './components/reservations/reservations.co
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
+  ],
+  exports: [
+    UserTabsComponent
   ],
   providers: [
     CalendarDateFormatter
