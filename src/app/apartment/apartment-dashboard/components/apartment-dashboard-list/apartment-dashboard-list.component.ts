@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { IApartment } from '../../../interfaces/i-apartment';
 import { IPaginatedResponse } from '../../../../core/interfaces/i-base';
 import { BlApartmentDashboardDataService } from '../../services/shared/bl-apartment-dashboard-data.service';
+import { AuthService } from '../../../../auth/services/shared/auth.service';
 
 @Component({
   selector: 'app-apartment-dashboard-list',
@@ -11,15 +12,17 @@ import { BlApartmentDashboardDataService } from '../../services/shared/bl-apartm
 export class ApartmentDashboardListComponent implements OnChanges {
 
   constructor(
-    private dataService: BlApartmentDashboardDataService
+    private dataService: BlApartmentDashboardDataService,
+    private authService: AuthService
   ) { }
-  
+
   @Input() data: IPaginatedResponse<IApartment>;
   public apartmentsData: IApartment[] = [];
+  isLoggedIn: boolean = this.authService.isLoggedIn();
 
 
   ngOnChanges(changes: SimpleChanges): void {
-    if(changes['data'] && changes['data'].currentValue){
+    if (changes['data'] && changes['data'].currentValue) {
       this.apartmentsData = this.data.data;
     }
   }

@@ -7,18 +7,19 @@
       <div class="col-xl-4 col-lg-6 col-md-6">
         <div class="card-journey-small background-card">
           <div class="card-image">
+            @if(isLoggedIn){
+            <a class="wish" href="#">
+              <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M17.071 10.1422L11.4141 15.7991C10.6331 16.5801 9.36672 16.5801 8.58568 15.7991L2.92882 10.1422C0.9762 8.1896 0.9762 5.02378 2.92882 3.07116C4.88144 1.11853 8.04727 1.11853 9.99989 3.07116C11.9525 1.11853 15.1183 1.11853 17.071 3.07116C19.0236 5.02378 19.0236 8.1896 17.071 10.1422Z"
+                  stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </a>
+            }
             <!-- <a class="label bestsale" href="#">Best Sale</a> -->
             <img src="{{item.mainImage}}" alt="{{item.name}}">
           </div>
           <div class="card-info background-card">
-            <div class="card-rating">
-              <div class="card-left"> </div>
-              <div class="card-right">
-                <span class="rating">4.96
-                  <span class="text-sm-medium neutral-500">(672 reviews)</span>
-                </span>
-              </div>
-            </div>
             <div class="card-title">
               <a class="text-lg-bold neutral-1000" routerLink="/apartments/{{item.id}}">{{item.name}}</a>
             </div>
@@ -41,7 +42,7 @@
       </div>
       }
       @empty {
-      <h3 class="neutral-1000"> <span>We </span>Can’t Find <span>any apartment</span></h3>
+      <h3 class="neutral-1000"> <span>We </span>can’t find <span>any apartment</span></h3>
 
       }
 

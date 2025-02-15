@@ -26,6 +26,7 @@ export class ApartmentViewComponent implements OnInit, OnDestroy {
   images: IApartmentImages[] = [];
   featuresFirstColum: string[];
   featuresSecondColum: string[];
+  isLoggedIn: boolean = this.authService.isLoggedIn();
 
   public TMPPaginatorData: IPaginatedResponse<any> = {
     "data": [],

@@ -1,1 +1,38 @@
-<p>messages works!</p>
+<section class="mesages background-body">
+  <div class="px-5 pt-25">
+    <div class="row">
+      <div class="col-sm-4 left-side">
+        <div class="contacts">
+          <div class="contact active">John Doe</div>
+          <div class="contact">Jane Smith</div>
+          <div class="contact">Alice Johnson</div>
+        </div>
+      </div>
+
+
+      <div class="col-sm-8 right-side">
+        <div class="chat-box">
+          <div class="chat-messages">
+            <div class="message received">Hello!</div>
+            <div class="message sent">Hey, how are you?</div>
+            <div class="message received">I'm good, thanks! You?</div>
+          </div>
+          <form [formGroup]="form" style="height: 57px;" class="mt-3">
+            <mat-form-field>
+              <input matInput formControlName="text" placeholder="Type a message..." />
+              <button mat-icon-button matSuffix color="primary" (click)="sendMessage()">
+                <mat-icon>send</mat-icon>
+              </button>
+            </mat-form-field>
+            <!-- <button mat-flat-button color="primary" class="ms-3 text-dark">Send</button> -->
+          </form>
+          <!-- <div class="chat-input">
+            <input type="text" placeholder="Type a message..." />
+            <button>Send</button>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

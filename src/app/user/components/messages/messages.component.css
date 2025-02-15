@@ -1,0 +1,88 @@
+/* .mesages {
+  height: 100vh;
+} */
+
+.left-side {
+  background-color: var(--bs-neutral-100);
+  padding: 10px;
+  border-right: 1px solid #8e8c00;
+}
+
+.contacts {
+  /* height: 80vh; */
+  overflow-y: auto;
+  color: white;
+}
+
+.contact {
+  padding: 10px;
+  border-bottom: 1px solid #8e8c00;
+  cursor: pointer;
+}
+
+.contact:hover {
+  background-color: var(--bs-neutral-200);
+}
+
+.contact.active {
+  background-color: var(--bs-neutral-200);
+  color: white;
+}
+
+.right-side {
+  display: flex;
+  flex-direction: column;
+  /* height: 80vh; */
+}
+
+.chat-box {
+  display: flex;
+  flex-direction: column;
+  /* height: 75vh; */
+}
+
+.chat-messages {
+  background-color: var(--bs-neutral-100);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 10px;
+  overflow-y: auto;
+  height: 60vh;
+}
+
+.message {
+  padding: 8px 12px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  max-width: 70%;
+}
+
+.message.sent {
+  background-color: var(--bs-brand-secondary);
+  align-self: flex-end;
+}
+
+.message.received {
+  background-color: var(--bs-neutral-300);
+  color: white;
+  align-self: flex-start;
+}
+
+/* FORM / Input */
+
+::ng-deep .mat-mdc-form-field {
+  width: 100% !important;
+}
+
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: var(--bs-neutral-300) !important;
+}
+
+::ng-deep .mdc-text-field--filled {
+  border-radius: 10px !important;
+}
+
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-text-field__input {
+  color: white !important;
+}

@@ -84,3 +84,7 @@
 .featuresList {
   list-style: inside;
 }
+
+::ng-deep .tour-metas[_ngcontent-ng-c3537567385] .tour-meta-right[_ngcontent-ng-c3537567385] {
+  min-width: 0px !important;
+}

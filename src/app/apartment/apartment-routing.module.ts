@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { numberIdMatcher } from '../core/helpers/utility';
 
 const routes: Routes = [
   {
@@ -7,8 +8,13 @@ const routes: Routes = [
     loadChildren: () => import('./apartment-dashboard/apartment-dashboard.module').then(m => m.ApartmentDashboardModule)
   },
   {
-    path: ":id",
+    // path: ":id",
+    matcher: numberIdMatcher,
     loadChildren: () => import('./apartment-detail/apartment-detail.module').then(m => m.ApartmentDetailModule)
+  },
+  {
+    path: "user",
+    loadChildren: () => import('./user-apartment/user-apartment.module').then(m => m.UserApartmentModule),
   }
 ];
 
