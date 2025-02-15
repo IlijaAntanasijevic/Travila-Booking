@@ -6,6 +6,7 @@
       <div class="col-xl-4 col-lg-6 col-md-6">
         <div class="card-journey-small background-card">
           <div class="card-image">
+            @if(isLoggedIn){
             <a class="wish" href="#">
               <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -13,6 +14,8 @@
                   stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg>
             </a>
+            }
+
             <img src="{{item.mainImage}}" alt="{{item.name}}">
           </div>
           <div class="card-info background-card">
@@ -46,7 +49,7 @@
       </div>
       }
       @empty {
-      <h3 class="neutral-1000"> <span>We </span>Can’t Find <span>any apartment</span></h3>
+      <h3 class="neutral-1000"> <span>We </span>can’t find <span>any apartment</span></h3>
       }
     </div>
   </div>

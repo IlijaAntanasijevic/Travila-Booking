@@ -87,6 +87,7 @@ export class ProfileComponent implements OnInit {
           this.getUserData();
           this.userRequestService.setUserDataLS(this.id);
           Spinner.hide()
+          this.alertService.success("Successfully", "Changed photo");
         },
         error: (err) => {
           Spinner.hide()

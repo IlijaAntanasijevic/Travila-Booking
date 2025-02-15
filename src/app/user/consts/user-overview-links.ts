@@ -23,7 +23,7 @@ export const USER_OVERVIEW_LINKS: IUserOverviewLinks[] = [
   },
   {
     name: "Apartments",
-    link: "/404",
+    link: "apartments/user",
     icon: "apartment",
   }
 ]

@@ -14,15 +14,15 @@ export class AuthGuard {
     private authService: AuthService,
     private router: Router,
     private userService: UserService,
-  ){}
+  ) { }
 
-  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot){
-    const isLoggedIn = this.authService.isLoggedIn;
+  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    const isLoggedIn = this.authService.isLoggedIn();
 
-    if(!isLoggedIn){
+    if (!isLoggedIn) {
       this.router.navigateByUrl("/auth/login")
     }
-  
+
 
     // const user = this.userService.getUserFromLocalStorage();
     // if (user != null) {
@@ -37,5 +37,5 @@ export class AuthGuard {
     return isLoggedIn;
   }
 
-  
+
 }
