@@ -5,8 +5,7 @@ import { UserApartmentRoutingModule } from './user-apartment-routing.module';
 import { UserApartmentDashboardComponent } from './components/user-apartment-dashboard/user-apartment-dashboard.component';
 import { AddUserApartmentComponent } from './components/add-user-apartment/add-user-apartment.component';
 import { SharedModule } from '../../shared/shared.module';
-
-console.log("UserApartmentModule loaded");
+import { UserModule } from '../../user/user.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +15,8 @@ console.log("UserApartmentModule loaded");
   imports: [
     CommonModule,
     UserApartmentRoutingModule,
-    SharedModule
+    SharedModule,
+    UserModule,
   ]
 })
 export class UserApartmentModule { }

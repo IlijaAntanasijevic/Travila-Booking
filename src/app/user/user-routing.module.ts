@@ -6,28 +6,43 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { FavoriteApartmentsComponent } from './components/favorite-apartments/favorite-apartments.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { ReservationsComponent } from './components/reservations/reservations.component';
+import { UserTabsComponent } from './components/user-tabs/user-tabs.component';
+
+// const routes: Routes = [
+//   {
+//     path: "",
+//     component: CalendarComponent
+//   },
+//   {
+//     path: "profile",
+//     component: ProfileComponent
+//   },
+//   {
+//     path: "favorite",
+//     component: FavoriteApartmentsComponent
+//   },
+//   {
+//     path: "messages",
+//     component: MessagesComponent
+//   },
+//   {
+//     path: "reservations",
+//     component: ReservationsComponent
+//   }
+// ];
 
 const routes: Routes = [
   {
-    path: "",
-    component: CalendarComponent
+    path: '',
+    component: UserTabsComponent,
+    children: [
+      { path: 'profile', component: ProfileComponent },
+      { path: 'favorite', component: FavoriteApartmentsComponent },
+      { path: 'messages', component: MessagesComponent },
+      { path: 'reservations', component: ReservationsComponent },
+      { path: '', redirectTo: 'profile', pathMatch: 'full' },
+    ],
   },
-  {
-    path: "profile",
-    component: ProfileComponent
-  },
-  {
-    path: "favorite",
-    component: FavoriteApartmentsComponent
-  },
-  {
-    path: "messages",
-    component: MessagesComponent
-  },
-  {
-    path: "reservations",
-    component: ReservationsComponent
-  }
 ];
 
 @NgModule({

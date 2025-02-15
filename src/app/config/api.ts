@@ -19,4 +19,7 @@ export const apiPaths = {
   apartmentTypes: {
     api: "api/ApartmentType"
   },
+  bookings: {
+    api: "api/bookings"
+  }
 }
