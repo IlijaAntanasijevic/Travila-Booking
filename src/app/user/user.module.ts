@@ -11,6 +11,7 @@ import { FavoriteApartmentsComponent } from './components/favorite-apartments/fa
 import { MessagesComponent } from './components/messages/messages.component';
 import { ReservationsComponent } from './components/reservations/reservations.component';
 import { UserTabsComponent } from './components/user-tabs/user-tabs.component';
+import { ReservationInfoDialogComponent } from './components/reservations/components/reservation-info-dialog/reservation-info-dialog.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { UserTabsComponent } from './components/user-tabs/user-tabs.component';
     FavoriteApartmentsComponent,
     MessagesComponent,
     ReservationsComponent,
-    UserTabsComponent
+    UserTabsComponent,
+    ReservationInfoDialogComponent
   ],
   imports: [
     CommonModule,

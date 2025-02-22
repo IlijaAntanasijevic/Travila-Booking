@@ -36,12 +36,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './helpers/auth.interceptor';
 import { AuthService } from '../auth/services/shared/auth.service';
 import { PaginatorComponent } from './components/paginator/paginator.component';
+import { SimpleConfirmationDialogComponent } from './components/simple-confirmation-dialog/simple-confirmation-dialog.component';
 
 
 
 @NgModule({
   declarations: [
-    PaginatorComponent
+    PaginatorComponent,
+    SimpleConfirmationDialogComponent
   ],
   imports: [
     CommonModule,

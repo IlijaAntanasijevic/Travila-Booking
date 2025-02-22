@@ -27,6 +27,7 @@
     "calendar-utils": "^0.11.0",
     "date-fns": "^4.1.0",
     "ngx-skeleton-loader": "^9.0.0",
+    "ngx-summernote": "^1.0.0",
     "ngx-toastr": "^19.0.0",
     "openmeteo": "^1.1.4",
     "rxjs": "~7.8.0",

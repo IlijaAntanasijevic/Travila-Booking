@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit, signal } from '@angular/core';
 import { BlApartmentFilterFormService } from '../../services/forms/bl-apartment-filter-form.service';
-import { ApartmentTypesService } from '../../../../shared/api/apartment-types.service';
+import { ApartmentTypesService } from '../../../../shared/api/lookup/apartment-types.service';
 import { IBase } from '../../../../core/interfaces/i-base';
 import { FormArray } from '@angular/forms';
 import { BlApartmentDashboardDataService } from '../../services/shared/bl-apartment-dashboard-data.service';
@@ -10,13 +10,13 @@ import { BlApartmentDashboardDataService } from '../../services/shared/bl-apartm
   templateUrl: './apartment-dashboard-filter.component.html',
   styleUrl: './apartment-dashboard-filter.component.css'
 })
-export class ApartmentDashboardFilterComponent implements OnInit, OnDestroy{
+export class ApartmentDashboardFilterComponent implements OnInit, OnDestroy {
 
   constructor(
     private formService: BlApartmentFilterFormService,
     private apartmentTypesService: ApartmentTypesService,
     private dataService: BlApartmentDashboardDataService
-  ) {}
+  ) { }
 
 
   @Input() maxFilterPrice: number;
@@ -32,16 +32,16 @@ export class ApartmentDashboardFilterComponent implements OnInit, OnDestroy{
     this.apartmentTypesService.getAll().subscribe({
       next: (data) => {
         this.apartmentTypes = data;
-        this.formService.createApartmentTypes(data);    
+        this.formService.createApartmentTypes(data);
       }
     })
-    
+
   }
 
   searchFilter(): void {
-    const formValue = this.form.value;    
+    const formValue = this.form.value;
     this.formService.setSelectedApartmentTypes();
-    
+
     this.dataService.filter.next(formValue);
   }
 
@@ -50,7 +50,7 @@ export class ApartmentDashboardFilterComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-      this.formService.reset();
+    this.formService.reset();
   }
 
 }

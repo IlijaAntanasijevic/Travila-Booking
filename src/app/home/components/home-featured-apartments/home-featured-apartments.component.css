@@ -80,3 +80,7 @@
   z-index: 1;
   transform: translateY(-112%);
 }
+
+.wish {
+  cursor: pointer;
+}

@@ -5,9 +5,17 @@ export const apiPaths = {
   },
   apartment: {
     api: "api/apartment",
-    review: "api/review"
+    review: "api/review",
+    favorite: "api/favorite"
   },
-  cities: "api/city",
+  lookup: {
+    cities: "api/city",
+    countries: "api/country",
+    paymentType: "api/payment",
+    features: "api/features",
+    apartmentType: "api/ApartmentType"
+
+  },
   auth: {
     login: "api/login",
     regiter: "api/register"
@@ -15,9 +23,6 @@ export const apiPaths = {
   user: {
     api: "api/users",
     avatar: "api/users/avatar"
-  },
-  apartmentTypes: {
-    api: "api/ApartmentType"
   },
   bookings: {
     api: "api/bookings"

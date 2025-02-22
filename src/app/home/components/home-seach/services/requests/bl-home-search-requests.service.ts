@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CityService } from '../../../../../shared/api/city.service';
+import { CityService } from '../../../../../shared/api/lookup/city.service';
 import { Observable } from 'rxjs';
 import { IBase } from '../../../../../core/interfaces/i-base';
 import { ISearchHomeRequest } from '../../interfaces/i-search-home';

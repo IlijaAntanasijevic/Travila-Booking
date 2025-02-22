@@ -10,3 +10,8 @@
   color: var(--bs-brand-secondary) !important;
 
 }
+
+::ng-deep .mdc-tab-indicator .mdc-tab-indicator__content {
+  transition: none !important;
+  width: 100% !important;
+}

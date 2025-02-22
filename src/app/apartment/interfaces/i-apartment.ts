@@ -14,17 +14,18 @@ export interface IApartment {
 }
 
 
-export interface IApartmentSearch extends ISearchHomeRequest{
+export interface IApartmentSearch extends ISearchHomeRequest {
   keyword?: string;
   countryId?: number;
   apartmentTypeIds?: number[];
   perPage?: number;
   page?: number;
-  sorts?: ISorts[]; 
+  sorts?: ISorts[];
   maxPrice?: number;
+  currentUserApartments?: boolean;
 }
 
-export interface IApartmentDetail extends IApartment{
+export interface IApartmentDetail extends IApartment {
   description: string;
   owner: IUser;
   paymentMethods: string[];

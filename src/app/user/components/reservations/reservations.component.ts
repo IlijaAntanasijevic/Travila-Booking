@@ -6,6 +6,9 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
+import { IUser } from '../../interfaces/i-user';
+import { ReservationInfoDialogComponent } from './components/reservation-info-dialog/reservation-info-dialog.component';
 
 @Component({
   selector: 'app-reservations',
@@ -15,7 +18,8 @@ import { MatTableDataSource } from '@angular/material/table';
 export class ReservationsComponent implements OnInit {
 
   constructor(
-    private bookingRequestsService: BlBookingsRequestsService
+    private bookingRequestsService: BlBookingsRequestsService,
+    private matDialog: MatDialog
   ) { }
 
   public reservationData: IReservation;
@@ -55,6 +59,14 @@ export class ReservationsComponent implements OnInit {
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
+  }
+
+  showOwnerInfo(owner: IUser): void {
+    this.matDialog.open(ReservationInfoDialogComponent, {
+      width: '700px',
+      height: 'auto',
+      data: owner
+    });
   }
 
   cancelBooking(bookingId: number): void {

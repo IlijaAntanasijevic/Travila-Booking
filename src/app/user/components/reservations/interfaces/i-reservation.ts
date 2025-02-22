@@ -15,6 +15,7 @@ interface IReservationInfo {
   apartmentImage: string;
   totalPrice: number;
   user: IUser;
+  owner: IUser;
   paymentMethod: null | string;
   checkIn: Date;
   checkOut: Date;

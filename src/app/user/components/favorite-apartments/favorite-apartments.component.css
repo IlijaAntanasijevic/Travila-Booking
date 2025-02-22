@@ -1,0 +1,19 @@
+.card-journey-small .card-info .card-rating .card-right .rating {
+  display: inline-block;
+  padding: 6px 16px 6px 30px;
+  background-color: var(--bs-neutral-0);
+  border-radius: 50px;
+  color: var(--bs-neutral-1000);
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 700;
+  border: 1px solid var(--bs-border-color);
+  box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.07);
+  background-image: url('../../../../assets/images/template/icons/star.svg');
+  background-repeat: no-repeat;
+  background-position: left 12px center;
+}
+
+.wish {
+  cursor: pointer;
+}

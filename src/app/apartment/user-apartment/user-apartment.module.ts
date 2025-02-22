@@ -3,20 +3,22 @@ import { CommonModule } from '@angular/common';
 
 import { UserApartmentRoutingModule } from './user-apartment-routing.module';
 import { UserApartmentDashboardComponent } from './components/user-apartment-dashboard/user-apartment-dashboard.component';
-import { AddUserApartmentComponent } from './components/add-user-apartment/add-user-apartment.component';
 import { SharedModule } from '../../shared/shared.module';
 import { UserModule } from '../../user/user.module';
+import { AddEditApartmentComponent } from './components/add-edit-apartment/add-edit-apartment.component';
+import { NgxSummernoteModule } from 'ngx-summernote';
 
 @NgModule({
   declarations: [
     UserApartmentDashboardComponent,
-    AddUserApartmentComponent
+    AddEditApartmentComponent
   ],
   imports: [
     CommonModule,
     UserApartmentRoutingModule,
     SharedModule,
     UserModule,
+    NgxSummernoteModule
   ]
 })
 export class UserApartmentModule { }

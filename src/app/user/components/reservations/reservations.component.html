@@ -75,7 +75,7 @@
       <ng-container matColumnDef="info">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let reservation">
-          <button mat-flat-button color="accent">Info</button>
+          <button mat-flat-button color="accent" (click)="showOwnerInfo(reservation.owner)">Info</button>
         </td>
       </ng-container>
 
@@ -91,57 +91,4 @@
   </div>
 </section>
 
-<!-- <section class="background-body pt-25">
-  <div class="mt-35 px-5">
-    <div class="table-header d-flex justify-content-between">
-      <div class="header-cell">Image</div>
-      <div class="header-cell larger-cell">Apartment Name</div>
-      <div class="header-cell larger-cell">Check-in / Check-out</div>
-      <div class="header-cell small-cell">Guests</div>
-      <div class="header-cell">Payment Method</div>
-      <div class="header-cell">Total Price</div>
-      <div class="header-cell small-cell">#</div>
-      <div class="header-cell small-cell">#</div>
-    </div>
-
-    <div class="table-body">
-      <div *ngFor="let reservation of reservationData.data"
-        class="table-row d-flex justify-content-between align-items-center">
-        <div class="cell text-left">
-          <a routerLink="/apartments/{{reservation.apartmentId}}">
-            <img src="{{reservation.apartmentImage}}" height="80px">
-          </a>
-        </div>
-        <div class="cell larger-cell name-cell">
-          <a routerLink="/apartments/{{reservation.apartmentId}}" class="text-light">
-            {{reservation.apartmentName}}
-          </a>
-        </div>
-        <div class="cell larger-cell">
-          <p>
-            {{reservation.checkIn | date : 'dd. MMM YYYY.'}} - {{reservation.checkOut | date : 'dd. MMM YYYY.'}}
-          </p>
-        </div>
-        <div class="cell small-cell">
-          <p>{{reservation.totalGuests}}</p>
-        </div>
-        <div class="cell">
-          <p>{{reservation.paymentMethod ?? '/'}}</p>
-        </div>
-        <div class="cell">
-          <p>
-            <strong>{{reservation.totalPrice}} $</strong>
-          </p>
-        </div>
-        <div class="cell small-cell">
-          <button mat-flat-button color="warn" [disabled]="disabledButtons[reservation.bookingId]"
-            (click)="cancelBooking(reservation.bookingId)">Cancel</button>
-        </div>
-        <div class="cell small-cell">
-          <button mat-flat-button color="success">Info</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section> -->
 }
