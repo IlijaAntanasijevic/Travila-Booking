@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable, Injector } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { catchError, EMPTY, Observable, throwError } from 'rxjs';
 import { config } from '../../config/global';
 import { ToastrService } from 'ngx-toastr';
 import { AppInjector } from '../helpers/app-injector';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -54,6 +53,12 @@ export class ApiService<T> {
 
   update(id: number, data: any): Observable<T> {
     return this.http.put<T>(this.apiUrl + this.url + "/" + id, data).pipe(
+      catchError((error) => this.handleErrors(error))
+    );
+  }
+
+  delete(id: number): Observable<T> {
+    return this.http.delete<T>(this.apiUrl + this.url + "/" + id).pipe(
       catchError((error) => this.handleErrors(error))
     );
   }

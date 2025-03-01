@@ -1,2 +1,49 @@
 <app-user-tabs></app-user-tabs>
-<p>user-apartment-dashboard works!</p>
+<section class="background-body pt-25">
+  <div class="container">
+    <div class="d-flex align-items-center my-2">
+      <button mat-flat-button color="primary" routerLink="add">Add New <mat-icon
+          style="margin-top: 1px;">add_circle</mat-icon></button>
+      <button mat-flat-button class="ms-3" color="accent">Archived<mat-icon
+          style="margin-top: 1px;">visibility</mat-icon></button>
+      <!-- <a routerLink="/home" class="archivedApartments"></a> -->
+    </div>
+    <div class="row">
+      @for(apartment of apartments?.data; track apartment) {
+      <div class="col-4 text-dark my-3">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title-group>
+              <mat-card-title>{{apartment.name}}</mat-card-title>
+              <mat-card-subtitle class="cardSubtitle mt-5">
+
+                <p>{{apartment.city}}</p>
+                <p>Type: <strong>{{apartment.apartmentType}}</strong></p>
+                <p>Guests: {{apartment.maxGuests}}</p>
+                <p class="price"><strong>{{apartment.pricePerNight}}</strong>$ / night</p>
+
+              </mat-card-subtitle>
+              <img mat-card-lg-image src="{{apartment.mainImage}}" alt="{{apartment.name}}">
+            </mat-card-title-group>
+          </mat-card-header>
+          <mat-card-content>
+
+          </mat-card-content>
+          <mat-card-actions class="d-flex justify-content-around mt-35 mb-2">
+            <button mat-flat-button class="delete-btn" color="warn" (click)="archive(apartment.id)">ARCHIVE</button>
+
+            <button mat-flat-button class="edit-btn" routerLink="edit/{{apartment.id}}" color="accent"
+              (click)="edit(apartment.id)">EDIT</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+      }
+    </div>
+    <app-paginator [data]="apartments" (pageChange)="onPageChange($event)"></app-paginator>
+    <!-- <p class="ms-3" style="color: grey;">Total Apartments: {{apartments?.totalCount}}</p> -->
+
+
+  </div>
+
+
+</section>

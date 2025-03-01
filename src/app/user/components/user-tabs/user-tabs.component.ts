@@ -31,7 +31,7 @@ export class UserTabsComponent implements OnInit {
   }
 
   onTabChange(index: number) {
-    this.router.navigate([`${this.routes[index]}`]);
+    this.router.navigate([this.routes[index]]);
   }
 
   updateSelectedTabIndex(): void {

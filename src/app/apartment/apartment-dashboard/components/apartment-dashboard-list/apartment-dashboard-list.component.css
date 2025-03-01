@@ -33,3 +33,7 @@
 .card-journey-small .card-info .card-program .card-duration-tour {
   margin-bottom: 40px;
 }
+
+.wish {
+  cursor: pointer;
+}

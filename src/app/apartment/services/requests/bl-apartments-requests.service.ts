@@ -40,17 +40,20 @@ export class BlApartmentsRequestsService {
     if (params.cityId !== null && params.cityId !== undefined) {
       queryParts.push(`cityId=${params.cityId}`);
     }
-  
+    if (params.currentUserApartments !== null && params.currentUserApartments !== undefined) {
+      queryParts.push(`currentUserApartments=${params.currentUserApartments}`);
+    }
+
     if (params.apartmentTypeIds && params.apartmentTypeIds.length > 0) {
       params.apartmentTypeIds.forEach(x => {
         queryParts.push(`apartmentTypeIds=${x}`);
       })
     }
 
-    if(params.page !== null && params.page !== undefined  ){
+    if (params.page !== null && params.page !== undefined) {
       queryParts.push(`page=${params.page}`);
     }
-    
+
     if (params.sorts && params.sorts.length > 0) {
       params.sorts.forEach((sort, index) => {
         if (sort.sortProperty !== null) {
@@ -61,9 +64,9 @@ export class BlApartmentsRequestsService {
         }
       });
     }
-  
+
     const queryString = queryParts.join('&');
     return queryString;
-    
+
   }
 }

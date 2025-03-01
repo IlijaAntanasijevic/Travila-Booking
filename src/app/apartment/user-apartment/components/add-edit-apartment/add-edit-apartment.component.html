@@ -1,0 +1,233 @@
+<section class="background-body pt-25 pb-55">
+  <div class="container">
+    <h4 class="text-light">Add Apartment</h4>
+    <form [formGroup]="form" class="mt-35">
+      <!-- First row -->
+      <div class="d-flex justify-content-between">
+        <div class="formBlock">
+          <mat-form-field>
+            <mat-label>Apartment name</mat-label>
+            <input matInput formControlName="name">
+            <mat-error>
+              @if(form.get('name').hasError('required')){
+              <mat-error>Apartment name is required</mat-error>
+              }
+            </mat-error>
+          </mat-form-field>
+
+        </div>
+        <div class="formBlock">
+          <mat-form-field>
+            <mat-label>Country</mat-label>
+            <input matInput type="text" formControlName="country" [matAutocomplete]="autoCountry">
+            <mat-autocomplete #autoCountry="matAutocomplete" [displayWith]="displayFn" (optionSelected)="getCities()">
+              @for (option of filteredCountries | async; track option) {
+              <mat-option [value]="option">{{option.name}}</mat-option>
+              }
+            </mat-autocomplete>
+            @if(form.get('country').hasError('required')){
+            <mat-error>Country required</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="formBlock">
+          <mat-form-field>
+            <mat-label>City</mat-label>
+            <input matInput type="text" formControlName="cityId" [matAutocomplete]="autoCity">
+            <mat-autocomplete #autoCity="matAutocomplete" [displayWith]="displayFn">
+              @for (option of filteredCities | async; track option) {
+              <mat-option [value]="option">{{option.name}}</mat-option>
+              }
+            </mat-autocomplete>
+            @if(form.get('cityId').hasError('required')){
+            <mat-error>City required</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <!-- <div>
+          <mat-form-field>
+            <mat-label>Address</mat-label>
+            <input matInput formControlName="address">
+            @if(form.get('address').hasError('required')){
+            <mat-error>Address is required</mat-error>
+            }
+          </mat-form-field>
+        </div> -->
+
+        <div class="formBlock">
+          <mat-form-field>
+            <mat-label>Apartment Type</mat-label>
+            <mat-select formControlName="apartmentTypeId">
+              @for (value of ddlData.apartmentTypes; track value) {
+              <mat-option [value]="value.id">{{value.name}}</mat-option>
+              }
+            </mat-select>
+            @if(form.get('apartmentTypeId').hasError('required')){
+            <mat-error>Apartment type is required</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Second row -->
+      <div class="d-flex justify-content-between py-4">
+        <div class="formBlock">
+          <mat-form-field>
+            <mat-label>Features</mat-label>
+            <mat-select formControlName="featureIds" multiple>
+              @for (value of ddlData.features; track value) {
+              <mat-option [value]="value.id">{{value.name}}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="formBlock" formGroupName="guests">
+          <!-- GUESTS -->
+          <button mat-flat-button [matMenuTriggerFor]="menu" class="guests" (click)="$event.stopPropagation()">
+            <span class="button-content">
+              <mat-icon>person</mat-icon>
+              <p>Guests ({{totalGuests()}})</p>
+              <mat-icon>arrow_drop_down</mat-icon>
+            </span>
+          </button>
+          <mat-menu #menu="matMenu" class="w-100">
+            <div class="d-flex justify-content-around align-items-center mt-3" (click)="$event.stopPropagation()">
+              <span class="guestsTitle">Adults</span>
+              <div class="d-flex w-50 align-items-center">
+                <span class="guestsBtn" (click)="decreaseGuests('adults')"><mat-icon>remove</mat-icon></span>
+                <input type="number" formControlName="adults" class="guestsInput" />
+                <span class="guestsBtn" (click)="increaseGuests('adults')"><mat-icon>add</mat-icon></span>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-around align-items-center my-3" (click)="$event.stopPropagation()">
+              <span class="guestsTitle">Childrens</span>
+              <div class="d-flex w-50 align-items-center">
+                <span class="guestsBtn" (click)="decreaseGuests('childrens')"><mat-icon>remove</mat-icon></span>
+                <input type="number" formControlName="childrens" class="guestsInput" />
+                <span class="guestsBtn" (click)="increaseGuests('childrens')"><mat-icon>add</mat-icon></span>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-around align-items-center mb-3" (click)="$event.stopPropagation()">
+              <span class="guestsTitle">Rooms</span>
+              <div class="d-flex w-50 align-items-center">
+                <span class="guestsBtn" (click)="decreaseGuests('totalRooms')"><mat-icon>remove</mat-icon></span>
+                <input type="number" formControlName="totalRooms" class="guestsInput" />
+                <span class="guestsBtn" (click)="increaseGuests('totalRooms')"><mat-icon>add</mat-icon></span>
+              </div>
+            </div>
+          </mat-menu>
+        </div>
+
+        <div class="formBlock">
+          <mat-form-field>
+            <mat-label>Payment Methods</mat-label>
+            <mat-select formControlName="paymentMethodIds" multiple>
+              @for (value of ddlData.paymentMethods; track value) {
+              <mat-option [value]="value.id">{{value.name}}</mat-option>
+              }
+            </mat-select>
+            @if(form.get('paymentMethodIds').hasError('required')){
+            <mat-error>Payment method is required</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="formBlock">
+          <mat-form-field>
+            <mat-label>Price/night ($)</mat-label>
+            <input matInput type="number" formControlName="price">
+            @if(form.get('price').hasError('required')){
+            <mat-error>Price is required</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row ">
+        <!-- @if(!isEdit){
+        <div class="col-sm-8">
+          <mat-label class="checkbox-label ">Images</mat-label><br>
+          <div class="row mt-25">
+            <div>
+              <button mat-flat-button disableRipple color="primary" type="button" (click)="fileInput.click()">Select
+                main image
+              </button>
+              <input style="display: none" type="file" class="upload" accept="image/*" (change)="onFileChanged($event)"
+                #fileInput />
+
+            </div>
+
+            @if(imageUrlPreview){
+
+            <img src="{{imageUrlPreview}}" class="fixed-image-size my-5" />
+            }
+            @else{
+            <mat-error>Main image is required</mat-error>
+            }
+            <div class="mt-25">
+              <ngx-dropzone (change)="onSelect($event)">
+                <ngx-dropzone-label>Select/drop other images</ngx-dropzone-label>
+                <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" (removed)="onRemove(f)"
+                  [removable]="true" *ngFor="let f of files" [file]="f">
+                </ngx-dropzone-image-preview>
+              </ngx-dropzone>
+              @if(files.length == 0) {
+              <mat-error>Main image is required</mat-error>
+
+              }
+            </div>
+          </div>
+        </div>
+        } -->
+
+        <div class="mt-25">
+          <ngx-dropzone class="dropzone" (change)="onImageSelect($event)" [accept]="'image/*'">
+            <ngx-dropzone-label>Select/drop other images</ngx-dropzone-label>
+            <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" (removed)="onImageRemove(f)"
+              [removable]="true" *ngFor="let f of files" [file]="f">
+            </ngx-dropzone-image-preview>
+          </ngx-dropzone>
+          <div class="d-flex justify-content-between align-items-center mt-2">
+            @if(files.length == 0) {
+            <mat-error>Images is required</mat-error>
+            }
+            @else {
+            <p></p>
+            }
+            <p class="text-secondary">The first uploaded image will be set as the main display image.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row mt-35">
+        <div class="col-12">
+          <quill-editor formControlName="description" [modules]="editorConfig" [styles]="quillEditorStyle"
+            style="display: block;"></quill-editor>
+        </div>
+
+      </div>
+      <div class="row mt-25">
+        <div class="col-sm-12">
+          <button mat-flat-button color="primary" (click)="submit()">TEST</button>
+        </div>
+      </div>
+
+      <!-- <div class="col-12 d-flex justify-content-center mt-75">
+        <button mat-flat-button class="w-25 primary-button-color" (click)="add()"
+          [disabled]="isEdit ? !form.valid : (!form.valid || !files.length || !imageUrlPreview)">{{isEdit ?
+          'Edit' : 'Add'}}</button>
+      </div> -->
+
+
+      <!-- [disabled]="!form.valid" -->
+
+
+    </form>
+  </div>
+</section>

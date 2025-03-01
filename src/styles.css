@@ -21,6 +21,25 @@
 }
 
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #888;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #cfcd44;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #cfcd44;
+}
+
 
 :root {
   --bs-border-color: #E4E6E8;

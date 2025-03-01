@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { IBase } from '../../core/interfaces/i-base';
-import { ApiService } from '../../core/services/api.service';
+import { IBase } from '../../../core/interfaces/i-base';
+import { ApiService } from '../../../core/services/api.service';
 import { HttpClient } from '@angular/common/http';
-import { apiPaths } from '../../config/api';
+import { apiPaths } from '../../../config/api';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +10,6 @@ import { apiPaths } from '../../config/api';
 export class ApartmentTypesService extends ApiService<IBase> {
 
   constructor(http: HttpClient) {
-    super(apiPaths.apartmentTypes.api, http)
+    super(apiPaths.lookup.apartmentType, http)
   }
 }

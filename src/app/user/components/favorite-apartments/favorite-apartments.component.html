@@ -1,1 +1,53 @@
-<p>favorite-apartments works!</p>
+<section class="background-body pt-25">
+  <div class="container">
+
+
+    <div class="row mt-35">
+      @for(apartment of data?.data; track apartment){
+      <div class="col-lg-4 col-md-6">
+        <div class="card-journey-small background-card">
+          <div class="card-image">
+            <span class="label">Top Rated</span>
+            <a class="wish" (click)="remove(apartment.id)">
+              <svg width="20" height="18" viewbox="0 0 20 18" fill="#F09814" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M17.071 10.1422L11.4141 15.7991C10.6331 16.5801 9.36672 16.5801 8.58568 15.7991L2.92882 10.1422C0.9762 8.1896 0.9762 5.02378 2.92882 3.07116C4.88144 1.11853 8.04727 1.11853 9.99989 3.07116C11.9525 1.11853 15.1183 1.11853 17.071 3.07116C19.0236 5.02378 19.0236 8.1896 17.071 10.1422Z"
+                  stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                </path>
+              </svg>
+            </a>
+
+            <img src="{{apartment.mainImage}}" alt="{{apartment.name}}">
+          </div>
+          <div class="card-info background-card">
+            <div class="card-rating">
+              <div class="card-left"> </div>
+              <div class="card-right">
+                <span class="rating">4.96
+                  <span class="text-sm-medium neutral-500">(672 reviews)</span>
+                </span>
+              </div>
+            </div>
+            <div class="card-title"> <a class='heading-6 neutral-1000'
+                routerLink="/apartments/{{apartment.id}}">{{apartment.name}} </a>
+              <p class="neutral-1000">{{apartment.city}}</p>
+            </div>
+            <div class="card-price d-flex align-items-center justify-content-between mt-35">
+              <div class=" d-flex align-items-center">
+                <h6 class="heading-6 neutral-1000 me-2">${{apartment.pricePerNight}}</h6>
+                <p class="text-md-medium neutral-500">/ night</p>
+              </div>
+
+
+              <div class="card-button"> <a class='btn btn-gray' routerLink="/apartments/{{apartment.id}}">View</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+    <app-paginator [data]="data" (pageChange)="onPageChange($event)"></app-paginator>
+
+  </div>
+</section>
