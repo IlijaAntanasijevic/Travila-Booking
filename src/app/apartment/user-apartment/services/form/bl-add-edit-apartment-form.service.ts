@@ -17,12 +17,13 @@ export class BlAddEditApartmentFormService implements IFormService<IAddEditApart
       name: new FormControl("", Validators.required),
       description: new FormControl("", Validators.required),
       address: new FormControl("", Validators.required),
-      cityId: new FormControl({ value: "", disabled: true }, Validators.required),
+      city: new FormControl({ value: "", disabled: true }, Validators.required),
       guests: new FormGroup({
         adults: new FormControl({ value: 1, disabled: true }, [Validators.required, Validators.min(1)]),
         childrens: new FormControl({ value: 0, disabled: true }, [Validators.required, Validators.min(0)]),
         totalRooms: new FormControl({ value: 1, disabled: true }, [Validators.required, Validators.min(1)])
       }),
+      location: new FormControl(null, Validators.required),
       images: new FormControl([], Validators.required),
       country: new FormControl("", Validators.required),
       price: new FormControl("", Validators.required),

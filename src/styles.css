@@ -6,7 +6,7 @@
  License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
-
+@import 'maplibre-gl/dist/maplibre-gl.css';
 @import url('./assets/responsive.css');
 
 .ks-modal-gallery-backdrop {
