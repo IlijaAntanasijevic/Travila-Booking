@@ -9,6 +9,7 @@ import { AddEditApartmentComponent } from './components/add-edit-apartment/add-e
 import { NgxSummernoteModule } from 'ngx-summernote';
 import { QuillModule } from 'ngx-quill';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { MapComponent } from '../../shared/components/map/map.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,6 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     NgxSummernoteModule,
     QuillModule.forRoot(),
     NgxDropzoneModule
-
   ]
 })
 export class UserApartmentModule { }

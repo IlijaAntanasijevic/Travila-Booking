@@ -41,11 +41,11 @@
               "node_modules/ngx-toastr/toastr.css",
               "node_modules/@angular/cdk/overlay-prebuilt.css",
                 "node_modules/summernote/dist/summernote-lite.min.css",
-                "node_modules/quill/dist/quill.snow.css"
+                "node_modules/quill/dist/quill.snow.css",
+                 "./node_modules/maplibre-gl/dist/maplibre-gl.css"
             ],
             "scripts": [
-                "node_modules/jquery/dist/jquery.min.js",
-  "node_modules/summernote/dist/summernote-lite.min.js"
+                "node_modules/jquery/dist/jquery.min.js"
             ]
           },
           "configurations": {

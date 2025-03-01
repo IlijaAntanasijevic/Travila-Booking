@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BlAddEditApartmentFormService } from '../../services/form/bl-add-edit-apartment-form.service';
 import { BlAddEditApartmentRequestsService } from '../../services/requests/bl-add-edit-apartment-requests.service';
 import { IApartmentDdlData } from '../../interfaces/i-add-edit-apartment';
@@ -6,6 +6,7 @@ import { map, Observable, startWith, Subscription } from 'rxjs';
 import { Spinner } from '../../../../core/functions/spinner';
 import { IBase } from '../../../../core/interfaces/i-base';
 import { FormControl } from '@angular/forms';
+import * as maplibregl from 'maplibre-gl';
 
 @Component({
   selector: 'app-add-edit-apartment',
@@ -22,8 +23,12 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
   form = this.formService.getForm();
   filteredCountries: Observable<IBase[]>;
+  coordinates: [number, number] | null = null;
   filteredCities: Observable<IBase[]>;
   files: File[] = [];
+
+  mapSelectedCountry: string = "";
+  mapSelectedCity: string = "";
 
   ddlData: IApartmentDdlData = {
     features: [],
@@ -58,6 +63,11 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getDllData();
     this.form.markAllAsTouched();
+
+    this.form.get('city')?.valueChanges.subscribe(() => {
+      this.mapSelectedCity = this.form.get('city')?.value?.name || '';
+      this.mapSelectedCountry = this.form.get('country')?.value?.name || '';
+    });
   }
 
   getDllData(): void {
@@ -105,7 +115,7 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
 
   getCities(): void {
     Spinner.show();
-    const cityControl = this.form.controls['cityId'];
+    const cityControl = this.form.controls['city'];
     let countryId = this.formService.getFormData().country.id;
     this.subscription.add(
       this.requestsService.getCitiesByCountryId(countryId).subscribe({
@@ -120,14 +130,6 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
               return name ? this.filter(name as string, false) : this.ddlData.cities.slice();
             }),
           );
-
-          this.filteredCities.subscribe({
-            next: (data) => {
-              console.log(data);
-
-            }
-          })
-
           Spinner.hide();
         },
         error: (err) => {
@@ -135,6 +137,10 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
         }
       })
     )
+  }
+
+  setPinnedLongLat(coords: [number, number]): void {
+    this.form.controls['location'].setValue(coords);
   }
 
   increaseGuests(type: string): void {

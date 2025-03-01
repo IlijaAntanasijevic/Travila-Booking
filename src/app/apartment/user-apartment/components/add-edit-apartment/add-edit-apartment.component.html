@@ -34,13 +34,13 @@
         <div class="formBlock">
           <mat-form-field>
             <mat-label>City</mat-label>
-            <input matInput type="text" formControlName="cityId" [matAutocomplete]="autoCity">
+            <input matInput type="text" formControlName="city" [matAutocomplete]="autoCity">
             <mat-autocomplete #autoCity="matAutocomplete" [displayWith]="displayFn">
               @for (option of filteredCities | async; track option) {
               <mat-option [value]="option">{{option.name}}</mat-option>
               }
             </mat-autocomplete>
-            @if(form.get('cityId').hasError('required')){
+            @if(form.get('city').hasError('required')){
             <mat-error>City required</mat-error>
             }
           </mat-form-field>
@@ -202,6 +202,23 @@
             <p class="text-secondary">The first uploaded image will be set as the main display image.</p>
           </div>
 
+        </div>
+      </div>
+
+      <div class="row mb-25 mt-35">
+        <div class="col-12">
+          <app-map [city]="mapSelectedCity" (coordinatesChange)="setPinnedLongLat($event)"
+            [country]="mapSelectedCountry"></app-map>
+          @if(form.get('location').hasError('required')) {
+          <mat-error>Please select a location by placing a pin on the map.</mat-error>
+          }
+          <mat-form-field class="mt-2">
+            <mat-label>Street Address</mat-label>
+            <input matInput type="text" formControlName="address">
+            @if(form.get('address').hasError('required')){
+            <mat-error>Street and house number are required.</mat-error>
+            }
+          </mat-form-field>
         </div>
       </div>
 
