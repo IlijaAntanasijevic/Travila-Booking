@@ -7,6 +7,8 @@ import { SharedModule } from '../../shared/shared.module';
 import { UserModule } from '../../user/user.module';
 import { AddEditApartmentComponent } from './components/add-edit-apartment/add-edit-apartment.component';
 import { NgxSummernoteModule } from 'ngx-summernote';
+import { QuillModule } from 'ngx-quill';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,10 @@ import { NgxSummernoteModule } from 'ngx-summernote';
     UserApartmentRoutingModule,
     SharedModule,
     UserModule,
-    NgxSummernoteModule
+    NgxSummernoteModule,
+    QuillModule.forRoot(),
+    NgxDropzoneModule
+
   ]
 })
 export class UserApartmentModule { }

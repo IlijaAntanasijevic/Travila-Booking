@@ -7,7 +7,7 @@ export interface IAddEditApartmentForm {
   cityCountryId: number,
   cityId?: number,
   country?: IBase,
-  maxGuests: number,
+  guests: IGuests,
   pricePerNight: number,
   mainImage: string,
   apartmentTypeId: number,
@@ -26,4 +26,11 @@ export interface IApartmentDdlData {
 
 export interface IAddApartmentRequest extends IAddEditApartmentForm {
 
+}
+
+
+interface IGuests {
+  adults: number;
+  children: number;
+  totalRooms: number;
 }

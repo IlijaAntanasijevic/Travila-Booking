@@ -23,7 +23,7 @@ import { AppInjector } from './core/helpers/app-injector';
     ToastrModule.forRoot({
       timeOut: 4500,
       positionClass: 'toast-top-right',
-    }),
+    })
   ],
   providers: [
     provideAnimationsAsync()

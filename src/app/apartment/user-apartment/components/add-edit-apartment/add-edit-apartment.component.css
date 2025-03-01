@@ -147,12 +147,103 @@ input::-webkit-inner-spin-button {
   height: 1px !important;
 }
 
-.apartment-second-block {
-  margin-top: 50px !important;
-}
-
 .fixed-image-size {
   width: 200px;
   height: auto;
   object-fit: cover;
+}
+
+::ng-deep .mat-mdc-form-field {
+  width: 100% !important;
+}
+
+.formBlock {
+  width: 16rem;
+}
+
+/* GUESTS */
+
+.guests {
+  height: 56px;
+  text-align: start;
+  background-color: var(--bs-neutral-100) !important;
+  color: white !important;
+  width: 100% !important;
+
+}
+
+.guestsBtn {
+  cursor: pointer;
+  width: 30%;
+  text-align: center;
+  font-size: 1.2rem;
+  color: white;
+
+}
+
+.guestsBtn mat-icon {
+  height: 20px;
+
+}
+
+.guestsInput {
+  background-color: transparent;
+  border: 2px solid var(--bs-brand-secondary);
+  margin: 0px 10px;
+  color: white;
+  padding: 0px;
+  text-align: center;
+}
+
+.guestsTitle {
+  width: 60px;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+::ng-deep .mat-mdc-menu-panel {
+  background-color: var(--bs-neutral-100) !important;
+  color: white !important;
+  max-width: 16rem !important;
+  border: 1px solid var(--bs-neutral-300);
+}
+
+/* ::ng-deep .mat-mdc-unelevated-button:not(:disabled) {
+  background-color: var(--bs-neutral-100) !important;
+  color: white !important;
+}
+
+::ng-deep .mat-mdc-unelevated-button:not(:disabled) {
+  width: 100% !important;
+} */
+
+.button-content {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+} */
+
+
+
+
+/* NOTE */
+::ng-deep .ql-editor {
+  color: white !important;
+}
+
+::ng-deep .ql-editor.ql-blank::before {
+  color: #ffffff99 !important;
+}
+
+.dropzone {
+  background: #333;
+  color: rgba(255, 255, 255, 0.527);
+  border: 2px dashed rgba(255, 255, 255, 0.527);
 }
