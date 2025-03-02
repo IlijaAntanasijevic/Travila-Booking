@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import * as maplibregl from 'maplibre-gl';
-import { IMapStyle } from './i-map';
+import { ILocationCoordinates, ILocationInfo, IMapStyle } from './i-map';
 
 @Component({
   selector: 'app-map',
@@ -14,7 +14,8 @@ export class MapComponent implements OnInit, OnChanges {
   @Input() country!: string;
   @Input() customStyle: IMapStyle = null;
   // @Input() coordinates!: [number, number] | null;
-  @Output() coordinatesChange = new EventEmitter<[number, number]>();
+  @Output() coordinatesChange = new EventEmitter<ILocationCoordinates>();
+  @Output() locationInfo = new EventEmitter<ILocationInfo>();
 
   map!: maplibregl.Map;
   marker!: maplibregl.Marker;
@@ -23,7 +24,7 @@ export class MapComponent implements OnInit, OnChanges {
 
   mapStyles = {
     streets: 'https://api.maptiler.com/maps/streets/style.json?key=get_your_own_OpIi9ZULNHzrESv6T2vL',
-    satellite: 'https://api.maptiler.com/maps/satellite/style.json?key=get_your_own_OpIi9ZULNHzrESv6T2vL'
+    satellite: 'https://api.maptiler.com/maps/hybrid/style.json?key=get_your_own_OpIi9ZULNHzrESv6T2vL'
   };
 
   currentStyle: string = this.mapStyles.streets;
@@ -37,12 +38,12 @@ export class MapComponent implements OnInit, OnChanges {
       this.style = { ...this.customStyle };
     }
 
-    let coords: [number, number] = await this.getCoordinates(this.city || 'Novi Sad', this.country || 'Serbia');
+    let coords: ILocationCoordinates = await this.getCoordinates(this.city || 'Belgrade', this.country || 'Serbia');
 
     this.map = new maplibregl.Map({
       container: this.mapContainer.nativeElement,
       style: this.currentStyle,
-      center: coords,
+      center: [coords.longitude, coords.lattitude],
       zoom: 10,
       interactive: false,
       dragPan: false,
@@ -59,7 +60,11 @@ export class MapComponent implements OnInit, OnChanges {
     this.addToggleButton();
     this.map.on('click', (event) => {
       if (!this.isMapDisabled) {
-        this.addCustomMarker([event.lngLat.lng, event.lngLat.lat]);
+        let coords: ILocationCoordinates = {
+          lattitude: event.lngLat.lat,
+          longitude: event.lngLat.lng
+        }
+        this.addCustomMarker(coords);
       }
     });
   }
@@ -80,7 +85,7 @@ export class MapComponent implements OnInit, OnChanges {
 
     this.disableMapInteractions();
 
-    this.map.flyTo({ center: coords, zoom: 10 });
+    this.map.flyTo({ center: [coords.longitude, coords.lattitude], zoom: 10 });
 
     this.map.once('moveend', () => {
       this.overlayText = "";
@@ -88,14 +93,19 @@ export class MapComponent implements OnInit, OnChanges {
     });
   }
 
-  async getCoordinates(city: string, country: string): Promise<[number, number] | null> {
+  async getCoordinates(city: string, country: string): Promise<ILocationCoordinates | null> {
     const url = `https://nominatim.openstreetmap.org/search?city=${city}&country=${country}&format=json&limit=1`;
     try {
       const response = await fetch(url);
       const data = await response.json();
 
       if (data.length > 0) {
-        return [parseFloat(data[0].lon), parseFloat(data[0].lat)];
+        let response: ILocationCoordinates = {
+          longitude: parseFloat(data[0].lon),
+          lattitude: parseFloat(data[0].lat)
+        }
+
+        return response;
       }
     } catch (error) {
       console.error(error);
@@ -103,7 +113,28 @@ export class MapComponent implements OnInit, OnChanges {
     return null;
   }
 
-  addCustomMarker(coords: [number, number]): void {
+  async getLocationInfo(coords: ILocationCoordinates): Promise<void> {
+    // const [lng, lat] = coords;
+    const url = `https://nominatim.openstreetmap.org/reverse?lat=${coords.lattitude}&lon=${coords.longitude}&format=json`;
+
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (data) {
+        let info: ILocationInfo = {
+          street: data.address.road,
+          houseNumber: data.address.house_number
+        };
+
+        this.locationInfo.emit(info)
+      }
+    } catch (error) {
+      console.error("Reverse Geocoding Error:", error);
+    }
+  }
+
+  addCustomMarker(coords: ILocationCoordinates): void {
     if (this.customPin) {
       this.customPin.remove();
     }
@@ -111,11 +142,20 @@ export class MapComponent implements OnInit, OnChanges {
       this.marker.remove();
     }
 
+    console.log(coords);
+
+
     this.customPin = new maplibregl.Marker({ color: '#FEFA17' })
-      .setLngLat(coords)
+      .setLngLat([coords.longitude, coords.lattitude])
       .addTo(this.map);
 
-    this.coordinatesChange.emit(coords);
+    let locationCoords: ILocationCoordinates = {
+      longitude: coords.longitude,
+      lattitude: coords.lattitude
+    };
+
+    this.coordinatesChange.emit(locationCoords);
+    this.getLocationInfo(coords);
   }
 
   enableMapInteractions(): void {
