@@ -6,6 +6,7 @@ import { PaymentTypeService } from '../../../../shared/api/lookup/payment-type.s
 import { FeaturesService } from '../../../../shared/api/lookup/features.service';
 import { forkJoin, Observable } from 'rxjs';
 import { IBase } from '../../../../core/interfaces/i-base';
+import { ApartmentService } from '../../../services/api/apartment.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ import { IBase } from '../../../../core/interfaces/i-base';
 export class BlAddEditApartmentRequestsService {
 
   constructor(
+    private apiService: ApartmentService,
     private cityService: CityService,
     private apartmentTypeService: ApartmentTypesService,
     private countryService: CountryService,
@@ -34,5 +36,9 @@ export class BlAddEditApartmentRequestsService {
 
   getCitiesByCountryId(id: number): Observable<IBase[]> {
     return this.cityService.getAllByCountryId(id)
+  }
+
+  testCreate(data: FormData): Observable<any> {
+    return this.apiService.testCrete(data);
   }
 }

@@ -165,6 +165,13 @@ input::-webkit-inner-spin-button {
   width: 16rem;
 }
 
+::ng-deep.mat-mdc-unelevated-button[disabled],
+.mat-mdc-unelevated-button.mat-mdc-button-disabled {
+  background-color: #fefa17b4 !important;
+  width: 10rem;
+  /* color: white; */
+}
+
 /* GUESTS */
 
 .guests {

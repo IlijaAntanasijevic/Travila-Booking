@@ -6,7 +6,7 @@ import { map, Observable, startWith, Subscription } from 'rxjs';
 import { Spinner } from '../../../../core/functions/spinner';
 import { IBase } from '../../../../core/interfaces/i-base';
 import { FormControl } from '@angular/forms';
-import * as maplibregl from 'maplibre-gl';
+import { ILocationCoordinates, ILocationInfo } from '../../../../shared/components/map/i-map';
 
 @Component({
   selector: 'app-add-edit-apartment',
@@ -29,6 +29,7 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
 
   mapSelectedCountry: string = "";
   mapSelectedCity: string = "";
+  locationInfo: ILocationInfo;
 
   ddlData: IApartmentDdlData = {
     features: [],
@@ -116,6 +117,7 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
   getCities(): void {
     Spinner.show();
     const cityControl = this.form.controls['city'];
+    const addressControl = this.form.controls['address'];
     let countryId = this.formService.getFormData().country.id;
     this.subscription.add(
       this.requestsService.getCitiesByCountryId(countryId).subscribe({
@@ -123,6 +125,8 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
           this.ddlData.cities = data;
           cityControl.enable();
           cityControl.setValue("")
+          addressControl.enable();
+          addressControl.setValue("");
           this.filteredCities = cityControl.valueChanges.pipe(
             startWith(''),
             map(value => {
@@ -139,8 +143,19 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
     )
   }
 
-  setPinnedLongLat(coords: [number, number]): void {
-    this.form.controls['location'].setValue(coords);
+  setPinnedLongLat(coords: ILocationCoordinates): void {
+    this.form.controls['longitude'].setValue(coords.longitude);
+    this.form.controls['lattitude'].setValue(coords.lattitude);
+  }
+
+  setLocationInfo(info: ILocationInfo): void {
+    if (info.street) {
+      this.form.controls['address'].setValue(info.street + " " + (info.houseNumber ?? ''));
+    }
+    else {
+      this.form.controls['address'].setValue("");
+      this.form.controls['address'].markAsUntouched();
+    }
   }
 
   increaseGuests(type: string): void {
@@ -176,16 +191,65 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
     return adults + children;
   }
 
-  onImageSelect(event) {
+  onImageSelect(event: any): void {
+    if (!event.addedFiles || event.addedFiles.length === 0) {
+      return;
+    }
+
+    const formDataImages: FormData[] = [];
+
+    event.addedFiles.forEach((file: File, index: number) => {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      if (index === 0) {
+        this.form.controls['mainImage'].setValue(formData);
+      } else {
+        formDataImages.push(formData);
+      }
+    });
+
+    this.form.controls['images'].setValue(formDataImages);
     this.files.push(...event.addedFiles);
   }
 
-  onImageRemove(event) {
-    this.files.splice(this.files.indexOf(event), 1);
+  onImageRemove(event: any): void {
+    const index = this.files.indexOf(event);
+    if (index !== -1) {
+      this.files.splice(index, 1);
+    }
+
+    if (index === 0 && this.files.length > 0) {
+      const newMainImage = new FormData();
+      newMainImage.append("file", this.files[0]);
+      this.form.controls['mainImage'].setValue(newMainImage);
+    }
+    else if (this.files.length === 0) {
+      this.form.controls['mainImage'].setValue(null);
+    }
+
+    const updatedFormDataImages: FormData[] = this.files.slice(1).map((file) => {
+      const formData = new FormData();
+      formData.append("file", file);
+      return formData;
+    });
+
+    this.form.controls['images'].setValue(updatedFormDataImages);
   }
 
   submit(): void {
-    console.log(this.formService.getFormData());
+    Spinner.show();
+    this.subscription.add(
+      this.formService.submitInsert().subscribe({
+        next: (data) => {
+          Spinner.hide();
+
+        },
+        error: (err) => {
+          Spinner.hide();
+        }
+      })
+    )
 
   }
 

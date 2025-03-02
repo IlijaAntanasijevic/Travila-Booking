@@ -208,8 +208,8 @@
       <div class="row mb-25 mt-35">
         <div class="col-12">
           <app-map [city]="mapSelectedCity" (coordinatesChange)="setPinnedLongLat($event)"
-            [country]="mapSelectedCountry"></app-map>
-          @if(form.get('location').hasError('required')) {
+            [country]="mapSelectedCountry" (locationInfo)="setLocationInfo($event)"></app-map>
+          @if(form.get('longitude').hasError('required') || form.get('lattitude').hasError('required')) {
           <mat-error>Please select a location by placing a pin on the map.</mat-error>
           }
           <mat-form-field class="mt-2">
@@ -226,12 +226,15 @@
         <div class="col-12">
           <quill-editor formControlName="description" [modules]="editorConfig" [styles]="quillEditorStyle"
             style="display: block;"></quill-editor>
+          @if(form.get('description').hasError('required')){
+          <mat-error>Description is required</mat-error>
+          }
         </div>
 
       </div>
       <div class="row mt-25">
-        <div class="col-sm-12">
-          <button mat-flat-button color="primary" (click)="submit()">TEST</button>
+        <div class="col-sm-12 text-end">
+          <button mat-flat-button color="primary" (click)="submit()" [disabled]="form.invalid">SUMBIT</button>
         </div>
       </div>
 
