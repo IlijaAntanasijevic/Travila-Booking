@@ -19,7 +19,7 @@ export class UserAvatarService extends ApiService<any> {
     let formData = new FormData();
     formData.append("file", file, file.name)
 
-    let url = config.apiUrl + apiPaths.user.avatar + "/" + id;
+    let url = config.apiUrl + apiPaths.user.avatar;
     return this.http.put<any>(url, formData, {
       headers: new HttpHeaders({}),
     }).pipe(

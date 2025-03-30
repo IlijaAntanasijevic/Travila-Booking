@@ -38,6 +38,10 @@ export class BlAddEditApartmentRequestsService {
     return this.cityService.getAllByCountryId(id)
   }
 
+  getApartmentById(id: number): Observable<any> {
+    return this.apiService.getOne(id);
+  }
+
   testCreate(data: FormData): Observable<any> {
     return this.apiService.testCrete(data);
   }

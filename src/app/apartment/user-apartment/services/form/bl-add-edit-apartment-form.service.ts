@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { IFormService } from '../../../../core/interfaces/i-form-service';
 import { IAddApartmentRequest, IAddEditApartmentForm } from '../../interfaces/i-add-edit-apartment';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { BlAddEditApartmentRequestsService } from '../requests/bl-add-edit-apartment-requests.service';
 
 @Injectable({
@@ -48,12 +48,28 @@ export class BlAddEditApartmentFormService implements IFormService<IAddEditApart
     return this.form.getRawValue();
   }
 
+  fillForm(id: number): Observable<any> {
+    return this.requestsService.getApartmentById(id).pipe(
+      tap(data => {
+        this.form.patchValue({
+          name: data.name,
+          description: data.description,
+          address: data.address,
+          city: data.city,
+          country: data.country,
+          longitude: data.longitude,
+          lattitude: data.lattitude,
+          price: data.pricePerNight,
+          apartmentTypeId: data.apartmentTypeId,
+          featureIds: data.features.map((feature: any) => feature.id),
+          paymentMethodIds: data.paymentMethods.map((paymentMethod: any) => paymentMethod.id),
+        });
+      }
+    ));
+  }
 
   prepareDataToSend(): FormData {
     const data = this.getFormData();
-
-    console.log(data);
-
     let formData = new FormData();
     formData.append("name", data.name);
     formData.append("description", data.description);

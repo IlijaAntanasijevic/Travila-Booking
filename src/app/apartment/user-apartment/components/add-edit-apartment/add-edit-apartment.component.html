@@ -1,6 +1,6 @@
 <section class="background-body pt-25 pb-55">
   <div class="container">
-    <h4 class="text-light">Add Apartment</h4>
+    <h4 class="text-light">{{isEdit ? 'Edit' : 'Add'}} Apartment</h4>
     <form [formGroup]="form" class="mt-35">
       <!-- First row -->
       <div class="d-flex justify-content-between">
@@ -207,8 +207,13 @@
 
       <div class="row mb-25 mt-35">
         <div class="col-12">
-          <app-map [city]="mapSelectedCity" (coordinatesChange)="setPinnedLongLat($event)"
-            [country]="mapSelectedCountry" (locationInfo)="setLocationInfo($event)"></app-map>
+          <app-map 
+          [city]="mapSelectedCity" 
+          (coordinatesChange)="setPinnedLongLat($event)"
+          [country]="mapSelectedCountry" 
+          (locationInfo)="setLocationInfo($event)"
+          [coordinates]="selectedCoordinates"
+          ></app-map>
           @if(form.get('longitude').hasError('required') || form.get('lattitude').hasError('required')) {
           <mat-error>Please select a location by placing a pin on the map.</mat-error>
           }
