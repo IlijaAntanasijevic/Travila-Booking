@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import * as maplibregl from 'maplibre-gl';
 import { ILocationCoordinates, ILocationInfo, IMapStyle } from './i-map';
 
@@ -13,8 +13,10 @@ export class MapComponent implements OnInit, OnChanges {
   @Input() city!: string;
   @Input() country!: string;
   @Input() customStyle: IMapStyle = null;
+  
   // @Input() coordinates!: [number, number] | null;
-  @Output() coordinatesChange = new EventEmitter<ILocationCoordinates>();
+  @Input() coordinates!: ILocationCoordinates | null;
+  @Output() coordinatesChange = new EventEmitter<ILocationCoordinates | null>();
   @Output() locationInfo = new EventEmitter<ILocationInfo>();
 
   map!: maplibregl.Map;
@@ -33,13 +35,31 @@ export class MapComponent implements OnInit, OnChanges {
   overlayText: string = "Select a city to enable the map";
 
   async ngOnInit(): Promise<void> {
-
     if (this.customStyle) {
       this.style = { ...this.customStyle };
-    }
+    }    
 
     let coords: ILocationCoordinates = await this.getCoordinates(this.city || 'Belgrade', this.country || 'Serbia');
 
+    if(coords != null && this.coordinates == null) {
+      this.initializedMap(coords);
+    }
+    // this.initializedMap(coords);
+  }
+
+   ngOnChanges(changes: SimpleChanges): void {
+    if (changes['city'] && changes['city'].currentValue) {
+      this.updateMap(this.city, this.country);
+    }
+
+    if (changes['coordinates'] && changes['coordinates'].currentValue) {
+      this.initializedMap(this.coordinates!);
+      this.addCustomMarker(this.coordinates!);
+    }
+  }
+
+  initializedMap(coords: ILocationCoordinates): void {
+    // alert("Map initialized: " + coords.longitude + ", " + coords.lattitude);
     this.map = new maplibregl.Map({
       container: this.mapContainer.nativeElement,
       style: this.currentStyle,
@@ -56,7 +76,7 @@ export class MapComponent implements OnInit, OnChanges {
 
     this.map.addControl(new maplibregl.NavigationControl(), 'top-right');
 
-    this.marker = new maplibregl.Marker();
+    // this.marker = new maplibregl.Marker();
     this.addToggleButton();
     this.map.on('click', (event) => {
       if (!this.isMapDisabled) {
@@ -69,13 +89,11 @@ export class MapComponent implements OnInit, OnChanges {
     });
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['city'] && changes['city'].currentValue) {
-      this.updateMap(this.city, this.country);
-    }
-  }
-
   async updateMap(city: string, country: string): Promise<void> {
+    if (this.customPin) {
+      this.customPin.remove();
+    }
+
     if (this.city) {
       this.overlayText = "Loading new location...";
     }
@@ -91,6 +109,9 @@ export class MapComponent implements OnInit, OnChanges {
       this.overlayText = "";
       this.enableMapInteractions();
     });
+
+    this.coordinatesChange.emit(null);
+
   }
 
   async getCoordinates(city: string, country: string): Promise<ILocationCoordinates | null> {
@@ -126,7 +147,7 @@ export class MapComponent implements OnInit, OnChanges {
           street: data.address.road,
           houseNumber: data.address.house_number
         };
-
+        
         this.locationInfo.emit(info)
       }
     } catch (error) {
@@ -138,23 +159,19 @@ export class MapComponent implements OnInit, OnChanges {
     if (this.customPin) {
       this.customPin.remove();
     }
-    if (this.marker) {
-      this.marker.remove();
-    }
-
-    console.log(coords);
-
+    // if (this.marker) {
+    //   this.marker.remove();
+    // }
+    console.log("custom marker: " + coords.longitude + ", " + coords.lattitude);
+    console.log(this.coordinates);
+    
+    
 
     this.customPin = new maplibregl.Marker({ color: '#FEFA17' })
       .setLngLat([coords.longitude, coords.lattitude])
       .addTo(this.map);
 
-    let locationCoords: ILocationCoordinates = {
-      longitude: coords.longitude,
-      lattitude: coords.lattitude
-    };
-
-    this.coordinatesChange.emit(locationCoords);
+    this.coordinatesChange.emit(coords);
     this.getLocationInfo(coords);
   }
 

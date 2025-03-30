@@ -7,6 +7,7 @@ import { Spinner } from '../../../../core/functions/spinner';
 import { IBase } from '../../../../core/interfaces/i-base';
 import { FormControl } from '@angular/forms';
 import { ILocationCoordinates, ILocationInfo } from '../../../../shared/components/map/i-map';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-add-edit-apartment',
@@ -17,7 +18,9 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
 
   constructor(
     private formService: BlAddEditApartmentFormService,
-    private requestsService: BlAddEditApartmentRequestsService
+    private requestsService: BlAddEditApartmentRequestsService,
+    private router: Router,
+    private route: ActivatedRoute,
   ) { }
 
   private subscription: Subscription = new Subscription();
@@ -26,10 +29,13 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
   coordinates: [number, number] | null = null;
   filteredCities: Observable<IBase[]>;
   files: File[] = [];
+  isEdit: boolean = false;
 
   mapSelectedCountry: string = "";
   mapSelectedCity: string = "";
   locationInfo: ILocationInfo;
+  selectedCoordinates: ILocationCoordinates;
+
 
   ddlData: IApartmentDdlData = {
     features: [],
@@ -65,6 +71,14 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
     this.getDllData();
     this.form.markAllAsTouched();
 
+    this.route.params.subscribe(params => {
+      const id = params['id'];
+      if (id) {
+        this.isEdit = true;
+        this.fillForm(id);
+      }
+    });
+
     this.form.get('city')?.valueChanges.subscribe(() => {
       this.mapSelectedCity = this.form.get('city')?.value?.name || '';
       this.mapSelectedCountry = this.form.get('country')?.value?.name || '';
@@ -87,6 +101,30 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
           Spinner.hide();
         }
       })
+    )
+  }
+
+  fillForm(id: number): void {
+    Spinner.show();
+    this.subscription.add(
+      this.formService.fillForm(id).subscribe({
+        next: (data) => {
+          console.log(data);
+          this.form.controls['city'].enable();
+          this.form.controls['address'].enable();
+
+          const long = this.form.get('longitude')?.value;
+          const lat = this.form.get('lattitude')?.value;
+          
+          if (long && lat) {
+            this.selectedCoordinates = { longitude: long, lattitude: lat };
+          }
+          Spinner.hide();
+        },
+        error: (err) => Spinner.hide()
+
+      })
+
     )
   }
 
@@ -143,9 +181,16 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
     )
   }
 
-  setPinnedLongLat(coords: ILocationCoordinates): void {
-    this.form.controls['longitude'].setValue(coords.longitude);
-    this.form.controls['lattitude'].setValue(coords.lattitude);
+  setPinnedLongLat(coords: ILocationCoordinates | null): void {    
+    if(coords == null && this.selectedCoordinates == null) {
+      this.form.controls['longitude'].setValue(null);
+      this.form.controls['lattitude'].setValue(null);
+    }
+    else {
+      this.form.controls['longitude'].setValue(coords.longitude);
+      this.form.controls['lattitude'].setValue(coords.lattitude);
+      this.form.controls['address'].markAsUntouched();
+    }
   }
 
   setLocationInfo(info: ILocationInfo): void {
@@ -255,5 +300,6 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this.formService.reset();
   }
 }
