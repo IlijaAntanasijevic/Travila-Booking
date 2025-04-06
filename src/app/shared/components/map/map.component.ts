@@ -110,7 +110,7 @@ export class MapComponent implements OnInit, OnChanges {
       this.enableMapInteractions();
     });
 
-    this.coordinatesChange.emit(null);
+    this.coordinatesChange.emit(this.coordinates ?? null);
 
   }
 
@@ -162,11 +162,7 @@ export class MapComponent implements OnInit, OnChanges {
     // if (this.marker) {
     //   this.marker.remove();
     // }
-    console.log("custom marker: " + coords.longitude + ", " + coords.lattitude);
-    console.log(this.coordinates);
     
-    
-
     this.customPin = new maplibregl.Marker({ color: '#FEFA17' })
       .setLngLat([coords.longitude, coords.lattitude])
       .addTo(this.map);

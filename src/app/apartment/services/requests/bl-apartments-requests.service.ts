@@ -67,6 +67,5 @@ export class BlApartmentsRequestsService {
 
     const queryString = queryParts.join('&');
     return queryString;
-
   }
 }

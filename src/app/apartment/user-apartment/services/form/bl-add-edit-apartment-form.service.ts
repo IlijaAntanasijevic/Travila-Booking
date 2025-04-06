@@ -60,6 +60,8 @@ export class BlAddEditApartmentFormService implements IFormService<IAddEditApart
           longitude: data.longitude,
           lattitude: data.lattitude,
           price: data.pricePerNight,
+          mainImage: data.mainImage,
+          images: data.images,    
           apartmentTypeId: data.apartmentTypeId,
           featureIds: data.features.map((feature: any) => feature.id),
           paymentMethodIds: data.paymentMethods.map((paymentMethod: any) => paymentMethod.id),

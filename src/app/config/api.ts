@@ -6,7 +6,8 @@ export const apiPaths = {
   apartment: {
     api: "api/apartment",
     review: "api/review",
-    favorite: "api/favorite"
+    favorite: "api/favorite",
+    image: "api/apartment/image",
   },
   lookup: {
     cities: "api/city",
@@ -26,5 +27,8 @@ export const apiPaths = {
   },
   bookings: {
     api: "api/bookings"
+  },
+  images: {
+    api: "api/files"
   }
 }

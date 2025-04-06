@@ -172,6 +172,10 @@ input::-webkit-inner-spin-button {
   /* color: white; */
 }
 
+::ng-deep .mat-mdc-unelevated-button:not(:disabled) {
+  width: 10rem;
+}
+
 /* GUESTS */
 
 .guests {

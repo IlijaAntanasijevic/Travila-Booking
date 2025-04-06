@@ -7,6 +7,8 @@ import { FeaturesService } from '../../../../shared/api/lookup/features.service'
 import { forkJoin, Observable } from 'rxjs';
 import { IBase } from '../../../../core/interfaces/i-base';
 import { ApartmentService } from '../../../services/api/apartment.service';
+import { ApartmentImageService } from '../../../services/api/apartment-image.service';
+import { ImagesService } from '../../../../shared/api/images.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +21,9 @@ export class BlAddEditApartmentRequestsService {
     private apartmentTypeService: ApartmentTypesService,
     private countryService: CountryService,
     private paymentTypeService: PaymentTypeService,
-    private featuresService: FeaturesService
+    private featuresService: FeaturesService,
+    private apartmentImageService: ApartmentImageService,
+    private imagesService: ImagesService
   ) { }
 
 
@@ -45,4 +49,13 @@ export class BlAddEditApartmentRequestsService {
   testCreate(data: FormData): Observable<any> {
     return this.apiService.testCrete(data);
   }
+
+  getApartmentImage(fileName: string): Observable<any> {
+    return this.apartmentImageService.getImage(fileName);
+  }
+
+  uploadImage(files: File[]): Observable<any> {
+    return this.imagesService.create(files);
+  }
+
 }
