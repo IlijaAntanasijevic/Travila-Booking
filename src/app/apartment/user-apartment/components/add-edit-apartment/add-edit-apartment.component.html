@@ -209,8 +209,8 @@
         <div class="col-12">
           <app-map 
           [city]="mapSelectedCity" 
-          (coordinatesChange)="setPinnedLongLat($event)"
           [country]="mapSelectedCountry" 
+          (coordinatesChange)="setPinnedLongLat($event)"
           (locationInfo)="setLocationInfo($event)"
           [coordinates]="selectedCoordinates"
           ></app-map>
@@ -239,7 +239,8 @@
       </div>
       <div class="row mt-25">
         <div class="col-sm-12 text-end">
-          <button mat-flat-button color="primary" (click)="submit()" [disabled]="form.invalid">SUMBIT</button>
+          <button mat-flat-button color="primary" (click)="submit()" >SUMBIT</button>
+          <!-- [disabled]="form.invalid" -->
         </div>
       </div>
 

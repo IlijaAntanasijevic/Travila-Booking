@@ -14,7 +14,7 @@ export class ApiService<T> {
     protected http: HttpClient,
   ) { }
 
-  private apiUrl = config.apiUrl;
+  protected apiUrl = config.apiUrl;
   private alertServiceReference: ToastrService = null;
 
   getAll(): Observable<T[]> {

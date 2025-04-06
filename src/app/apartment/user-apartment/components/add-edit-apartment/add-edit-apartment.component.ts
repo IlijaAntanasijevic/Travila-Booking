@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } fr
 import { BlAddEditApartmentFormService } from '../../services/form/bl-add-edit-apartment-form.service';
 import { BlAddEditApartmentRequestsService } from '../../services/requests/bl-add-edit-apartment-requests.service';
 import { IApartmentDdlData } from '../../interfaces/i-add-edit-apartment';
-import { map, Observable, startWith, Subscription } from 'rxjs';
+import { map, Observable, of, startWith, Subscription } from 'rxjs';
 import { Spinner } from '../../../../core/functions/spinner';
 import { IBase } from '../../../../core/interfaces/i-base';
 import { FormControl } from '@angular/forms';
@@ -35,6 +35,7 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
   mapSelectedCity: string = "";
   locationInfo: ILocationInfo;
   selectedCoordinates: ILocationCoordinates;
+  existingImageNames: string[] = [];
 
 
   ddlData: IApartmentDdlData = {
@@ -104,7 +105,7 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
     )
   }
 
-  fillForm(id: number): void {
+   fillForm(id: number): void {
     Spinner.show();
     this.subscription.add(
       this.formService.fillForm(id).subscribe({
@@ -119,14 +120,50 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
           if (long && lat) {
             this.selectedCoordinates = { longitude: long, lattitude: lat };
           }
+
+          var images: string[] = []
+          images.push(data.mainImage);
+          images.push(...data.images);
+
+          this.getImages(images);
+          
           Spinner.hide();
         },
         error: (err) => Spinner.hide()
-
       })
 
     )
   }
+
+  getImages(images: string[]): void {
+    var fileNames: string[] = [];
+    for (var path of images) {
+      const normalizedPath = path.replace(/\\/g, "/");
+      const fileName = normalizedPath.split("/").pop();
+      fileNames.push(fileName);
+    }
+
+    fileNames.forEach((fileName) => {
+      this.requestsService.getApartmentImage(fileName).subscribe((response) => {
+        const file = new File([response], fileName);
+        this.files.push(file);        
+      });
+    });
+
+    this.existingImageNames = images.map((path: string) => {
+      const normalizedPath = path.replace(/\\/g, "/");
+      return normalizedPath.split("/").pop();
+    });
+  }
+
+  // async getImages(images: string[]): Promise<void> {
+  //   console.log(images);
+    
+  //   for (const imageUrl of images) {
+  //     const file = this.urlToFile(imageUrl, this.getFileNameFromUrl(imageUrl));
+  //     this.files.push(await file);
+  //   }
+  // }
 
   initCountries(): void {
     this.filteredCountries = this.form.controls['country'].valueChanges.pipe(
@@ -162,9 +199,11 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
         next: (data) => {
           this.ddlData.cities = data;
           cityControl.enable();
-          cityControl.setValue("")
+          cityControl.setValue("");
+          this.selectedCoordinates = null;
           addressControl.enable();
           addressControl.setValue("");
+          addressControl.markAsTouched();
           this.filteredCities = cityControl.valueChanges.pipe(
             startWith(''),
             map(value => {
@@ -181,14 +220,14 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
     )
   }
 
-  setPinnedLongLat(coords: ILocationCoordinates | null): void {    
+  setPinnedLongLat(coords: ILocationCoordinates | null): void {       
     if(coords == null && this.selectedCoordinates == null) {
       this.form.controls['longitude'].setValue(null);
       this.form.controls['lattitude'].setValue(null);
     }
     else {
-      this.form.controls['longitude'].setValue(coords.longitude);
-      this.form.controls['lattitude'].setValue(coords.lattitude);
+      this.form.controls['longitude'].setValue(coords?.longitude);
+      this.form.controls['lattitude'].setValue(coords?.lattitude);
       this.form.controls['address'].markAsUntouched();
     }
   }
@@ -241,21 +280,58 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const formDataImages: FormData[] = [];
+    const mainImageFormControl = this.form.get('mainImage');
+    const imagesFormControl = this.form.get('images');
+    const otherImages: string[] = [];
 
     event.addedFiles.forEach((file: File, index: number) => {
-      const formData = new FormData();
-      formData.append("file", file);
-
-      if (index === 0) {
-        this.form.controls['mainImage'].setValue(formData);
+      if (index === 0 && mainImageFormControl.value != "") {
+        mainImageFormControl.setValue(file.name);
       } else {
-        formDataImages.push(formData);
+        otherImages.push(file.name);
       }
     });
 
-    this.form.controls['images'].setValue(formDataImages);
+    imagesFormControl.setValue(otherImages);
     this.files.push(...event.addedFiles);
+
+    var filesToAdd: File[] = [];
+    this.files.forEach((file: File, index: number) => {
+      const isExisting = this.existingImageNames.includes(file.name);
+      if(!isExisting) {
+        filesToAdd.push(file);
+      }
+    })
+
+    if(filesToAdd.length != 0){
+      console.log(filesToAdd);
+      
+      Spinner.show();
+      this.subscription.add(
+        this.requestsService.uploadImage(filesToAdd).subscribe({
+          next: (data) => {
+            console.log(mainImageFormControl.value);
+            
+            if(mainImageFormControl.value != "") {
+              alert("Tu")
+              mainImageFormControl.setValue(data[0].fileName);
+            }
+            else {
+              alert("Tu else")
+              imagesFormControl.setValue(data)
+            }
+            console.log(data);
+            Spinner.hide();
+          },
+          error: (err) => {
+            console.error(err);
+            Spinner.hide();
+          }
+        })
+      )
+    }
+
+    console.log(this.files);    
   }
 
   onImageRemove(event: any): void {
@@ -280,21 +356,36 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
     });
 
     this.form.controls['images'].setValue(updatedFormDataImages);
+
+    console.log(this.files);
+    
   }
 
-  submit(): void {
-    Spinner.show();
-    this.subscription.add(
-      this.formService.submitInsert().subscribe({
-        next: (data) => {
-          Spinner.hide();
+  // async urlToFile(url: string, filename: string): Promise<File> {
+  //   const response = await fetch(url);
+  //   const blob = await response.blob();
+  //   return new File([blob], filename, { type: blob.type });
+  // }
 
-        },
-        error: (err) => {
-          Spinner.hide();
-        }
-      })
-    )
+  // getFileNameFromUrl(url: string): string {
+  //   return url.substring(url.lastIndexOf('/') + 1);
+  // }
+
+  submit(): void {
+    console.log(this.formService.getFormData());
+    
+    // Spinner.show();
+    // this.subscription.add(
+    //   this.formService.submitInsert().subscribe({
+    //     next: (data) => {
+    //       Spinner.hide();
+
+    //     },
+    //     error: (err) => {
+    //       Spinner.hide();
+    //     }
+    //   })
+    // )
 
   }
 
