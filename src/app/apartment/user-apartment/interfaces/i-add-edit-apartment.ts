@@ -1,4 +1,5 @@
 import { IBase } from "../../../core/interfaces/i-base"
+import { IApartmenImage } from "../../interfaces/i-apartment";
 
 interface IAddEditApartmentBase {
   name: string;
@@ -7,24 +8,26 @@ interface IAddEditApartmentBase {
   longitude: number;
   lattitude: number;
   price: number;
-  mainImage: FormData;
   apartmentTypeId: number;
   featureIds: number[];
   paymentMethodIds: number[];
-  images: FormData[]
   guests: IGuests;
 
 }
 
 export interface IAddEditApartmentForm extends IAddEditApartmentBase {
+  mainImage: IApartmenImage;
+  images: IApartmenImage[]
   city?: IBase;
   country?: IBase;
 
 }
 
-export interface IAddApartmentRequest extends IAddEditApartmentForm {
-  cityId: IBase;
-  countryId: IBase;
+export interface IAddApartmentRequest extends IAddEditApartmentBase {
+  cityId: number;
+  countryId: Number;
+  mainImage: string;
+  images: string[]
 }
 
 
@@ -39,6 +42,10 @@ export interface IApartmentDdlData {
 
 interface IGuests {
   adults: number;
-  children: number;
+  childrens: number;
   totalRooms: number;
+}
+export interface IApartmentUploadImage {
+  file: File;
+  imageType: number;
 }

@@ -7,7 +7,7 @@ export interface IApartment {
   name: string;
   maxGuests: number;
   pricePerNight: number;
-  mainImage: string;
+  mainImage: IApartmenImage;
   city: string;
   country: string;
   apartmentType: string;
@@ -30,11 +30,17 @@ export interface IApartmentDetail extends IApartment {
   owner: IUser;
   paymentMethods: string[];
   features: string[];
-  images: string[];
+  images: IApartmenImage[];
 }
 
 export interface IApartmentImages {
   id: number;
   path: string;
+}
+
+export interface IApartmenImage {
+  fileName: string;
+  originalFileName: string;
+  imageType: number;
 }
 

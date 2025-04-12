@@ -9,6 +9,7 @@ import { IBase } from '../../../../core/interfaces/i-base';
 import { ApartmentService } from '../../../services/api/apartment.service';
 import { ApartmentImageService } from '../../../services/api/apartment-image.service';
 import { ImagesService } from '../../../../shared/api/images.service';
+import { IAddApartmentRequest, IApartmentUploadImage } from '../../interfaces/i-add-edit-apartment';
 
 @Injectable({
   providedIn: 'root'
@@ -46,16 +47,20 @@ export class BlAddEditApartmentRequestsService {
     return this.apiService.getOne(id);
   }
 
-  testCreate(data: FormData): Observable<any> {
-    return this.apiService.testCrete(data);
+  addApartment(data: IAddApartmentRequest): Observable<any> {
+    return this.apiService.create(data);
+  }
+
+  editApartment(id: number, data: IAddApartmentRequest): Observable<any> {
+    return this.apiService.update(id, data);
   }
 
   getApartmentImage(fileName: string): Observable<any> {
     return this.apartmentImageService.getImage(fileName);
   }
 
-  uploadImage(files: File[]): Observable<any> {
-    return this.imagesService.create(files);
+  uploadImages(request: IApartmentUploadImage[]): Observable<any> {
+    return this.imagesService.create(request);
   }
 
 }
