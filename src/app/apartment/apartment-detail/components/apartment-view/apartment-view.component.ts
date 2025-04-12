@@ -3,7 +3,7 @@ import { BlApartmentsRequestsService } from '../../../services/requests/bl-apart
 import { ActivatedRoute, Router } from '@angular/router';
 import { Spinner } from '../../../../core/functions/spinner';
 import { Subscription } from 'rxjs';
-import { IApartmentDetail, IApartmentImages } from '../../../interfaces/i-apartment';
+import { IApartmenImage, IApartmentDetail, IApartmentImages } from '../../../interfaces/i-apartment';
 import { IPaginatedResponse } from '../../../../core/interfaces/i-base';
 import { AuthService } from '../../../../auth/services/shared/auth.service';
 
@@ -57,12 +57,15 @@ export class ApartmentViewComponent implements OnInit, OnDestroy {
         next: (data) => {
           this.apartment = data;
           this.images.push({
-            path: data.mainImage,
+            path: data.mainImage.fileName,
             id: 0
           });
-          data?.images.forEach((x: string, index: number) => {
-            this.images.push({ path: x, id: ++index });
+          data?.images.forEach((x: IApartmenImage, index: number) => {
+            this.images.push({ path: x.fileName, id: ++index });
           })
+
+          console.log(this.images);
+          
 
           let divideFeatures = Math.ceil(data.features.length / 2);
           this.featuresFirstColum = data.features.slice(0, divideFeatures);

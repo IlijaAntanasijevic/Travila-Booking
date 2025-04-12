@@ -1,13 +1,20 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BlAddEditApartmentFormService } from '../../services/form/bl-add-edit-apartment-form.service';
 import { BlAddEditApartmentRequestsService } from '../../services/requests/bl-add-edit-apartment-requests.service';
-import { IApartmentDdlData } from '../../interfaces/i-add-edit-apartment';
+import { IApartmentDdlData, IApartmentUploadImage } from '../../interfaces/i-add-edit-apartment';
 import { map, Observable, of, startWith, Subscription } from 'rxjs';
 import { Spinner } from '../../../../core/functions/spinner';
 import { IBase } from '../../../../core/interfaces/i-base';
 import { FormControl } from '@angular/forms';
 import { ILocationCoordinates, ILocationInfo } from '../../../../shared/components/map/i-map';
 import { Router, ActivatedRoute } from '@angular/router';
+import { IApartmenImage } from '../../../interfaces/i-apartment';
+import { BlAddEditApartmetDataService } from '../../services/data/bl-add-edit-apartmet-data.service';
+
+export enum ImageType {
+  Other = 1,
+  Main = 2,
+}
 
 @Component({
   selector: 'app-add-edit-apartment',
@@ -21,6 +28,7 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
     private requestsService: BlAddEditApartmentRequestsService,
     private router: Router,
     private route: ActivatedRoute,
+    private dataService: BlAddEditApartmetDataService
   ) { }
 
   private subscription: Subscription = new Subscription();
@@ -30,13 +38,13 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
   filteredCities: Observable<IBase[]>;
   files: File[] = [];
   isEdit: boolean = false;
+  id: number = null;
 
   mapSelectedCountry: string = "";
   mapSelectedCity: string = "";
   locationInfo: ILocationInfo;
   selectedCoordinates: ILocationCoordinates;
-  existingImageNames: string[] = [];
-
+  existingImages: IApartmenImage[] = [];
 
   ddlData: IApartmentDdlData = {
     features: [],
@@ -73,10 +81,11 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
     this.form.markAllAsTouched();
 
     this.route.params.subscribe(params => {
-      const id = params['id'];
+      let id = params['id'];
       if (id) {
         this.isEdit = true;
         this.fillForm(id);
+        this.id = id;
       }
     });
 
@@ -121,7 +130,7 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
             this.selectedCoordinates = { longitude: long, lattitude: lat };
           }
 
-          var images: string[] = []
+          var images: IApartmenImage[] = []
           images.push(data.mainImage);
           images.push(...data.images);
 
@@ -135,25 +144,30 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
     )
   }
 
-  getImages(images: string[]): void {
+  getImages(images: IApartmenImage[]): void {
     var fileNames: string[] = [];
-    for (var path of images) {
-      const normalizedPath = path.replace(/\\/g, "/");
-      const fileName = normalizedPath.split("/").pop();
-      fileNames.push(fileName);
-    }
+    console.log(images);
+    
+    // for (var image of images) {
+    //   const normalizedPath = image.fileName.replace(/\\/g, "/");
+    //   const fileName = normalizedPath.split("/").pop();
+    //   fileNames.push(fileName);
+    // }
 
-    fileNames.forEach((fileName) => {
-      this.requestsService.getApartmentImage(fileName).subscribe((response) => {
-        const file = new File([response], fileName);
+    images.forEach((image) => {
+      this.requestsService.getApartmentImage(image.fileName).subscribe((response) => {
+        const file = new File([response], image.fileName);
         this.files.push(file);        
       });
     });
 
-    this.existingImageNames = images.map((path: string) => {
-      const normalizedPath = path.replace(/\\/g, "/");
-      return normalizedPath.split("/").pop();
-    });
+    this.existingImages = images;
+
+    // this.existingImages = images.map((image: IApartmenImage) => {
+    //   const normalizedPath = image.fileName.replace(/\\/g, "/");
+    //   const fileName = normalizedPath.split("/").pop() || '';
+    //   return { fileName } as IApartmenImage;
+    // });
   }
 
   // async getImages(images: string[]): Promise<void> {
@@ -276,51 +290,54 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
   }
 
   onImageSelect(event: any): void {
-    if (!event.addedFiles || event.addedFiles.length === 0) {
-      return;
-    }
-
     const mainImageFormControl = this.form.get('mainImage');
     const imagesFormControl = this.form.get('images');
-    const otherImages: string[] = [];
 
-    event.addedFiles.forEach((file: File, index: number) => {
-      if (index === 0 && mainImageFormControl.value != "") {
-        mainImageFormControl.setValue(file.name);
-      } else {
-        otherImages.push(file.name);
-      }
-    });
-
-    imagesFormControl.setValue(otherImages);
+    if (!event.addedFiles || event.addedFiles.length === 0) {
+      mainImageFormControl.setValue("");
+      imagesFormControl.setValue("");
+      return;
+    }
+    
     this.files.push(...event.addedFiles);
-
-    var filesToAdd: File[] = [];
+    
+    var filesToAdd: IApartmentUploadImage[] = [];
     this.files.forEach((file: File, index: number) => {
-      const isExisting = this.existingImageNames.includes(file.name);
+      const isExisting = this.existingImages.some(image => image.originalFileName === file.name);
       if(!isExisting) {
-        filesToAdd.push(file);
+        filesToAdd.push({
+          file: file,
+          imageType: index == 0 ? ImageType.Main : ImageType.Other
+        });
       }
     })
 
-    if(filesToAdd.length != 0){
-      console.log(filesToAdd);
-      
+    if(filesToAdd.length != 0){      
       Spinner.show();
       this.subscription.add(
-        this.requestsService.uploadImage(filesToAdd).subscribe({
+        this.requestsService.uploadImages(filesToAdd).subscribe({
           next: (data) => {
-            console.log(mainImageFormControl.value);
-            
-            if(mainImageFormControl.value != "") {
-              alert("Tu")
-              mainImageFormControl.setValue(data[0].fileName);
-            }
-            else {
-              alert("Tu else")
-              imagesFormControl.setValue(data)
-            }
-            console.log(data);
+            let images: IApartmenImage[] = data;
+            let otherImageNames: string[] = [];
+            images.forEach((image) => {
+              if(image.imageType == ImageType.Main){
+                mainImageFormControl.setValue(image.fileName);
+              }
+              else if (image.imageType == ImageType.Other) {
+                otherImageNames.push(image.fileName);
+              }
+            })
+
+            this.existingImages.push(...images.map((image) => (
+            { 
+              fileName: image.fileName, 
+              originalFileName: image.originalFileName, 
+              imageType: image.imageType 
+            } as IApartmenImage)));
+
+            let currentOtherImages: string[] = imagesFormControl.value || [];
+            const allOtherImages = [...currentOtherImages, ...otherImageNames];
+            imagesFormControl.setValue(allOtherImages); 
             Spinner.hide();
           },
           error: (err) => {
@@ -329,9 +346,7 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
           }
         })
       )
-    }
-
-    console.log(this.files);    
+    }  
   }
 
   onImageRemove(event: any): void {
@@ -340,25 +355,36 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
       this.files.splice(index, 1);
     }
 
-    if (index === 0 && this.files.length > 0) {
-      const newMainImage = new FormData();
-      newMainImage.append("file", this.files[0]);
+    let removedImage: IApartmenImage = null;
+
+    if(this.isEdit){
+      removedImage = this.existingImages.find(x => x.fileName == event.name);
+      this.existingImages = this.existingImages.filter(x => x.fileName !== removedImage.fileName);
+
+      if(removedImage.fileName == this.form.controls['mainImage'].value.fileName) {
+        let newMainImage = this.existingImages[0]?.fileName || null;
+        this.form.controls['mainImage'].setValue(newMainImage);
+      }
+
+      const otherImages = this.existingImages?.filter(image => image.fileName !== this.form.controls['mainImage'].value);
+      this.form.controls['images'].setValue(otherImages.map(name => name.fileName));
+
+      return;
+    }
+
+    //ON ADD IMAGES
+    removedImage = this.existingImages.find(x => x.originalFileName === event.name);
+    this.existingImages = this.existingImages.filter(x => x.originalFileName !== removedImage.originalFileName);
+       
+    
+    if(removedImage.fileName == this.form.controls['mainImage'].value) {
+      let newMainImage = this.existingImages[0]?.fileName || null;
       this.form.controls['mainImage'].setValue(newMainImage);
     }
-    else if (this.files.length === 0) {
-      this.form.controls['mainImage'].setValue(null);
-    }
 
-    const updatedFormDataImages: FormData[] = this.files.slice(1).map((file) => {
-      const formData = new FormData();
-      formData.append("file", file);
-      return formData;
-    });
+    const otherImages = this.existingImages?.filter(name => name.fileName !== this.form.controls['mainImage'].value);
+    this.form.controls['images'].setValue(otherImages.map(name => name.fileName));
 
-    this.form.controls['images'].setValue(updatedFormDataImages);
-
-    console.log(this.files);
-    
   }
 
   // async urlToFile(url: string, filename: string): Promise<File> {
@@ -372,25 +398,40 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
   // }
 
   submit(): void {
-    console.log(this.formService.getFormData());
-    
-    // Spinner.show();
-    // this.subscription.add(
-    //   this.formService.submitInsert().subscribe({
-    //     next: (data) => {
-    //       Spinner.hide();
-
-    //     },
-    //     error: (err) => {
-    //       Spinner.hide();
-    //     }
-    //   })
-    // )
-
+    Spinner.show();
+    if(this.isEdit){
+      this.subscription.add(
+        this.formService.submitUpdate(this.id).subscribe({
+          next: (data) => {
+            Spinner.hide();
+            this.dataService.isSuccessChanged.next(this.id);
+            this.router.navigate(['apartments/user']);
+          },
+          error: (err) => Spinner.hide()
+        })
+      )
+      
+    }
+    else {
+      this.subscription.add(
+        this.formService.submitInsert().subscribe({
+          next: (data) => {
+            Spinner.hide();
+            this.dataService.isSuccessChanged.next(-1);
+            this.router.navigate(['apartments/user']);
+  
+          },
+          error: (err) => {
+            Spinner.hide();
+          }
+        })
+      )
+    }
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    // this.dataService.isSuccessChanged.closed;
     this.formService.reset();
   }
 }

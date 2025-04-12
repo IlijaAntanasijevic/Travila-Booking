@@ -3,6 +3,7 @@ import { BlFavoriteApartmentsRequestsService } from './services/requests/bl-favo
 import { IPaginatedResponse } from '../../../core/interfaces/i-base';
 import { Spinner } from '../../../core/functions/spinner';
 import { BehaviorSubject } from 'rxjs';
+import { IApartment } from '../../../apartment/interfaces/i-apartment';
 
 @Component({
   selector: 'app-favorite-apartments',
@@ -15,7 +16,7 @@ export class FavoriteApartmentsComponent implements OnInit {
     private requestsService: BlFavoriteApartmentsRequestsService
   ) { }
 
-  data: IPaginatedResponse<any> = null;
+  data: IPaginatedResponse<IApartment> = null;
   pageChanged: BehaviorSubject<number> = new BehaviorSubject<number>(1);
 
   ngOnInit(): void {
