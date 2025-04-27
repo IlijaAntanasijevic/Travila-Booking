@@ -4,6 +4,7 @@ import { IPaginatedResponse } from '../../../../core/interfaces/i-base';
 import { BlApartmentDashboardDataService } from '../../services/shared/bl-apartment-dashboard-data.service';
 import { AuthService } from '../../../../auth/services/shared/auth.service';
 import { BlFavoriteApartmentsRequestsService } from '../../../../user/components/favorite-apartments/services/requests/bl-favorite-apartments-requests.service';
+import { ImageType } from '../../../../shared/helpers/image-url.pipe';
 
 @Component({
   selector: 'app-apartment-dashboard-list',
@@ -21,6 +22,7 @@ export class ApartmentDashboardListComponent implements OnChanges {
   @Input() data: IPaginatedResponse<IApartment>;
   public apartmentsData: IApartment[] = [];
   isLoggedIn: boolean = this.authService.isLoggedIn();
+  imageType = ImageType;
 
 
   ngOnChanges(changes: SimpleChanges): void {
