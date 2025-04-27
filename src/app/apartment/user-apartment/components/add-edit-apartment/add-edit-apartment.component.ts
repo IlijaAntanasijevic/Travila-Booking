@@ -295,7 +295,7 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
     
     var filesToAdd: IApartmentUploadImage[] = [];
     this.files.forEach((file: File, index: number) => {
-      const isExisting = this.existingImages.some(image => image.originalFileName === file.name);
+      const isExisting = this.existingImages.some(image => image.originalFileName === file.name || image.fileName === file.name);
       if(!isExisting) {
         filesToAdd.push({
           file: file,
@@ -303,6 +303,11 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
         });
       }
     })
+
+    console.log(filesToAdd);
+    console.log(imagesFormControl.value);
+    console.log(this.existingImages);
+    
 
     if(filesToAdd.length != 0){      
       Spinner.show();

@@ -16,8 +16,8 @@ interface IAddEditApartmentBase {
 }
 
 export interface IAddEditApartmentForm extends IAddEditApartmentBase {
-  mainImage: any;
-  images: any[]
+  mainImage: IApartmenImage;
+  images: IApartmenImage[]
   city?: IBase;
   country?: IBase;
 
