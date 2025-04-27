@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SimpleConfirmationDialogComponent } from '../../../../shared/components/simple-confirmation-dialog/simple-confirmation-dialog.component';
 import { BlAddEditApartmetDataService } from '../../services/data/bl-add-edit-apartmet-data.service';
 import { ToastrService } from 'ngx-toastr';
+import { ImageType } from '../../../../shared/helpers/image-url.pipe';
 
 @Component({
   selector: 'app-user-apartment-dashboard',
@@ -23,6 +24,7 @@ export class UserApartmentDashboardComponent implements OnInit {
   ) { }
 
   apartments: IPaginatedResponse<IApartment>;
+  imageType = ImageType;
   private params: IApartmentSearch = {
     currentUserApartments: true,
     perPage: 9,

@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } fr
 import { BlAddEditApartmentFormService } from '../../services/form/bl-add-edit-apartment-form.service';
 import { BlAddEditApartmentRequestsService } from '../../services/requests/bl-add-edit-apartment-requests.service';
 import { IApartmentDdlData, IApartmentUploadImage } from '../../interfaces/i-add-edit-apartment';
-import { map, Observable, of, startWith, Subscription } from 'rxjs';
+import { forkJoin, map, Observable, of, startWith, Subscription } from 'rxjs';
 import { Spinner } from '../../../../core/functions/spinner';
 import { IBase } from '../../../../core/interfaces/i-base';
 import { FormControl } from '@angular/forms';
@@ -10,11 +10,8 @@ import { ILocationCoordinates, ILocationInfo } from '../../../../shared/componen
 import { Router, ActivatedRoute } from '@angular/router';
 import { IApartmenImage } from '../../../interfaces/i-apartment';
 import { BlAddEditApartmetDataService } from '../../services/data/bl-add-edit-apartmet-data.service';
-
-export enum ImageType {
-  Other = 1,
-  Main = 2,
-}
+import { ImageType } from '../../../../shared/helpers/image-url.pipe';
+import { ImageUtils } from '../../../../core/helpers/utility';
 
 @Component({
   selector: 'app-add-edit-apartment',
@@ -144,30 +141,25 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
     )
   }
 
-  getImages(images: IApartmenImage[]): void {
-    var fileNames: string[] = [];
-    console.log(images);
+  getImages(images: IApartmenImage[]): void { 
+    let filesResponse: File[] = [];
     
-    // for (var image of images) {
-    //   const normalizedPath = image.fileName.replace(/\\/g, "/");
-    //   const fileName = normalizedPath.split("/").pop();
-    //   fileNames.push(fileName);
-    // }
-
-    images.forEach((image) => {
+    images.forEach((image) => {     
       this.requestsService.getApartmentImage(image.fileName).subscribe((response) => {
         const file = new File([response], image.fileName);
-        this.files.push(file);        
+        filesResponse.push(file);
       });
     });
 
-    this.existingImages = images;
+    let mainImageFileName = images.find(x => x.imageType == ImageType.ApartmentMain)?.fileName;
 
-    // this.existingImages = images.map((image: IApartmenImage) => {
-    //   const normalizedPath = image.fileName.replace(/\\/g, "/");
-    //   const fileName = normalizedPath.split("/").pop() || '';
-    //   return { fileName } as IApartmenImage;
-    // });
+    this.files = filesResponse.sort((a: File, b: File) => {
+      if(a.name == mainImageFileName) return -1;
+      if(b.name == mainImageFileName) return 1;
+      return 0;
+    })
+
+    this.existingImages = images;
   }
 
   // async getImages(images: string[]): Promise<void> {
@@ -307,7 +299,7 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
       if(!isExisting) {
         filesToAdd.push({
           file: file,
-          imageType: index == 0 ? ImageType.Main : ImageType.Other
+          imageType: index == 0 ? ImageType.ApartmentMain : ImageType.Apartment
         });
       }
     })
@@ -320,10 +312,10 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
             let images: IApartmenImage[] = data;
             let otherImageNames: string[] = [];
             images.forEach((image) => {
-              if(image.imageType == ImageType.Main){
+              if(image.imageType == ImageType.ApartmentMain){
                 mainImageFormControl.setValue(image.fileName);
               }
-              else if (image.imageType == ImageType.Other) {
+              else if (image.imageType == ImageType.Apartment) {
                 otherImageNames.push(image.fileName);
               }
             })
@@ -399,6 +391,8 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
 
   submit(): void {
     Spinner.show();
+    console.log(this.formService.getFormData());
+    
     if(this.isEdit){
       this.subscription.add(
         this.formService.submitUpdate(this.id).subscribe({

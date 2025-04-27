@@ -6,6 +6,7 @@ import { IPaginatedResponse } from '../../../core/interfaces/i-base';
 import { Spinner } from '../../../core/functions/spinner';
 import { AuthService } from '../../../auth/services/shared/auth.service';
 import { BlFavoriteApartmentsRequestsService } from '../../../user/components/favorite-apartments/services/requests/bl-favorite-apartments-requests.service';
+import { ImageType } from '../../../shared/helpers/image-url.pipe';
 
 @Component({
   selector: 'app-home-featured-apartments',
@@ -24,6 +25,7 @@ export class HomeFeaturedApartmentsComponent implements OnInit, OnDestroy {
   apartmemts: IApartment[];
   data: IPaginatedResponse<IApartment> = null;
   isLoggedIn: boolean = this.authService.isLoggedIn();
+  imageType = ImageType;
 
   private subscription: Subscription = new Subscription();
 

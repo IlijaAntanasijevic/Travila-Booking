@@ -24,7 +24,7 @@
                 <p class="price"><strong>{{apartment.pricePerNight}}</strong>$ / night</p>
 
               </mat-card-subtitle>
-              <img mat-card-lg-image src="{{apartment.mainImage.fileName}}" alt="{{apartment.name}}">
+              <img mat-card-lg-image [src]="apartment.mainImage.fileName | imageUrl: imageType.ApartmentMain" alt="{{apartment.name}}">
             </mat-card-title-group>
           </mat-card-header>
           <mat-card-content>
