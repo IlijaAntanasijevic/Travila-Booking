@@ -121,9 +121,19 @@ export class BlAddEditApartmentFormService implements IFormService<IAddEditApart
       },
       featureIds: data.featureIds,
       paymentMethodIds: data.paymentMethodIds,
-      mainImage: data.mainImage,
-      images: data.images,
+      mainImage: typeof data.mainImage === 'string' ? data.mainImage : data.mainImage.fileName,
+      // images: typeof data.images === 'string' ? [data.images] : data.images.map((image: IApartmenImage) => image.fileName),
+      images: []
     }
+
+    data.images.forEach(image => {
+      if(typeof image === 'string') {
+        requestData.images.push(image);
+      }
+      else {
+        requestData.images.push(image.fileName);
+      }
+    });
 
     return requestData;
   }
