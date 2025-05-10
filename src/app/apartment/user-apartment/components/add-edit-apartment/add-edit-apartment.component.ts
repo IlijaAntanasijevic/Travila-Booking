@@ -124,7 +124,7 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
           const lat = this.form.get('lattitude')?.value;
           
           if (long && lat) {
-            this.selectedCoordinates = { longitude: long, lattitude: lat };
+            this.selectedCoordinates = { longitude: long, latitude: lat };
           }
 
           var images: IApartmenImage[] = []
@@ -226,14 +226,16 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
     )
   }
 
-  setPinnedLongLat(coords: ILocationCoordinates | null): void {       
+  setPinnedLongLat(coords: ILocationCoordinates | null): void {    
+    console.log(coords);
+       
     if(coords == null && this.selectedCoordinates == null) {
       this.form.controls['longitude'].setValue(null);
       this.form.controls['lattitude'].setValue(null);
     }
     else {
       this.form.controls['longitude'].setValue(coords?.longitude);
-      this.form.controls['lattitude'].setValue(coords?.lattitude);
+      this.form.controls['lattitude'].setValue(coords?.latitude);
       this.form.controls['address'].markAsUntouched();
     }
   }
