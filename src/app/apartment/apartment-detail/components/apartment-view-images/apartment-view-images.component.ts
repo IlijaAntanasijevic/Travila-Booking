@@ -1,5 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { IApartmentImages } from '../../../interfaces/i-apartment';
+import { ImageType, ImageUrlPipe } from '../../../../shared/helpers/image-url.pipe';
+import { config } from '../../../../config/global';
 
 @Component({
     selector: 'app-apartment-view-images',
@@ -7,13 +9,32 @@ import { IApartmentImages } from '../../../interfaces/i-apartment';
     styleUrl: './apartment-view-images.component.css',
     standalone: false
 })
-export class ApartmentViewImagesComponent{
+export class ApartmentViewImagesComponent implements OnInit {
 
   @Input() images: IApartmentImages[];
 
   public showModal: boolean = false;
   currentIndex: number = 0;
+  imageType = ImageType;
 
+  ngOnInit(): void {
+    if (this.images.length > 0) {
+      this.images.forEach((image) => {
+        switch (image.imageType) {
+
+        case ImageType.Apartment:
+            image.path = `${config.apartmentImagesPath}${image.path}`;
+            break;
+
+        case ImageType.ApartmentMain:
+            image.path = `${config.apartmentMainImagePath}${image.path}`;
+            break;
+            
+        }
+
+      });
+    }
+  }
   openModal(index: number = 0): void {
     this.currentIndex = index;
     this.showModal = true;

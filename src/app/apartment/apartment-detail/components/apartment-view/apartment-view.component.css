@@ -88,3 +88,18 @@
 ::ng-deep .tour-metas[_ngcontent-ng-c3537567385] .tour-meta-right[_ngcontent-ng-c3537567385] {
   min-width: 0px !important;
 }
+
+/* ::ng-deep .mat-expansion-panel-body .html-content {
+  padding: 0 24px 16px;
+} */
+
+::ng-deep .mat-expansion-panel-body .html-content ol,
+::ng-deep .mat-expansion-panel-body .html-content ul {
+  padding-left: 16px;
+  /* margin: 0; */
+}
+
+ol,
+ul {
+  list-style: none;
+}
