@@ -10,4 +10,6 @@ export class BlAddEditApartmetDataService {
 
   // isSuccessAdded: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   isSuccessChanged: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  public pageChanged: BehaviorSubject<number> = new BehaviorSubject<number>(1);
+
 }
