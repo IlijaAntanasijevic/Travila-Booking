@@ -9,5 +9,5 @@ export interface ILocationInfo {
 
 export interface ILocationCoordinates {
   longitude: number;
-  lattitude: number;
+  latitude: number;
 }

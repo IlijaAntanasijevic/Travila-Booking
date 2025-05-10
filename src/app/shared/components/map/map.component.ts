@@ -53,6 +53,10 @@ export class MapComponent implements OnInit, OnChanges {
     }
 
     if (changes['coordinates'] && changes['coordinates'].currentValue) {
+      console.log(this.city, this.country);
+      console.log(this.coordinates);
+      
+      
       this.initializedMap(this.coordinates!);
       this.addCustomMarker(this.coordinates!);
     }
@@ -63,7 +67,7 @@ export class MapComponent implements OnInit, OnChanges {
     this.map = new maplibregl.Map({
       container: this.mapContainer.nativeElement,
       style: this.currentStyle,
-      center: [coords.longitude, coords.lattitude],
+      center: [coords.longitude, coords.latitude],
       zoom: 10,
       interactive: false,
       dragPan: false,
@@ -81,7 +85,7 @@ export class MapComponent implements OnInit, OnChanges {
     this.map.on('click', (event) => {
       if (!this.isMapDisabled) {
         let coords: ILocationCoordinates = {
-          lattitude: event.lngLat.lat,
+          latitude: event.lngLat.lat,
           longitude: event.lngLat.lng
         }
         this.addCustomMarker(coords);
@@ -99,11 +103,18 @@ export class MapComponent implements OnInit, OnChanges {
     }
 
     let coords = await this.getCoordinates(city, country);
+    
     if (!coords) return;
 
     this.disableMapInteractions();
 
-    this.map.flyTo({ center: [coords.longitude, coords.lattitude], zoom: 10 });
+    this.map.flyTo({
+    center: [coords.longitude, coords.latitude],
+    zoom: 10,
+    speed: 1.2,
+    curve: 1.42,
+    essential: true,
+  });
 
     this.map.once('moveend', () => {
       this.overlayText = "";
@@ -123,7 +134,7 @@ export class MapComponent implements OnInit, OnChanges {
       if (data.length > 0) {
         let response: ILocationCoordinates = {
           longitude: parseFloat(data[0].lon),
-          lattitude: parseFloat(data[0].lat)
+          latitude: parseFloat(data[0].lat)
         }
 
         return response;
@@ -136,7 +147,7 @@ export class MapComponent implements OnInit, OnChanges {
 
   async getLocationInfo(coords: ILocationCoordinates): Promise<void> {
     // const [lng, lat] = coords;
-    const url = `https://nominatim.openstreetmap.org/reverse?lat=${coords.lattitude}&lon=${coords.longitude}&format=json`;
+    const url = `https://nominatim.openstreetmap.org/reverse?lat=${coords.latitude}&lon=${coords.longitude}&format=json`;
 
     try {
       const response = await fetch(url);
@@ -164,7 +175,7 @@ export class MapComponent implements OnInit, OnChanges {
     // }
     
     this.customPin = new maplibregl.Marker({ color: '#FEFA17' })
-      .setLngLat([coords.longitude, coords.lattitude])
+      .setLngLat([coords.longitude, coords.latitude])
       .addTo(this.map);
 
     this.coordinatesChange.emit(coords);
