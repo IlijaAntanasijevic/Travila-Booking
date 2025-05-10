@@ -11,9 +11,10 @@ import { ISearchHomeRequest } from '../../../../home/components/home-seach/inter
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-apartment-dashboard-overview',
-  templateUrl: './apartment-dashboard-overview.component.html',
-  styleUrl: './apartment-dashboard-overview.component.css'
+    selector: 'app-apartment-dashboard-overview',
+    templateUrl: './apartment-dashboard-overview.component.html',
+    styleUrl: './apartment-dashboard-overview.component.css',
+    standalone: false
 })
 export class ApartmentDashboardOverviewComponent implements OnInit, OnDestroy {
 

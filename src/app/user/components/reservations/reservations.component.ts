@@ -11,9 +11,10 @@ import { IUser } from '../../interfaces/i-user';
 import { ReservationInfoDialogComponent } from './components/reservation-info-dialog/reservation-info-dialog.component';
 
 @Component({
-  selector: 'app-reservations',
-  templateUrl: './reservations.component.html',
-  styleUrl: './reservations.component.css'
+    selector: 'app-reservations',
+    templateUrl: './reservations.component.html',
+    styleUrl: './reservations.component.css',
+    standalone: false
 })
 export class ReservationsComponent implements OnInit {
 

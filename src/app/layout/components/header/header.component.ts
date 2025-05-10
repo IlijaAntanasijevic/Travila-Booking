@@ -5,9 +5,10 @@ import { UserOverviewDialogComponent } from '../../../user/components/user-overv
 import { AuthService } from '../../../auth/services/shared/auth.service';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrl: './header.component.css',
+    standalone: false
 })
 export class HeaderComponent implements OnInit{
 

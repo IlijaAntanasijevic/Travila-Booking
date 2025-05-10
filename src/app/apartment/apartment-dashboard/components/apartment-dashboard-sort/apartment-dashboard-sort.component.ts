@@ -6,9 +6,10 @@ import { SHOW_TOTAL, SortDirection, SortProperty } from '../../enums/sort-type';
 import { FormArray, FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'app-apartment-dashboard-sort',
-  templateUrl: './apartment-dashboard-sort.component.html',
-  styleUrl: './apartment-dashboard-sort.component.css'
+    selector: 'app-apartment-dashboard-sort',
+    templateUrl: './apartment-dashboard-sort.component.html',
+    styleUrl: './apartment-dashboard-sort.component.css',
+    standalone: false
 })
 export class ApartmentDashboardSortComponent implements OnInit{
 

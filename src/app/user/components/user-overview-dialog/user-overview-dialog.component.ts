@@ -9,9 +9,10 @@ import { NavigationStart, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-user-overview-dialog',
-  templateUrl: './user-overview-dialog.component.html',
-  styleUrl: './user-overview-dialog.component.css'
+    selector: 'app-user-overview-dialog',
+    templateUrl: './user-overview-dialog.component.html',
+    styleUrl: './user-overview-dialog.component.css',
+    standalone: false
 })
 export class UserOverviewDialogComponent implements OnInit, OnDestroy {
 

@@ -9,9 +9,10 @@ import { BlUserRequestsService } from '../../../user/services/requests/bl-user-r
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.css',
+    standalone: false
 })
 export class LoginComponent implements OnInit, OnDestroy {
 

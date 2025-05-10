@@ -9,9 +9,10 @@ import { BlFavoriteApartmentsRequestsService } from '../../../user/components/fa
 import { ImageType } from '../../../shared/helpers/image-url.pipe';
 
 @Component({
-  selector: 'app-home-featured-apartments',
-  templateUrl: './home-featured-apartments.component.html',
-  styleUrl: './home-featured-apartments.component.css'
+    selector: 'app-home-featured-apartments',
+    templateUrl: './home-featured-apartments.component.html',
+    styleUrl: './home-featured-apartments.component.css',
+    standalone: false
 })
 export class HomeFeaturedApartmentsComponent implements OnInit, OnDestroy {
 

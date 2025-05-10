@@ -6,9 +6,10 @@ import { BehaviorSubject } from 'rxjs';
 import { IApartment } from '../../../apartment/interfaces/i-apartment';
 
 @Component({
-  selector: 'app-favorite-apartments',
-  templateUrl: './favorite-apartments.component.html',
-  styleUrl: './favorite-apartments.component.css'
+    selector: 'app-favorite-apartments',
+    templateUrl: './favorite-apartments.component.html',
+    styleUrl: './favorite-apartments.component.css',
+    standalone: false
 })
 export class FavoriteApartmentsComponent implements OnInit {
 

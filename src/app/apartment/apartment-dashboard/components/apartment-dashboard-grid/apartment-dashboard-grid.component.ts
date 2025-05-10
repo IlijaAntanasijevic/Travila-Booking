@@ -7,9 +7,10 @@ import { BlFavoriteApartmentsRequestsService } from '../../../../user/components
 import { ImageType } from '../../../../shared/helpers/image-url.pipe';
 
 @Component({
-  selector: 'app-apartment-dashboard-grid',
-  templateUrl: './apartment-dashboard-grid.component.html',
-  styleUrl: './apartment-dashboard-grid.component.css'
+    selector: 'app-apartment-dashboard-grid',
+    templateUrl: './apartment-dashboard-grid.component.html',
+    styleUrl: './apartment-dashboard-grid.component.css',
+    standalone: false
 })
 export class ApartmentDashboardGridComponent implements OnChanges {
 

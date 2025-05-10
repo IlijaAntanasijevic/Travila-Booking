@@ -4,9 +4,10 @@ import { USER_OVERVIEW_LINKS } from '../../consts/user-overview-links';
 import { BehaviorSubject, filter, Subject, Subscriber, Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-user-tabs',
-  templateUrl: './user-tabs.component.html',
-  styleUrl: './user-tabs.component.css'
+    selector: 'app-user-tabs',
+    templateUrl: './user-tabs.component.html',
+    styleUrl: './user-tabs.component.css',
+    standalone: false
 })
 export class UserTabsComponent implements OnInit {
 

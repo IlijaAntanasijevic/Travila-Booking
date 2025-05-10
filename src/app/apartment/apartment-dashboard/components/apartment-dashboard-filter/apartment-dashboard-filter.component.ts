@@ -6,9 +6,10 @@ import { FormArray } from '@angular/forms';
 import { BlApartmentDashboardDataService } from '../../services/shared/bl-apartment-dashboard-data.service';
 
 @Component({
-  selector: 'app-apartment-dashboard-filter',
-  templateUrl: './apartment-dashboard-filter.component.html',
-  styleUrl: './apartment-dashboard-filter.component.css'
+    selector: 'app-apartment-dashboard-filter',
+    templateUrl: './apartment-dashboard-filter.component.html',
+    styleUrl: './apartment-dashboard-filter.component.css',
+    standalone: false
 })
 export class ApartmentDashboardFilterComponent implements OnInit, OnDestroy {
 

@@ -8,7 +8,8 @@ export enum ImageType {
 }
 
 @Pipe({
-  name: 'imageUrl'
+    name: 'imageUrl',
+    standalone: false
 })
 
 export class ImageUrlPipe implements PipeTransform {

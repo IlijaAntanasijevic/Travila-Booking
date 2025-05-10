@@ -8,9 +8,10 @@ import { IPaginatedResponse } from '../../../../core/interfaces/i-base';
 import { AuthService } from '../../../../auth/services/shared/auth.service';
 
 @Component({
-  selector: 'app-apartment-view',
-  templateUrl: './apartment-view.component.html',
-  styleUrl: './apartment-view.component.css'
+    selector: 'app-apartment-view',
+    templateUrl: './apartment-view.component.html',
+    styleUrl: './apartment-view.component.css',
+    standalone: false
 })
 export class ApartmentViewComponent implements OnInit, OnDestroy {
 

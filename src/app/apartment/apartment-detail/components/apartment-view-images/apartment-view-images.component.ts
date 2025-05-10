@@ -2,9 +2,10 @@ import { Component, Input } from '@angular/core';
 import { IApartmentImages } from '../../../interfaces/i-apartment';
 
 @Component({
-  selector: 'app-apartment-view-images',
-  templateUrl: './apartment-view-images.component.html',
-  styleUrl: './apartment-view-images.component.css'
+    selector: 'app-apartment-view-images',
+    templateUrl: './apartment-view-images.component.html',
+    styleUrl: './apartment-view-images.component.css',
+    standalone: false
 })
 export class ApartmentViewImagesComponent{
 

@@ -4,9 +4,10 @@ import { FormGroup } from '@angular/forms';
 import { IRegister } from '../../interfaces/i-auth';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+    selector: 'app-register',
+    templateUrl: './register.component.html',
+    styleUrl: './register.component.css',
+    standalone: false
 })
 export class RegisterComponent {
 

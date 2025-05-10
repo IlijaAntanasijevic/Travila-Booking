@@ -5,9 +5,10 @@ import { Spinner } from '../../../../core/functions/spinner';
 import { IApartmentReview, IApartmentReviewRequest } from './interfaces/i-apartment-review';
 
 @Component({
-  selector: 'app-apartment-add-review',
-  templateUrl: './apartment-add-review.component.html',
-  styleUrl: './apartment-add-review.component.css'
+    selector: 'app-apartment-add-review',
+    templateUrl: './apartment-add-review.component.html',
+    styleUrl: './apartment-add-review.component.css',
+    standalone: false
 })
 export class ApartmentAddReviewComponent {
 

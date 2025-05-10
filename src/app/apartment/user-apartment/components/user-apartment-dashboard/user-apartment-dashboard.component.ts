@@ -8,11 +8,13 @@ import { SimpleConfirmationDialogComponent } from '../../../../shared/components
 import { BlAddEditApartmetDataService } from '../../services/data/bl-add-edit-apartmet-data.service';
 import { ToastrService } from 'ngx-toastr';
 import { ImageType } from '../../../../shared/helpers/image-url.pipe';
+import { take } from 'rxjs';
 
 @Component({
-  selector: 'app-user-apartment-dashboard',
-  templateUrl: './user-apartment-dashboard.component.html',
-  styleUrl: './user-apartment-dashboard.component.css'
+    selector: 'app-user-apartment-dashboard',
+    templateUrl: './user-apartment-dashboard.component.html',
+    styleUrl: './user-apartment-dashboard.component.css',
+    standalone: false
 })
 export class UserApartmentDashboardComponent implements OnInit {
 
@@ -35,7 +37,7 @@ export class UserApartmentDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.getData();
 
-    this.dataService.isSuccessChanged.subscribe({
+    this.dataService.isSuccessChanged.pipe(take(1)).subscribe({
       next: (data) => {
         if (data == -1) {
           this.alertService.success("Apartment successfully added.");
