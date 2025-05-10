@@ -10,9 +10,10 @@ import { ToastrService } from 'ngx-toastr';
 import { ImageType } from '../../../../shared/helpers/image-url.pipe';
 
 @Component({
-  selector: 'app-user-apartment-dashboard',
-  templateUrl: './user-apartment-dashboard.component.html',
-  styleUrl: './user-apartment-dashboard.component.css'
+    selector: 'app-user-apartment-dashboard',
+    templateUrl: './user-apartment-dashboard.component.html',
+    styleUrl: './user-apartment-dashboard.component.css',
+    standalone: false
 })
 export class UserApartmentDashboardComponent implements OnInit {
 

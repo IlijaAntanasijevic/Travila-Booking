@@ -12,10 +12,11 @@ import { locationValidator } from './validators/location-validator';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-home-seach',
-  templateUrl: './home-seach.component.html',
-  styleUrl: './home-seach.component.css',
-  providers: [provideNativeDateAdapter()],
+    selector: 'app-home-seach',
+    templateUrl: './home-seach.component.html',
+    styleUrl: './home-seach.component.css',
+    providers: [provideNativeDateAdapter()],
+    standalone: false
 })
 export class HomeSeachComponent implements OnInit, OnDestroy {
 

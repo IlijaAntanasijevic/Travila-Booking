@@ -14,9 +14,10 @@ import { ImageType } from '../../../../shared/helpers/image-url.pipe';
 import { ImageUtils } from '../../../../core/helpers/utility';
 
 @Component({
-  selector: 'app-add-edit-apartment',
-  templateUrl: './add-edit-apartment.component.html',
-  styleUrl: './add-edit-apartment.component.css'
+    selector: 'app-add-edit-apartment',
+    templateUrl: './add-edit-apartment.component.html',
+    styleUrl: './add-edit-apartment.component.css',
+    standalone: false
 })
 export class AddEditApartmentComponent implements OnInit, OnDestroy {
 

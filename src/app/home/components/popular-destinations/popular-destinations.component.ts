@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-popular-destinations',
-  templateUrl: './popular-destinations.component.html',
-  styleUrl: './popular-destinations.component.css'
+    selector: 'app-popular-destinations',
+    templateUrl: './popular-destinations.component.html',
+    styleUrl: './popular-destinations.component.css',
+    standalone: false
 })
 export class PopularDestinationsComponent {
 

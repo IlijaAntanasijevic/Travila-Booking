@@ -3,9 +3,10 @@ import * as maplibregl from 'maplibre-gl';
 import { ILocationCoordinates, ILocationInfo, IMapStyle } from './i-map';
 
 @Component({
-  selector: 'app-map',
-  templateUrl: './map.component.html',
-  styleUrl: './map.component.css'
+    selector: 'app-map',
+    templateUrl: './map.component.html',
+    styleUrl: './map.component.css',
+    standalone: false
 })
 export class MapComponent implements OnInit, OnChanges {
 

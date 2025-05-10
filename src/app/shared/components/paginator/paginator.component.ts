@@ -3,9 +3,10 @@ import { IApartment } from '../../../apartment/interfaces/i-apartment';
 import { IPaginatedResponse } from '../../../core/interfaces/i-base';
 
 @Component({
-  selector: 'app-paginator',
-  templateUrl: './paginator.component.html',
-  styleUrl: './paginator.component.css'
+    selector: 'app-paginator',
+    templateUrl: './paginator.component.html',
+    styleUrl: './paginator.component.css',
+    standalone: false
 })
 
 export class PaginatorComponent {

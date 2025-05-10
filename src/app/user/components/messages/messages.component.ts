@@ -4,9 +4,10 @@ import { charactersOnlyValidator } from '../../../core/validators/characters-onl
 import { passwordValidator } from '../../../core/validators/password-validator';
 
 @Component({
-  selector: 'app-messages',
-  templateUrl: './messages.component.html',
-  styleUrl: './messages.component.css'
+    selector: 'app-messages',
+    templateUrl: './messages.component.html',
+    styleUrl: './messages.component.css',
+    standalone: false
 })
 export class MessagesComponent {
 

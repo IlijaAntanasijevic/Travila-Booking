@@ -20,9 +20,10 @@ const colors: any = {
 
 
 @Component({
-  selector: 'app-calendar',
-  templateUrl: './calendar.component.html',
-  styleUrl: './calendar.component.css'
+    selector: 'app-calendar',
+    templateUrl: './calendar.component.html',
+    styleUrl: './calendar.component.css',
+    standalone: false
 })
 export class CalendarComponent {
   public view: CalendarView = CalendarView.Month;
