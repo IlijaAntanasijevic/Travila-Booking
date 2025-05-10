@@ -14,6 +14,7 @@ export class MapComponent implements OnInit, OnChanges {
   @Input() city!: string;
   @Input() country!: string;
   @Input() customStyle: IMapStyle = null;
+  @Input() onlyViewMap: boolean = false;
   
   // @Input() coordinates!: [number, number] | null;
   @Input() coordinates!: ILocationCoordinates | null;
@@ -42,6 +43,8 @@ export class MapComponent implements OnInit, OnChanges {
 
     let coords: ILocationCoordinates = await this.getCoordinates(this.city || 'Belgrade', this.country || 'Serbia');
 
+    console.log(this.coordinates);
+    
     if(coords != null && this.coordinates == null) {
       this.initializedMap(coords);
     }
@@ -54,10 +57,6 @@ export class MapComponent implements OnInit, OnChanges {
     }
 
     if (changes['coordinates'] && changes['coordinates'].currentValue) {
-      console.log(this.city, this.country);
-      console.log(this.coordinates);
-      
-      
       this.initializedMap(this.coordinates!);
       this.addCustomMarker(this.coordinates!);
     }
@@ -92,6 +91,10 @@ export class MapComponent implements OnInit, OnChanges {
         this.addCustomMarker(coords);
       }
     });
+
+    if(this.onlyViewMap) {
+      this.enableMapInteractions();
+    }
   }
 
   async updateMap(city: string, country: string): Promise<void> {
@@ -107,7 +110,9 @@ export class MapComponent implements OnInit, OnChanges {
     
     if (!coords) return;
 
-    this.disableMapInteractions();
+    if(!this.onlyViewMap) {
+      this.disableMapInteractions();
+    }
 
     this.map.flyTo({
     center: [coords.longitude, coords.latitude],
@@ -117,13 +122,14 @@ export class MapComponent implements OnInit, OnChanges {
     essential: true,
   });
 
+  if(!this.onlyViewMap){
     this.map.once('moveend', () => {
       this.overlayText = "";
       this.enableMapInteractions();
     });
+  }
 
     this.coordinatesChange.emit(this.coordinates ?? null);
-
   }
 
   async getCoordinates(city: string, country: string): Promise<ILocationCoordinates | null> {
@@ -168,6 +174,10 @@ export class MapComponent implements OnInit, OnChanges {
   }
 
   addCustomMarker(coords: ILocationCoordinates): void {
+    if (this.customPin && this.onlyViewMap) {
+      return;
+    }
+
     if (this.customPin) {
       this.customPin.remove();
     }

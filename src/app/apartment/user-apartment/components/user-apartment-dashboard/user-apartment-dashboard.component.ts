@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { BlApartmentsRequestsService } from '../../../services/requests/bl-apartments-requests.service';
 import { IApartment, IApartmentSearch } from '../../../interfaces/i-apartment';
 import { Spinner } from '../../../../core/functions/spinner';
@@ -46,10 +46,7 @@ export class UserApartmentDashboardComponent implements OnInit {
         else if (data > 0){
           this.alertService.success("Apartment successfully edited.");
           this.dataService.isSuccessChanged.next(0);
-
         }
-
-        // this.dataService.isSuccessChanged.next(0);
       }
     })
     
@@ -60,18 +57,18 @@ export class UserApartmentDashboardComponent implements OnInit {
     this.requestsService.getAllByQueryParams(this.params).subscribe({
       next: (data) => {
         this.apartments = data;
-        console.log(data);
         Spinner.hide();
       },
       error: (err) => {
         Spinner.hide();
-
       }
     })
   }
 
   onPageChange(page: number): void {
-
+    this.params.page = page;
+    this.getData();
+    window.scrollTo({ top: 0 });
   }
 
   archive(id: number): void {

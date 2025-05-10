@@ -31,11 +31,15 @@ export interface IApartmentDetail extends IApartment {
   paymentMethods: string[];
   features: string[];
   images: IApartmenImage[];
+  longitude?: number;
+  lattitude?: number;
 }
 
 export interface IApartmentImages {
   id: number;
   path: string;
+  imageType: number;
+
 }
 
 export interface IApartmenImage {
