@@ -305,12 +305,7 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
           imageType: index == 0 ? ImageType.ApartmentMain : ImageType.Apartment
         });
       }
-    })
-
-    console.log(filesToAdd);
-    console.log(imagesFormControl.value);
-    console.log(this.existingImages);
-    
+    })  
 
     if(filesToAdd.length != 0){      
       Spinner.show();
@@ -387,20 +382,8 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
 
   }
 
-  // async urlToFile(url: string, filename: string): Promise<File> {
-  //   const response = await fetch(url);
-  //   const blob = await response.blob();
-  //   return new File([blob], filename, { type: blob.type });
-  // }
-
-  // getFileNameFromUrl(url: string): string {
-  //   return url.substring(url.lastIndexOf('/') + 1);
-  // }
-
   submit(): void {
     Spinner.show();
-    console.log(this.formService.getFormData());
-    
     if(this.isEdit){
       this.subscription.add(
         this.formService.submitUpdate(this.id).subscribe({
@@ -433,7 +416,7 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
-    // this.dataService.isSuccessChanged.closed;
+    this.dataService.isSuccessChanged.closed;
     this.formService.reset();
   }
 }
