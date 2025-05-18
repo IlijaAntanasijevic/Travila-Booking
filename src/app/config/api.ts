@@ -30,5 +30,8 @@ export const apiPaths = {
   },
   images: {
     api: "api/files"
+  },
+  chatMessages: {
+    api: "api/chat",
   }
 }
