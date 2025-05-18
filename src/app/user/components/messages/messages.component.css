@@ -69,6 +69,16 @@
   align-self: flex-start;
 }
 
+.no-messages {
+  font-size: 2rem;
+  color: white;
+  margin: 0px auto;
+  margin-top: 2rem;
+  background-color: var(--bs-neutral-300);
+  padding: 20px;
+  border-radius: 12px;
+}
+
 /* FORM / Input */
 
 ::ng-deep .mat-mdc-form-field {

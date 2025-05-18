@@ -3,9 +3,9 @@
     <div class="row">
       <div class="col-sm-4 left-side">
         <div class="contacts">
-          <div class="contact active">John Doe</div>
-          <div class="contact">Jane Smith</div>
-          <div class="contact">Alice Johnson</div>
+          @for (item of messagesList; track item) {
+            <div class="contact" [class.active]="item.receiverId == selectedChatReceiverId" (click)="getChatMessages(item.receiverId)">{{item.fullName}}</div>
+          }
         </div>
       </div>
 
@@ -13,10 +13,21 @@
       <div class="col-sm-8 right-side">
         <div class="chat-box">
           <div class="chat-messages">
-            <div class="message received">Hello!</div>
+            @for (message of chatMessages; track message) {
+              @if(message.isMineMessage) {
+                <div class="message sent">{{message.message}}</div>
+              } @else {
+                <div class="message received">{{message.message}}</div>
+              }
+            }
+            @empty {
+              <div class="no-messages">No messages yet.</div>
+            }
+            <!-- <div class="message received">Hello!</div>
             <div class="message sent">Hey, how are you?</div>
-            <div class="message received">I'm good, thanks! You?</div>
+            <div class="message received">I'm good, thanks! You?</div> -->
           </div>
+          @if(chatMessages.length > 0) {
           <form [formGroup]="form" style="height: 57px;" class="mt-3">
             <mat-form-field>
               <input matInput formControlName="text" placeholder="Type a message..." />
@@ -26,6 +37,8 @@
             </mat-form-field>
             <!-- <button mat-flat-button color="primary" class="ms-3 text-dark">Send</button> -->
           </form>
+          }
+  
           <!-- <div class="chat-input">
             <input type="text" placeholder="Type a message..." />
             <button>Send</button>
