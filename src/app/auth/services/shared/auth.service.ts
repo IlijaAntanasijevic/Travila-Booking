@@ -32,7 +32,7 @@ export class AuthService {
 
   getUserId(): number {
     let jwtData = this.getJwtTokenData();
-    return jwtData.Id;
+    return Number(jwtData?.Id);
   }
 
   logout(): void {
