@@ -7,6 +7,7 @@ import { IToken } from '../../interfaces/i-auth';
 import { AuthService } from '../../services/shared/auth.service';
 import { BlUserRequestsService } from '../../../user/services/requests/bl-user-requests.service';
 import { Subscription } from 'rxjs';
+import { ChatService } from '../../../core/services/chat.service';
 
 @Component({
     selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private formService: BlLoginFormService,
     private authService: AuthService,
     private userRequestService: BlUserRequestsService,
-    private router: Router
+    private router: Router,
+    private chatService: ChatService
   ) { }
 
   public form: FormGroup = this.formService.getForm();
@@ -46,6 +48,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         let token: string = data.token;
         this.authService.setJwtToken(token);
         this.setUserData();
+        this.chatService.startConnection();
         this.router.navigateByUrl("/home");
         Spinner.hide();
       },

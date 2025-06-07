@@ -12,7 +12,7 @@
 
       <div class="col-sm-8 right-side">
         <div class="chat-box">
-          <div class="chat-messages">
+          <div #chatContainer class="chat-messages">
             @for (message of chatMessages; track message) {
               @if(message.isMineMessage) {
                 <div class="message sent">{{message.message}}</div>
