@@ -2,7 +2,7 @@
 <h2 mat-dialog-title>Owner Information</h2>
 <mat-dialog-content>
   <div class="d-flex justify-content-start align-items-center mt-3">
-    <img src="{{data.avatar}}" height="80px" class="me-4">
+    <img  [src]="data.avatar| imageUrl: imageType.Avatar" height="80px" class="me-4">
     <h4>{{data.firstName}} {{data.lastName}}</h4>
   </div>
 

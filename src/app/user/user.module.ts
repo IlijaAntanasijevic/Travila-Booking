@@ -12,6 +12,8 @@ import { MessagesComponent } from './components/messages/messages.component';
 import { ReservationsComponent } from './components/reservations/reservations.component';
 import { UserTabsComponent } from './components/user-tabs/user-tabs.component';
 import { ReservationInfoDialogComponent } from './components/reservations/components/reservation-info-dialog/reservation-info-dialog.component';
+import { GuestBookingsComponent } from './components/reservations/components/guest-bookings/guest-bookings.component';
+import { MyBookingsComponent } from './components/reservations/components/my-bookings/my-bookings.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { ReservationInfoDialogComponent } from './components/reservations/compon
     MessagesComponent,
     ReservationsComponent,
     UserTabsComponent,
-    ReservationInfoDialogComponent
+    ReservationInfoDialogComponent,
+    GuestBookingsComponent,
+    MyBookingsComponent
   ],
   imports: [
     CommonModule,

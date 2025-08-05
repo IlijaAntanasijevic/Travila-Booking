@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { IUser } from '../../../../interfaces/i-user';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ImageType } from '../../../../../shared/helpers/image-url.pipe';
 
 @Component({
     selector: 'app-reservation-info-dialog',
@@ -14,6 +15,9 @@ export class ReservationInfoDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<ReservationInfoDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: IUser
   ) { }
+
+  imageType = ImageType;
+  
 
   ngOnInit(): void {
     console.log(this.data);
