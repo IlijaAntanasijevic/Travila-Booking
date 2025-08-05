@@ -26,7 +26,8 @@ export const apiPaths = {
     avatar: "api/users/avatar"
   },
   bookings: {
-    api: "api/bookings"
+    api: "api/bookings",
+    myGuests: "api/bookings/guests"
   },
   images: {
     api: "api/files"
