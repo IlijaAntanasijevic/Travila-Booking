@@ -13,7 +13,7 @@ export class ReservationInfoDialogComponent implements OnInit {
 
   constructor(
     private dialogRef: MatDialogRef<ReservationInfoDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: IUser
+    @Inject(MAT_DIALOG_DATA) public data: { user: IUser; isMyBookings: boolean }
   ) { }
 
   imageType = ImageType;

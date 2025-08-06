@@ -47,6 +47,8 @@ export class GuestBookingsComponent implements OnInit, AfterViewInit {
     Spinner.show();
     this.bookingRequestsService.getMyGuests().subscribe({
       next: (data) => {
+        console.log(data);
+        
         this.reservationData = data;
         this.dataSource = new MatTableDataSource(this.reservationData.data);
         this.dataSource.paginator = this.paginator;
@@ -70,11 +72,14 @@ export class GuestBookingsComponent implements OnInit, AfterViewInit {
     }
   }
 
-  showOwnerInfo(owner: IUser): void {
+  showGuestInfo(guest: IUser): void {
     this.matDialog.open(ReservationInfoDialogComponent, {
       width: '700px',
       height: 'auto',
-      data: owner
+      data: {
+        user: guest,
+        isMyBookings: false
+      }
     });
   }
 
