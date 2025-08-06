@@ -1,14 +1,14 @@
 @if(data){
-<h2 mat-dialog-title>Owner Information</h2>
+<h2 mat-dialog-title>{{data.isMyBookings ? "Owner Information" : "Guest Information"}}</h2>
 <mat-dialog-content>
   <div class="d-flex justify-content-start align-items-center mt-3">
-    <img  [src]="data.avatar| imageUrl: imageType.Avatar" height="80px" class="me-4">
-    <h4>{{data.firstName}} {{data.lastName}}</h4>
+    <img  [src]="data.user.avatar| imageUrl: imageType.Avatar" height="80px" class="me-4">
+    <h4>{{data.user.firstName}} {{data.user.lastName}}</h4>
   </div>
 
   <div class="mt-25 mb-2 contactInfo">
-    <h5 class="mb-1">Phone: {{data.phone}}</h5>
-    <h5>Email: {{data.email}}</h5>
+    <h5 class="mb-1">Phone: {{data.user.phone}}</h5>
+    <h5>Email: {{data.user.email}}</h5>
   </div>
 </mat-dialog-content>
 <mat-dialog-actions class="d-flex justify-content-end">

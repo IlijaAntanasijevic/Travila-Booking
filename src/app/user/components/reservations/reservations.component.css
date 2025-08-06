@@ -1,4 +1,5 @@
 .my-mat-tab {
-  margin-bottom: 48px;
+  padding-bottom: 48px;
+  padding-top: 10px;
   background-color: var(--bs-background-body) !important;
 }

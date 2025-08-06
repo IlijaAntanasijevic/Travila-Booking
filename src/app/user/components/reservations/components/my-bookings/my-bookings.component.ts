@@ -75,7 +75,10 @@ export class MyBookingsComponent implements OnInit, AfterViewInit {
     this.matDialog.open(ReservationInfoDialogComponent, {
       width: '700px',
       height: 'auto',
-      data: owner
+      data: {
+        user: owner,
+        isMyBookings: true
+      }
     });
   }
 
