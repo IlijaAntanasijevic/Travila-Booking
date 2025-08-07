@@ -95,6 +95,10 @@ export class ApartmentViewComponent implements OnInit, OnDestroy {
     )
   }
 
+  redirectToBooking(): void {
+    this.router.navigateByUrl(`/booking/${this.apartment.id}`);
+  }
+
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();

@@ -41,10 +41,10 @@ export class HomeFeaturedApartmentsComponent implements OnInit, OnDestroy {
       this.homeFeaturedRequestsService.getFeatured(this.page).subscribe({
         next: (data) => {
           this.data = data;
-          this.page == 1 ? this.apartmemts = this.data.data : this.apartmemts = [...this.apartmemts, ...data.data];
-          // setTimeout(() => {
-          //   this.page == 1 ? this.apartmemts = this.data.data : this.apartmemts = [...this.apartmemts, ...data.data];
-          // }, 3000)
+          // this.page == 1 ? this.apartmemts = this.data.data : this.apartmemts = [...this.apartmemts, ...data.data];
+          setTimeout(() => {
+            this.page == 1 ? this.apartmemts = this.data.data : this.apartmemts = [...this.apartmemts, ...data.data];
+          }, 3000)
           Spinner.hide();
         },
         error: (err) => {

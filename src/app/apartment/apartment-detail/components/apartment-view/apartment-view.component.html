@@ -31,9 +31,12 @@
           <div class="tour-title-main">
             <h4 class="neutral-1000">{{apartment.name}}</h4>
           </div>
-          <div>
-            <span class="btn btn-default btn-filter">Book now</span>
+          @if (apartment?.userCanBook) {
+            <div>
+            <span class="btn btn-default btn-filter" (click)="redirectToBooking()">Book now</span>
           </div>
+          }
+          
         </div>
         <div class="tour-metas">
           <div class="tour-meta-left">
