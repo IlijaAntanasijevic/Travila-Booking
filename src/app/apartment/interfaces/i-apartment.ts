@@ -33,6 +33,7 @@ export interface IApartmentDetail extends IApartment {
   images: IApartmenImage[];
   longitude?: number;
   lattitude?: number;
+  userCanBook: boolean;
 }
 
 export interface IApartmentImages {

@@ -47,8 +47,6 @@ export class GuestBookingsComponent implements OnInit, AfterViewInit {
     Spinner.show();
     this.bookingRequestsService.getMyGuests().subscribe({
       next: (data) => {
-        console.log(data);
-        
         this.reservationData = data;
         this.dataSource = new MatTableDataSource(this.reservationData.data);
         this.dataSource.paginator = this.paginator;
@@ -63,8 +61,6 @@ export class GuestBookingsComponent implements OnInit, AfterViewInit {
   }
 
   announceSortChange(sortState: any) {
-    console.log(sortState);
-
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
     } else {

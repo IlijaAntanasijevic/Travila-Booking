@@ -31,6 +31,11 @@ const routes: Routes = [
         path: "apartments",
         loadChildren: () => import('./apartment/apartment.module').then(m => m.ApartmentModule)
       },
+      {
+        path: "booking",
+        loadChildren: () => import('./reservation/reservation.module').then(m => m.ReservationModule),
+        canActivate: [AuthGuard]
+      }
     ]
   },
   {
