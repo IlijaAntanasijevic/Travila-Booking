@@ -1,0 +1,62 @@
+.booking-form-first {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+/* mat-stepper {
+    height: 60vh;
+} */
+
+.booking-form-first mat-form-field {
+    margin: 0px 2rem;
+}
+
+::ng-deep .mat-step-text-label {
+    color: white;
+}
+
+::ng-deep .mat-stepper-horizontal-line {
+    background-color: white;
+}
+
+::ng-deep .mat-step-icon:not(.mat-step-icon-selected) {
+    color: black !important;
+    background-color: #fefa17b0 !important;
+}
+
+::ng-deep .mat-step-header:has(.mat-step-icon.mat-step-icon-selected){
+
+    background-color: var(--bs-neutral-100) !important;
+    border-radius: 10px;
+    height: 50px;
+}
+
+.first-form-buttons button{
+    background-color: var(--bs-brand-secondary);
+    color: black;
+    border: 1px solid black;
+    padding: 5px 40px;
+    border-radius: 5px;
+    float: right;
+    /* transform: translateX(15px); */
+}
+
+::ng-deep .mdc-text-field--filled {
+  border-radius: 4px !important;
+  background-color: #575756 !important;
+  color: white !important;
+  width: 120% !important;
+  font-size: 1.1rem !important;
+}
+
+::ng-deep .mdc-text-field--filled .mdc-text-field__input {
+  color: white !important;
+}
+
+::ng-deep .mdc-text-field--filled.mdc-text-field--disabled .mdc-floating-label {
+    color:  black !important;
+    font-size: 1.1rem !important;
+}
+

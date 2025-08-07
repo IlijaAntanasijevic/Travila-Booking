@@ -57,7 +57,7 @@
               </svg>
               Share
             </a>
-            @if(isLoggedIn){
+            @if(isLoggedIn && apartment.userCanBook){
             <a class="btn btn-wishlish" href="#">
               <svg width="20" height="18" viewbox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd"

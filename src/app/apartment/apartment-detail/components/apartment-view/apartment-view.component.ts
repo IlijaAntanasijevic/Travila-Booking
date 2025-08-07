@@ -7,6 +7,8 @@ import { IApartmenImage, IApartmentDetail, IApartmentImages } from '../../../int
 import { IBase, IPaginatedResponse } from '../../../../core/interfaces/i-base';
 import { AuthService } from '../../../../auth/services/shared/auth.service';
 import { ILocationCoordinates } from '../../../../shared/components/map/i-map';
+import { BlApartmentDashboardDataService } from '../../../apartment-dashboard/services/shared/bl-apartment-dashboard-data.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-apartment-view',
@@ -20,7 +22,10 @@ export class ApartmentViewComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private requestsService: BlApartmentsRequestsService,
-    public authService: AuthService
+    public authService: AuthService,
+    private apartmentDashboardDataService: BlApartmentDashboardDataService,
+    private alertService: ToastrService
+    
   ) { }
 
   private subscription: Subscription = new Subscription();
@@ -96,7 +101,19 @@ export class ApartmentViewComponent implements OnInit, OnDestroy {
   }
 
   redirectToBooking(): void {
-    this.router.navigateByUrl(`/booking/${this.apartment.id}`);
+    this.subscription.add(
+      this.apartmentDashboardDataService.searchedData.subscribe({
+        next: (data) => {
+          if(!data){
+            this.alertService.warning("Please select dates and guests before booking.");
+            return;
+          }
+          else {
+              this.router.navigateByUrl(`/booking/${this.apartment.id}`);
+          }
+        }
+      })
+    )
   }
 
 

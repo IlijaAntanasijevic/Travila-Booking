@@ -133,14 +133,32 @@ export class HomeSeachComponent implements OnInit, OnDestroy {
     //   cityId: formData.city.id 
     // };
 
-    this.router.navigate(['/apartments'], { queryParams: { 
-      checkIn: formData.checkIn,
-      checkOut: formData.checkOut,
-      adults: formData.adults,
-      childrens: formData.childrens,
-      rooms: formData.rooms,
-      cityId: formData.city.id
-    } });
+    let queryParams = {
+  checkIn: formData.checkIn,
+  checkOut: formData.checkOut,
+  adults: formData.adults,
+  childrens: formData.childrens,
+  rooms: formData.rooms,
+  cityId: formData.city.id
+};
+
+    if (this.router.url.startsWith('/apartments')) {
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/apartments'], { queryParams });
+    });
+  } 
+  else {
+    this.router.navigate(['/apartments'], { queryParams });
+  }
+
+    // this.router.navigate(['/apartments'], { queryParams: { 
+    //   checkIn: formData.checkIn,
+    //   checkOut: formData.checkOut,
+    //   adults: formData.adults,
+    //   childrens: formData.childrens,
+    //   rooms: formData.rooms,
+    //   cityId: formData.city.id
+    // } });
 
     // this.homeSearchReqService.search(dataToSend).subscribe({
     //   next: (data) => {
