@@ -31,7 +31,7 @@
           <div class="tour-title-main">
             <h4 class="neutral-1000">{{apartment.name}}</h4>
           </div>
-          @if (apartment?.userCanBook) {
+          @if (apartment?.userCanBook && !openedFromBooking) {
             <div>
             <span class="btn btn-default btn-filter" (click)="redirectToBooking()">Book now</span>
           </div>
@@ -57,7 +57,7 @@
               </svg>
               Share
             </a>
-            @if(isLoggedIn && apartment.userCanBook){
+            @if(apartment?.userCanBook){
             <a class="btn btn-wishlish" href="#">
               <svg width="20" height="18" viewbox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -338,7 +338,7 @@
                 </div>
               </div>
             </div>
-            @if(authService.isLoggedIn()){
+            @if(apartment?.userCanBook && !openedFromBooking){
             <app-apartment-add-review></app-apartment-add-review>
             }
           </div>

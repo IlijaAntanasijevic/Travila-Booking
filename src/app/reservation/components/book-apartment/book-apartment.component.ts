@@ -8,6 +8,10 @@ import { Spinner } from '../../../core/functions/spinner';
 import {FormBuilder, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { IApartmentDetail } from '../../../apartment/interfaces/i-apartment';
 import { ILocationCoordinates } from '../../../shared/components/map/i-map';
+import { ToastrService } from 'ngx-toastr';
+import { IApartmentBooking } from '../../interfaces/i-apartment-booking';
+import { toUTCDateString } from '../../../core/helpers/utility';
+import { AuthService } from '../../../auth/services/shared/auth.service';
 
 @Component({
   selector: 'app-book-apartment',
@@ -15,26 +19,24 @@ import { ILocationCoordinates } from '../../../shared/components/map/i-map';
   templateUrl: './book-apartment.component.html',
   styleUrl: './book-apartment.component.css'
 })
-export class BookApartmentComponent implements OnInit, OnDestroy, AfterViewInit {
+export class BookApartmentComponent implements OnInit, OnDestroy {
 
   constructor(
     private apartmentDashboardDataService: BlApartmentDashboardDataService,
     private router: Router,
     private route: ActivatedRoute,
-    private requestsService: BlBookingRequestsService    
+    private requestsService: BlBookingRequestsService,
+    private alertService: ToastrService
   ) { }
-
-
 
   private subsrcitpion: Subscription = new Subscription();
   private bookingData: ISearchHomeRequest = null;
-  public apartmentData: any = null;
   private _formBuilder = inject(FormBuilder);
-  public apartmentId: number;
-  selectedCoordinates: ILocationCoordinates = {
-      latitude: 0,
-      longitude: 0 
-  };
+  apartmentData: any = null;
+  apartmentId: number;
+  selectedCoordinates: ILocationCoordinates = null;
+  isBookingBtnDisabled: boolean = false;
+
 
   firstFormGroup = this._formBuilder.group({
     countryCity: [{disabled: true, value: ''}],
@@ -49,11 +51,22 @@ export class BookApartmentComponent implements OnInit, OnDestroy, AfterViewInit 
     apartmentName: [{disabled: true, value: ''}],
     type: [{disabled: true, value: ''}],
     features: [{disabled: true, value: ''}],
-    mainImage: [{disabled: true, value: ''}],
     pricePerNight: [{disabled: true, value: ''}],
     totalRooms: [{disabled: true, value: ''}],
     totalBookings: [{disabled: true, value: ''}],
+    address: [{disabled: true, value: ''}],
   });
+
+ thirdFormGroup = this._formBuilder.group({
+  ...this.firstFormGroup.controls,
+  ...this.secondFormGroup.controls,
+
+  firstName: [{ disabled: true, value: '' }],
+  lastName: [{ disabled: true, value: '' }],
+  email: [{ disabled: true, value: '' }],
+  phone: [{ disabled: true, value: '' }],
+  payment: [null, Validators.required],
+});
 
   ngOnInit(): void {
     Spinner.show();
@@ -77,16 +90,9 @@ export class BookApartmentComponent implements OnInit, OnDestroy, AfterViewInit 
         }
       }
     });
+    this.thirdFormGroup.markAsUntouched();
     Spinner.hide();
   }
-
-  ngAfterViewInit(): void {
-        this.selectedCoordinates = {
-            latitude: this.apartmentData.lattitude,
-            longitude: this.apartmentData.longitude
-          };
-  }
-
   
   getApartmentById(): void {
     Spinner.show();
@@ -99,7 +105,9 @@ export class BookApartmentComponent implements OnInit, OnDestroy, AfterViewInit 
             latitude: this.apartmentData.lattitude,
             longitude: this.apartmentData.longitude
           };
-            this.fillForms();
+          this.getUserData();  
+          this.fillForms();
+
             Spinner.hide();
           }
         },
@@ -109,12 +117,71 @@ export class BookApartmentComponent implements OnInit, OnDestroy, AfterViewInit 
     )
   }
 
+  getUserData(): void {
+    this.subsrcitpion.add(
+      this.requestsService.getUserData().subscribe({
+        next: (data) => {
+          if(data) {
+            this.thirdFormGroup.patchValue({
+              firstName: data.firstName,
+              lastName: data.lastName,
+              email: data.email,
+              phone: data.phone
+            });
+          }
+        }
+      })
+    )
+  }
+
+  bookApartment(): void {
+    this.thirdFormGroup.markAllAsTouched();
+    this.thirdFormGroup.updateValueAndValidity();
+    if(this.thirdFormGroup.invalid) {
+      this.alertService.error("Please fill all required fields.");
+      return;
+    }
+
+    Spinner.show();
+    let dataToSend: IApartmentBooking = {
+      apartmentId: this.apartmentId,
+      checkIn: toUTCDateString(new Date(this.bookingData.checkIn)),
+      checkOut: toUTCDateString(new Date(this.bookingData.checkOut)),
+      totalGuests: Number(this.bookingData.adults) + Number(this.bookingData.childrens),
+      paymentId: this.thirdFormGroup.get('payment').value
+    }
+    this.subsrcitpion.add(
+    this.requestsService.createBooking(dataToSend).subscribe({
+      next: (data) => {
+        this.alertService.success("Booking created successfully.");
+        this.isBookingBtnDisabled = true;
+        this.apartmentDashboardDataService.isApartmentBooked.next(true);
+        this.router.navigate(['/user/reservations']);
+
+        //  setTimeout(() => {
+        //     this.router.navigate(['/user/reservations']);
+        //  }, 1000);
+        Spinner.hide()
+      },
+      error: err => Spinner.hide()
+    })
+
+    )
+  }
+
+  viewApartment(): void {
+     const url = `/apartments/${this.apartmentId}?from=booking`;
+     window.open(url, '_blank');
+  }
+
   fillForms(): void {
     this.firstFormGroup.patchValue({
       countryCity: this.apartmentData.country.name + ', ' + this.apartmentData.city.name,
-      price: (this.calculateTotalNights() * this.apartmentData.pricePerNight).toString(),
-      checkIn: new Date(this.bookingData.checkIn).toISOString().split('T')[0],
-      checkOut:  new Date(this.bookingData.checkOut).toISOString().split('T')[0],
+      price: (this.calculateTotalNights() * this.apartmentData.pricePerNight).toString() + "$",
+      // checkIn: new Date(this.bookingData.checkIn).toISOString().split('T')[0],
+      // checkOut:  new Date(this.bookingData.checkOut).toISOString().split('T')[0],
+      checkIn: new Date(this.bookingData.checkIn).toLocaleDateString('en-US', { month: '2-digit', day: '2-digit',  year: 'numeric'}),
+      checkOut: new Date(this.bookingData.checkOut).toLocaleDateString('en-US', { month: '2-digit', day: '2-digit',  year: 'numeric'}),
       totalNights: this.calculateTotalNights(),
       totalGuests: Number(this.bookingData.childrens) + Number(this.bookingData.adults)
     });
@@ -123,10 +190,15 @@ export class BookApartmentComponent implements OnInit, OnDestroy, AfterViewInit 
       apartmentName: this.apartmentData.name,
       type: this.apartmentData.apartmentType,
       features: this.apartmentData.features.map(feature => feature.name).join(', '),
-      mainImage: this.apartmentData.mainImage.fileName,
       totalRooms: '999',
-      pricePerNight: this.apartmentData.pricePerNight,
+      pricePerNight: this.apartmentData.pricePerNight + '$',
       totalBookings: this.apartmentData.totalBookings,
+      address: this.apartmentData.address,
+    });
+
+    this.thirdFormGroup.patchValue({
+      ...this.firstFormGroup.value,
+      ...this.secondFormGroup.value,
     });
   }
 

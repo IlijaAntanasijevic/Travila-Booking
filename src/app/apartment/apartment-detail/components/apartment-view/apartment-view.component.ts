@@ -5,7 +5,6 @@ import { Spinner } from '../../../../core/functions/spinner';
 import { Subscription } from 'rxjs';
 import { IApartmenImage, IApartmentDetail, IApartmentImages } from '../../../interfaces/i-apartment';
 import { IBase, IPaginatedResponse } from '../../../../core/interfaces/i-base';
-import { AuthService } from '../../../../auth/services/shared/auth.service';
 import { ILocationCoordinates } from '../../../../shared/components/map/i-map';
 import { BlApartmentDashboardDataService } from '../../../apartment-dashboard/services/shared/bl-apartment-dashboard-data.service';
 import { ToastrService } from 'ngx-toastr';
@@ -22,10 +21,8 @@ export class ApartmentViewComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private requestsService: BlApartmentsRequestsService,
-    public authService: AuthService,
     private apartmentDashboardDataService: BlApartmentDashboardDataService,
     private alertService: ToastrService
-    
   ) { }
 
   private subscription: Subscription = new Subscription();
@@ -33,11 +30,11 @@ export class ApartmentViewComponent implements OnInit, OnDestroy {
   images: IApartmentImages[] = [];
   featuresFirstColum: IBase[];
   featuresSecondColum: IBase[];
-  isLoggedIn: boolean = this.authService.isLoggedIn();
   selectedCoordinates: ILocationCoordinates = {
     latitude: 0,
     longitude: 0 
   };
+  openedFromBooking: boolean = false;
 
 
   public TMPPaginatorData: IPaginatedResponse<any> = {
@@ -59,6 +56,16 @@ export class ApartmentViewComponent implements OnInit, OnDestroy {
       this.getApartmentById(id);
 
     })
+
+    this.subscription.add(
+     this.route.queryParams.subscribe({
+      next: (params) => {
+        if(params['from'] == 'booking') {
+          this.openedFromBooking = true;
+        }
+      }
+     })
+    )
   }
 
 

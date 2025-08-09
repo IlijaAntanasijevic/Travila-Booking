@@ -1,4 +1,4 @@
-.booking-form-first {
+.booking-forms {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,7 +9,7 @@
     height: 60vh;
 } */
 
-.booking-form-first mat-form-field {
+.booking-forms mat-form-field {
     margin: 0px 2rem;
 }
 
@@ -33,7 +33,7 @@
     height: 50px;
 }
 
-.first-form-buttons button{
+.form-buttons button{
     background-color: var(--bs-brand-secondary);
     color: black;
     border: 1px solid black;
@@ -43,16 +43,41 @@
     /* transform: translateX(15px); */
 }
 
+.buttons-2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+::ng-deep .buttons-2 .mat-icon {
+    transform: translate(5px, 6px);
+}
+
+.buttons-2 a {
+    cursor: pointer;
+    color: var(--bs-brand-secondary)
+}
+
 ::ng-deep .mdc-text-field--filled {
   border-radius: 4px !important;
   background-color: #575756 !important;
   color: white !important;
-  width: 120% !important;
   font-size: 1.1rem !important;
+
 }
+
+::ng-deep .mdc-text-field--filled:not(:has(textarea)) {
+  width: 120% !important;
+}
+
 
 ::ng-deep .mdc-text-field--filled .mdc-text-field__input {
   color: white !important;
+}
+
+::ng-deep .mat-mdc-form-field-infix {
+    width: 220px !important;
 }
 
 ::ng-deep .mdc-text-field--filled.mdc-text-field--disabled .mdc-floating-label {
@@ -60,3 +85,58 @@
     font-size: 1.1rem !important;
 }
 
+
+
+::ng-deep .text-area .mat-mdc-form-field-infix {
+    width: 910px !important;
+}
+
+/* START DDL */
+
+::ng-deep .mat-mdc-select-arrow svg {
+  fill: white !important;
+}
+
+::ng-deep div.mat-mdc-select-panel {
+  background-color: var(--bs-neutral-100) !important;
+  border: 1px solid rgb(65, 65, 65) !important;
+}
+
+::ng-deep .mat-mdc-select-trigger {
+  color: white !important;
+}
+
+::ng-deep .mat-mdc-option {
+  color: white !important;
+}
+
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-floating-label{
+color: black !important;
+}
+
+/* END DDL */
+.form-buttons-3  {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    transform: translateX(25px);
+
+}
+
+.form-buttons-3 button{
+    background-color: var(--bs-brand-secondary);
+    color: black;
+    border: 1px solid black;
+    padding: 5px 70px;
+    border-radius: 5px;
+    /* transform: translateX(15px); */
+}
+
+.form-buttons-3 button:last-child {
+    background-color: var(--bs-success);
+}
+
+.form-buttons-3 button:first-child {
+    background-color: var(--bs-neutral-200);
+    color: white;
+}
