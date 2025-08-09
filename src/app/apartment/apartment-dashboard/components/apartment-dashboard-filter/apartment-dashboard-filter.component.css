@@ -57,3 +57,17 @@
   background-color: var(--bs-border-color);
   color: var(--bs-neutral-1000);
 }
+
+::ng-deep .mdc-switch__track::before,
+::ng-deep .mdc-switch__track::after {
+  background-color: var(--bs-brand-secondary) !important;
+}
+
+::ng-deep .mdc-switch__track {
+  height: 18px !important;
+}
+
+::ng-deep .mat-mdc-slide-toggle .mdc-switch:enabled+.mdc-label {
+  margin-left: 10px !important;
+  margin-top: 5px !important;
+}

@@ -25,7 +25,9 @@ export class BlApartmentFilterFormService implements IFormService<IFilter>{
         }),
       ]),
       perPage: new FormControl(6),
-      cityId: new FormControl(null)
+      cityId: new FormControl(null),
+      isAvailable: new FormControl(false),
+      isMyApartment: new FormControl(true),
     })
   }
 

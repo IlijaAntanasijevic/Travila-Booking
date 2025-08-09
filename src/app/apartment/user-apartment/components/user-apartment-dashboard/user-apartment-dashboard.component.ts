@@ -28,7 +28,6 @@ export class UserApartmentDashboardComponent implements OnInit {
   apartments: IPaginatedResponse<IApartment>;
   imageType = ImageType;
   private params: IApartmentSearch = {
-    currentUserApartments: true,
     perPage: 9,
     page: 1
   }

@@ -33,7 +33,7 @@
           </div>
           @if (apartment?.userCanBook && !openedFromBooking) {
             <div>
-            <span class="btn btn-default btn-filter" (click)="redirectToBooking()">Book now</span>
+            <button class="btn btn-default btn-filter" (click)="redirectToBooking()" [disabled]="!apartment.isAvailable">Book now</button>
           </div>
           }
           
