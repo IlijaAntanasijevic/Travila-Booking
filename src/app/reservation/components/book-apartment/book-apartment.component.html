@@ -1,15 +1,15 @@
-<mat-stepper [linear]="false" #stepper class="background-body ">
-  <mat-step [stepControl]="firstFormGroup">
+<mat-stepper #stepper class="background-body ">
+  <mat-step [stepControl]="firstFormGroup" >
     <form [formGroup]="firstFormGroup" class="container mt-35">
       <ng-template matStepLabel class="text-light">Booking data</ng-template>
-      <div class="booking-form-first background-body">
+      <div class="booking-forms">
         <div>
         <mat-form-field>
         <mat-label>Country/City</mat-label>
         <input matInput formControlName="countryCity">
       </mat-form-field>
         <mat-form-field>
-            <mat-label>Total price($)</mat-label>
+            <mat-label>Total price</mat-label>
             <input matInput formControlName="price">
         </mat-form-field>
         <mat-form-field>
@@ -33,27 +33,32 @@
       </div>
       </div>
         
-        <div class="first-form-buttons">
+        <div class="form-buttons">
             <button matButton matStepperNext>Next</button>
         </div>
   
     </form>
   </mat-step>
   <mat-step [stepControl]="secondFormGroup" label="Apartment data">
-    <form [formGroup]="secondFormGroup">
+    <form [formGroup]="secondFormGroup" class="container mt-35">
+      <div>
+        <div class="booking-forms booking-form-2">
+        <div>
+          <mat-form-field>
+            <mat-label>Apartment Name</mat-label>
+            <input matInput formControlName="apartmentName">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Apartment Type</mat-label>
+            <input matInput formControlName="type">
+          </mat-form-field>
+        <mat-form-field>
+          <mat-label>Address</mat-label>
+          <input matInput formControlName="address">
+        </mat-form-field>
+        </div>
+        <div>
       <mat-form-field>
-        <mat-label>Apartment Name</mat-label>
-        <input matInput formControlName="apartmentName">
-      </mat-form-field>
-     <mat-form-field>
-        <mat-label>Apartment Type</mat-label>
-        <input matInput formControlName="type">
-      </mat-form-field>
-        <mat-form-field>
-        <mat-label>Features</mat-label>
-        <input matInput formControlName="features">
-      </mat-form-field>
-        <mat-form-field>
         <mat-label>Total rooms</mat-label>
         <input matInput formControlName="totalRooms">
       </mat-form-field>
@@ -61,25 +66,125 @@
         <mat-label>Price per night</mat-label>
         <input matInput formControlName="pricePerNight">
       </mat-form-field>
-         <mat-form-field>
+      <mat-form-field>
         <mat-label>Total bookings</mat-label>
         <input matInput formControlName="totalBookings">
       </mat-form-field>
-      <div>
-        <button matButton matStepperPrevious>Back</button>
-        <button matButton matStepperNext>Next</button>
+        </div>
+      <div class="text-area">
+        <mat-form-field style="height: 120px; transform: translateX(25px);">
+          <mat-label>Apartment features</mat-label>
+          <textarea  matInput cdkTextareaAutosize formControlName="features"></textarea>
+        </mat-form-field>
       </div>
+      </div>
+   
+      </div>
+  
     </form>
+    <div class="container mt-25">
+    @if(selectedCoordinates){
+    <app-map [coordinates]="selectedCoordinates" [onlyViewMap]="true" [style]=""></app-map>
+    }
+        <div class="form-buttons buttons-2">
+            <a (click)="viewApartment()">Take a look<mat-icon>youtube_searched_for</mat-icon></a>
+         <div>
+           <button matButton matStepperNext class="ms-2">Next</button>
+          <button matButton matStepperPrevious>Back</button>
+         </div>
+      </div>
+    </div>
 
-    <app-map [coordinates]="selectedCoordinates" [onlyViewMap]="true"></app-map>
-    <a [routerLink]="'/apartments/'+apartmentId" target="_blank" rel="noopener">Take a look</a>
   </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Done</ng-template>
-    <p>You are now done.</p>
-    <div>
-      <button matButton matStepperPrevious>Back</button>
-      <button matButton (click)="stepper.reset()">Reset</button>
+   <mat-step [stepControl]="thirdFormGroup" label="Sumbit">
+    <form [formGroup]="thirdFormGroup" class="container mt-35">
+      <div class="booking-forms">
+        <div>
+        <mat-form-field>
+        <mat-label>Country/City</mat-label>
+        <input matInput formControlName="countryCity">
+      </mat-form-field>
+       <mat-form-field>
+          <mat-label>Price per night</mat-label>
+          <input matInput formControlName="pricePerNight">
+       </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+            <mat-label>Check In</mat-label>
+            <input matInput formControlName="checkIn">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Check Out</mat-label>
+            <input matInput formControlName="checkOut">
+        </mat-form-field>
+      </div>
+          <div>
+          <mat-form-field>
+              <mat-label>Total nights</mat-label>
+              <input matInput formControlName="totalNights">
+              </mat-form-field>
+         <mat-form-field>
+              <mat-label>Total guests</mat-label>
+              <input matInput formControlName="totalGuests">
+          </mat-form-field>
+        </div>
+        <div>
+        <mat-form-field>
+              <mat-label>Apartment Type</mat-label>
+              <input matInput formControlName="type">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Address</mat-label>
+            <input matInput formControlName="address">
+          </mat-form-field>
+      
+        </div>
+        <div>
+        <mat-form-field>
+            <mat-label>Total price</mat-label>
+            <input matInput formControlName="price">
+        </mat-form-field>
+        <mat-form-field>
+        <mat-label>Payment method</mat-label>
+        <mat-select formControlName="payment">
+          @for (method of apartmentData?.paymentMethods; track method) {
+            <mat-option  [value]="method.id">{{method.name}}</mat-option>
+          }
+      
+        </mat-select>
+               @if(thirdFormGroup.get('payment').hasError('required')){
+            <mat-error>Payment method is required</mat-error>
+            }
+      </mat-form-field> 
+      </div>
+        <div>
+          <mat-form-field>
+              <mat-label>First name</mat-label>
+              <input matInput formControlName="firstName">
+          </mat-form-field>
+          <mat-form-field>
+              <mat-label>Last name</mat-label>
+              <input matInput formControlName="lastName">
+          </mat-form-field>
+        </div>
+               <div>
+          <mat-form-field>
+              <mat-label>E-mail</mat-label>
+              <input matInput formControlName="email">
+          </mat-form-field>
+          <mat-form-field>
+              <mat-label>Phone</mat-label>
+              <input matInput formControlName="phone">
+          </mat-form-field>
+        </div>
+      </div>
+    
+    </form>
+    <div class="form-buttons-3">
+      <button matButton matStepperPrevious class="me-3" [disabled]="isBookingBtnDisabled">Back</button>
+      <button matButton (click)="bookApartment()" [disabled]="isBookingBtnDisabled">Book</button>
     </div>
   </mat-step>
+
 </mat-stepper>

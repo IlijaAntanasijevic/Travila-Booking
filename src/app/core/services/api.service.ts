@@ -80,9 +80,16 @@ export class ApiService<T> {
         }
         return EMPTY;
       default:
+        if(error.error && error.error.error) {
+          errorMessage = error.error.error;
+        }
+        else {
         errorMessage = "Server error!";
+        }
     }
 
+    console.log();
+    
     this.alertService.error(errorMessage);
     return throwError(() => new Error(errorMessage));
   }

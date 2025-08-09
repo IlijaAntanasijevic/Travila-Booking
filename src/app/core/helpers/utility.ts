@@ -33,3 +33,7 @@ export function numberIdMatcher(segments: UrlSegment[]): UrlMatchResult | null {
   }
   return null;
 }
+
+export function toUTCDateString(date: Date): string{
+  return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())).toISOString();
+}
