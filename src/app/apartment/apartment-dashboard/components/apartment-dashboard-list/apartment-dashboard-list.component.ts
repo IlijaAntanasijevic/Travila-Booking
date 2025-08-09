@@ -5,6 +5,7 @@ import { BlApartmentDashboardDataService } from '../../services/shared/bl-apartm
 import { AuthService } from '../../../../auth/services/shared/auth.service';
 import { BlFavoriteApartmentsRequestsService } from '../../../../user/components/favorite-apartments/services/requests/bl-favorite-apartments-requests.service';
 import { ImageType } from '../../../../shared/helpers/image-url.pipe';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-apartment-dashboard-list',
@@ -17,7 +18,9 @@ export class ApartmentDashboardListComponent implements OnChanges {
   constructor(
     private dataService: BlApartmentDashboardDataService,
     private favoriteApartmentsRequestService: BlFavoriteApartmentsRequestsService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router,
+
   ) { }
 
   @Input() data: IPaginatedResponse<IApartment>;
@@ -29,6 +32,7 @@ export class ApartmentDashboardListComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['data'] && changes['data'].currentValue) {
       this.apartmentsData = this.data.data;
+      
     }
   }
 
@@ -41,6 +45,12 @@ export class ApartmentDashboardListComponent implements OnChanges {
 
       }
     })
+  }
+
+  viewApartmentDetails(apartment: IApartment): void {
+    this.dataService.isApartmentAvailable.next(apartment.isAvailable);
+    this.router.navigate(['/apartments/' + apartment.id]);
+
   }
 
   onPageChange(page: number): void {

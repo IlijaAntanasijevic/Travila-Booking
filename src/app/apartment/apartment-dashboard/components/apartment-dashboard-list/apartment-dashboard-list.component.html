@@ -4,7 +4,7 @@
     <div class="row">
       @for(item of apartmentsData; track item) {
       <div class="col-xl-4 col-lg-6 col-md-6">
-        <div class="card-journey-small background-card">
+        <div class="card-journey-small background-card" [ngClass]="{'apartmentNotAvailable': !item.isAvailable}">
           <div class="card-image">
             @if(isLoggedIn){
             <a class="wish" (click)="addToWishList(item.id)">
@@ -40,8 +40,15 @@
                   <h6 class="heading-6 neutral-1000">${{item.pricePerNight}}</h6>
                 </div>
                 <div class="card-button">
-                  <a class="btn btn-gray" routerLink="/apartments/{{item.id}}">View</a>
+                  <a class="btn btn-gray" (click)="viewApartmentDetails(item)">View</a>
+               
                 </div>
+        
+              </div>
+              <div>
+              @if(!item.isAvailable) {
+                  <span class="text-sm-medium neutral-500">This apartment is not available for selected dates!</span>
+              }
               </div>
             </div>
           </div>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ApartmentService } from '../api/apartment.service';
 import { Observable } from 'rxjs';
 import { IApartmentSearch } from '../../interfaces/i-apartment';
+import { toUTCDateString } from '../../../core/helpers/utility';
 
 @Injectable({
   providedIn: 'root'
@@ -40,8 +41,17 @@ export class BlApartmentsRequestsService {
     if (params.cityId !== null && params.cityId !== undefined) {
       queryParts.push(`cityId=${params.cityId}`);
     }
-    if (params.currentUserApartments !== null && params.currentUserApartments !== undefined) {
-      queryParts.push(`currentUserApartments=${params.currentUserApartments}`);
+     if (params.checkIn !== null && params.checkIn !== undefined) {
+      queryParts.push(`checkIn=${toUTCDateString(new Date(params.checkIn))}`); 
+    }
+     if (params.checkOut !== null && params.checkOut !== undefined) {
+      queryParts.push(`checkOut=${toUTCDateString(new Date(params.checkOut))}`);
+    }
+    if (params.isMyApartment !== null && params.isMyApartment !== undefined) {
+      queryParts.push(`isMyApartment=${params.isMyApartment}`);
+    }
+      if (params.isAvailable !== null && params.isAvailable !== undefined) {
+      queryParts.push(`isAvailable=${params.isAvailable}`);
     }
 
     if (params.apartmentTypeIds && params.apartmentTypeIds.length > 0) {

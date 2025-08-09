@@ -32,6 +32,18 @@
       </mat-expansion-panel>
     </mat-accordion>
 
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="true" (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
+        <mat-expansion-panel-header class="accordionHeader">
+          <mat-panel-title class="text-light">Properties</mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="d-flex flex-column">
+            <mat-slide-toggle formControlName="isAvailable">Available only</mat-slide-toggle>
+            <mat-slide-toggle formControlName="isMyApartment" class="mt-4 mb-2">My apartments</mat-slide-toggle>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+
     <div class="d-flex justify-content-center">
       <span class="btn btn-default btn-filter" (click)="searchFilter()">Search</span>
     </div>

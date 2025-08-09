@@ -7,3 +7,16 @@
 .wish {
   cursor: pointer;
 }
+
+.apartmentNotAvailable {
+  border: 2px solid #ff000087;
+}
+
+.truncate-text {
+  display: inline-block;
+  max-width: 200px; /* adjust to fit your design */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: bottom;
+}

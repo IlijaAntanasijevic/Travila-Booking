@@ -11,6 +11,7 @@ export interface IApartment {
   city: string;
   country: string;
   apartmentType: string;
+  isAvailable: boolean;
 }
 
 
@@ -22,7 +23,8 @@ export interface IApartmentSearch extends ISearchHomeRequest {
   page?: number;
   sorts?: ISorts[];
   maxPrice?: number;
-  currentUserApartments?: boolean;
+  isAvailable?: boolean;
+  isMyApartment?: boolean;
 }
 
 export interface IApartmentDetail extends IApartment {
