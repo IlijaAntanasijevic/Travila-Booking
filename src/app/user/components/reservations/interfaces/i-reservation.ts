@@ -8,14 +8,14 @@ export interface IReservation {
   currentPage: number;
 }
 
-interface IReservationInfo {
+export interface IReservationInfo {
   bookingId: number;
   apartmentId: number;
   apartmentName: string;
   apartmentImage: string;
   totalPrice: number;
-  // user: IUser;
-  owner: IUser;
+  user?: IUser;
+  owner?: IUser;
   paymentMethod: null | string;
   checkIn: Date;
   checkOut: Date;

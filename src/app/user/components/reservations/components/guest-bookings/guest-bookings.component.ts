@@ -1,5 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { AfterViewInit, Component, inject, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -7,7 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Spinner } from '../../../../../core/functions/spinner';
 import { ImageType } from '../../../../../shared/helpers/image-url.pipe';
 import { IUser } from '../../../../interfaces/i-user';
-import { IReservation } from '../../interfaces/i-reservation';
+import { IReservation, IReservationInfo } from '../../interfaces/i-reservation';
 import { BlBookingsRequestsService } from '../../services/requests/bl-bookings-requests.service';
 import { ReservationInfoDialogComponent } from '../reservation-info-dialog/reservation-info-dialog.component';
 
@@ -20,13 +20,14 @@ import { ReservationInfoDialogComponent } from '../reservation-info-dialog/reser
 export class GuestBookingsComponent implements OnInit, AfterViewInit {
  constructor(
     private bookingRequestsService: BlBookingsRequestsService,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private cdr: ChangeDetectorRef
   ) { }
 
-  public reservationData: IReservation;
+  public reservationData: IReservationInfo[] = [];
   public disabledButtons: { [key: number]: boolean } = {};
   displayedColumns: string[] = ['image', 'apartmentName', 'checkIn', 'totalGuests', 'paymentMethod', 'totalPrice', 'cancel', 'info'];
-  dataSource: MatTableDataSource<any>;
+  dataSource: MatTableDataSource<any> = new MatTableDataSource<IReservationInfo>([]);
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   private _liveAnnouncer = inject(LiveAnnouncer);
@@ -35,23 +36,19 @@ export class GuestBookingsComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.getData();
   }
-
-  ngAfterViewInit(): void {
-      if (this.dataSource) {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
-  }
+  ngAfterViewInit() {
+  this.dataSource.paginator = this.paginator;
+  this.dataSource.sort = this.sort;
+}
 
   getData(): void {
     Spinner.show();
     this.bookingRequestsService.getMyGuests().subscribe({
       next: (data) => {
-        this.reservationData = data;
-        this.dataSource = new MatTableDataSource(this.reservationData.data);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        this.reservationData.data.forEach(reservation => {
+        this.reservationData = data;        
+        this.dataSource.data = data;
+        this.cdr.detectChanges();
+        this.reservationData.forEach(reservation => {
           this.disabledButtons[reservation.bookingId] = this.disableCancelationButton(reservation.bookingId);
         });
         Spinner.hide();
@@ -84,7 +81,7 @@ export class GuestBookingsComponent implements OnInit, AfterViewInit {
   }
 
   disableCancelationButton(bookingId: number): boolean {
-    const booking = this.reservationData.data.find(x => x.bookingId === bookingId);
+    const booking = this.reservationData.find(x => x.bookingId === bookingId);
     if (!booking) return true;
     const today = new Date().toISOString().split('T')[0];
     return new Date(booking.checkIn) <= new Date(today);

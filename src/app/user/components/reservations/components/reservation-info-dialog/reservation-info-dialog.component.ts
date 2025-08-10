@@ -28,5 +28,9 @@ export class ReservationInfoDialogComponent implements OnInit {
     this.dialogRef.close(true);
   }
 
+  sendMessageToUser(): void {
+    
+  }
+
 
 }
