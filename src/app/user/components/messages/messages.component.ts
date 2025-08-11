@@ -8,6 +8,7 @@ import { IChatList, IMessages } from './interfaces/i-messages';
 import { Spinner } from '../../../core/functions/spinner';
 import { ChatService } from '../../../core/services/chat.service';
 import { AuthService } from '../../../auth/services/shared/auth.service';
+import { BlMessagesDataService } from './services/shared/bl-messages-data.service';
 
 @Component({
     selector: 'app-messages',
@@ -21,6 +22,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
     private requestsService: BlMessagesRequestsService,
     private chatService: ChatService,
     private authService: AuthService,
+    private chatDataService: BlMessagesDataService
   ) {}
 
   form = new FormGroup({
@@ -32,11 +34,23 @@ export class MessagesComponent implements OnInit, OnDestroy {
   public messagesList: IChatList[] = [];
   public chatMessages: IMessages[] = [];
   public selectedChatReceiverId: number | null = null;
+  public isPrepareChat: boolean = false;
 
   ngOnInit(): void {
     this.getChatList();
 
     //this.chatService.startConnection();
+
+    this.subscription.add(
+      this.chatDataService.prepareChat.subscribe({
+        next: (receiverId: number) => {
+          if (receiverId > 0) {
+            this.getOrCreateChat(receiverId);
+            this.isPrepareChat = true;
+          } 
+        }
+      })
+    )
 
     this.chatService.onReceiveMessage((message: IMessages) => {
     if(this.selectedChatReceiverId != null && this.selectedChatReceiverId == message.senderId){
@@ -48,15 +62,33 @@ export class MessagesComponent implements OnInit, OnDestroy {
     });
   }
 
+  getOrCreateChat(receiverId: number) {
+    Spinner.show();
+    this.subscription.add(
+      this.requestsService.getOrCreateChat(receiverId).subscribe({
+        next: (data) => {
+          console.log(data);
+          
+          this.selectedChatReceiverId = data.chatInfo.receiverId;
+          this.chatMessages = data.chatMessages;
+          this.messagesList.push(data.chatInfo);
+          
+          setTimeout(() =>  this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight, 0);
+          Spinner.hide();
+        },
+        error: (error) => {
+          Spinner.hide();
+        }
+      })
+    );
+  }
+
   getChatList(): void {
     Spinner.show();
     this.subscription.add(
       this.requestsService.getAllChats().subscribe({
         next: (data) => {
-          this.messagesList = data;
-
-          // this.getChatMessages(this.messagesList[0]?.id);
-          
+          // this.messagesList = data;
           Spinner.hide();
         },
         error: (error) => {
