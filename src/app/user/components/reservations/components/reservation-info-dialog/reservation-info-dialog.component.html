@@ -11,8 +11,9 @@
     <h5>Email: {{data.user.email}}</h5>
   </div>
 </mat-dialog-content>
-<mat-dialog-actions class="d-flex justify-content-end">
+<mat-dialog-actions class="d-flex justify-content-between">
   <button mat-flat-button color="warn" (click)="close()">Close</button>
+  <button mat-flat-button color="primary" (click)="sendMessageToUser()">Send Message <mat-icon>mail</mat-icon></button>
 </mat-dialog-actions>
 
 }

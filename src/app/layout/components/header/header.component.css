@@ -12,6 +12,7 @@
   max-width: 100%;
   padding-left: 50px;
   padding-right: 50px;
+  height: 70px;
 }
 
 .header .main-header {
@@ -178,6 +179,14 @@
 
 .top-bar-2 .text-header .link-secondary svg {
   stroke: var(--bs-neutral-1000);
+}
+
+.notLoggedIn{
+  margin-left: 75px;
+}
+
+.isLoggedIn{
+  margin-right: 60px;
 }
 
 .top-bar-2 .text-header-info a {

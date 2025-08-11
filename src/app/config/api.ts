@@ -34,5 +34,6 @@ export const apiPaths = {
   },
   chatMessages: {
     api: "api/chat",
+    prepareChat: "api/prepare-chat"
   }
 }

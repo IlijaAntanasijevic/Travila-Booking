@@ -77,6 +77,8 @@ export class ApartmentViewComponent implements OnInit, OnDestroy {
           this.apartment = data;
           this.apartment.country = data?.country?.name;
           this.apartment.city = data?.city?.name;
+          console.log(this.apartment);
+          
           this.images.push({
             path: data.mainImage.fileName,
             id: 0,
@@ -93,7 +95,7 @@ export class ApartmentViewComponent implements OnInit, OnDestroy {
           this.featuresFirstColum = data.features.slice(0, divideFeatures);
           this.featuresSecondColum = data.features.slice(divideFeatures);
 
-
+          this.isApartmentAvailable();
           Spinner.hide();
         },
         error: (err) => {
@@ -102,6 +104,20 @@ export class ApartmentViewComponent implements OnInit, OnDestroy {
           }
           Spinner.hide();
 
+        }
+      })
+    )
+  }
+
+  isApartmentAvailable(): void {
+    this.subscription.add(
+      this.apartmentDashboardDataService.isApartmentAvailable.subscribe({
+        next: (data) => {
+          if (data) {
+            this.apartment.isAvailable = data;
+          } else {
+            this.alertService.warning("This apartment is not available for booking.");
+          }
         }
       })
     )

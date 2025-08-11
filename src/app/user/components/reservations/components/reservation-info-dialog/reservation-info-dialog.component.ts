@@ -2,6 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { IUser } from '../../../../interfaces/i-user';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ImageType } from '../../../../../shared/helpers/image-url.pipe';
+import { BlMessagesDataService } from '../../../messages/services/shared/bl-messages-data.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-reservation-info-dialog',
@@ -13,6 +15,8 @@ export class ReservationInfoDialogComponent implements OnInit {
 
   constructor(
     private dialogRef: MatDialogRef<ReservationInfoDialogComponent>,
+    private dataService: BlMessagesDataService,
+    private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: { user: IUser; isMyBookings: boolean }
   ) { }
 
@@ -26,6 +30,12 @@ export class ReservationInfoDialogComponent implements OnInit {
 
   close(): void {
     this.dialogRef.close(true);
+  }
+
+  sendMessageToUser(): void {
+    this.dialogRef.close(true);
+    this.dataService.prepareChat.next(this.data.user.id);
+    this.router.navigate(['/user/messages']);
   }
 
 

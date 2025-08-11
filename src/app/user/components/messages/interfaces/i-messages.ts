@@ -15,3 +15,8 @@ export interface IMessages {
     isRead: boolean;
     isMineMessage: boolean;
 }
+
+export interface IPrepareChat {
+    chatInfo: IChatList;
+    chatMessages: IMessages[];
+}
