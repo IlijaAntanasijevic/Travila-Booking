@@ -3,6 +3,7 @@ import { AuthService } from './auth/services/shared/auth.service';
 import { ChatService } from './core/services/chat.service';
 import { IMessages } from './user/components/messages/interfaces/i-messages';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-root',
@@ -15,7 +16,8 @@ export class AppComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private chatService: ChatService,
-    private alertService: ToastrService
+    private alertService: ToastrService,
+    private router: Router
   ) { }
 
   title = 'travila-front';
@@ -30,7 +32,7 @@ export class AppComponent implements OnInit {
 
     this.chatService.messageRecived.subscribe((message: IMessages) => {
       const currentUserId = this.authService.getUserId();
-       if (message.senderId !== currentUserId ) {
+       if (message.senderId !== currentUserId && this.router.url !== '/user/messages') {
         this.alertService.info("New message received");
       }
     })
