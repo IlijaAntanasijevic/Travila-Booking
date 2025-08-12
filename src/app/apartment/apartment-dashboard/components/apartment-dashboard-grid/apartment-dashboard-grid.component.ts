@@ -34,7 +34,7 @@ export class ApartmentDashboardGridComponent implements OnChanges {
     }
   }
 
-  addToWishList(apartmentId: number): void {
+  addToFavorite(apartmentId: number): void {
     this.favoriteApartmentsRequestService.addToFavorite(apartmentId).subscribe({
       next: (data) => {
 

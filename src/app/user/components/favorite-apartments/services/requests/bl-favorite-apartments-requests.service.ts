@@ -24,10 +24,7 @@ export class BlFavoriteApartmentsRequestsService {
   }
 
   addToFavorite(apartmentId: number): Observable<any> {
-    let obj = {
-      id: apartmentId
-    }
-    return this.apiService.create(obj);
+    return this.apiService.update(apartmentId, null);
   }
 
   removeFromFavorite(apartmentId: number): Observable<any> {

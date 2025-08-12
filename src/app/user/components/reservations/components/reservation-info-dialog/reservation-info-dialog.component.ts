@@ -17,7 +17,7 @@ export class ReservationInfoDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<ReservationInfoDialogComponent>,
     private dataService: BlMessagesDataService,
     private router: Router,
-    @Inject(MAT_DIALOG_DATA) public data: { user: IUser; isMyBookings: boolean }
+    @Inject(MAT_DIALOG_DATA) public data: { user: IUser; isMyBookings: boolean, isDisabled: boolean }
   ) { }
 
   imageType = ImageType;

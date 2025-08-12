@@ -11,6 +11,7 @@ import { BlBookingsRequestsService } from '../../services/requests/bl-bookings-r
 import { ReservationInfoDialogComponent } from '../reservation-info-dialog/reservation-info-dialog.component';
 import { ImageType } from '../../../../../shared/helpers/image-url.pipe';
 import { IPaginatedResponse } from '../../../../../core/interfaces/i-base';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-my-bookings',
@@ -23,7 +24,8 @@ export class MyBookingsComponent implements OnInit, AfterViewInit {
    constructor(
     private bookingRequestsService: BlBookingsRequestsService,
     private matDialog: MatDialog,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private alertService: ToastrService
   ) { }
 
   public reservationData: IReservationInfo[] = [];
@@ -70,21 +72,33 @@ export class MyBookingsComponent implements OnInit, AfterViewInit {
     }
   }
 
-  showOwnerInfo(owner: IUser): void {
+  showOwnerInfo(reservation: any): void {
+    let isDisabled = this.disabledButtons[reservation.bookingId];
+    
     this.matDialog.open(ReservationInfoDialogComponent, {
       width: '700px',
       height: 'auto',
       data: {
-        user: owner,
-        isMyBookings: true
+        user: reservation.owner,
+        isMyBookings: true,
+        isDisabled: isDisabled,
       }
     });
   }
 
   cancelBooking(bookingId: number): void {
-    alert("TU")
+    Spinner.show();
+    this.bookingRequestsService.cancelBooking(bookingId).subscribe({
+      next: () => {
+        Spinner.hide();
+        this.getData();
+        this.alertService.success('Booking cancelled successfully.');
+      },
+      error: err => {
+        Spinner.hide();
+      }
+    });
   }
-
   disableCancelationButton(bookingId: number): boolean {
     const booking = this.reservationData.find(x => x.bookingId === bookingId);
     if (!booking) return true;

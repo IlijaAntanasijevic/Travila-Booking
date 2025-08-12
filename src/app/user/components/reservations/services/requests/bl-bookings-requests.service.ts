@@ -20,4 +20,8 @@ export class BlBookingsRequestsService {
   getMyGuests(): Observable<any> {
     return this.myGuestBookingsService.getAll();
   }
+
+  cancelBooking(bookingId: number): Observable<any> {
+    return this.bookingsService.delete(bookingId);
+  }
 }
