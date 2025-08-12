@@ -36,6 +36,10 @@ export class ReservationInfoDialogComponent implements OnInit {
     this.dialogRef.close(true);
     this.dataService.prepareChat.next(this.data.user.id);
     this.router.navigate(['/user/messages']);
+// this.router.navigate(['/user/messages']).then(() => {
+//   this.dataService.prepareChat.next(this.data.user.id);
+// });
+    
   }
 
 

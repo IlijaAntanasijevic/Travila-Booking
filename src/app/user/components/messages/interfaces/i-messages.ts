@@ -18,5 +18,5 @@ export interface IMessages {
 
 export interface IPrepareChat {
     chatInfo: IChatList;
-    chatMessages: IMessages[];
+    messages: IMessages[];
 }

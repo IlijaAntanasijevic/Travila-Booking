@@ -38,15 +38,19 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getChatList();
-
     //this.chatService.startConnection();
-
     this.subscription.add(
       this.chatDataService.prepareChat.subscribe({
         next: (receiverId: number) => {
           if (receiverId > 0) {
-            this.getOrCreateChat(receiverId);
-            this.isPrepareChat = true;
+        //      queueMicrotask(() => {
+        //   this.getOrCreateChat(receiverId);
+        //   this.isPrepareChat = true;
+        //   this.selectedChatReceiverId = receiverId;
+        // });
+             this.getOrCreateChat(receiverId);
+          this.isPrepareChat = true;
+          this.selectedChatReceiverId = receiverId;
           } 
         }
       })
@@ -54,11 +58,9 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
     this.chatService.onReceiveMessage((message: IMessages) => {
     if(this.selectedChatReceiverId != null && this.selectedChatReceiverId == message.senderId){
-      this.chatMessages.push(message);
-    setTimeout(() =>  this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight, 0);
-
-    }
-
+        this.chatMessages.push(message);
+        setTimeout(() =>  this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight, 0);
+      }
     });
   }
 
@@ -67,13 +69,17 @@ export class MessagesComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.requestsService.getOrCreateChat(receiverId).subscribe({
         next: (data) => {
-          console.log(data);
-          
+          // this.chatMessages = [];
           this.selectedChatReceiverId = data.chatInfo.receiverId;
-          this.chatMessages = data.chatMessages;
+          
+          if(data.messages?.length > 0) {
+            this.chatMessages = data.messages;
+          }
           this.messagesList.push(data.chatInfo);
           
-          setTimeout(() =>  this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight, 0);
+          console.log(this.chatMessages);
+          
+          // setTimeout(() =>  this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight, 0);
           Spinner.hide();
         },
         error: (error) => {
@@ -88,7 +94,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.requestsService.getAllChats().subscribe({
         next: (data) => {
-          // this.messagesList = data;
+          this.messagesList = data;
           Spinner.hide();
         },
         error: (error) => {
@@ -106,6 +112,8 @@ export class MessagesComponent implements OnInit, OnDestroy {
         next: (data) => {
           setTimeout(() =>  this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight, 0);
           this.chatMessages = data;
+          console.log("TU");
+          
           // Spinner.hide();
         },
         error: (error) => {
@@ -140,11 +148,16 @@ export class MessagesComponent implements OnInit, OnDestroy {
       isRead: false
     };
 
+    console.log(this.chatMessages);
+    
     this.chatMessages.push(newMessage);
     setTimeout(() =>  this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight, 0);
   }
 
   ngOnDestroy(): void {
+    console.log('MessagesComponent destroyed');
+    
     this.subscription.unsubscribe();
+    this.chatDataService.prepareChat.next(0);
   }
 }
