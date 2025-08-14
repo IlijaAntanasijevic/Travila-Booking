@@ -62,11 +62,20 @@
   background-color: var(--bs-brand-secondary);
   align-self: flex-end;
 }
+.message-time-sent {
+  align-self: flex-end;
+  color: rgba(255, 255, 255, 0.575);
+}
 
 .message.received {
   background-color: var(--bs-neutral-300);
   color: white;
   align-self: flex-start;
+}
+
+.message-time-recived {
+  align-self: flex-start;
+  color: rgba(255, 255, 255, 0.575);
 }
 
 .no-messages {

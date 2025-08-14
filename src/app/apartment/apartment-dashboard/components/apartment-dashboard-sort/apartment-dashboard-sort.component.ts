@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { BlApartmentDashboardDataService } from '../../services/shared/bl-apartment-dashboard-data.service';
-import { ApartmentViewMode } from '../../enums/view-mode-enum';
+import { APARTMENT_VIEW_MODE } from '../../enums/view-mode-enum';
 import { BlApartmentFilterFormService } from '../../services/forms/bl-apartment-filter-form.service';
 import { SHOW_TOTAL, SortDirection, SortProperty } from '../../enums/sort-type';
 import { FormArray, FormControl } from '@angular/forms';
@@ -20,9 +20,9 @@ export class ApartmentDashboardSortComponent implements OnInit{
 
   public form = this.formService.getForm();
 
-  public viewMode = ApartmentViewMode;
+  public viewMode = APARTMENT_VIEW_MODE;
   public totalApartments: number;
-  public currentViewMode: ApartmentViewMode = ApartmentViewMode.LIST;
+  public currentViewMode: APARTMENT_VIEW_MODE = APARTMENT_VIEW_MODE.LIST;
 
   show: number[] = SHOW_TOTAL;
   sortBy: any = Object.entries(SortProperty);
@@ -38,7 +38,7 @@ export class ApartmentDashboardSortComponent implements OnInit{
     })    
   }
 
-  changeView(view: ApartmentViewMode): void {
+  changeView(view: APARTMENT_VIEW_MODE): void {
     this.currentViewMode = view;        
     this.dataService.viewMode.next(view);
   }

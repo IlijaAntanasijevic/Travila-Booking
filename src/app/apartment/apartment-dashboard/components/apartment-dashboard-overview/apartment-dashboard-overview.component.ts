@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, signal } from '@angular/core';
-import { ApartmentViewMode } from '../../enums/view-mode-enum';
+import { APARTMENT_VIEW_MODE } from '../../enums/view-mode-enum';
 import { BlApartmentDashboardDataService } from '../../services/shared/bl-apartment-dashboard-data.service';
 import { BlApartmentsRequestsService } from '../../../services/requests/bl-apartments-requests.service';
 import { Spinner } from '../../../../core/functions/spinner';
@@ -9,6 +9,7 @@ import { BlApartmentFilterFormService } from '../../services/forms/bl-apartment-
 import { ActivatedRoute } from '@angular/router';
 import { ISearchHomeRequest } from '../../../../home/components/home-seach/interfaces/i-search-home';
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-apartment-dashboard-overview',
@@ -21,11 +22,12 @@ export class ApartmentDashboardOverviewComponent implements OnInit, OnDestroy {
   constructor(
     private dataService: BlApartmentDashboardDataService,
     private requestsService: BlApartmentsRequestsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private alertService: ToastrService
   ) { }
 
-  public currentViewMode: ApartmentViewMode = ApartmentViewMode.LIST;
-  public ApartmentViewMode = ApartmentViewMode;
+  public currentViewMode: APARTMENT_VIEW_MODE = APARTMENT_VIEW_MODE.LIST;
+  public ApartmentViewMode = APARTMENT_VIEW_MODE;
   public apartmentsData: IPaginatedResponse<IApartment>;
   private params: IApartmentSearch = {};
   public searchedData: ISearchHomeRequest = null;
@@ -46,7 +48,15 @@ export class ApartmentDashboardOverviewComponent implements OnInit, OnDestroy {
         this.params.checkOut = data.checkOut;
         this.params.childrens = data.childrens;
         this.params.adults = data.adults;
-        this.params.rooms = data.rooms;          
+        this.params.rooms = data.rooms;     
+        
+        this.getData();
+        this.trackViewMode();   
+        this.trackPageChange();
+        this.trackFilterChanges();
+    }
+    else {
+      this.alertService.warning("Please select location to see apartments.");
     }
     },
     error: (err) => {
@@ -54,10 +64,6 @@ export class ApartmentDashboardOverviewComponent implements OnInit, OnDestroy {
       
     }
   }));
-    this.getData();
-    this.trackViewMode();   
-    this.trackPageChange();
-    this.trackFilterChanges();
   }
 
   getData(): void {
@@ -87,7 +93,7 @@ export class ApartmentDashboardOverviewComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.dataService.viewMode.subscribe({
         next: (data) => {
-          this.params.perPage = data === ApartmentViewMode.LIST ? 6 : 9
+          this.params.perPage = data === APARTMENT_VIEW_MODE.LIST ? 6 : 9
           this.params.page = 1;   
            this.currentViewMode = data;
            this.getData();

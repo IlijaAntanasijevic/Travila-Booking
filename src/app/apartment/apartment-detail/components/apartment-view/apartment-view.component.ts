@@ -8,6 +8,9 @@ import { IBase, IPaginatedResponse } from '../../../../core/interfaces/i-base';
 import { ILocationCoordinates } from '../../../../shared/components/map/i-map';
 import { BlApartmentDashboardDataService } from '../../../apartment-dashboard/services/shared/bl-apartment-dashboard-data.service';
 import { ToastrService } from 'ngx-toastr';
+import { ISearchHomeRequest } from '../../../../home/components/home-seach/interfaces/i-search-home';
+import { MatDialog } from '@angular/material/dialog';
+import { ShareDialogComponent, ShareDialogData } from '../../../../shared/components/share-dialog/share-dialog.component';
 
 @Component({
     selector: 'app-apartment-view',
@@ -22,7 +25,8 @@ export class ApartmentViewComponent implements OnInit, OnDestroy {
     private router: Router,
     private requestsService: BlApartmentsRequestsService,
     private apartmentDashboardDataService: BlApartmentDashboardDataService,
-    private alertService: ToastrService
+    private alertService: ToastrService,
+    private dialog: MatDialog
   ) { }
 
   private subscription: Subscription = new Subscription();
@@ -34,8 +38,11 @@ export class ApartmentViewComponent implements OnInit, OnDestroy {
     latitude: 0,
     longitude: 0 
   };
+  
   openedFromBooking: boolean = false;
-
+  openedFromHome: boolean = false;
+  searchedData: ISearchHomeRequest = null;
+  private apartmentId: number = null;
 
   public TMPPaginatorData: IPaginatedResponse<any> = {
     "data": [],
@@ -47,13 +54,12 @@ export class ApartmentViewComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      const id = Number(params.get("id"));
+      let id = Number(params.get("id"));
       if (isNaN(id)) {
         this.router.navigate(["/404"])
         return;
       }
-
-      this.getApartmentById(id);
+      this.apartmentId = id;
 
     })
 
@@ -63,8 +69,32 @@ export class ApartmentViewComponent implements OnInit, OnDestroy {
         if(params['from'] == 'booking') {
           this.openedFromBooking = true;
         }
+        if(params['from'] == 'home') {
+          this.openedFromHome = true;
+        }
       }
      })
+    )
+
+    this.subscription.add(
+      this.apartmentDashboardDataService.searchedData.subscribe({
+        next: (data) => {
+          if(data) {
+            this.searchedData = data;
+          }
+          this.getApartmentById(this.apartmentId);
+
+        /*
+          else if(this.openedFromBooking || this.openedFromHome){
+            this.getApartmentById(this.apartmentId);
+          }
+          else {
+            this.router.navigate(["/404"])
+            this.alertService.warning("Please select dates and guests before booking.");
+          }
+        */
+        }
+      })
     )
   }
 
@@ -95,7 +125,10 @@ export class ApartmentViewComponent implements OnInit, OnDestroy {
           this.featuresFirstColum = data.features.slice(0, divideFeatures);
           this.featuresSecondColum = data.features.slice(divideFeatures);
 
-          this.isApartmentAvailable();
+          if(!this.openedFromBooking && !this.openedFromHome){
+            this.isApartmentAvailable();
+
+          }
           Spinner.hide();
         },
         error: (err) => {
@@ -109,15 +142,37 @@ export class ApartmentViewComponent implements OnInit, OnDestroy {
     )
   }
 
+  addToFavorite(): void {
+    this.requestsService.addToFavorite(this.apartmentId).subscribe({
+      next: (data) => {
+        if(this.apartment.isFavorite) {
+          this.alertService.warning("Apartment removed from favorites");
+          this.apartment.isFavorite = false;
+        }
+        else {
+          this.alertService.success("Apartment added to favorites");
+          this.apartment.isFavorite = true;
+        }
+        
+      },
+      error: (error) => {
+
+      }
+    })
+  }
+
   isApartmentAvailable(): void {
     this.subscription.add(
       this.apartmentDashboardDataService.isApartmentAvailable.subscribe({
         next: (data) => {
-          if (data) {
-            this.apartment.isAvailable = data;
-          } else {
-            this.alertService.warning("This apartment is not available for booking.");
-          }
+          if (data != null) {
+            if(data){
+              this.apartment.isAvailable = data;
+            }
+            else {
+              this.alertService.warning("This apartment is not available for booking.");
+            }
+          } 
         }
       })
     )
@@ -137,6 +192,24 @@ export class ApartmentViewComponent implements OnInit, OnDestroy {
         }
       })
     )
+  }
+
+  openShareDialog(): void {
+    if (!this.apartment) return;
+
+    const shareData: ShareDialogData = {
+      title: this.apartment.name,
+      description: `Check out this amazing apartment: ${this.apartment.name} in ${this.apartment.city}, ${this.apartment.country}`,
+      url: window.location.href,
+      apartmentId: this.apartment.id
+    };
+
+    this.dialog.open(ShareDialogComponent, {
+      data: shareData,
+      width: '500px',
+      maxWidth: '90vw',
+      panelClass: 'share-dialog-panel'
+    });
   }
 
 

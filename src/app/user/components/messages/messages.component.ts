@@ -75,7 +75,15 @@ export class MessagesComponent implements OnInit, OnDestroy {
           if(data.messages?.length > 0) {
             this.chatMessages = data.messages;
           }
-          this.messagesList.push(data.chatInfo);
+          if(data.chatInfo.id) {
+
+          }
+          let alreadyExists = this.messagesList.find(chat => chat.receiverId === data.chatInfo.receiverId);
+          if(!alreadyExists) {
+            this.messagesList.push(data.chatInfo);
+          }
+          
+          console.log(data.messages);
           
           console.log(this.chatMessages);
           

@@ -13,7 +13,7 @@
 </mat-dialog-content>
 <mat-dialog-actions class="d-flex justify-content-between">
   <button mat-flat-button color="warn" (click)="close()">Close</button>
-  <button mat-flat-button color="primary" (click)="sendMessageToUser()">Send Message <mat-icon>mail</mat-icon></button>
+  <button mat-flat-button color="primary" (click)="sendMessageToUser()" [disabled]="data.isDisabled">Send Message <mat-icon>mail</mat-icon></button>
 </mat-dialog-actions>
 
 }

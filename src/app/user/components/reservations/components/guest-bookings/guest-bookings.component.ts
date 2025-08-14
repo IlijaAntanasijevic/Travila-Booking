@@ -10,6 +10,7 @@ import { IUser } from '../../../../interfaces/i-user';
 import { IReservation, IReservationInfo } from '../../interfaces/i-reservation';
 import { BlBookingsRequestsService } from '../../services/requests/bl-bookings-requests.service';
 import { ReservationInfoDialogComponent } from '../reservation-info-dialog/reservation-info-dialog.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-guest-bookings',
@@ -21,7 +22,8 @@ export class GuestBookingsComponent implements OnInit, AfterViewInit {
  constructor(
     private bookingRequestsService: BlBookingsRequestsService,
     private matDialog: MatDialog,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private alertService: ToastrService
   ) { }
 
   public reservationData: IReservationInfo[] = [];
@@ -65,19 +67,31 @@ export class GuestBookingsComponent implements OnInit, AfterViewInit {
     }
   }
 
-  showGuestInfo(guest: IUser): void {
+  showGuestInfo(reservation: any): void {
+    let isDisabled = this.disabledButtons[reservation.bookingId];
     this.matDialog.open(ReservationInfoDialogComponent, {
       width: '700px',
       height: 'auto',
       data: {
-        user: guest,
-        isMyBookings: false
+        user: reservation.user,
+        isMyBookings: false,
+        isDisabled: isDisabled
       }
     });
   }
 
   cancelBooking(bookingId: number): void {
-    alert("TU")
+    Spinner.show();
+    this.bookingRequestsService.cancelBooking(bookingId).subscribe({
+      next: () => {
+        Spinner.hide();
+        this.getData();
+        this.alertService.success('Booking cancelled successfully.');
+      },
+      error: err => {
+        Spinner.hide();
+      }
+    });
   }
 
   disableCancelationButton(bookingId: number): boolean {

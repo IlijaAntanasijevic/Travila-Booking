@@ -3,6 +3,7 @@ import { ApartmentService } from '../api/apartment.service';
 import { Observable } from 'rxjs';
 import { IApartmentSearch } from '../../interfaces/i-apartment';
 import { toUTCDateString } from '../../../core/helpers/utility';
+import { BlFavoriteApartmentsRequestsService } from '../../../user/components/favorite-apartments/services/requests/bl-favorite-apartments-requests.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ import { toUTCDateString } from '../../../core/helpers/utility';
 export class BlApartmentsRequestsService {
 
   constructor(
-    private apartmentService: ApartmentService
+    private apartmentService: ApartmentService,
+    private favoriteApartmentsRequestService: BlFavoriteApartmentsRequestsService,
   ) { }
 
   getAll(): Observable<any> {
@@ -21,12 +23,14 @@ export class BlApartmentsRequestsService {
     return this.apartmentService.getOne(id);
   }
 
+  addToFavorite(apartmentId: number): Observable<any> {
+    return this.favoriteApartmentsRequestService.addToFavorite(apartmentId);
+  } 
+
 
   getAllByQueryParams(params: IApartmentSearch = null): Observable<any> {
     let paramsToSend: string | IApartmentSearch = this.prepareQuery(params);
-
     return this.apartmentService.getAllByQueryParams(paramsToSend);
-
   }
 
   private prepareQuery(params: IApartmentSearch): string {
