@@ -41,3 +41,8 @@
 .apartmentNotAvailable {
   border: 2px solid #ff000087;
 }
+
+.wish.filled svg {
+  stroke: var(--bs-warning);
+  fill: var(--bs-warning);
+}

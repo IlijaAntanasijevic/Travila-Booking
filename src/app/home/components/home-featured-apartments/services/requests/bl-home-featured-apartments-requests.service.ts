@@ -3,6 +3,7 @@ import { ApartmentService } from '../../../../../apartment/services/api/apartmen
 import { map, Observable } from 'rxjs';
 import { IApartment } from '../../../../../apartment/interfaces/i-apartment';
 import { IPaginatedResponse } from '../../../../../core/interfaces/i-base';
+import { BlFavoriteApartmentsRequestsService } from '../../../../../user/components/favorite-apartments/services/requests/bl-favorite-apartments-requests.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ import { IPaginatedResponse } from '../../../../../core/interfaces/i-base';
 export class BlHomeFeaturedApartmentsRequestsService {
 
   constructor(
-    private apartmentService: ApartmentService
+    private apartmentService: ApartmentService,
+    private favoriteApartmentsRequestService: BlFavoriteApartmentsRequestsService,
   ) { }
 
   getFeatured(page: number = 1): Observable<IPaginatedResponse<IApartment>> {
@@ -19,5 +21,9 @@ export class BlHomeFeaturedApartmentsRequestsService {
         ...response
       }) as IPaginatedResponse<IApartment>)
     );
+  }
+
+  addToFavorite(apartmentId: number): Observable<any> {
+    return this.favoriteApartmentsRequestService.addToFavorite(apartmentId);
   }
 }

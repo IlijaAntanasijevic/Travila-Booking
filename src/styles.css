@@ -40,6 +40,17 @@
   background: #cfcd44;
 }
 
+/* Share Dialog Panel Styles */
+.share-dialog-panel {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.share-dialog-panel .mat-mdc-dialog-container {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
 
 :root {
   --bs-border-color: #E4E6E8;
@@ -2674,6 +2685,17 @@ body {
   font-size: 14px;
   line-height: 22px;
   font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.btn.btn-share:hover {
+  background-color: var(--bs-neutral-100);
+  border-color: var(--bs-neutral-300);
+  transform: translateY(-1px);
 }
 
 .btn.btn-share svg {

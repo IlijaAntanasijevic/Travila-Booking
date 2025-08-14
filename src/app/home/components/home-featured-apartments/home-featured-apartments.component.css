@@ -84,3 +84,8 @@
 .wish {
   cursor: pointer;
 }
+
+.wish.filled svg {
+  stroke: var(--bs-warning);
+  fill: var(--bs-warning);
+}

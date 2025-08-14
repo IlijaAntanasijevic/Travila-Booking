@@ -17,7 +17,7 @@
               </svg>
             </a>
 
-            <img src="{{apartment.mainImage.fileName}}" alt="{{apartment.name}}">
+            <img src="{{apartment.mainImage.fileName | imageUrl: imageType}}" alt="{{apartment.name}}">
           </div>
           <div class="card-info background-card">
             <div class="card-rating">

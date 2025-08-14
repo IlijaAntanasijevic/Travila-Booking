@@ -15,8 +15,10 @@
           <div #chatContainer class="chat-messages">
             @for (message of chatMessages; track message) {
               @if(message.isMineMessage) {
+                <span class="message-time-sent">{{message.sentAt | date:'short'}}</span>
                 <div class="message sent">{{message.message}}</div>
               } @else {
+                <span class="message-time-recived">{{message.sentAt | date:'short'}}</span>
                 <div class="message received">{{message.message}}</div>
               }
             }

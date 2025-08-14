@@ -38,6 +38,7 @@ import { AuthService } from '../auth/services/shared/auth.service';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { SimpleConfirmationDialogComponent } from './components/simple-confirmation-dialog/simple-confirmation-dialog.component';
 import { MapComponent } from './components/map/map.component';
+import { ShareDialogComponent } from './components/share-dialog/share-dialog.component';
 import { ImageUrlPipe } from './helpers/image-url.pipe';
 
 
@@ -47,6 +48,7 @@ import { ImageUrlPipe } from './helpers/image-url.pipe';
     PaginatorComponent,
     SimpleConfirmationDialogComponent,
     MapComponent,
+    ShareDialogComponent,
     ImageUrlPipe
   ],
   imports: [

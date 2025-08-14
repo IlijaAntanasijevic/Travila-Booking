@@ -6,6 +6,7 @@ import { AuthService } from '../../../../auth/services/shared/auth.service';
 import { BlFavoriteApartmentsRequestsService } from '../../../../user/components/favorite-apartments/services/requests/bl-favorite-apartments-requests.service';
 import { ImageType } from '../../../../shared/helpers/image-url.pipe';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-apartment-dashboard-list',
@@ -20,26 +21,33 @@ export class ApartmentDashboardListComponent implements OnChanges {
     private favoriteApartmentsRequestService: BlFavoriteApartmentsRequestsService,
     private authService: AuthService,
     private router: Router,
-
+    private alertService: ToastrService
   ) { }
 
   @Input() data: IPaginatedResponse<IApartment>;
   public apartmentsData: IApartment[] = [];
   isLoggedIn: boolean = this.authService.isLoggedIn();
   imageType = ImageType;
-
+  favoriteApartmentIds: Set<number> = new Set();
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['data'] && changes['data'].currentValue) {
       this.apartmentsData = this.data.data;
-      
+      this.favoriteApartmentIds = new Set(this.apartmentsData.filter(apartment => apartment.isFavorite).map(apartment => apartment.id));
     }
   }
 
   addToFavorite(apartmentId: number): void {
     this.favoriteApartmentsRequestService.addToFavorite(apartmentId).subscribe({
       next: (data) => {
-        console.log(data);
+        if( this.favoriteApartmentIds.has(apartmentId)) {
+          this.favoriteApartmentIds.delete(apartmentId);
+          this.alertService.warning("Apartment removed from favorites");
+        }
+        else {
+          this.favoriteApartmentIds.add(apartmentId);
+          this.alertService.success("Apartment added to favorites");
+        }
         
       },
       error: (error) => {

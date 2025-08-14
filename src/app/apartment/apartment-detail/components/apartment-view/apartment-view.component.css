@@ -103,3 +103,8 @@ ol,
 ul {
   list-style: none;
 }
+
+.wish.filled svg {
+  stroke: var(--bs-warning);
+  fill: var(--bs-warning);
+}

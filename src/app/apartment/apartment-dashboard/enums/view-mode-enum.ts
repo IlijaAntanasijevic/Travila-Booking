@@ -1,4 +1,4 @@
-export enum ApartmentViewMode {
-  LIST = "list",
-  GRID = "grid"
+export enum APARTMENT_VIEW_MODE  {
+  LIST = "LIST",
+  GRID = "GRID"
 }

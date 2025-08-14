@@ -4,6 +4,8 @@ import { IPaginatedResponse } from '../../../core/interfaces/i-base';
 import { Spinner } from '../../../core/functions/spinner';
 import { BehaviorSubject } from 'rxjs';
 import { IApartment } from '../../../apartment/interfaces/i-apartment';
+import { IPagination } from '../../../shared/interfaces/i-pagination';
+import { ImageType } from '../../../shared/helpers/image-url.pipe';
 
 @Component({
     selector: 'app-favorite-apartments',
@@ -19,6 +21,11 @@ export class FavoriteApartmentsComponent implements OnInit {
 
   data: IPaginatedResponse<IApartment> = null;
   pageChanged: BehaviorSubject<number> = new BehaviorSubject<number>(1);
+  public imageType: ImageType = ImageType.ApartmentMain;
+  private pagination: IPagination = {
+    page: 1,
+    perPage: 9
+  }
 
   ngOnInit(): void {
     this.getData();
@@ -26,7 +33,6 @@ export class FavoriteApartmentsComponent implements OnInit {
     this.pageChanged.subscribe({
       next: (data) => {
         if (data != this.data?.currentPage) {
-          //samo zbog testiranja, trenutno ne radi
           this.getData();
         }
       }
@@ -35,7 +41,7 @@ export class FavoriteApartmentsComponent implements OnInit {
 
   getData(): void {
     Spinner.show();
-    this.requestsService.test().subscribe({
+    this.requestsService.getFavoriteApartments(this.pagination.page, this.pagination.perPage).subscribe({
       next: (data) => {
         this.data = data;
         Spinner.hide();
@@ -56,6 +62,7 @@ export class FavoriteApartmentsComponent implements OnInit {
   }
 
   onPageChange(page: number): void {
+    this.pagination.page = page;
     this.pageChanged.next(page);
   }
 

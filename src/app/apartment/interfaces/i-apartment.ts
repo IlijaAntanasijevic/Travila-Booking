@@ -12,6 +12,7 @@ export interface IApartment {
   country: string;
   apartmentType: string;
   isAvailable: boolean;
+  isFavorite: boolean;
 }
 
 
@@ -36,6 +37,8 @@ export interface IApartmentDetail extends IApartment {
   longitude?: number;
   lattitude?: number;
   userCanBook: boolean;
+  totalBookings: number;
+  canLeaveFeedback: boolean;
 }
 
 export interface IApartmentImages {

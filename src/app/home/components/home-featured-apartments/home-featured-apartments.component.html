@@ -14,7 +14,7 @@
             <div class="card-image">
               <span class="label">Top Rated</span>
               @if(isLoggedIn){
-              <a class="wish" (click)="addToWishList(apartment.id)">
+              <a class="wish" (click)="addToFavorite(apartment.id)" [class.filled]="favoriteApartmentIds.has(apartment.id)">
                 <svg width="20" height="18" viewbox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M17.071 10.1422L11.4141 15.7991C10.6331 16.5801 9.36672 16.5801 8.58568 15.7991L2.92882 10.1422C0.9762 8.1896 0.9762 5.02378 2.92882 3.07116C4.88144 1.11853 8.04727 1.11853 9.99989 3.07116C11.9525 1.11853 15.1183 1.11853 17.071 3.07116C19.0236 5.02378 19.0236 8.1896 17.071 10.1422Z"
@@ -46,7 +46,7 @@
                 </div>
 
 
-                <div class="card-button"> <a class='btn btn-gray' routerLink="/apartments/{{apartment.id}}">View</a>
+                <div class="card-button"> <a class='btn btn-gray' routerLink="/apartments/{{apartment.id}}" [queryParams]="{from: 'home'}">View</a>
                 </div>
               </div>
             </div>

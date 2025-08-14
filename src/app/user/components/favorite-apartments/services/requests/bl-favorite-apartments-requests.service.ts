@@ -15,12 +15,9 @@ export class BlFavoriteApartmentsRequestsService {
   ) { }
 
 
-  test(): Observable<IPaginatedResponse<any>> {
-    return this.http.get("http://localhost:5000/api/apartment?Sorts[0].SortProperty=MostPopular&PerPage=6&Page=" + 1).pipe(
-      map((response: any) => ({
-        ...response
-      }) as IPaginatedResponse<any>)
-    );
+  getFavoriteApartments(page: number = 1, perPage: number = 9): Observable<any> {
+    let queryParams = `page=${page}&perPage=${perPage}`;
+    return this.apiService.getAllByQueryParams(queryParams);
   }
 
   addToFavorite(apartmentId: number): Observable<any> {
