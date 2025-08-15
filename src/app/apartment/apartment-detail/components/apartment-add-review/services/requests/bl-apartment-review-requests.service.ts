@@ -13,7 +13,7 @@ export class BlApartmentReviewRequestsService {
   ) { }
 
 
-  addReview(data: IApartmentReviewRequest): Observable<any> {
+  addRating(data: IApartmentReviewRequest): Observable<any> {
     return this.apiService.create(data);
   }
 }

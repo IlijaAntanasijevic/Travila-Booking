@@ -81,6 +81,6 @@ export class BlApartmentReviewFormService implements IFormService<IApartmentRevi
 
   submit(): Observable<any> {
     let data = this.prepareDataToSend();
-    return this.requestsService.addReview(data);
+    return this.requestsService.addRating(data);
   }
 }
