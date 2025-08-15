@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IFormService } from '../../../../../../core/interfaces/i-form-service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { IApartmentReview, IApartmentReviewRequest } from '../../interfaces/i-apartment-review';
 import { Observable } from 'rxjs';
 import { BlApartmentReviewRequestsService } from '../requests/bl-apartment-review-requests.service';
@@ -19,12 +19,39 @@ export class BlApartmentReviewFormService implements IFormService<IApartmentRevi
   init(): FormGroup {
     return new FormGroup({
       comment: new FormControl(null, [Validators.required]),
-      accessibility: new FormControl(null, Validators.required),
-      entertainment: new FormControl(null, Validators.required),
-      price: new FormControl(null, Validators.required),
-      safety: new FormControl(null, Validators.required),
-      service: new FormControl(null, Validators.required),
-      support: new FormControl(null, Validators.required),
+      apartmentId: new FormControl(null),
+      // accessibility: new FormControl(null, Validators.required),
+      // entertainment: new FormControl(null, Validators.required),
+      // price: new FormControl(null, Validators.required),
+      // safety: new FormControl(null, Validators.required),
+      // service: new FormControl(null, Validators.required),
+      // support: new FormControl(null, Validators.required),
+      values: new FormArray([
+      new FormGroup({
+        id: new FormControl(1), // Accessibility
+        value: new FormControl(null, Validators.required),
+      }),
+      new FormGroup({
+        id: new FormControl(2), // Entertainment
+        value: new FormControl(null, Validators.required),
+      }),
+      new FormGroup({
+        id: new FormControl(3), // Price
+        value: new FormControl(null, Validators.required),
+      }),
+      new FormGroup({
+        id: new FormControl(4), // Safety
+        value: new FormControl(null, Validators.required),
+      }),
+      new FormGroup({
+        id: new FormControl(5), // Service
+        value: new FormControl(null, Validators.required),
+      }),
+      new FormGroup({
+        id: new FormControl(6), // Support
+        value: new FormControl(null, Validators.required),
+      })
+      ])
     })
   }
 
@@ -45,12 +72,8 @@ export class BlApartmentReviewFormService implements IFormService<IApartmentRevi
 
     let dataToSend: IApartmentReviewRequest = {
       comment: data.comment,
-      accessibility: data.accessibility,
-      safety: data.safety,
-      service: data.service,
-      support: data.service,
-      price: data.price,
-      entertainment: data.entertainment
+      apartmentId: data.apartmentId,
+      values: data.values
     }
 
     return dataToSend;
@@ -58,6 +81,6 @@ export class BlApartmentReviewFormService implements IFormService<IApartmentRevi
 
   submit(): Observable<any> {
     let data = this.prepareDataToSend();
-    return this.requestsService.addReview(data);
+    return this.requestsService.addRating(data);
   }
 }

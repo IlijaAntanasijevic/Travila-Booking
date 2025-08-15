@@ -12,6 +12,6 @@ export class ApartmentReviewService extends ApiService<IApartmentReview> {
   constructor(
     http: HttpClient
   ) {
-    super(apiPaths.apartment.review, http)
+    super(apiPaths.apartment.rating, http)
   }
 }

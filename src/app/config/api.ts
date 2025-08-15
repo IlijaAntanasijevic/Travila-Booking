@@ -5,7 +5,7 @@ export const apiPaths = {
   },
   apartment: {
     api: "api/apartment",
-    review: "api/review",
+    rating: "api/rating",
     favorite: "api/apartment/favorite",
     image: "api/apartment/image",
   },

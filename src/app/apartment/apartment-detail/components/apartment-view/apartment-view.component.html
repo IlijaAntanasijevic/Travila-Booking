@@ -340,7 +340,7 @@
               </div>
             </div>
             @if(apartment?.userCanBook && !openedFromBooking && apartment?.canLeaveFeedback){
-            <app-apartment-add-review></app-apartment-add-review>
+            <app-apartment-add-review [apartmentId]="apartment.id"></app-apartment-add-review>
             }
           </div>
         </div>

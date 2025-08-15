@@ -1,4 +1,4 @@
-export enum ReviewCategory {
+export enum RATING_CATEGORY {
   Price = 'Price',
   Service = 'Service',
   Safety = 'Safety',
