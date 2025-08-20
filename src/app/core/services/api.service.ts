@@ -4,6 +4,7 @@ import { catchError, EMPTY, Observable, throwError } from 'rxjs';
 import { config } from '../../config/global';
 import { ToastrService } from 'ngx-toastr';
 import { AppInjector } from '../helpers/app-injector';
+import { Spinner } from '../functions/spinner';
 
 @Injectable({
   providedIn: 'root'
@@ -66,6 +67,7 @@ export class ApiService<T> {
 
   protected handleErrors(error: any): Observable<any> {
     let errorMessage = 'An unknown error occurred!';
+
     switch (error.status) {
       case 401:
         errorMessage = "Unauthorized."
@@ -78,7 +80,13 @@ export class ApiService<T> {
           errorMessage = error.error[0].error;
           break;
         }
-        return EMPTY;
+        else {
+          errorMessage = "Validation error!";
+          for (let i = 0; i < error.error.length; i++) {
+            this.alertService.error(error.error[i].error);
+          }
+        }
+        break;
       default:
         if(error.error && error.error.error) {
           errorMessage = error.error.error;
@@ -88,7 +96,6 @@ export class ApiService<T> {
         }
     }
 
-    console.log();
     
     this.alertService.error(errorMessage);
     return throwError(() => new Error(errorMessage));

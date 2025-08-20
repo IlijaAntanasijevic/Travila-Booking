@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { RATING_CATEGORY } from './enums/review-category';
 import { BlApartmentReviewFormService } from './services/forms/bl-apartment-review-form.service';
 import { Spinner } from '../../../../core/functions/spinner';
 import { IApartmentReview, IApartmentReviewRequest } from './interfaces/i-apartment-review';
 import { FormArray } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-apartment-add-review',
@@ -11,7 +12,7 @@ import { FormArray } from '@angular/forms';
     styleUrl: './apartment-add-review.component.css',
     standalone: false
 })
-export class ApartmentAddReviewComponent {
+export class ApartmentAddReviewComponent implements OnDestroy{
 
   constructor(
     private formService: BlApartmentReviewFormService
@@ -22,6 +23,7 @@ export class ApartmentAddReviewComponent {
 
   categories = RATING_CATEGORY;
   stars: number[] = [1, 2, 3, 4, 5];
+  private subscription: Subscription = new Subscription();
 
   ratings = {
     [RATING_CATEGORY.Price]: 0,
@@ -65,16 +67,18 @@ export class ApartmentAddReviewComponent {
   sumbit(): void {
     Spinner.show();
     this.form.get('apartmentId').setValue(this.apartmentId);
+    this.subscription.add(
     this.formService.submit().subscribe({
       next: (data) => {
         Spinner.hide()
       },
-      error: err => {
-        console.log(err);
-        Spinner.hide();
-
-      }
+      error: err => Spinner.hide()
     })
+    )
+  }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+    this.formService.reset();
   }
 }
