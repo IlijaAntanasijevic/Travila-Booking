@@ -1,10 +1,4 @@
 export interface IApartmentReview {
-  // accessibility: number;
-  // entertainment: number;
-  // price: number;
-  // safety: number;
-  // service: number;
-  // support: number;
   comment: string;
   apartmentId: number;
   values: IApartmentRating[];
@@ -13,6 +7,14 @@ export interface IApartmentReview {
 
 export interface IApartmentReviewRequest extends IApartmentReview {
 
+}
+
+export interface IUserRatings {
+  avatar: string;
+  avgRating: number;
+  comment: string;
+  date: Date;
+  fullName: string
 }
 
 

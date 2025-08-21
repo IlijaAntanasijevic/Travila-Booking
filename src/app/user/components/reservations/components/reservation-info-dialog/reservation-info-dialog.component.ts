@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { IUser } from '../../../../interfaces/i-user';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { ImageType } from '../../../../../shared/helpers/image-url.pipe';
+import { IMAGE_TYPE } from '../../../../../shared/helpers/image-url.pipe';
 import { BlMessagesDataService } from '../../../messages/services/shared/bl-messages-data.service';
 import { Router } from '@angular/router';
 
@@ -20,7 +20,7 @@ export class ReservationInfoDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { user: IUser; isMyBookings: boolean, isDisabled: boolean }
   ) { }
 
-  imageType = ImageType;
+  imageType = IMAGE_TYPE;
   
 
   ngOnInit(): void {

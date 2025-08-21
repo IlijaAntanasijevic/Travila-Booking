@@ -1,0 +1,79 @@
+<div>
+            <div class="group-collapse-expand">
+              <h6 class="text-light mb-10">Rate & Reviews</h6>
+              <div class="collapse show" id="collapseReviews">
+                <div class="card card-body">
+                  <div class="head-reviews">
+                    <div class="review-left">
+                      <div class="review-info-inner">
+                        <h6 class="neutral-1000">{{apartment.ratingInfo.avgRating | number: '1.1-1'}} / 5</h6>
+                        <p class="text-sm-medium neutral-400">({{apartment?.ratingInfo.totalRatings}} reviews)</p>
+                        <div class="review-rate">
+                            @for(type of getStarArray(apartment.ratingInfo.avgRating); track type) {
+                                <span class="star" [ngClass]="type"></span>
+                            }
+                        </div>
+                      </div>
+                    </div>
+                    <div class="review-right">
+                      <div class="review-progress">
+                        @for(item of reviewProgressData; track item){
+                          <div class="item-review-progress">
+                          <div class="text-rv-progress">
+                            <p class="text-sm-bold">{{item.label}}</p>
+                          </div>
+                          <div class="bar-rv-progress">
+                            <div class="progress">
+                              <div class="progress-bar" [style.width]="(item.value/5*100)+'%'"> </div>
+                            </div>
+                          </div>
+                          <div class="text-avarage">
+                            <p>{{item.value}}/5</p>
+                          </div>
+                          </div>
+                        }
+                     
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- User ratings -->
+                  <div class="list-reviews">
+                    @for(item of userRatings?.data; track item) {
+                    <div class="item-review">
+                      <div class="head-review">
+                        <div class="author-review"> 
+                          <img [src]="item.avatar | imageUrl: imageType.Avatar " alt="Travila">
+                          <div class="author-info">
+                            <p class="text-lg-bold">{{item.fullName}}</p>
+                            <p class="text-sm-medium neutral-500"> {{ item.date | date:'MMMM d, y \'at\' h:mm a' }}</p>
+                          </div>
+                        </div>
+                        <div class="rate-review"> 
+                          <!-- <img src="assets/images/page/tour-detail/star-big.svg" alt="Travila">
+                            <img src="assets/images/page/tour-detail/star-big.svg" alt="Travila">
+                            <img src="assets/images/page/tour-detail/star-big.svg" alt="Travila">
+                            <img src="assets/images/page/tour-detail/star-big.svg" alt="Travila">
+                            <img src="assets/images/page/tour-detail/star-big.svg" alt="Travila"> -->
+                                 @for(type of getStarArray(item.avgRating); track $index) {
+                                <span class="star-small" [ngClass]="type"></span>
+                            }
+                          </div>
+                      </div>
+                      <div class="content-review">
+                        <p class="text-sm-medium neutral-800">{{item.comment}}</p>
+                      </div>
+                    </div>
+                    }
+                    @empty {
+                      <h5>PRAZNO</h5>
+                    }
+                  </div>
+                  <app-paginator [data]="userRatings"></app-paginator>
+                </div>
+              </div>
+            </div>
+            @if(apartment?.userCanBook && !openedFromBooking && apartment?.canLeaveFeedback){
+            <app-apartment-add-review [apartmentId]="apartment.id" (ratingAdded)="getUserRatingData()"></app-apartment-add-review>
+            }
+          </div>

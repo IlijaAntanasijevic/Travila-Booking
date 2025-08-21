@@ -5,7 +5,7 @@ import { Spinner } from '../../../core/functions/spinner';
 import { BehaviorSubject } from 'rxjs';
 import { IApartment } from '../../../apartment/interfaces/i-apartment';
 import { IPagination } from '../../../shared/interfaces/i-pagination';
-import { ImageType } from '../../../shared/helpers/image-url.pipe';
+import { IMAGE_TYPE } from '../../../shared/helpers/image-url.pipe';
 
 @Component({
     selector: 'app-favorite-apartments',
@@ -21,7 +21,7 @@ export class FavoriteApartmentsComponent implements OnInit {
 
   data: IPaginatedResponse<IApartment> = null;
   pageChanged: BehaviorSubject<number> = new BehaviorSubject<number>(1);
-  public imageType: ImageType = ImageType.ApartmentMain;
+  public imageType: IMAGE_TYPE = IMAGE_TYPE.ApartmentMain;
   private pagination: IPagination = {
     page: 1,
     perPage: 9

@@ -39,6 +39,7 @@ export interface IApartmentDetail extends IApartment {
   userCanBook: boolean;
   totalBookings: number;
   canLeaveFeedback: boolean;
+  ratingInfo: IApartmentRatingInfo;
 }
 
 export interface IApartmentImages {
@@ -52,5 +53,16 @@ export interface IApartmenImage {
   fileName: string;
   originalFileName: string;
   imageType: number;
+}
+
+interface IApartmentRatingInfo {
+  totalRatings: number;
+  avgRating: number;
+  ratingStatistic: IApartmentRatingStatistics[];
+}
+
+interface IApartmentRatingStatistics {
+  id: number;
+  value: string;
 }
 

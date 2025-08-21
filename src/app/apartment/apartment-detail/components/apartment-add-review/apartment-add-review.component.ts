@@ -1,25 +1,26 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { RATING_CATEGORY } from './enums/review-category';
 import { BlApartmentReviewFormService } from './services/forms/bl-apartment-review-form.service';
 import { Spinner } from '../../../../core/functions/spinner';
-import { IApartmentReview, IApartmentReviewRequest } from './interfaces/i-apartment-review';
 import { FormArray } from '@angular/forms';
 import { Subscription } from 'rxjs';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
     selector: 'app-apartment-add-review',
     templateUrl: './apartment-add-review.component.html',
     styleUrl: './apartment-add-review.component.css',
     standalone: false
 })
-export class ApartmentAddReviewComponent implements OnDestroy{
 
+export class ApartmentAddReviewComponent implements OnDestroy{
   constructor(
-    private formService: BlApartmentReviewFormService
+    private formService: BlApartmentReviewFormService,
+    private alertService: ToastrService
   ) { }
 
   form = this.formService.getForm();
   @Input('apartmentId') apartmentId: number;
+  @Output() ratingAdded = new EventEmitter<void>();
 
   categories = RATING_CATEGORY;
   stars: number[] = [1, 2, 3, 4, 5];
@@ -68,12 +69,17 @@ export class ApartmentAddReviewComponent implements OnDestroy{
     Spinner.show();
     this.form.get('apartmentId').setValue(this.apartmentId);
     this.subscription.add(
-    this.formService.submit().subscribe({
-      next: (data) => {
-        Spinner.hide()
-      },
-      error: err => Spinner.hide()
-    })
+      this.formService.submit().subscribe({
+        next: (data) => {
+          Spinner.hide();
+          this.alertService.success("Rating successfully added");
+          this.formService.reset();
+          this.form.reset();
+          this.form.get('apartmentId')?.setValue(this.apartmentId);
+          this.ratingAdded.emit();
+        },
+        error: err => Spinner.hide()
+      })
     )
   }
 

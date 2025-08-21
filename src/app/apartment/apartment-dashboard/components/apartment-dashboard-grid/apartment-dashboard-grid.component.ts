@@ -4,7 +4,7 @@ import { IApartment } from '../../../interfaces/i-apartment';
 import { BlApartmentDashboardDataService } from '../../services/shared/bl-apartment-dashboard-data.service';
 import { AuthService } from '../../../../auth/services/shared/auth.service';
 import { BlFavoriteApartmentsRequestsService } from '../../../../user/components/favorite-apartments/services/requests/bl-favorite-apartments-requests.service';
-import { ImageType } from '../../../../shared/helpers/image-url.pipe';
+import { IMAGE_TYPE } from '../../../../shared/helpers/image-url.pipe';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -26,7 +26,7 @@ export class ApartmentDashboardGridComponent implements OnChanges {
 
   @Input() data: IPaginatedResponse<IApartment>;
   public apartmentsData: IApartment[] = [];
-  imageType = ImageType;
+  imageType = IMAGE_TYPE;
   isLoggedIn: boolean = this.authService.isLoggedIn();
   favoriteApartmentIds: Set<number> = new Set();
 

@@ -16,4 +16,8 @@ export class BlApartmentReviewRequestsService {
   addRating(data: IApartmentReviewRequest): Observable<any> {
     return this.apiService.create(data);
   }
+
+  getRatings(id: number): Observable<any> {
+    return this.apiService.getAllByQueryParams("id="+id);
+  }
 }
