@@ -20,12 +20,6 @@ export class BlApartmentReviewFormService implements IFormService<IApartmentRevi
     return new FormGroup({
       comment: new FormControl(null, [Validators.required]),
       apartmentId: new FormControl(null),
-      // accessibility: new FormControl(null, Validators.required),
-      // entertainment: new FormControl(null, Validators.required),
-      // price: new FormControl(null, Validators.required),
-      // safety: new FormControl(null, Validators.required),
-      // service: new FormControl(null, Validators.required),
-      // support: new FormControl(null, Validators.required),
       values: new FormArray([
       new FormGroup({
         id: new FormControl(1), // Accessibility
@@ -65,6 +59,7 @@ export class BlApartmentReviewFormService implements IFormService<IApartmentRevi
 
   reset(): void {
     this.form = this.init();
+    this.form.reset();
   }
 
   prepareDataToSend(): IApartmentReviewRequest {

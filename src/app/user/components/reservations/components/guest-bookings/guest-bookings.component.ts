@@ -5,7 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Spinner } from '../../../../../core/functions/spinner';
-import { ImageType } from '../../../../../shared/helpers/image-url.pipe';
+import { IMAGE_TYPE } from '../../../../../shared/helpers/image-url.pipe';
 import { IUser } from '../../../../interfaces/i-user';
 import { IReservation, IReservationInfo } from '../../interfaces/i-reservation';
 import { BlBookingsRequestsService } from '../../services/requests/bl-bookings-requests.service';
@@ -33,7 +33,7 @@ export class GuestBookingsComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   private _liveAnnouncer = inject(LiveAnnouncer);
-  imageType = ImageType;
+  imageType = IMAGE_TYPE;
 
   ngOnInit(): void {
     this.getData();

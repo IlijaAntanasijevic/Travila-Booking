@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { IPaginatedResponse } from '../../../core/interfaces/i-base';
 import { Spinner } from '../../../core/functions/spinner';
 import { AuthService } from '../../../auth/services/shared/auth.service';
-import { ImageType } from '../../../shared/helpers/image-url.pipe';
+import { IMAGE_TYPE } from '../../../shared/helpers/image-url.pipe';
 import { BlApartmentDashboardDataService } from '../../../apartment/apartment-dashboard/services/shared/bl-apartment-dashboard-data.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -28,7 +28,7 @@ export class HomeFeaturedApartmentsComponent implements OnInit, OnDestroy {
   apartmemts: IApartment[];
   data: IPaginatedResponse<IApartment> = null;
   isLoggedIn: boolean = this.authService.isLoggedIn();
-  imageType = ImageType;
+  imageType = IMAGE_TYPE;
   favoriteApartmentIds: Set<number> = new Set();
   private subscription: Subscription = new Subscription();
 

@@ -10,7 +10,7 @@ import { ILocationCoordinates, ILocationInfo } from '../../../../shared/componen
 import { Router, ActivatedRoute } from '@angular/router';
 import { IApartmenImage } from '../../../interfaces/i-apartment';
 import { BlAddEditApartmetDataService } from '../../services/data/bl-add-edit-apartmet-data.service';
-import { ImageType } from '../../../../shared/helpers/image-url.pipe';
+import { IMAGE_TYPE } from '../../../../shared/helpers/image-url.pipe';
 import { ImageUtils } from '../../../../core/helpers/utility';
 
 @Component({
@@ -152,7 +152,7 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
       });
     });
 
-    let mainImageFileName = images.find(x => x.imageType == ImageType.ApartmentMain)?.fileName;
+    let mainImageFileName = images.find(x => x.imageType == IMAGE_TYPE.ApartmentMain)?.fileName;
 
     this.files = filesResponse.sort((a: File, b: File) => {
       if(a.name == mainImageFileName) return -1;
@@ -302,7 +302,7 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
       if(!isExisting) {
         filesToAdd.push({
           file: file,
-          imageType: index == 0 ? ImageType.ApartmentMain : ImageType.Apartment
+          imageType: index == 0 ? IMAGE_TYPE.ApartmentMain : IMAGE_TYPE.Apartment
         });
       }
     })  
@@ -315,10 +315,10 @@ export class AddEditApartmentComponent implements OnInit, OnDestroy {
             let images: IApartmenImage[] = data;
             let otherImageNames: string[] = [];
             images.forEach((image) => {
-              if(image.imageType == ImageType.ApartmentMain){
+              if(image.imageType == IMAGE_TYPE.ApartmentMain){
                 mainImageFormControl.setValue(image.fileName);
               }
-              else if (image.imageType == ImageType.Apartment) {
+              else if (image.imageType == IMAGE_TYPE.Apartment) {
                 otherImageNames.push(image.fileName);
               }
             })

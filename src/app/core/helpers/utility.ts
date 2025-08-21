@@ -1,18 +1,18 @@
 import { UrlMatchResult, UrlSegment } from "@angular/router";
 import { config } from "../../config/global";
-import { ImageType } from "../../shared/helpers/image-url.pipe";
+import { IMAGE_TYPE } from "../../shared/helpers/image-url.pipe";
 
 export class ImageUtils {
-  static getImagePath(imageName: string, type: ImageType): string {
+  static getImagePath(imageName: string, type: IMAGE_TYPE): string {
 
   switch (type) {
-    case ImageType.Avatar:
+    case IMAGE_TYPE.Avatar:
       return `${config.avatarImagesPath}${imageName}`;
     
-    case ImageType.ApartmentMain:
+    case IMAGE_TYPE.ApartmentMain:
       return `${config.apartmentMainImagePath}${imageName}`;
     
-    case ImageType.Apartment:
+    case IMAGE_TYPE.Apartment:
       return `${config.apartmentImagesPath}${imageName}`;
 
     default:

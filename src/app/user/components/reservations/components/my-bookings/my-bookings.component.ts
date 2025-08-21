@@ -9,7 +9,7 @@ import { IUser } from '../../../../interfaces/i-user';
 import { IReservation, IReservationInfo } from '../../interfaces/i-reservation';
 import { BlBookingsRequestsService } from '../../services/requests/bl-bookings-requests.service';
 import { ReservationInfoDialogComponent } from '../reservation-info-dialog/reservation-info-dialog.component';
-import { ImageType } from '../../../../../shared/helpers/image-url.pipe';
+import { IMAGE_TYPE } from '../../../../../shared/helpers/image-url.pipe';
 import { IPaginatedResponse } from '../../../../../core/interfaces/i-base';
 import { ToastrService } from 'ngx-toastr';
 
@@ -35,7 +35,7 @@ export class MyBookingsComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   private _liveAnnouncer = inject(LiveAnnouncer);
-  imageType = ImageType;
+  imageType = IMAGE_TYPE;
 
   ngOnInit(): void {
     this.getData();

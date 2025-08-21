@@ -44,14 +44,6 @@ export class ApartmentViewComponent implements OnInit, OnDestroy {
   searchedData: ISearchHomeRequest = null;
   private apartmentId: number = null;
 
-  public TMPPaginatorData: IPaginatedResponse<any> = {
-    "data": [],
-    "perPage": 3,
-    "totalCount": 9,
-    "pages": 3,
-    "currentPage": 1
-  }
-
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       let id = Number(params.get("id"));

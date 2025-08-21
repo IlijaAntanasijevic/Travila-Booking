@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IApartmentImages } from '../../../interfaces/i-apartment';
-import { ImageType, ImageUrlPipe } from '../../../../shared/helpers/image-url.pipe';
+import { IMAGE_TYPE, ImageUrlPipe } from '../../../../shared/helpers/image-url.pipe';
 import { config } from '../../../../config/global';
 
 @Component({
@@ -15,18 +15,18 @@ export class ApartmentViewImagesComponent implements OnInit {
 
   public showModal: boolean = false;
   currentIndex: number = 0;
-  imageType = ImageType;
+  imageType = IMAGE_TYPE;
 
   ngOnInit(): void {
     if (this.images.length > 0) {
       this.images.forEach((image) => {
         switch (image.imageType) {
 
-        case ImageType.Apartment:
+        case IMAGE_TYPE.Apartment:
             image.path = `${config.apartmentImagesPath}${image.path}`;
             break;
 
-        case ImageType.ApartmentMain:
+        case IMAGE_TYPE.ApartmentMain:
             image.path = `${config.apartmentMainImagePath}${image.path}`;
             break;
             
