@@ -74,13 +74,26 @@ export class ApartmentAddReviewComponent implements OnDestroy{
           Spinner.hide();
           this.alertService.success("Rating successfully added");
           this.formService.reset();
-          this.form.reset();
+          this.resetRatings();
+          this.form = this.formService.getForm();
           this.form.get('apartmentId')?.setValue(this.apartmentId);
+          console.log(this.form.value);
           this.ratingAdded.emit();
         },
         error: err => Spinner.hide()
       })
     )
+  }
+
+    private resetRatings(): void {
+    this.ratings = {
+      [RATING_CATEGORY.Price]: 0,
+      [RATING_CATEGORY.Service]: 0,
+      [RATING_CATEGORY.Safety]: 0,
+      [RATING_CATEGORY.Entertainment]: 0,
+      [RATING_CATEGORY.Accessibility]: 0,
+      [RATING_CATEGORY.Support]: 0
+    };
   }
 
   ngOnDestroy(): void {

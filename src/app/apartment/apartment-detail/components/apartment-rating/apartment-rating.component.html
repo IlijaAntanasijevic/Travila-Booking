@@ -1,7 +1,8 @@
 <div>
             <div class="group-collapse-expand">
               <h6 class="text-light mb-10">Rate & Reviews</h6>
-              <div class="collapse show" id="collapseReviews">
+              @if(userRatings?.data.length != 0){
+      <div class="collapse show" id="collapseReviews">
                 <div class="card card-body">
                   <div class="head-reviews">
                     <div class="review-left">
@@ -9,7 +10,7 @@
                         <h6 class="neutral-1000">{{apartment.ratingInfo.avgRating | number: '1.1-1'}} / 5</h6>
                         <p class="text-sm-medium neutral-400">({{apartment?.ratingInfo.totalRatings}} reviews)</p>
                         <div class="review-rate">
-                            @for(type of getStarArray(apartment.ratingInfo.avgRating); track type) {
+                            @for(type of getStarArray(apartment.ratingInfo.avgRating); track $index) {
                                 <span class="star" [ngClass]="type"></span>
                             }
                         </div>
@@ -50,12 +51,7 @@
                           </div>
                         </div>
                         <div class="rate-review"> 
-                          <!-- <img src="assets/images/page/tour-detail/star-big.svg" alt="Travila">
-                            <img src="assets/images/page/tour-detail/star-big.svg" alt="Travila">
-                            <img src="assets/images/page/tour-detail/star-big.svg" alt="Travila">
-                            <img src="assets/images/page/tour-detail/star-big.svg" alt="Travila">
-                            <img src="assets/images/page/tour-detail/star-big.svg" alt="Travila"> -->
-                                 @for(type of getStarArray(item.avgRating); track $index) {
+                            @for(type of getStarArray(item.avgRating); track $index) {
                                 <span class="star-small" [ngClass]="type"></span>
                             }
                           </div>
@@ -65,13 +61,15 @@
                       </div>
                     </div>
                     }
-                    @empty {
-                      <h5>PRAZNO</h5>
-                    }
                   </div>
-                  <app-paginator [data]="userRatings"></app-paginator>
+                  <app-paginator [data]="userRatings" (pageChange)="onPageChange($event)"></app-paginator>
                 </div>
               </div>
+              }
+              @else {
+                <p class="text-light">There are no reviews for this apartment</p>
+              }
+        
             </div>
             @if(apartment?.userCanBook && !openedFromBooking && apartment?.canLeaveFeedback){
             <app-apartment-add-review [apartmentId]="apartment.id" (ratingAdded)="getUserRatingData()"></app-apartment-add-review>

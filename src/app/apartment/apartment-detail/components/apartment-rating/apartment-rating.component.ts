@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { IApartmentDetail } from '../../../interfaces/i-apartment';
-import { IPaginatedResponse } from '../../../../core/interfaces/i-base';
+import { IDefaultPagination, IPaginatedResponse } from '../../../../core/interfaces/i-base';
 import { RATING_CATEGORY } from '../apartment-add-review/enums/review-category';
 import { BlApartmentReviewRequestsService } from '../apartment-add-review/services/requests/bl-apartment-review-requests.service';
 import { Spinner } from '../../../../core/functions/spinner';
@@ -36,6 +36,11 @@ export class ApartmentRatingComponent implements OnInit, OnDestroy {
     6: RATING_CATEGORY.Support
   };
 
+  private params: IDefaultPagination = {
+    perPage: 9,
+    page: 1
+  }
+
   ngOnInit(): void {
     this.reviewProgressData = this.apartment.ratingInfo.ratingStatistic.map(x => {
       return {
@@ -51,7 +56,7 @@ export class ApartmentRatingComponent implements OnInit, OnDestroy {
   getUserRatingData(): void {
     Spinner.show();
     this.subscription.add(
-    this.requestsService.getRatings(this.apartment.id).subscribe({
+    this.requestsService.getRatings(this.params, this.apartment.id).subscribe({
       next: (data) => {
         this.userRatings = data;
         console.log(this.userRatings);
@@ -79,6 +84,12 @@ export class ApartmentRatingComponent implements OnInit, OnDestroy {
     }
     
     return stars;
+  }
+
+  onPageChange(page: number): void {
+    this.params.page = page;
+    this.getUserRatingData();
+    window.scrollTo({ top: 0 });
   }
 
   ngOnDestroy(): void {

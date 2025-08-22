@@ -58,8 +58,28 @@ export class BlApartmentReviewFormService implements IFormService<IApartmentRevi
   }
 
   reset(): void {
-    this.form = this.init();
-    this.form.reset();
+    // Reset comment and apartmentId
+    this.form.get('comment')?.reset(null);
+    this.form.get('apartmentId')?.reset(null);
+
+    // Reset FormArray values to initial state
+    const valuesArray = this.form.get('values') as FormArray;
+    if (valuesArray) {
+      const initialValues = [
+        { id: 1, value: null },
+        { id: 2, value: null },
+        { id: 3, value: null },
+        { id: 4, value: null },
+        { id: 5, value: null },
+        { id: 6, value: null }
+      ];
+      valuesArray.controls.forEach((group, idx) => {
+        group.get('id')?.setValue(initialValues[idx].id);
+        group.get('value')?.reset(null);
+      });
+    }
+    this.form.markAsPristine();
+    this.form.markAsUntouched();
   }
 
   prepareDataToSend(): IApartmentReviewRequest {
