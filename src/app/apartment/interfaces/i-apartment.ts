@@ -26,6 +26,7 @@ export interface IApartmentSearch extends ISearchHomeRequest {
   maxPrice?: number;
   isAvailable?: boolean;
   isMyApartment?: boolean;
+  showOnlyMyApartment?: boolean;
 }
 
 export interface IApartmentDetail extends IApartment {

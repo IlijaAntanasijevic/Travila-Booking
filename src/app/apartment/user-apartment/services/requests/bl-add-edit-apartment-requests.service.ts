@@ -10,6 +10,7 @@ import { ApartmentService } from '../../../services/api/apartment.service';
 import { ApartmentImageService } from '../../../services/api/apartment-image.service';
 import { ImagesService } from '../../../../shared/api/images.service';
 import { IAddApartmentRequest, IApartmentUploadImage } from '../../interfaces/i-add-edit-apartment';
+import { ArchiveService } from '../api/archive.service';
 
 @Injectable({
   providedIn: 'root'

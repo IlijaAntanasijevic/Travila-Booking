@@ -2,14 +2,12 @@
 <section class="background-body pt-25">
   <div class="container">
     <div class="d-flex align-items-center my-2">
-      <button mat-flat-button color="primary" routerLink="add">Add New <mat-icon
-          style="margin-top: 1px;">add_circle</mat-icon></button>
-      <button mat-flat-button class="ms-3" color="accent" routerLink="archived">Archived<mat-icon
-          style="margin-top: 1px;">visibility</mat-icon></button>
+    <button mat-flat-button color="primary" routerLink="/apartments/user">Back<mat-icon
+      style="margin-top: 1px;">arrow_back_2</mat-icon></button>
       <!-- <a routerLink="/home" class="archivedApartments"></a> -->
     </div>
     <div class="row">
-      @for(apartment of apartments?.data; track apartment) {
+      @for(apartment of data.data; track apartment) {
       <div class="col-4 text-dark my-3">
         <mat-card>
           <mat-card-header>
@@ -31,16 +29,15 @@
 
           </mat-card-content>
           <mat-card-actions class="d-flex justify-content-around mt-35 mb-2">
-            <button mat-flat-button class="delete-btn" color="warn" (click)="archive(apartment.id)">ARCHIVE</button>
+            <button mat-flat-button class="delete-btn" color="warn">DELETE</button>
 
-            <button mat-flat-button class="edit-btn" routerLink="edit/{{apartment.id}}" color="accent"
-              (click)="edit(apartment.id)">EDIT</button>
+            <button mat-flat-button class="activate-btn" routerLink="edit/{{apartment.id}}">ACTIVATE</button>
           </mat-card-actions>
         </mat-card>
       </div>
       }
     </div>
-    <app-paginator [data]="apartments" (pageChange)="onPageChange($event)"></app-paginator>
+    <app-paginator [data]="data" (pageChange)="onPageChange($event)"></app-paginator>
     <!-- <p class="ms-3" style="color: grey;">Total Apartments: {{apartments?.totalCount}}</p> -->
 
 

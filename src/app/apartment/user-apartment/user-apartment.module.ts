@@ -10,11 +10,13 @@ import { NgxSummernoteModule } from 'ngx-summernote';
 import { QuillModule } from 'ngx-quill';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { MapComponent } from '../../shared/components/map/map.component';
+import { UserArchivedApartmentsComponent } from './components/user-archived-apartments/user-archived-apartments.component';
 
 @NgModule({
   declarations: [
     UserApartmentDashboardComponent,
-    AddEditApartmentComponent
+    AddEditApartmentComponent,
+    UserArchivedApartmentsComponent
   ],
   imports: [
     CommonModule,

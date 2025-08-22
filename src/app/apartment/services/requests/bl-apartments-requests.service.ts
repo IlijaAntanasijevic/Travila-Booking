@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { IApartmentSearch } from '../../interfaces/i-apartment';
 import { toUTCDateString } from '../../../core/helpers/utility';
 import { BlFavoriteApartmentsRequestsService } from '../../../user/components/favorite-apartments/services/requests/bl-favorite-apartments-requests.service';
+import { ArchiveService } from '../../user-apartment/services/api/archive.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class BlApartmentsRequestsService {
   constructor(
     private apartmentService: ApartmentService,
     private favoriteApartmentsRequestService: BlFavoriteApartmentsRequestsService,
+    private archiveService: ArchiveService
   ) { }
 
   getAll(): Observable<any> {
@@ -31,6 +33,14 @@ export class BlApartmentsRequestsService {
   getAllByQueryParams(params: IApartmentSearch = null): Observable<any> {
     let paramsToSend: string | IApartmentSearch = this.prepareQuery(params);
     return this.apartmentService.getAllByQueryParams(paramsToSend);
+  }
+
+  getArchivedApartments(): Observable<any> {
+    return this.archiveService.getAll();
+  }
+
+  archiveApartment(id: number): Observable<any> {
+    return this.archiveService.update(id,null);
   }
 
   private prepareQuery(params: IApartmentSearch): string {
@@ -53,6 +63,9 @@ export class BlApartmentsRequestsService {
     }
     if (params.isMyApartment !== null && params.isMyApartment !== undefined) {
       queryParts.push(`isMyApartment=${params.isMyApartment}`);
+    }
+    if (params.showOnlyMyApartment !== null && params.showOnlyMyApartment !== undefined) {
+      queryParts.push(`showOnlyMyApartment=${params.showOnlyMyApartment}`);
     }
       if (params.isAvailable !== null && params.isAvailable !== undefined) {
       queryParts.push(`isAvailable=${params.isAvailable}`);
