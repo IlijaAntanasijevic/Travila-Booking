@@ -8,7 +8,7 @@ import { SimpleConfirmationDialogComponent } from '../../../../shared/components
 import { BlAddEditApartmetDataService } from '../../services/data/bl-add-edit-apartmet-data.service';
 import { ToastrService } from 'ngx-toastr';
 import { IMAGE_TYPE } from '../../../../shared/helpers/image-url.pipe';
-import { take } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 
 @Component({
     selector: 'app-user-apartment-dashboard',
@@ -16,7 +16,7 @@ import { take } from 'rxjs';
     styleUrl: './user-apartment-dashboard.component.css',
     standalone: false
 })
-export class UserApartmentDashboardComponent implements OnInit {
+export class UserApartmentDashboardComponent implements OnInit, OnDestroy {
 
   constructor(
     private requestsService: BlApartmentsRequestsService,
@@ -27,9 +27,11 @@ export class UserApartmentDashboardComponent implements OnInit {
 
   apartments: IPaginatedResponse<IApartment>;
   imageType = IMAGE_TYPE;
+  private subscription: Subscription = new Subscription();
   private params: IApartmentSearch = {
     perPage: 9,
-    page: 1
+    page: 1,
+    showOnlyMyApartment: true
   }
 
 
@@ -81,13 +83,27 @@ export class UserApartmentDashboardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        alert("Archive:" + id)
+        Spinner.show();
+        this.subscription.add(
+          this.requestsService.archiveApartment(id).subscribe({
+            next: (data) =>{
+              this.getData();
+              this.alertService.success("Successfully archived.")
+              Spinner.hide();
+            },
+            error: err => Spinner.hide()
+          })
+        )
       }
     })
   }
 
   edit(id: number): void {
 
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
 }
