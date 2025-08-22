@@ -3,6 +3,11 @@ export interface IBase {
   name: string
 }
 
+export interface IDefaultPagination {
+  perPage: number;
+  page: number;
+}
+
 export interface IPaginatedResponse<T> {
   data: T[];
   perPage: number;
