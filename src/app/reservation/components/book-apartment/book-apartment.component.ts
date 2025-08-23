@@ -190,7 +190,7 @@ export class BookApartmentComponent implements OnInit, OnDestroy {
       apartmentName: this.apartmentData.name,
       type: this.apartmentData.apartmentType,
       features: this.apartmentData.features.map(feature => feature.name).join(', '),
-      totalRooms: '999',
+      totalRooms: this.apartmentData.totalRooms,
       pricePerNight: this.apartmentData.pricePerNight + '$',
       totalBookings: this.apartmentData.totalBookings,
       address: this.apartmentData.address,
