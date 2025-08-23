@@ -8,7 +8,8 @@ export const apiPaths = {
     rating: "api/rating",
     favorite: "api/apartment/favorite",
     image: "api/apartment/image",
-    archive: "api/apartment/archive"
+    archive: "api/apartment/archive",
+    activate: "api/apartment/activate"
   },
   lookup: {
     cities: "api/city",

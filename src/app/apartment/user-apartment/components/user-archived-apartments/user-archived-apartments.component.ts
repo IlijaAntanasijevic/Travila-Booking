@@ -1,10 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BlApartmentsRequestsService } from '../../../services/requests/bl-apartments-requests.service';
-import { IPaginatedResponse } from '../../../../core/interfaces/i-base';
-import { IApartment } from '../../../interfaces/i-apartment';
+import { IDefaultPagination, IPaginatedResponse } from '../../../../core/interfaces/i-base';
+import { IArchivedApartment } from '../../../interfaces/i-apartment';
 import { Subscription } from 'rxjs';
 import { Spinner } from '../../../../core/functions/spinner';
 import { IMAGE_TYPE } from '../../../../shared/helpers/image-url.pipe';
+import { MatDialog } from '@angular/material/dialog';
+import { SimpleConfirmationDialogComponent } from '../../../../shared/components/simple-confirmation-dialog/simple-confirmation-dialog.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-archived-apartments',
@@ -12,15 +15,21 @@ import { IMAGE_TYPE } from '../../../../shared/helpers/image-url.pipe';
   templateUrl: './user-archived-apartments.component.html',
   styleUrl: './user-archived-apartments.component.css'
 })
-export class UserArchivedApartmentsComponent implements OnInit, OnDestroy{
+export class UserArchivedApartmentsComponent implements OnInit, OnDestroy {
 
   constructor(
-    private requestsService: BlApartmentsRequestsService
-  ) {}
+    private requestsService: BlApartmentsRequestsService,
+    private dialog: MatDialog,
+    private alertService: ToastrService
+  ) { }
 
-  data: IPaginatedResponse<IApartment> = null;
+  data: IPaginatedResponse<IArchivedApartment> = null;
   private subscription: Subscription = new Subscription();
   public imageType = IMAGE_TYPE;
+  params: IDefaultPagination = {
+    page: 1,
+    perPage: 6
+  }
 
   ngOnInit(): void {
     this.getData();
@@ -29,11 +38,9 @@ export class UserArchivedApartmentsComponent implements OnInit, OnDestroy{
   getData(): void {
     Spinner.show();
     this.subscription.add(
-      this.requestsService.getArchivedApartments().subscribe({
+      this.requestsService.getArchivedApartments(this.params).subscribe({
         next: (data) => {
           this.data = data;
-          console.log(data);
-          
           Spinner.hide();
         },
         error: err => Spinner.hide()
@@ -41,8 +48,50 @@ export class UserArchivedApartmentsComponent implements OnInit, OnDestroy{
     )
   }
 
-  onPageChange(page: number): void {
+  activateApartment(id: number): void {
+    Spinner.show();
+    this.subscription.add(
+      this.requestsService.activateApartment(id).subscribe({
+        next: (data) => {
+          Spinner.hide();
+          this.alertService.success("Successfully activated");
+          this.getData();
+        },
+       error: err => Spinner.hide()
+      })
+    )
+  }
 
+  onPageChange(page: number): void {
+    this.params.page = page;
+    this.getData();
+    window.scrollTo({ top: 0 });
+  }
+
+  deleteApartment(id: number): void {
+    const dialogRef = this.dialog.open(SimpleConfirmationDialogComponent, {
+      width: "400px",
+      data: {
+        title: "Confirm Delete",
+        message: "Are you sure you want to delete this apartment?"
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        Spinner.show();
+        this.subscription.add(
+          this.requestsService.deleteApartment(id).subscribe({
+            next: (data) => {
+              this.getData();
+              this.alertService.success("Successfully deleted");
+              Spinner.hide()
+            },
+            error: err => Spinner.hide()
+          })
+        )
+      }
+    })
   }
 
   ngOnDestroy(): void {

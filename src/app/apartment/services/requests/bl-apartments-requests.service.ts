@@ -5,6 +5,8 @@ import { IApartmentSearch } from '../../interfaces/i-apartment';
 import { toUTCDateString } from '../../../core/helpers/utility';
 import { BlFavoriteApartmentsRequestsService } from '../../../user/components/favorite-apartments/services/requests/bl-favorite-apartments-requests.service';
 import { ArchiveService } from '../../user-apartment/services/api/archive.service';
+import { IDefaultPagination } from '../../../core/interfaces/i-base';
+import { ApartmentActivateService } from '../api/apartment-activate.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,8 @@ export class BlApartmentsRequestsService {
   constructor(
     private apartmentService: ApartmentService,
     private favoriteApartmentsRequestService: BlFavoriteApartmentsRequestsService,
-    private archiveService: ArchiveService
+    private archiveService: ArchiveService,
+    private activateApartmentService: ApartmentActivateService
   ) { }
 
   getAll(): Observable<any> {
@@ -25,18 +28,26 @@ export class BlApartmentsRequestsService {
     return this.apartmentService.getOne(id);
   }
 
-  addToFavorite(apartmentId: number): Observable<any> {
-    return this.favoriteApartmentsRequestService.addToFavorite(apartmentId);
-  } 
-
-
   getAllByQueryParams(params: IApartmentSearch = null): Observable<any> {
     let paramsToSend: string | IApartmentSearch = this.prepareQuery(params);
     return this.apartmentService.getAllByQueryParams(paramsToSend);
   }
 
-  getArchivedApartments(): Observable<any> {
-    return this.archiveService.getAll();
+  deleteApartment(id: number): Observable<any> {
+    return this.apartmentService.delete(id);
+  }
+
+  activateApartment(id: number): Observable<any> {
+    return this.activateApartmentService.update(id, null);
+  }
+
+  addToFavorite(apartmentId: number): Observable<any> {
+    return this.favoriteApartmentsRequestService.addToFavorite(apartmentId);
+  } 
+
+  getArchivedApartments(params: IDefaultPagination): Observable<any> {
+    let paramsToSend = this.prepareQuery(params);
+    return this.archiveService.getAllByQueryParams(paramsToSend);
   }
 
   archiveApartment(id: number): Observable<any> {

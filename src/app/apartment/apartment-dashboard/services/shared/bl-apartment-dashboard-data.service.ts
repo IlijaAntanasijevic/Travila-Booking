@@ -23,7 +23,9 @@ export class BlApartmentDashboardDataService {
   public searchedData: BehaviorSubject<ISearchHomeRequest> = new BehaviorSubject<ISearchHomeRequest>(null);
 
   public isApartmentBooked: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   public isApartmentAvailable: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
+  
   public viewApartmentFromHome: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
 }

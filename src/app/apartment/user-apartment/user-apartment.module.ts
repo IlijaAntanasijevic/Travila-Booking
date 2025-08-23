@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -9,7 +10,6 @@ import { AddEditApartmentComponent } from './components/add-edit-apartment/add-e
 import { NgxSummernoteModule } from 'ngx-summernote';
 import { QuillModule } from 'ngx-quill';
 import { NgxDropzoneModule } from 'ngx-dropzone';
-import { MapComponent } from '../../shared/components/map/map.component';
 import { UserArchivedApartmentsComponent } from './components/user-archived-apartments/user-archived-apartments.component';
 
 @NgModule({
