@@ -12,7 +12,9 @@ interface IAddEditApartmentBase {
   featureIds: number[];
   paymentMethodIds: number[];
   guests: IGuests;
-
+  adults?: number;
+  childrens?: number;
+  totalRooms?: number;
 }
 
 export interface IAddEditApartmentForm extends IAddEditApartmentBase {

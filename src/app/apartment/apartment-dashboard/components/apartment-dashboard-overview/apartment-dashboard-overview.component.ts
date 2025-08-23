@@ -48,7 +48,10 @@ export class ApartmentDashboardOverviewComponent implements OnInit, OnDestroy {
         this.params.checkOut = data.checkOut;
         this.params.childrens = data.childrens;
         this.params.adults = data.adults;
-        this.params.rooms = data.rooms;     
+        this.params.rooms = data.rooms;   
+        this.params.adults = data.adults;
+        this.params.childrens = data.childrens;
+        this.params.totalRooms = data.rooms;  
         
         this.getData();
         this.trackViewMode();   

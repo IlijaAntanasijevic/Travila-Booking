@@ -5,7 +5,6 @@ import { ISorts } from "../apartment-dashboard/interfaces/i-filter";
 export interface IApartment {
   id: number;
   name: string;
-  maxGuests: number;
   pricePerNight: number;
   mainImage: IApartmenImage;
   city: string;
@@ -13,6 +12,9 @@ export interface IApartment {
   apartmentType: string;
   isAvailable: boolean;
   isFavorite: boolean;
+  adults: number;
+  childrens: number;
+  totalRooms: number;
 }
 
 export interface IArchivedApartment extends IApartment {
@@ -31,6 +33,10 @@ export interface IApartmentSearch extends ISearchHomeRequest {
   isAvailable?: boolean;
   isMyApartment?: boolean;
   showOnlyMyApartment?: boolean;
+  adults?: number;
+  childrens?: number;
+  totalRooms?: number;
+
 }
 
 export interface IApartmentDetail extends IApartment {
