@@ -22,8 +22,8 @@
     <div class="container">
       <div class="tour-header">
         <div class="tour-rate">
-          <div class="rate-element"><span class="rating">4.96
-              <span class="text-sm-medium neutral-500">(672 reviews)</span>
+          <div class="rate-element"><span class="rating">{{apartment.avgRating}}
+              <span class="text-sm-medium neutral-500">({{apartment.totalRatings}} reviews)</span>
             </span>
           </div>
         </div>
@@ -33,7 +33,7 @@
           </div>
           @if (apartment?.userCanBook && !openedFromBooking) {
             <div>
-            <button class="btn btn-default btn-filter" (click)="redirectToBooking()" [disabled]="!apartment.isAvailable && apartment.IsArchived">Book now</button>
+            <button class="btn btn-default btn-filter" (click)="redirectToBooking()" [disabled]="!apartment.isAvailable || apartment.IsArchived">Book now</button>
           </div>
           }
           

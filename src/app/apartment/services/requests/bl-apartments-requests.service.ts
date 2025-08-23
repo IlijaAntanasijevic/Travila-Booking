@@ -56,7 +56,9 @@ export class BlApartmentsRequestsService {
 
   private prepareQuery(params: IApartmentSearch): string {
     const queryParts: string[] = [];
-
+    if (params.keyword !== null && params.keyword !== undefined) {
+      queryParts.push(`keyword=${params.keyword}`);
+    }
     if (params.maxPrice !== null && params.maxPrice != undefined) {
       queryParts.push(`maxPrice=${params.maxPrice}`);
     }

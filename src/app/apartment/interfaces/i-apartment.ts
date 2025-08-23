@@ -15,6 +15,8 @@ export interface IApartment {
   adults: number;
   childrens: number;
   totalRooms: number;
+  totalRatings?: number;
+  avgRating?: number;
 }
 
 export interface IArchivedApartment extends IApartment {
