@@ -43,7 +43,7 @@ export class BlApartmentsRequestsService {
 
   addToFavorite(apartmentId: number): Observable<any> {
     return this.favoriteApartmentsRequestService.addToFavorite(apartmentId);
-  } 
+  }
 
   getArchivedApartments(params: IDefaultPagination): Observable<any> {
     let paramsToSend = this.prepareQuery(params);
@@ -51,7 +51,7 @@ export class BlApartmentsRequestsService {
   }
 
   archiveApartment(id: number): Observable<any> {
-    return this.archiveService.update(id,null);
+    return this.archiveService.update(id, null);
   }
 
   private prepareQuery(params: IApartmentSearch): string {
@@ -63,13 +63,16 @@ export class BlApartmentsRequestsService {
     if (params.perPage !== null && params.perPage != undefined) {
       queryParts.push(`perPage=${params.perPage}`);
     }
+    if (params.page !== null && params.page !== undefined) {
+      queryParts.push(`page=${params.page}`);
+    }
     if (params.cityId !== null && params.cityId !== undefined) {
       queryParts.push(`cityId=${params.cityId}`);
     }
-     if (params.checkIn !== null && params.checkIn !== undefined) {
-      queryParts.push(`checkIn=${toUTCDateString(new Date(params.checkIn))}`); 
+    if (params.checkIn !== null && params.checkIn !== undefined) {
+      queryParts.push(`checkIn=${toUTCDateString(new Date(params.checkIn))}`);
     }
-     if (params.checkOut !== null && params.checkOut !== undefined) {
+    if (params.checkOut !== null && params.checkOut !== undefined) {
       queryParts.push(`checkOut=${toUTCDateString(new Date(params.checkOut))}`);
     }
     if (params.isMyApartment !== null && params.isMyApartment !== undefined) {
@@ -78,18 +81,23 @@ export class BlApartmentsRequestsService {
     if (params.showOnlyMyApartment !== null && params.showOnlyMyApartment !== undefined) {
       queryParts.push(`showOnlyMyApartment=${params.showOnlyMyApartment}`);
     }
-      if (params.isAvailable !== null && params.isAvailable !== undefined) {
+    if (params.isAvailable !== null && params.isAvailable !== undefined) {
       queryParts.push(`isAvailable=${params.isAvailable}`);
+    }
+    if (params.adults !== null && params.adults !== undefined) {
+      queryParts.push(`adults=${params.adults}`);
+    }
+    if (params.childrens !== null && params.childrens !== undefined) {
+      queryParts.push(`childrens=${params.childrens}`);
+    }
+    if (params.totalRooms !== null && params.totalRooms !== undefined) {
+      queryParts.push(`totalRooms=${params.totalRooms}`);
     }
 
     if (params.apartmentTypeIds && params.apartmentTypeIds.length > 0) {
       params.apartmentTypeIds.forEach(x => {
         queryParts.push(`apartmentTypeIds=${x}`);
       })
-    }
-
-    if (params.page !== null && params.page !== undefined) {
-      queryParts.push(`page=${params.page}`);
     }
 
     if (params.sorts && params.sorts.length > 0) {

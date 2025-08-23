@@ -39,7 +39,10 @@
         </mat-expansion-panel-header>
         <div class="d-flex flex-column">
             <mat-slide-toggle formControlName="isAvailable">Available only</mat-slide-toggle>
+            @if(isLoggedIn){
             <mat-slide-toggle formControlName="isMyApartment" class="mt-4 mb-2">My apartments</mat-slide-toggle>
+
+            }
         </div>
       </mat-expansion-panel>
     </mat-accordion>

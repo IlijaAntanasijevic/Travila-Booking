@@ -4,6 +4,7 @@ import { ApartmentTypesService } from '../../../../shared/api/lookup/apartment-t
 import { IBase } from '../../../../core/interfaces/i-base';
 import { FormArray } from '@angular/forms';
 import { BlApartmentDashboardDataService } from '../../services/shared/bl-apartment-dashboard-data.service';
+import { AuthService } from '../../../../auth/services/shared/auth.service';
 
 @Component({
     selector: 'app-apartment-dashboard-filter',
@@ -16,7 +17,8 @@ export class ApartmentDashboardFilterComponent implements OnInit, OnDestroy {
   constructor(
     private formService: BlApartmentFilterFormService,
     private apartmentTypesService: ApartmentTypesService,
-    private dataService: BlApartmentDashboardDataService
+    private dataService: BlApartmentDashboardDataService,
+    private authService: AuthService
   ) { }
 
 
@@ -28,6 +30,7 @@ export class ApartmentDashboardFilterComponent implements OnInit, OnDestroy {
 
   public readonly filterPriceOpenState = signal(true);
   public readonly panelOpenState = signal(false);
+  public isLoggedIn: boolean = false;
 
   ngOnInit(): void {
     this.apartmentTypesService.getAll().subscribe({
@@ -36,6 +39,8 @@ export class ApartmentDashboardFilterComponent implements OnInit, OnDestroy {
         this.formService.createApartmentTypes(data);
       }
     })
+
+    this.isLoggedIn = this.authService.isLoggedIn();
 
   }
 
