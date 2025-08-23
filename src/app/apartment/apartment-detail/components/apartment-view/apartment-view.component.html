@@ -33,7 +33,7 @@
           </div>
           @if (apartment?.userCanBook && !openedFromBooking) {
             <div>
-            <button class="btn btn-default btn-filter" (click)="redirectToBooking()" [disabled]="!apartment.isAvailable">Book now</button>
+            <button class="btn btn-default btn-filter" (click)="redirectToBooking()" [disabled]="!apartment.isAvailable || !apartment.IsArchived">Book now</button>
           </div>
           }
           
@@ -58,7 +58,7 @@
               </svg>
               Share
             </button>
-            @if(apartment?.userCanBook){
+            @if(apartment?.userCanBook && !apartment?.IsArchived){
             <a class="btn btn-wishlish wish" (click)="addToFavorite()" [class.filled]="apartment.isFavorite">
               <svg width="20" height="18" viewbox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd"

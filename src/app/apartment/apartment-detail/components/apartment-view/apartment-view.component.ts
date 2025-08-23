@@ -99,7 +99,6 @@ export class ApartmentViewComponent implements OnInit, OnDestroy {
           this.apartment = data;
           this.apartment.country = data?.country?.name;
           this.apartment.city = data?.city?.name;
-          console.log(this.apartment);
           
           this.images.push({
             path: data.mainImage.fileName,
@@ -119,7 +118,10 @@ export class ApartmentViewComponent implements OnInit, OnDestroy {
 
           if(!this.openedFromBooking && !this.openedFromHome){
             this.isApartmentAvailable();
+          }
 
+          if(data.isArchived) {
+            this.showAlertForArchive();
           }
           Spinner.hide();
         },
@@ -132,6 +134,20 @@ export class ApartmentViewComponent implements OnInit, OnDestroy {
         }
       })
     )
+  }
+
+  showAlertForArchive(): void {
+  this.alertService.warning(
+    "This apartment has been archived",
+    "Apartment Archived",
+      {
+        timeOut: 0,  
+        extendedTimeOut: 0, 
+        closeButton: true,  
+        tapToDismiss: false,
+        titleClass: "alert-archived"
+      }
+    );
   }
 
   addToFavorite(): void {

@@ -15,6 +15,10 @@ export interface IApartment {
   isFavorite: boolean;
 }
 
+export interface IArchivedApartment extends IApartment {
+  currentBookings: number;
+}
+
 
 export interface IApartmentSearch extends ISearchHomeRequest {
   keyword?: string;
@@ -41,6 +45,7 @@ export interface IApartmentDetail extends IApartment {
   totalBookings: number;
   canLeaveFeedback: boolean;
   ratingInfo: IApartmentRatingInfo;
+  IsArchived: boolean;
 }
 
 export interface IApartmentImages {

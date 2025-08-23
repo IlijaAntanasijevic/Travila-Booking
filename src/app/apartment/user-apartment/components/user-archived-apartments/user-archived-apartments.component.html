@@ -1,5 +1,5 @@
 <app-user-tabs></app-user-tabs>
-<section class="background-body pt-25">
+<section class="background-body pt-25 pb-35">
   <div class="container">
     <div class="d-flex align-items-center my-2">
     <button mat-flat-button color="primary" routerLink="/apartments/user">Back<mat-icon
@@ -9,7 +9,7 @@
     <div class="row">
       @for(apartment of data.data; track apartment) {
       <div class="col-4 text-dark my-3">
-        <mat-card>
+        <mat-card [matBadge]="apartment.currentBookings" matBadgeColor="warn" matBadgeHidden="{{!apartment.currentBookings}}">
           <mat-card-header>
             <mat-card-title-group>
               <mat-card-title>{{apartment.name}}</mat-card-title>
@@ -29,12 +29,15 @@
 
           </mat-card-content>
           <mat-card-actions class="d-flex justify-content-around mt-35 mb-2">
-            <button mat-flat-button class="delete-btn" color="warn">DELETE</button>
+            <button mat-flat-button class="delete-btn" color="warn" [disabled]="apartment.currentBookings > 0" (click)="deleteApartment(apartment.id)">DELETE</button>
 
-            <button mat-flat-button class="activate-btn" routerLink="edit/{{apartment.id}}">ACTIVATE</button>
+            <button mat-flat-button class="activate-btn" (click)="activateApartment(apartment.id)">ACTIVATE</button>
           </mat-card-actions>
         </mat-card>
       </div>
+      }
+      @empty {
+        <h5 class="text-light mt-5">You don’t have any archived apartments.</h5>
       }
     </div>
     <app-paginator [data]="data" (pageChange)="onPageChange($event)"></app-paginator>

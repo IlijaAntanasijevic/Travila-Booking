@@ -40,7 +40,7 @@ import { SimpleConfirmationDialogComponent } from './components/simple-confirmat
 import { MapComponent } from './components/map/map.component';
 import { ShareDialogComponent } from './components/share-dialog/share-dialog.component';
 import { ImageUrlPipe } from './helpers/image-url.pipe';
-
+import {MatBadgeModule} from '@angular/material/badge';
 
 
 @NgModule({
@@ -86,6 +86,7 @@ import { ImageUrlPipe } from './helpers/image-url.pipe';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatBadgeModule
   ],
   exports: [
     MatCheckboxModule,
@@ -123,7 +124,8 @@ import { ImageUrlPipe } from './helpers/image-url.pipe';
     HttpClientModule,
     PaginatorComponent,
     MapComponent,
-    ImageUrlPipe
+    ImageUrlPipe,
+    MatBadgeModule
   ],
   providers: [
     AuthService, {
