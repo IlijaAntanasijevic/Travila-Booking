@@ -4,7 +4,7 @@ import { IRegister, IRegisterRequest } from '../../interfaces/i-auth';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { charactersOnlyValidator } from '../../../core/validators/characters-only-validator';
 import { passwordValidator } from '../../../core/validators/password-validator';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { RegisterService } from '../api/register.service';
 
 @Injectable({
@@ -15,6 +15,8 @@ export class BlRegisterFormService implements IFormService<IRegister>{
   constructor(
     private registerService: RegisterService
   ) { }
+
+  public registerEmail: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
   form: FormGroup<any> = this.init();
 

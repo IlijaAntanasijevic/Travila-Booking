@@ -23,3 +23,12 @@ export interface IRegister {
 export interface IRegisterRequest extends IRegister {
 
 }
+
+export interface IConfirmEmail {
+  email: string;
+  code: string;
+}
+
+export interface IConfirmEmailRequest extends IConfirmEmail {
+
+}
