@@ -21,7 +21,9 @@ export const apiPaths = {
   },
   auth: {
     login: "api/login",
-    regiter: "api/register"
+    regiter: "api/register",
+    confirm: "api/auth/confirm",
+    resend: "api/auth/resend"
   },
   user: {
     api: "api/users",

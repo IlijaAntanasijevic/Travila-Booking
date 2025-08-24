@@ -17,6 +17,7 @@ export class BlApartmentFilterFormService implements IFormService<IFilter>{
   init(): FormGroup {
     return new FormGroup({
       maxPrice: new FormControl(null),
+      keyword: new FormControl(null),
       apartmentTypeIds: new FormArray([]),
       sorts: new FormArray([ 
         new FormGroup({

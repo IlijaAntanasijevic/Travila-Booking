@@ -30,9 +30,10 @@
               <div class="card-rating">
                 <div class="card-left"> </div>
                 <div class="card-right">
-                  <span class="rating">4.96
-                    <span class="text-sm-medium neutral-500">(672 reviews)</span>
-                  </span>
+                <span class="rating">{{apartment.avgRating | number:'1.1-1' }}
+                  <span class="text-sm-medium neutral-500">({{apartment.totalRatings}} reviews)</span>
+                </span>
+                  
                 </div>
               </div>
               <div class="card-title"> <a class='heading-6 neutral-1000'

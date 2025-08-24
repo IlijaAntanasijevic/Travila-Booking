@@ -59,7 +59,6 @@ export class ApartmentRatingComponent implements OnInit, OnDestroy {
     this.requestsService.getRatings(this.params, this.apartment.id).subscribe({
       next: (data) => {
         this.userRatings = data;
-        console.log(this.userRatings);
         Spinner.hide();
         
       },
@@ -72,7 +71,6 @@ export class ApartmentRatingComponent implements OnInit, OnDestroy {
 
   getStarArray(avgRating: number): ('full' | 'half' | 'empty')[] {
     let stars: ('full' | 'half' | 'empty')[] = [];
-    // let avgRating = this.apartment.ratingInfo.avgRating;
 
     let fullStars = Math.floor(avgRating);
     let hasHalf = avgRating % 1 >= 0.25 && avgRating % 1 < 0.75;

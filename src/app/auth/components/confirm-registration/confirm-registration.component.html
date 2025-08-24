@@ -1,0 +1,52 @@
+<div class="box-content-full background-body">
+    <section class="section-box">
+        <div class="container">
+            <div class="row justify-content-center pt-100 pb-70">
+                <div class="col-sm-12 text-center">
+                    <h5 class="neutral-1000">Confirm your email</h5>
+                    <p class="text-muted mb-30">We've sent a confirmation code to <strong>{{ email }}</strong></p>
+                </div>
+                
+                <div class="row justify-content-center">
+                    <div class="col-md-12 mx-auto">
+                        <form [formGroup]="form">
+                            <div class="form-container">
+                                <mat-form-field class="full-width">
+                                    <mat-label>Confirmation code</mat-label>
+                                    <input matInput formControlName="code" placeholder="Enter the 6-digit code">
+                                    @if(form.get('code')?.hasError('required') && form.get('code')?.touched){
+                                        <mat-error>Confirmation code is required</mat-error>
+                                    }
+                                    @if(form.get('code')?.hasError('minlength')){
+                                        <mat-error>Code must be at least 6 characters</mat-error>
+                                    }
+                                </mat-form-field>
+
+                                <button mat-raised-button (click)="confirm()" color="primary" [disabled]="!form.valid || isLoading" class="btn-submit full-width">
+                                    @if(isLoading){
+                                        <mat-spinner diameter="20" class="me-2"></mat-spinner>
+                                        Confirming...
+                                    } @else {
+                                        Confirm Email
+                                    }
+                                </button>
+                            </div>
+                        </form>
+
+                        <div class="mt-35 d-flex align-items-center justify-content-center">
+                            <p class="text-muted me-2">Didn't receive the code?</p>
+                            <button mat-button color="accent" (click)="resendCode()" [disabled]="isLoading || timeLeft > 16"> 
+                                Resend Code 
+                            </button>
+                        </div>
+                        
+                        <div class="timer-container text-center mt-3">
+                            <p class="text-muted mb-1">Code expires in:</p>
+                            <div class="timer-display">{{ timerDisplay }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
