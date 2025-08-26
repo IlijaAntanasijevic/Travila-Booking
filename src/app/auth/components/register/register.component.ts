@@ -40,6 +40,7 @@ export class RegisterComponent {
         let email = this.formService.getFormData().email;
         this.formService.registerEmail.next(email);
         localStorage.setItem("registration", email);
+        this.formService.reset();
         this.router.navigate(["/auth/confirm"])
         Spinner.hide();
       },

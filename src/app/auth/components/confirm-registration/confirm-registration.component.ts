@@ -27,51 +27,50 @@ export class ConfirmRegistrationComponent implements OnInit, OnDestroy{
   email: string = null;
   isLoading: boolean = false;
   form: FormGroup = new FormGroup({
-    code: new FormControl("", [Validators.required, Validators.minLength(6)])
+    code: new FormControl("", [Validators.required, Validators.minLength(6), Validators.maxLength(6)])
   })
 
-  timeLeft: number = 5 * 60; // 5 minutes in seconds
-  timerDisplay: string = '05:00';
-  private timerSubscription: Subscription;
-  private TIMER_KEY_LS: string = 'confirm_registration_timer';
-  private TIMER_START_KEY_LS: string = 'confirm_registration_timer_start';
+  timeLeft: number = 2 * 60; // 2 minutes in seconds
+  timerDisplay: string = '02:00';
+  private timerSubscription: Subscription = new Subscription();
+  private TIMER_END_KEY_LS: string = 'confirm_registration_timer_end';
 
   ngOnInit(): void {
     this.getEmailForConfirmation();
-    this.initializeTimer();
-  }
-
-  ngOnDestroy(): void {
-    if (this.timerSubscription) {
-      this.timerSubscription.unsubscribe();
+    const lsEmail = localStorage.getItem("registration");
+    
+    if (this.email && lsEmail && this.email === lsEmail) {
+      this.initializeTimer();
+    } else {
+      this.alertService.error('Email is missing.');
+      this.clearTimerStorage();
     }
   }
 
+
   initializeTimer(): void {
-    const savedTimerStart = localStorage.getItem(this.TIMER_START_KEY_LS);
-    const savedTimeLeft = localStorage.getItem(this.TIMER_KEY_LS);
+    const savedTimerEnd = localStorage.getItem(this.TIMER_END_KEY_LS);
     
-    if (savedTimerStart && savedTimeLeft) {
-      const startTime = parseInt(savedTimerStart);
-      const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
-      const remainingTime = parseInt(savedTimeLeft) - elapsedTime;
+    if (savedTimerEnd) {
+      const endTime: number = parseInt(savedTimerEnd);
+      const remainingTime: number = Math.floor((endTime - Date.now()) / 1000);
       
-      if (remainingTime > 0) {
-        this.timeLeft = remainingTime;
+      if (remainingTime  > 0) {
+        this.timeLeft = remainingTime ;
         this.updateTimerDisplay();
         this.startTimer();
       } else {
-        this.clearTimerStorage();
+        // this.clearTimerStorage();
+        this.timeLeft = 0;
         this.alertService.warning('Time expired. Please request a new code.');
       }
     } else {
-      // First time or no saved timer
       this.startFreshTimer();
     }
   }
 
   startFreshTimer(): void {
-    this.timeLeft = 5 * 60;
+    this.timeLeft = 2 * 60;
     this.updateTimerDisplay();
     this.saveTimerStart();
     this.startTimer();
@@ -82,10 +81,10 @@ export class ConfirmRegistrationComponent implements OnInit, OnDestroy{
       if (this.timeLeft > 0) {
         this.timeLeft--;
         this.updateTimerDisplay();
-        this.saveTimerState();
       } else {
         this.timerSubscription.unsubscribe();
-        this.clearTimerStorage();
+        // this.clearTimerStorage();
+        this.timeLeft = 0;
         this.alertService.warning('Time expired. Please request a new code.');
       }
     });
@@ -105,16 +104,12 @@ export class ConfirmRegistrationComponent implements OnInit, OnDestroy{
   }
 
   saveTimerStart(): void {
-    localStorage.setItem(this.TIMER_START_KEY_LS, Date.now().toString());
-  }
-
-  saveTimerState(): void {
-    localStorage.setItem(this.TIMER_KEY_LS, this.timeLeft.toString());
+    const endTime = Date.now() + this.timeLeft * 1000;
+    localStorage.setItem(this.TIMER_END_KEY_LS, endTime.toString());
   }
 
   clearTimerStorage(): void {
-    localStorage.removeItem(this.TIMER_KEY_LS);
-    localStorage.removeItem(this.TIMER_START_KEY_LS);
+    localStorage.removeItem(this.TIMER_END_KEY_LS);
   }
 
   getEmailForConfirmation(): void {
@@ -135,28 +130,29 @@ export class ConfirmRegistrationComponent implements OnInit, OnDestroy{
   }
 
   confirm(): void {
-    if (this.form.valid && this.email) {
+    const lsEmail = localStorage.getItem("registration");
+    if (this.form.valid && this.email && lsEmail && this.email === lsEmail) {
       this.isLoading = true;
-      
       const confirmData: IConfirmEmail = {
         email: this.email,
         code: this.form.get('code').value
       };
-
       this.confirmEmailService.confirmEmail(confirmData).subscribe({
         next: (response) => {
           this.isLoading = false;
           localStorage.removeItem("registration");
           this.clearTimerStorage();
+
+          this.alertService.success("You have successfully registered.")
           this.router.navigate(['/auth/login']);
         },
         error: (error) => {
           this.isLoading = false;
         }
       });
-    }
-    else {
-      this.alertService.error("Please contact our support", "Unexpected Error")
+    } else {
+      this.alertService.error("Email is missing.", "Unexpected Error");
+      this.clearTimerStorage();
     }
   }
 
@@ -168,12 +164,17 @@ export class ConfirmRegistrationComponent implements OnInit, OnDestroy{
         next: (response) => {
           this.isLoading = false;
           this.resetTimer();
-          this.alertService.warning("The code has been sent. Check your email")
+          this.alertService.success("The code has been sent. Check your email")
         },
         error: (error) => {
           this.isLoading = false;
         }
       });
     }
+  }
+
+  ngOnDestroy(): void {
+    this.timerSubscription.unsubscribe();
+    // this.clearTimerStorage();
   }
 }
