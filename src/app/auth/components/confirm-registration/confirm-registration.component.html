@@ -20,9 +20,12 @@
                                     @if(form.get('code')?.hasError('minlength')){
                                         <mat-error>Code must be at least 6 characters</mat-error>
                                     }
+                                    @if(form.get('code')?.hasError('maxlength')){
+                                        <mat-error>Code cannot be longer than 6 characters</mat-error>
+                                    }
                                 </mat-form-field>
 
-                                <button mat-raised-button (click)="confirm()" color="primary" [disabled]="!form.valid || isLoading" class="btn-submit full-width">
+                                <button mat-raised-button (click)="confirm()" color="primary" [disabled]="!form.valid || isLoading || !email" class="btn-submit full-width">
                                     @if(isLoading){
                                         <mat-spinner diameter="20" class="me-2"></mat-spinner>
                                         Confirming...
@@ -35,7 +38,7 @@
 
                         <div class="mt-35 d-flex align-items-center justify-content-center">
                             <p class="text-muted me-2">Didn't receive the code?</p>
-                            <button mat-button color="accent" (click)="resendCode()" [disabled]="isLoading || timeLeft > 16"> 
+                            <button mat-button color="accent" (click)="resendCode()" [disabled]="isLoading || timeLeft > 0"> 
                                 Resend Code 
                             </button>
                         </div>
