@@ -53,7 +53,8 @@ export class ApiService<T> {
   }
 
   update(id: number, data: any): Observable<T> {
-    return this.http.put<T>(this.apiUrl + this.url + "/" + id, data).pipe(
+    let path: string = id ? "/" + id : ""; 
+    return this.http.put<T>(this.apiUrl + this.url + path, data).pipe(
       catchError((error) => this.handleErrors(error))
     );
   }
@@ -83,7 +84,7 @@ export class ApiService<T> {
 
         break;
       case 422:
-        if (error.error) {
+        if (errorFromBack && !Array.isArray(errorFromBack)) {
           errorMessage = errorFromBack;
           break;
         }
