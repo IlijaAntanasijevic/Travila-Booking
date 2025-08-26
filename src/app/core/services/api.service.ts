@@ -67,15 +67,15 @@ export class ApiService<T> {
 
   protected handleErrors(error: any): Observable<any> {
     let errorMessage = 'An unknown error occurred!';
-    console.log(error);
-    
+    let errorFromBack = error.error.error;
+
     switch (error.status) {
       case 401:
         errorMessage = "Unauthorized."
         break;
       case 404:
-        if(error.error.error){
-          errorMessage = error.error.error;
+        if(errorFromBack){
+          errorMessage = errorFromBack;
         }
         else {
         errorMessage = "Not Found."
@@ -83,8 +83,8 @@ export class ApiService<T> {
 
         break;
       case 422:
-        if (error.error.length == 1) {
-          errorMessage = error.error[0].error;
+        if (error.error) {
+          errorMessage = errorFromBack;
           break;
         }
         else {
@@ -95,8 +95,8 @@ export class ApiService<T> {
         }
         break;
       default:
-        if(error.error && error.error.error) {
-          errorMessage = error.error.error;
+        if(error.error && errorFromBack) {
+          errorMessage = errorFromBack;
         }
         else {
         errorMessage = "Server error!";
