@@ -46,6 +46,7 @@ export class ForgotPasswordComponent {
           this.isLoading = false;
           this.email = email;
           this.step = 'code';
+          this.alertService.success('Verification code sent to email.');
           Spinner.hide();
         },
         error: () => {
@@ -87,7 +88,7 @@ export class ForgotPasswordComponent {
     Spinner.show();
     let newPass = this.form.get('newPassword').value
     this.isLoading = true;
-    this.requestsService.renewPassword(this.email, newPass).subscribe({
+    this.requestsService.renewPassword(this.email, newPass, this.code).subscribe({
       next: () => {
         this.isLoading = false;
         this.alertService.success('Password changed successfully.');
