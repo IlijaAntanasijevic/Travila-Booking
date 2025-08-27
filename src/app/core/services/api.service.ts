@@ -68,8 +68,8 @@ export class ApiService<T> {
 
   protected handleErrors(error: any): Observable<any> {
     let errorMessage = 'An unknown error occurred!';
-    let errorFromBack = error.error.error;
-
+    let errorFromBack = error?.error?.error;
+    
     switch (error.status) {
       case 401:
         errorMessage = "Unauthorized."

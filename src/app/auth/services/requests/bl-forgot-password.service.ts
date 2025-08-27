@@ -21,7 +21,7 @@ export class BlForgotPasswordService {
     return this.apiService.update(null, {email, code});
   }
 
-  renewPassword(email: string, newPassword: string): Observable<any> {
-    return this.changePassService.update(null, { email, newPassword })
+  renewPassword(email: string, newPassword: string, code: string): Observable<any> {
+    return this.changePassService.update(null, { email, newPassword, code });
   }
 }
