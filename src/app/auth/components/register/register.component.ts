@@ -4,6 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { IRegister } from '../../interfaces/i-auth';
 import { Spinner } from '../../../core/functions/spinner';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-register',
@@ -15,7 +16,8 @@ export class RegisterComponent {
 
   constructor(
     private formService: BlRegisterFormService,
-    private router: Router
+    private router: Router,
+    private alertService: ToastrService
   ) { }
 
   
@@ -41,6 +43,7 @@ export class RegisterComponent {
         this.formService.registerEmail.next(email);
         localStorage.setItem("registration", email);
         this.formService.reset();
+        this.alertService.success('Registration successful. Please confirm your email.');
         this.router.navigate(["/auth/confirm"])
         Spinner.hide();
       },
