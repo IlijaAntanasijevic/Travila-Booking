@@ -6,6 +6,7 @@ import { Spinner } from '../../../core/functions/spinner';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../../../env';
+import { IAvatarUploadResponse } from '../../services/api/avatar-upload.service';
 
 @Component({
     selector: 'app-register',
@@ -25,11 +26,13 @@ export class RegisterComponent {
   googleData = environment.googleAuth;
   googleUrl: string = '';
   hide = signal(true);
+  selectedAvatar: string | null = null;
+  avatarOriginalFileName: string | null = null;
+  
   clickEvent(event: MouseEvent) {
     this.hide.set(!this.hide());
     event.stopPropagation();
   }
-
 
   public form: FormGroup = this.formService.getForm();
 
@@ -59,7 +62,6 @@ export class RegisterComponent {
     // this.form.markAllAsTouched();
   }
 
-
   register(): void {
     Spinner.show();
     this.formService.submit().subscribe({
@@ -78,11 +80,28 @@ export class RegisterComponent {
     })
   }
 
-  fileUpload(event: any): void {
-
-  }
-
-  previewImage(e: any): void {
-
+  previewImage(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      Spinner.show();
+      this.formService.uploadAvatar(file).subscribe({
+        next: (response: IAvatarUploadResponse[]) => {
+          if (response && response.length > 0) {
+            console.log(response);
+            this.avatarOriginalFileName = response[0].originalFileName;
+            const avatarData = response[0];
+            this.selectedAvatar = avatarData.fileName;
+            this.form.get('avatar')?.setValue(avatarData.fileName);
+            this.alertService.success('Avatar uploaded successfully!');
+          }
+          Spinner.hide();
+        },
+        error: (err) => {
+          console.error('Avatar upload failed:', err);
+          this.alertService.error('Failed to upload avatar. Please try again.');
+          Spinner.hide();
+        }
+      });
+    }
   }
 }
