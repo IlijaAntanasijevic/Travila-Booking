@@ -6,6 +6,7 @@ import { charactersOnlyValidator } from '../../../core/validators/characters-onl
 import { passwordValidator } from '../../../core/validators/password-validator';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { RegisterService } from '../api/register.service';
+import { AvatarUploadService, IAvatarUploadResponse } from '../api/avatar-upload.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ import { RegisterService } from '../api/register.service';
 export class BlRegisterFormService implements IFormService<IRegister>{
 
   constructor(
-    private registerService: RegisterService
+    private registerService: RegisterService,
+    private avatarUploadService: AvatarUploadService
   ) { }
 
   public registerEmail: BehaviorSubject<string> = new BehaviorSubject<string>(null);
@@ -39,6 +41,10 @@ export class BlRegisterFormService implements IFormService<IRegister>{
     return this.form.getRawValue();
   }
 
+  uploadAvatar(file: File): Observable<IAvatarUploadResponse[]> {
+    return this.avatarUploadService.uploadAvatar(file);
+  }
+
   prepareDataToSend(): IRegisterRequest {
     const data = this.getFormData();
 
@@ -48,7 +54,7 @@ export class BlRegisterFormService implements IFormService<IRegister>{
      firstName: data.firstName,
      lastName: data.lastName,
      phone: data.phone.toString(),
-     avatar: null
+     avatar: data.avatar
    }
 
     return dataToSend;

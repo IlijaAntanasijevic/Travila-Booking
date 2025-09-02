@@ -83,16 +83,19 @@
                 </div>
                 <div class="col-sm-6">
                   <div class="input-container">
-                    <!-- @if(selectedAvatar){
-                      <img src="{{imgUrl + selectedAvatar}}" class="avatar-img" />
-                      } -->
-                    <button type="button" mat-flat-button (click)="imgFileInput.click()">Upload profile photo
-                      <mat-icon>upload</mat-icon></button>
+                    <button type="button" mat-flat-button (click)="imgFileInput.click()">
+                      @if(avatarOriginalFileName){
+                        {{avatarOriginalFileName}}
+                      } @else {
+                        Upload Profile Photo
+                      }
+                      <mat-icon>upload</mat-icon>
+                    </button>
                     <input hidden type="file" accept=".png, .jpeg, .jpg" #imgFileInput
                       (change)="previewImage($event)" />
                   </div>
 
-                  <p class="avatar-hint">If you don’t choose a picture, a default avatar will be applied.
+                  <p class="avatar-hint">If you don't choose a picture, a default avatar will be applied.
                   </p>
 
                 </div>

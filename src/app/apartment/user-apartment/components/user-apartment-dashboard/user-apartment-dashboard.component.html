@@ -4,8 +4,10 @@
     <div class="d-flex align-items-center my-2">
       <button mat-flat-button color="primary" routerLink="add">Add New <mat-icon
           style="margin-top: 1px;">add_circle</mat-icon></button>
-      <button mat-flat-button class="ms-3" color="accent" routerLink="archived">Archived<mat-icon
-          style="margin-top: 1px;">visibility</mat-icon></button>
+          @if(apartments?.data.length > 0) {
+            <button mat-flat-button class="ms-3" color="accent" routerLink="archived">Archived<mat-icon
+              style="margin-top: 1px;">visibility</mat-icon></button>
+          }
       <!-- <a routerLink="/home" class="archivedApartments"></a> -->
     </div>
     <div class="row">
@@ -38,6 +40,9 @@
           </mat-card-actions>
         </mat-card>
       </div>
+      }
+      @empty {
+        <h3 class="neutral-1000 mt-5">You don't have any apartments</h3>
       }
     </div>
     <app-paginator [data]="apartments" (pageChange)="onPageChange($event)"></app-paginator>
