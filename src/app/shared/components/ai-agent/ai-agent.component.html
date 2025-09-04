@@ -1,0 +1,89 @@
+@if(showIntroAnimation){
+  <div class="ai-agent-container">
+    <div class="ai-agent-button" (click)="toggleExpanded()" [class.expanded]="isExpanded" [class.slide-in-right]="showIntroAnimation">
+      <div class="agent-avatar">
+        <mat-icon>smart_toy</mat-icon>
+      </div>
+      @if (hasNewMessage && !isExpanded) {
+        <div class="new-message-badge">
+          <span class="badge-dot"></span>
+        </div>
+      }
+    </div>
+  
+    <!-- Chat Panel -->
+    <div class="ai-chat-panel" [class.show]="isExpanded">
+      <div class="chat-header">
+        <div class="agent-info">
+          <div class="agent-avatar-small">
+            <mat-icon>smart_toy</mat-icon>
+          </div>
+          <div class="agent-details">
+            <h6 class="agent-name">Travel Assistant</h6>
+            <span class="agent-status">Online</span>
+          </div>
+        </div>
+        <button class="close-btn" (click)="toggleExpanded()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+  
+      <div class="chat-messages" #messagesContainer>
+        @for (message of chatMessages; track message.timestamp) {
+          <div class="message" 
+               [class.user-message]="message.type === 'user'"
+               [class.ai-message]="message.type === 'ai'">
+            <div class="message-content">
+              @if (message.type === 'ai') {
+                <div class="message-avatar">
+                  <mat-icon>smart_toy</mat-icon>
+                </div>
+              }
+              <div class="message-bubble">
+                <p>{{ message.message }}</p>
+                <span class="message-time">{{ message.timestamp | date:'short' }}</span>
+              </div>
+            </div>
+          </div>
+        }
+        
+        <!-- Loading indicator -->
+        @if (isLoading) {
+          <div class="message ai-message">
+            <div class="message-content">
+              <div class="message-avatar">
+                <mat-icon>smart_toy</mat-icon>
+              </div>
+              <div class="message-bubble">
+                <div class="typing-indicator">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+  
+      <div class="chat-input">
+        <div class="input-group">
+          <input 
+            type="text" 
+            class="form-control" 
+            placeholder="Ask me anything about your trip..."
+            [formControl]="messageInput"
+            (keypress)="onKeyPress($event)"
+            [disabled]="isLoading">
+          <button 
+            class="btn btn-primary send-btn" 
+            (click)="sendMessage()"
+            [disabled]="messageInput.invalid || isLoading">
+            <mat-icon>send</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+}
