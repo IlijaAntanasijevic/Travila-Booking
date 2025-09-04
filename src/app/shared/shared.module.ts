@@ -40,6 +40,8 @@ import { SimpleConfirmationDialogComponent } from './components/simple-confirmat
 import { MapComponent } from './components/map/map.component';
 import { ShareDialogComponent } from './components/share-dialog/share-dialog.component';
 import { ImageUrlPipe } from './helpers/image-url.pipe';
+import { AiAgentComponent } from './components/ai-agent/ai-agent.component';
+import { AiApartmentService } from './api/ai-apartment.service';
 import {MatBadgeModule} from '@angular/material/badge';
 
 
@@ -49,7 +51,8 @@ import {MatBadgeModule} from '@angular/material/badge';
     SimpleConfirmationDialogComponent,
     MapComponent,
     ShareDialogComponent,
-    ImageUrlPipe
+    ImageUrlPipe,
+    AiAgentComponent
   ],
   imports: [
     CommonModule,
@@ -125,10 +128,13 @@ import {MatBadgeModule} from '@angular/material/badge';
     PaginatorComponent,
     MapComponent,
     ImageUrlPipe,
+    AiAgentComponent,
     MatBadgeModule
   ],
   providers: [
-    AuthService, {
+    AuthService,
+    AiApartmentService,
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
