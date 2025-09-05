@@ -217,7 +217,7 @@
 }
 
 .user-message .message-avatar {
-  background: #007bff;
+  background: black;
 }
 
 .message-bubble {
@@ -304,14 +304,6 @@
   /*transition: border-color 0.2s ease;*/
 }
 
-.form-control:focus {
-  border-color: red;
-  box-shadow: 0 0 0 2px red;
-  background-color: #313131;
-  caret-color: initial;
-}
-
-
 .send-btn {
   width: 45px;
   height: 45px;
@@ -335,6 +327,10 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+/* ::ng-deep .mat-icon {
+  fill: black !important;
+} */
 
 /* Responsive design */
 @media (max-width: 768px) {
