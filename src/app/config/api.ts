@@ -10,7 +10,8 @@ export const apiPaths = {
     image: "api/apartment/image",
     archive: "api/apartment/archive",
     activate: "api/apartment/activate",
-    ai: "api/apartment/ai"
+    ai: "api/apartment/ai",
+    aiChat: "api/apartment/chat"
   },
   lookup: {
     cities: "api/city",

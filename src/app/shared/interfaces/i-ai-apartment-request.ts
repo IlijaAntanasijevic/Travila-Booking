@@ -9,4 +9,5 @@ export interface IAiApartmentRequest {
 
 export interface IAiApartmentResponse {
   text: string;
+  conversationId: number;
 }

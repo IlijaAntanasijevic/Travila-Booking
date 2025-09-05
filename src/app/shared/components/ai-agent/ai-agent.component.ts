@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AiApartmentService } from '../../api/ai-apartment.service';
@@ -26,6 +26,7 @@ export class AiAgentComponent implements OnInit, OnDestroy {
   ) {}
 
   @Input() searchData: ISearchHomeRequest;
+  @ViewChild('messagesContainer') private messagesContainer!: ElementRef;
 
   public isExpanded = false;
   public hasNewMessage = false;
@@ -33,7 +34,8 @@ export class AiAgentComponent implements OnInit, OnDestroy {
   public aiResponse: string = '';
   public chatMessages: Array<{type: 'user' | 'ai', message: string, timestamp: Date}> = [];
   public showIntroAnimation = false;
-  
+  private startedConversationId: number = null;
+
   public messageInput = new FormControl('', [Validators.required]);
   
   private subscription = new Subscription();
@@ -63,6 +65,8 @@ export class AiAgentComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.cityService.getAllByCountryId(this.searchData.cityId).subscribe({
         next: (data) => {
+          console.log(data);
+          
           let request: IAiApartmentRequest = {
             adults: this.searchData.adults || 1,
             childrens: this.searchData.childrens || 0,
@@ -87,6 +91,8 @@ export class AiAgentComponent implements OnInit, OnDestroy {
       this.requestsService.getAiRecommendation(request).subscribe({
         next: (response: IAiApartmentResponse) => {
           this.aiResponse = response.text;
+          this.startedConversationId = response.conversationId;
+
           this.chatMessages.push({
             type: 'ai',
             message: response.text,
@@ -106,6 +112,7 @@ export class AiAgentComponent implements OnInit, OnDestroy {
 
   sendMessage(): void {
     if (this.messageInput.invalid || !this.messageInput.value.trim()) return;
+    this.isLoading = true;
 
     const userMessage = this.messageInput.value.trim();
     this.chatMessages.push({
@@ -115,18 +122,27 @@ export class AiAgentComponent implements OnInit, OnDestroy {
     });
 
     this.messageInput.setValue('');
-    this.isLoading = true;
 
-    // For now, we'll just echo the message back as AI response
-    // In a real implementation, you'd send this to the AI service
-    setTimeout(() => {
-      this.chatMessages.push({
-        type: 'ai',
-        message: `I understand you're asking: "${userMessage}". I'm here to help you find the perfect apartment for your stay!`,
-        timestamp: new Date()
-      });
-      this.isLoading = false;
-    }, 1000);
+    this.subscription.add(
+      this.requestsService.askQuestion({ text: userMessage, conversationId: this.startedConversationId }).subscribe({
+        next: (response: IAiApartmentResponse) => {
+          this.chatMessages.push({
+            type: 'ai',
+            message: response.text,
+            timestamp: new Date()
+          })
+        setTimeout(() =>  this.messagesContainer.nativeElement.scrollTop = this.messagesContainer.nativeElement.scrollHeight, 0);
+        },
+        error: (error) => {
+          this.isLoading = false;
+          this.toastr.error('Failed to get AI response');
+        }
+      })
+    )
+
+   this.isLoading = false;
+   setTimeout(() =>  this.messagesContainer.nativeElement.scrollTop = this.messagesContainer.nativeElement.scrollHeight, 0);
+ 
   }
 
   onKeyPress(event: KeyboardEvent): void {
