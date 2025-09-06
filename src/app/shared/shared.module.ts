@@ -43,6 +43,8 @@ import { ImageUrlPipe } from './helpers/image-url.pipe';
 import { AiAgentComponent } from './components/ai-agent/ai-agent.component';
 import { AiApartmentService } from './api/ai-apartment.service';
 import {MatBadgeModule} from '@angular/material/badge';
+import { CanDirective } from '../core/helpers/can.directive';
+import { PermissionPipe } from '../core/helpers/permission.pipe';
 
 
 @NgModule({
@@ -52,7 +54,9 @@ import {MatBadgeModule} from '@angular/material/badge';
     MapComponent,
     ShareDialogComponent,
     ImageUrlPipe,
-    AiAgentComponent
+    AiAgentComponent,
+    CanDirective,
+    PermissionPipe
   ],
   imports: [
     CommonModule,
@@ -129,7 +133,9 @@ import {MatBadgeModule} from '@angular/material/badge';
     MapComponent,
     ImageUrlPipe,
     AiAgentComponent,
-    MatBadgeModule
+    MatBadgeModule,
+    CanDirective,
+    PermissionPipe
   ],
   providers: [
     AuthService,

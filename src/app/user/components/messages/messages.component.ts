@@ -6,7 +6,7 @@ import { BlMessagesRequestsService } from './services/requests/bl-messages-reque
 import { Subscription } from 'rxjs';
 import { IChatList, IMessages } from './interfaces/i-messages';
 import { Spinner } from '../../../core/functions/spinner';
-import { ChatService } from '../../../core/services/chat.service';
+import { ChatService } from '../../../shared/services/chat.service';
 import { AuthService } from '../../../auth/services/shared/auth.service';
 import { BlMessagesDataService } from './services/shared/bl-messages-data.service';
 
