@@ -35,13 +35,13 @@ const routes: Routes = [
         path: "booking",
         loadChildren: () => import('./reservation/reservation.module').then(m => m.ReservationModule),
         canActivate: [AuthGuard]
-      },
-      {
-        path: "admin",
-        loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
-        canActivate: [AuthGuard]
       }
     ]
+  },
+  {
+    path: "admin",
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+    canActivate: [AuthGuard]
   },
   {
     path: "**",
