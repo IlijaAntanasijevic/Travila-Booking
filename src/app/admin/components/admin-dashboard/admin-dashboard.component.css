@@ -1,0 +1,95 @@
+.admin-dashboard {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.admin-dashboard h1 {
+  color: #1976d2;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.admin-permissions, .admin-actions {
+  margin-bottom: 32px;
+}
+
+.admin-permissions h2, .admin-actions h2 {
+  color: #424242;
+  margin-bottom: 16px;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 8px;
+}
+
+.permissions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.permission-card {
+  background: #f5f5f5;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.permission-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.permission-card mat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  color: #1976d2;
+  margin-bottom: 12px;
+}
+
+.permission-card h3 {
+  margin: 0 0 8px 0;
+  color: #424242;
+  font-size: 18px;
+}
+
+.permission-card p {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.actions-grid {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.actions-grid button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+}
+
+.actions-grid button mat-icon {
+  margin-right: 8px;
+}
+
+@media (max-width: 768px) {
+  .permissions-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .actions-grid {
+    flex-direction: column;
+  }
+  
+  .actions-grid button {
+    width: 100%;
+    justify-content: center;
+  }
+}

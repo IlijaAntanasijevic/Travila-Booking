@@ -37,3 +37,9 @@ export function numberIdMatcher(segments: UrlSegment[]): UrlMatchResult | null {
 export function toUTCDateString(date: Date): string{
   return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())).toISOString();
 }
+
+export class Permission {
+  static getPermissionIds(enumData: any): number[] {
+    return Object.values(enumData).filter(value => typeof value === 'number') as number[];
+  }
+}

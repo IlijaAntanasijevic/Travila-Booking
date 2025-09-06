@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { GloballyAllowedUseCases } from '../consts/use-cases';
 import { AuthService } from '../../auth/services/shared/auth.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Permission } from '../helpers/utility';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +15,9 @@ export class PermissionService {
   public allowed: BehaviorSubject<Set<number>> = new BehaviorSubject<Set<number>>(new Set());
 
   setPermissions(useCaseIds: number[]) {
-    let global = Object.values(GloballyAllowedUseCases) as number[];
-
-    this.allowed.next(new Set(useCaseIds.concat(global)));
+    let globalIds = Permission.getPermissionIds(GloballyAllowedUseCases);
+    
+    this.allowed.next(new Set(useCaseIds.concat(globalIds)));
   }
 
   //update permissions?
@@ -25,7 +26,8 @@ export class PermissionService {
     if (this.allowed.value.size === 0) {
       this.loadPermissionsFromToken();
     }
-    return useCaseIds.every(id => this.allowed.value.has(id));
+    
+    return useCaseIds.some(id => this.allowed.value.has(id));
   }
 
 
