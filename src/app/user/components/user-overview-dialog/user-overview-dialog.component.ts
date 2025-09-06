@@ -7,6 +7,9 @@ import { IUserOverviewLinks } from '../../interfaces/i-user-overview-links';
 import { USER_OVERVIEW_LINKS } from '../../consts/user-overview-links';
 import { NavigationStart, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AdminUseCases } from '../../../core/consts/use-cases';
+import { Permission } from '../../../core/helpers/utility';
+import { PermissionService } from '../../../core/services/permission.service';
 
 @Component({
     selector: 'app-user-overview-dialog',
@@ -20,16 +23,19 @@ export class UserOverviewDialogComponent implements OnInit, OnDestroy {
     private userRequestService: BlUserRequestsService,
     private dialogRef: MatDialogRef<UserOverviewDialogComponent>,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private permissionService: PermissionService
   ) { }
 
   userData: IUser = null;
+  filteredLinks: any[] = [];
+  adminUseCases = AdminUseCases;
   userLinks: IUserOverviewLinks[] = USER_OVERVIEW_LINKS;
   private subscription: Subscription = new Subscription();
 
   ngOnInit(): void {
     this.userData = this.userRequestService.getUserDataFromLS();
-
+    this.filterLinks();
     this.subscription.add(
       this.router.events.subscribe(event => {
         if (event instanceof NavigationStart) {
@@ -42,6 +48,21 @@ export class UserOverviewDialogComponent implements OnInit, OnDestroy {
   logout(): void {
     this.authService.logout();
     this.close();
+  }
+  private filterLinks(): void {
+    this.filteredLinks = this.userLinks.filter(link => {
+      if (link.name === "Admin Panel") {
+        return this.hasAnyAdminUseCase();
+      }
+      return true;
+    });
+  }
+
+  hasAnyAdminUseCase(): boolean {
+    const adminUseCaseIds = Permission.getPermissionIds(AdminUseCases);
+    console.log(adminUseCaseIds);
+    
+    return this.permissionService.has(adminUseCaseIds);
   }
 
   close(): void {

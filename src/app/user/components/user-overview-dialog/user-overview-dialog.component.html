@@ -25,7 +25,7 @@
     <div class="box-quicklinks">
       <h6 class="title-quicklinks neutral-1000">Quick Links</h6>
       <div class="box-list-quicklinks">
-        @for(item of userLinks; track item){
+        @for(item of filteredLinks; track item){
         <div class="item-quicklinks" routerLink="{{item.link}}" routerLinkActive="active">
           <div class="item-icon">
             <mat-icon>{{item.icon}}</mat-icon>

@@ -25,5 +25,10 @@ export const USER_OVERVIEW_LINKS: IUserOverviewLinks[] = [
     name: "Apartments",
     link: "apartments/user",
     icon: "apartment",
-  }
+  },
+    {
+    name: "Admin Panel",
+    link: "admin/dashboard",
+    icon: "settings"
+  },
 ]
