@@ -233,7 +233,7 @@
 }
 
 .user-message .message-bubble {
-  background: #007bff;
+  background: #191919;
   color: white;
 }
 
@@ -326,6 +326,11 @@
 .send-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+::ng-deep .close-btn mat-icon,
+::ng-deep .send-btn mat-icon {
+  color: #000 !important;
 }
 
 /* ::ng-deep .mat-icon {

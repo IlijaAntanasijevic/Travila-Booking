@@ -12,7 +12,7 @@ import { AppInjector } from './core/helpers/app-injector';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,7 +26,8 @@ import { AppInjector } from './core/helpers/app-injector';
     })
   ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    {provide: "AllUseCases", useValue: "AllUseCases"}
   ],
   bootstrap: [AppComponent]
 })

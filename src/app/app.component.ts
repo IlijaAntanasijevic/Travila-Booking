@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './auth/services/shared/auth.service';
-import { ChatService } from './core/services/chat.service';
+import { ChatService } from './shared/services/chat.service';
 import { IMessages } from './user/components/messages/interfaces/i-messages';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';

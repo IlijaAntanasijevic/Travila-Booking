@@ -6,6 +6,7 @@ import { Spinner } from '../../../core/functions/spinner';
 import { BlUserProfileFormService } from './services/form/bl-user-profile-form.service';
 import { IUser } from '../../interfaces/i-user';
 import { ToastrService } from 'ngx-toastr';
+import { UserUseCases } from '../../../core/consts/use-cases';
 
 @Component({
     selector: 'app-profile',
@@ -27,6 +28,7 @@ export class ProfileComponent implements OnInit {
 
   form = this.formService.getForm();
   user: IUser = null;
+  userUseCases = UserUseCases;
 
 
   ngOnInit(): void {

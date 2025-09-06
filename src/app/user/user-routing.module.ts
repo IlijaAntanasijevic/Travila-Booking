@@ -7,17 +7,43 @@ import { FavoriteApartmentsComponent } from './components/favorite-apartments/fa
 import { MessagesComponent } from './components/messages/messages.component';
 import { ReservationsComponent } from './components/reservations/reservations.component';
 import { UserTabsComponent } from './components/user-tabs/user-tabs.component';
+import { PermissionGuard } from '../core/guards/permission.guard';
+import { AllUseCases, UserUseCases } from '../core/consts/use-cases';
 
 const routes: Routes = [
   {
     path: '',
     component: UserTabsComponent,
     children: [
-      { path: 'profile', component: ProfileComponent },
-      { path: 'favorite', component: FavoriteApartmentsComponent },
-      { path: 'messages', component: MessagesComponent },
-      { path: 'reservations', component: ReservationsComponent },
-      { path: '', redirectTo: 'profile', pathMatch: 'full' },
+      { 
+        path: 'profile', 
+        component: ProfileComponent, 
+        canActivate: [PermissionGuard],
+        data: { useCaseId: [AllUseCases.UpdateUser, AllUseCases.GetUser]}
+      },
+      { 
+        path: 'favorite', 
+        component: FavoriteApartmentsComponent,
+        canActivate: [PermissionGuard],
+        data: { useCaseId: [AllUseCases.GetFavoriteApartments] }
+      },
+      { 
+        path: 'messages', 
+        component: MessagesComponent,
+        canActivate: [PermissionGuard],
+        data: { useCaseId: [AllUseCases.GetUserChatList] }
+
+      },
+      { 
+        path: 'reservations', 
+        component: ReservationsComponent,
+        canActivate: [PermissionGuard],
+        data: { useCaseId: [AllUseCases.GetMyBookings, AllUseCases.GetMyGyestBookings] }
+
+      },
+      { 
+        path: '', redirectTo: 'profile', pathMatch: 'full' 
+      },
     ],
   },
 ];

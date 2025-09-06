@@ -7,7 +7,7 @@ import { IToken } from '../../interfaces/i-auth';
 import { AuthService } from '../../services/shared/auth.service';
 import { BlUserRequestsService } from '../../../user/services/requests/bl-user-requests.service';
 import { Subscription } from 'rxjs';
-import { ChatService } from '../../../core/services/chat.service';
+import { ChatService } from '../../../shared/services/chat.service';
 
 @Component({
     selector: 'app-login',
@@ -47,6 +47,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       next: (data: IToken) => {
         let token: string = data.token;
         this.authService.setJwtToken(token);
+        this.authService.setPermissions();
         this.setUserData();
         this.chatService.startConnection();
         this.router.navigateByUrl("/home");
