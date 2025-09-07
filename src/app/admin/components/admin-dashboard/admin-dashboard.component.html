@@ -1,1 +1,106 @@
-<h1>Admin Dashboard Content</h1>
+@if(data){
+  <section>
+    <div class="dashboard-container">
+      <div class="stats-grid">
+        <mat-card class="stat-card">
+          <mat-card-header>
+            <mat-card-title class="card-title">Total Users</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="stat-row">
+              <div class="stat-value">{{ data.statistics.totalUsers }}</div>
+              <mat-icon class="stat-icon">group</mat-icon>
+            </div>
+          </mat-card-content>
+        </mat-card>
+  
+        <mat-card class="stat-card">
+          <mat-card-header>
+            <mat-card-title class="card-title">Total Apartments</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="stat-row">
+              <div class="stat-value">{{ data.statistics.totalApartments || 0 }}</div>
+              <mat-icon class="stat-icon">apartment</mat-icon>
+            </div>
+          </mat-card-content>
+        </mat-card>
+  
+        <mat-card class="stat-card">
+          <mat-card-header>
+            <mat-card-title class="card-title">Total Bookings</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="stat-row">
+              <div class="stat-value">{{ data.statistics.totalBookings || 0 }}</div>
+              <mat-icon class="stat-icon">event</mat-icon>
+            </div>
+          </mat-card-content>
+        </mat-card>
+  
+        <mat-card class="stat-card">
+          <mat-card-header>
+            <mat-card-title class="card-title">Deleted Apartments</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="stat-row">
+              <div class="stat-value">{{ data.statistics.deletedApartments || 0 }}</div>
+              <mat-icon class="stat-icon">delete</mat-icon>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+  
+      <div class="blocks-grid">
+        <mat-card class="block-card">
+          <mat-card-header>
+            <mat-card-title class="card-title">New Bookings</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+              @for(item of data.newBookings; track item){
+                <div class="new-item">
+                  <div class="new-item-main">
+                    <div class="new-item-title">
+                      <mat-icon class="new-item-icon">event</mat-icon>
+                      <span>{{ item.location }}</span>
+                    </div>
+                    <div class="badges">
+                      <span class="badge" [ngClass]="getStatusClass(item.status)">{{ getStatusLabel(item.status) }}</span>
+                      <span class="badge">{{ item.totalNights }} nights</span>
+                      <span class="badge">{{ item.totalGuests }} guests</span>
+                      <span class="badge">{{ item.totalPrice }} USD</span>
+                    </div>
+                  </div>
+                  <div class="new-item-meta">Owner: {{ item.ownerName }} · Date: {{ item.checkIn }} - {{item.checkOut}}</div>
+                </div>
+              }
+          </mat-card-content>
+        </mat-card>
+  
+        <mat-card class="block-card">
+          <mat-card-header>
+            <mat-card-title class="card-title">New Apartments</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+              @for(apartment of data.newApartments; track apartment){
+                <div class="new-item">
+                  <div class="new-item-main">
+                    <div class="new-item-title">
+                      <mat-icon class="new-item-icon">apartment</mat-icon>
+                      <span>{{ apartment.apartmentName }}</span>
+                    </div>
+                    <div class="badges">
+                      <span class="badge" [ngClass]="getStatusClass(apartment.status)">{{ getStatusLabel(apartment.status, true) }}</span>
+                      <span class="badge">{{ apartment.totalRoomns }} rooms</span>
+                      <span class="badge">{{ apartment.price }} USD/night</span>
+                    </div>
+                  </div>
+                  <div class="new-item-meta">Host: {{ apartment.ownerName }} · {{ apartment.location }}, · Added: {{ apartment.createdAt }}</div>
+                </div>
+              }
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </section>
+}
