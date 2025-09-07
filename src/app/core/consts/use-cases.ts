@@ -51,6 +51,7 @@ export const enum AllUseCases {
     GoogleOAuth = 51,
     InitOpenAiMessage = 52,
     ContinueOpenAiConversation = 53, 
+    GetAdminDashboard = 54, 
 
 }
 
@@ -108,6 +109,7 @@ export enum AdminUseCases {
   UpdateUserUseCases = AllUseCases.UpdateUserUseCases,
   GetUseCaseLogs = AllUseCases.GetUseCaseLogs,
   GetErrorLogs = AllUseCases.GetErrorLogs,
+  AdminDashboard = AllUseCases.GetAdminDashboard
 }
 
 

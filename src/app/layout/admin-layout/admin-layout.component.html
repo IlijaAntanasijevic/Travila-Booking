@@ -1,3 +1,13 @@
+<div class="preloader-active none">
+  <div class="preloader d-flex align-items-center justify-content-center">
+    <div class="preloader-inner position-relative">
+      <div class="text-center">
+        <div class="spinning-coin-fall"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="admin-layout">
   <!-- Narrow header -->
   <header class="admin-header">
@@ -7,7 +17,8 @@
         <h2>Admin</h2>
       </div>
       <div class="admin-user-info">
-        <span>Welcome, Admin</span>
+        <span>Welcome, {{userName}}</span>
+        <span (click)="logout()">Logout</span>
       </div>
     </div>
   </header>
@@ -16,7 +27,7 @@
     <!-- Left sidebar navigation -->
     <nav class="admin-sidebar">
       <ul class="sidebar-menu">
-        <li class="menu-item">
+        <li class="menu-item" *appCan="adminUseCases.AdminDashboard">
           <a routerLink="/admin/dashboard" routerLinkActive="active" class="menu-link">
             <mat-icon>dashboard</mat-icon>
             <span class="menu-text">Dashboard</span>

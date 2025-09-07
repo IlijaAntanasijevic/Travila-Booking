@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { AdminLayoutComponent } from '../layout/admin-layout/admin-layout.component';
 import { PermissionGuard } from '../core/guards/permission.guard';
-import { AdminUseCases } from '../core/consts/use-cases';
+import { AdminUseCases, AllUseCases } from '../core/consts/use-cases';
 import { Permission } from '../core/helpers/utility';
 
 const routes: Routes = [
@@ -20,7 +20,9 @@ const routes: Routes = [
       },
       {
         path: 'dashboard',
-        component: AdminDashboardComponent
+        component: AdminDashboardComponent,
+        canActivate: [PermissionGuard],
+        data: {useCaseId: [AdminUseCases.AdminDashboard] }
       }
     ]
   }

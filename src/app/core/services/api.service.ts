@@ -24,6 +24,12 @@ export class ApiService<T> {
     );
   }
 
+  getAllObject(): Observable<T> {
+    return this.http.get<T>(this.apiUrl + this.url).pipe(
+      catchError(this.handleErrors)
+    );
+  }
+
   getAllByQueryParams(query: object | string = null): Observable<T[]> {
     const queryUrl: string = this.url.includes('?') ? this.url : `${this.url}?`;
     let queryParams: string = ""
