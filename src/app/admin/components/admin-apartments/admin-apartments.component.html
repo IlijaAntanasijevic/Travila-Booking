@@ -1,0 +1,64 @@
+<div class="filters">
+  <mat-form-field appearance="outline" class="ddl-filter">
+    <mat-label>User</mat-label>
+    <mat-select [(ngModel)]="selectedOwner">
+      <mat-option [value]="0">Any</mat-option>
+      @for(user of filtersData.users; track user){
+        <mat-option [value]="user.id">{{ user.name }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Total bookings</mat-label>
+    <mat-select [(ngModel)]="minBookings">
+      @for(item of filtersData.totalBookings; track item){
+        <mat-option [value]="item.id">{{ item.name }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>City</mat-label>
+    <mat-select [(ngModel)]="selectedCity">
+      <mat-option [value]="0">Any</mat-option>
+      @for(item of filtersData.cities; track item){
+        <mat-option [value]="item.id">{{ item.name }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Status</mat-label>
+    <mat-select [(ngModel)]="selectedStatus">
+      <mat-option [value]="0">Any</mat-option>
+      @for(item of filtersData.statuses; track item){
+        <mat-option [value]="item.id">{{ item.name }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div class="grid">
+  @for(apartment of apartmentsData; track apartment){
+  <mat-card class="apt-card">
+    <mat-card-header>
+      <mat-card-title>{{ apartment.name }}</mat-card-title>
+      <mat-card-subtitle class="apt-card-subtitle">{{ apartment.city }} • Owner: {{ apartment.ownerFullName }}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image [src]="apartment.image | imageUrl: imageType.ApartmentMain" [alt]="apartment.name" />
+    <mat-card-content>
+      <div class="price">${{ apartment.price }} / night</div>
+      <div class="meta">Bookings: {{ apartment.totalBookings }} • Status:  
+         <span [ngClass]="{
+        'status-active': apartment.status === 1,
+        'status-deleted': apartment.status === 2,
+        'status-archived': apartment.status === 3,
+        'status-pending': apartment.status === 4}"> {{ apartmentStatus[apartment.status] }} 
+        </span>
+    </div>
+    </mat-card-content>
+  </mat-card>
+  }
+
+</div>

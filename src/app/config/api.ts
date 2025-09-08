@@ -45,6 +45,8 @@ export const apiPaths = {
     prepareChat: "api/prepare-chat"
   },
   admin: {
-    dashboard: "api/admin/dashboard"
+    dashboard: "api/admin/dashboard",
+    apartments: "api/admin/apartments",
+    apartmentFilters: "api/admin/apartments/filters"
   }
 }

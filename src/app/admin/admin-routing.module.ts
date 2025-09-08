@@ -5,6 +5,11 @@ import { AdminLayoutComponent } from '../layout/admin-layout/admin-layout.compon
 import { PermissionGuard } from '../core/guards/permission.guard';
 import { AdminUseCases, AllUseCases } from '../core/consts/use-cases';
 import { Permission } from '../core/helpers/utility';
+import { AdminApartmentsComponent } from './components/admin-apartments/admin-apartments.component';
+import { AdminUsersComponent } from './components/admin-users/admin-users.component';
+import { AdminSettingsComponent } from './components/admin-settings/admin-settings.component';
+import { AdminReportsComponent } from './components/admin-reports/admin-reports.component';
+import { AdminBookingsComponent } from './components/admin-bookings/admin-bookings.component';
 
 const routes: Routes = [
   {
@@ -23,6 +28,26 @@ const routes: Routes = [
         component: AdminDashboardComponent,
         canActivate: [PermissionGuard],
         data: {useCaseId: [AdminUseCases.AdminDashboard] }
+      },
+      {
+        path: 'apartments',
+        component: AdminApartmentsComponent
+      },
+      {
+        path: 'users',
+        component: AdminUsersComponent
+      },
+      {
+        path: 'bookings',
+        component: AdminBookingsComponent
+      },
+      {
+        path: 'settings',
+        component: AdminSettingsComponent
+      },
+      {
+        path: 'reports',
+        component: AdminReportsComponent
       }
     ]
   }

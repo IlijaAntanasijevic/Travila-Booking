@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ApiService } from '../../../../core/services/api.service';
-import { IAdminDashboardDto } from '../interfaces/admin-dashboard';
-import { apiPaths } from '../../../../config/api';
 import { HttpClient } from '@angular/common/http';
+import { apiPaths } from '../../../../../config/api';
+import { ApiService } from '../../../../../core/services/api.service';
+import { IAdminDashboardDto } from '../interfaces/admin-dashboard';
 
 @Injectable({
   providedIn: 'root'
