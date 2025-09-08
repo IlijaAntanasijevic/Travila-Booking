@@ -71,7 +71,7 @@
                       <span class="badge">{{ item.totalPrice }} USD</span>
                     </div>
                   </div>
-                  <div class="new-item-meta">Owner: {{ item.ownerName }} · Date: {{ item.checkIn }} - {{item.checkOut}}</div>
+                  <div class="new-item-meta">Owner: {{ item.ownerName }} · Date: {{ item.checkIn | date }} - {{item.checkOut | date}}</div>
                 </div>
               }
           </mat-card-content>
@@ -95,7 +95,7 @@
                       <span class="badge">{{ apartment.price }} USD/night</span>
                     </div>
                   </div>
-                  <div class="new-item-meta">Host: {{ apartment.ownerName }} · {{ apartment.location }}, · Added: {{ apartment.createdAt }}</div>
+                  <div class="new-item-meta">Host: {{ apartment.ownerName }} · {{ apartment.location }}, · Added: {{ apartment.createdAt | date}}</div>
                 </div>
               }
           </mat-card-content>

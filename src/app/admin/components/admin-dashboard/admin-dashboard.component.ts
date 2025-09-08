@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PermissionService } from '../../../core/services/permission.service';
-import { BlAdminDashboardRequestsService } from '../services/requests/bl-admin-dashboard-requests.service';
-import { IAdminDashboardDto } from '../services/interfaces/admin-dashboard';
+import { BlAdminDashboardRequestsService } from './services/requests/bl-admin-dashboard-requests.service';
+import { IAdminDashboardDto } from './services/interfaces/admin-dashboard';
 import { Subscription } from 'rxjs';
 import { Spinner } from '../../../core/functions/spinner';
 

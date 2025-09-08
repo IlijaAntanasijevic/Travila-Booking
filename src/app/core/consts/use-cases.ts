@@ -52,6 +52,8 @@ export const enum AllUseCases {
     InitOpenAiMessage = 52,
     ContinueOpenAiConversation = 53, 
     GetAdminDashboard = 54, 
+    GetAdminApartments = 55, 
+    GetAdminApartmentFilters = 56, 
 
 }
 
@@ -109,7 +111,9 @@ export enum AdminUseCases {
   UpdateUserUseCases = AllUseCases.UpdateUserUseCases,
   GetUseCaseLogs = AllUseCases.GetUseCaseLogs,
   GetErrorLogs = AllUseCases.GetErrorLogs,
-  AdminDashboard = AllUseCases.GetAdminDashboard
+  AdminDashboard = AllUseCases.GetAdminDashboard,
+  GetAdminApartments = AllUseCases.GetAdminApartments,
+  GetAdminApartmentFilters = AllUseCases.GetAdminApartmentFilters,
 }
 
 

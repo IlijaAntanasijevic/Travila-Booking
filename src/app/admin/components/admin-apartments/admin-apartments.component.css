@@ -1,0 +1,97 @@
+.filters {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.apt-card {
+  background-color: #171717;
+  color: white;
+  height: 350px;
+}
+
+.apt-card .apt-card-subtitle {
+  color: white;
+}
+
+.apt-card img {
+  height: 160px;
+  padding: 0px 15px;
+  object-fit: cover;
+  margin-top: 30px;
+}
+
+.price {
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-top: 35px;
+}
+
+.meta {
+  color: white;
+  font-size: 12px;
+}
+
+.status-active {
+  color: green;
+}
+
+.status-deleted {
+  color: red;
+}
+
+.status-archived {
+  color: gray;
+}
+
+.status-pending {
+  color: orange;
+}
+
+
+::ng-deep div.mat-mdc-select-panel {
+  background-color: var(--bs-neutral-300) !important;
+}
+
+::ng-deep .mat-mdc-select-min-line {
+  color: white !important;
+}
+
+::ng-deep .mat-mdc-option.mdc-list-item {
+  color: white !important;
+}
+
+
+::ng-deep .mat-mdc-select-arrow svg {
+  fill: white !important;
+  top: 70% !important;
+}
+
+/* Make dropdown outline and label white within the filters row */
+::ng-deep .filters .mdc-notched-outline__leading,
+::ng-deep .filters .mdc-notched-outline__notch,
+::ng-deep .filters .mdc-notched-outline__trailing {
+  border-color: white !important;
+}
+
+::ng-deep .filters .mdc-floating-label {
+  color: white !important;
+}
+
+/* Keep outline white on hover and focus */
+::ng-deep .filters .mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
+::ng-deep .filters .mat-mdc-form-field.mat-focused .mdc-notched-outline__notch,
+::ng-deep .filters .mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing,
+::ng-deep .filters .mat-mdc-form-field:hover .mdc-notched-outline__leading,
+::ng-deep .filters .mat-mdc-form-field:hover .mdc-notched-outline__notch,
+::ng-deep .filters .mat-mdc-form-field:hover .mdc-notched-outline__trailing {
+  border-color: white !important;
+}
+

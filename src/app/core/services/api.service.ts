@@ -35,7 +35,15 @@ export class ApiService<T> {
     let queryParams: string = ""
 
     if (typeof query === "object") {
-      queryParams = new URLSearchParams(query as any).toString();
+      let params = new URLSearchParams(query as any).toString();
+      params.split("&").forEach(param => {
+        let [key, value] = param.split("=");
+        
+        if (value !== "undefined" && value !== "null" && value !== "") {
+          queryParams += `&${key}=${value}`;
+        }
+
+      });
     }
     else {
       queryParams = query;

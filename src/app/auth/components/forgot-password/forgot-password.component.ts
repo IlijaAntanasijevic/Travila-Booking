@@ -52,7 +52,7 @@ export class ForgotPasswordComponent {
         error: () => {
           this.isLoading = false;
           Spinner.hide();
-          this.alertService.error('Error sending email.');
+          // this.alertService.error('Error sending email.');
         }
       })
     )
