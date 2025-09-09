@@ -14,7 +14,7 @@
 .apt-card {
   background-color: #171717;
   color: white;
-  height: 350px;
+  height: 420px;
 }
 
 .apt-card .apt-card-subtitle {
@@ -55,6 +55,21 @@
   color: orange;
 }
 
+.apt-card mat-card-actions {
+  padding: 16px;
+  margin: 0;
+}
+
+.apt-card mat-card-actions button {
+  width: 100%;
+  background-color: #737373;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+  margin-top: 10px;
+}
 
 ::ng-deep div.mat-mdc-select-panel {
   background-color: var(--bs-neutral-300) !important;

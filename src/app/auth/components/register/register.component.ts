@@ -92,13 +92,13 @@ export class RegisterComponent {
             const avatarData = response[0];
             this.selectedAvatar = avatarData.fileName;
             this.form.get('avatar')?.setValue(avatarData.fileName);
-            this.alertService.success('Avatar uploaded successfully!');
+            //this.alertService.success('Avatar uploaded successfully!');
           }
           Spinner.hide();
         },
         error: (err) => {
-          console.error('Avatar upload failed:', err);
-          this.alertService.error('Failed to upload avatar. Please try again.');
+          //console.error('Avatar upload failed:', err);
+          //this.alertService.error('Failed to upload avatar. Please try again.');
           Spinner.hide();
         }
       });
