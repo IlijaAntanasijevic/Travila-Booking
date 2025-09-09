@@ -22,8 +22,9 @@
     <div class="container">
       <div class="tour-header">
         <div class="tour-rate">
-          <div class="rate-element"><span class="rating">{{apartment.avgRating}}
-              <span class="text-sm-medium neutral-500">({{apartment.totalRatings}} reviews)</span>
+          <div class="rate-element">
+            <span class="rating">{{apartment.ratingInfo.avgRating | number: '1.1-1'}}
+              <span class="text-sm-medium neutral-500">({{apartment.ratingInfo.totalRatings}} reviews)</span>
             </span>
           </div>
         </div>

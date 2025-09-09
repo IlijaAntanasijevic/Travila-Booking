@@ -54,6 +54,7 @@ export interface IApartmentDetail extends IApartment {
   canLeaveFeedback: boolean;
   ratingInfo: IApartmentRatingInfo;
   IsArchived: boolean;
+  status?: number;
 }
 
 export interface IApartmentImages {

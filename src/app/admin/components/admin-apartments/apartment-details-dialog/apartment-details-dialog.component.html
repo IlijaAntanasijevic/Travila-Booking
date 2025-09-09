@@ -1,0 +1,206 @@
+@if(data){
+<div class="apartment-dialog">
+    <!-- Header -->
+    <div class="dialog-header">
+        <h2 mat-dialog-title>{{ data.name }}</h2>
+        <button mat-icon-button mat-dialog-close class="close-button">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <div class="dialog-content">
+        <div class="left-column">
+            <div class="image-section">
+                <img [src]="data.mainImage.fileName | imageUrl: imageType.ApartmentMain" [alt]="data.name"
+                    class="main-image">
+            </div>
+
+            <div class="additional-images">
+                <h4>Gallery</h4>
+                <p>SLIKEE</p>
+                <!--
+          <div class="image-grid">
+            @for(image of data.images.slice(0, 4); track image){
+              <img [src]="image.fileName | imageUrl: imageType.ApartmentMain" 
+                   [alt]="data.name" 
+                   class="gallery-image">
+            }
+          </div>
+          -->
+            </div>
+
+            <div class="map-section">
+                <h4>Location</h4>
+                <div class="map-container">
+                    <app-map [onlyViewMap]="true" [coordinates]="selectedCoordinates"></app-map>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-column">
+            <div class="info-section">
+                <h3>Basic Information</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="label">City:</span>
+                        <span class="value">{{ data.city.name }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Country:</span>
+                        <span class="value">{{ data.country.name }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Type:</span>
+                        <span class="value">{{ data.apartmentType }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Price per night:</span>
+                        <span class="value price">${{ data.pricePerNight }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Total bookings:</span>
+                        <span class="value">{{ data.totalBookings }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Status:</span>
+                        <span class="value status" [ngClass]="{
+                'status-active': data.status === apartmentStatus.Active,
+                'status-deleted': data.status === apartmentStatus.Deleted,
+                'status-archived': data.status === apartmentStatus.Archived,
+                'status-pending': data.status === apartmentStatus.Pending
+              }">
+                            {{ apartmentStatus[data.status] }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h3>Owner Information</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="label">Owner:</span>
+                        <span class="value">{{ apartmentData.ownerFullName }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Email:</span>
+                        <span class="value">EMAIL</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Phone:</span>
+                        <span class="value">PHONE</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h3>Capacity</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="label">Adults:</span>
+                        <span class="value">{{ data?.adults }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Children:</span>
+                        <span class="value">{{ data?.childrens }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Total Rooms:</span>
+                        <span class="value">{{ data?.totalRooms }}</span>
+                    </div>
+                </div>
+            </div>
+
+            @if(data.ratingInfo){
+                <div class="info-section">
+                    <h3>Rating</h3>
+                    <div class="rating-section">
+                        <div class="rating-overview">
+                            <div class="rating-score">{{ data.ratingInfo.avgRating | number:'1.1-1' }}</div>
+                            <div class="rating-stars">
+                                @for(star of getStars(data.ratingInfo.avgRating); let i = $index; track i){
+                                <mat-icon class="star">{{ star }}</mat-icon>
+                                }
+                            </div>
+                            <div class="rating-count">({{ data.ratingInfo.totalRatings }} reviews)</div>
+                        </div>
+                    </div>
+                </div>
+            }
+   
+
+            <div class="info-section">
+                <h3>Payment Methods</h3>
+                <div class="payment-methods">
+                    @for(method of data.paymentMethods; track method){
+                    <span class="payment-method">{{ method.name }}</span>
+                    }
+                </div>
+            </div>
+ 
+        </div>
+    </div>
+
+        <div class="description-section">
+            <h3>Description</h3>
+            <p class="description">{{ data.description }}</p>
+        </div>
+
+
+    @if(data.features && data.features.length > 0){
+    <div class="features-section">
+        <h3>Features & Amenities</h3>
+        <div class="features-grid">
+            <div class="features-column">
+                <ul class="features-list">
+                    @for(feature of featuresFirstColum; track feature){
+                    <li>
+                        <mat-icon class="feature-icon">check_circle</mat-icon>
+                        {{ feature.name }}
+                    </li>
+                    }
+                </ul>
+            </div>
+            @if(featuresSecondColum && featuresSecondColum.length > 0){
+            <div class="features-column">
+                <ul class="features-list">
+                    @for(feature of featuresSecondColum; track feature){
+                    <li>
+                        <mat-icon class="feature-icon">check_circle</mat-icon>
+                        {{ feature.name }}
+                    </li>
+                    }
+                </ul>
+            </div>
+            }
+        </div>
+    </div>
+    }
+
+
+    @if(data.status === apartmentStatus.Pending){
+    <div class="dialog-actions">
+        <button mat-raised-button color="warn" (click)="rejectApartment()">
+            <mat-icon>cancel</mat-icon>
+            Reject
+        </button>
+        <button mat-raised-button color="primary" (click)="approveApartment()">
+            <mat-icon>check_circle</mat-icon>
+            Approve
+        </button>
+    </div>
+    }
+
+    <div class="dialog-actions">
+        <button mat-raised-button color="warn" (click)="rejectApartment()">
+            <mat-icon>cancel</mat-icon>
+            Reject
+        </button>
+        <button mat-raised-button color="primary" (click)="approveApartment()">
+            <mat-icon>check_circle</mat-icon>
+            Approve
+        </button>
+    </div>
+
+</div>
+}

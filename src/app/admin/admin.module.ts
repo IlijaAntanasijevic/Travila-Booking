@@ -9,6 +9,7 @@ import { AdminUsersComponent } from './components/admin-users/admin-users.compon
 import { AdminBookingsComponent } from './components/admin-bookings/admin-bookings.component';
 import { AdminSettingsComponent } from './components/admin-settings/admin-settings.component';
 import { AdminReportsComponent } from './components/admin-reports/admin-reports.component';
+import { ApartmentDetailsDialogComponent } from './components/admin-apartments/apartment-details-dialog/apartment-details-dialog.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { AdminReportsComponent } from './components/admin-reports/admin-reports.
     AdminUsersComponent,
     AdminBookingsComponent,
     AdminSettingsComponent,
-    AdminReportsComponent
+    AdminReportsComponent,
+    ApartmentDetailsDialogComponent
   ],
   imports: [
     CommonModule,
