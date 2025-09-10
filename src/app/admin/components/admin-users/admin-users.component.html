@@ -1,1 +1,39 @@
-<p>admin-users works!</p>
+<div class="admin-users">
+  <div class="search-container">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Search by name or email...</mat-label>
+      <input matInput [(ngModel)]="searchTerm" (input)="onSearchChange()" >
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+
+  @if(users){
+    <div class="users-grid">
+      @for(user of users; track user){
+        <mat-card class="user-card">
+          <div class="card-header">
+            <img class="avatar" [src]="user.avatar | imageUrl: imageType.Avatar" alt="avatar" />
+            <div class="identity">
+              <div class="name">{{user.fullName}}</div>
+              <div class="email">{{user.email}}</div>
+              <div class="phone">{{user.phone}}</div>
+            </div>
+          </div>
+          <div class="stats">
+            <div class="stat"><span class="label">Bookings</span><span class="value">{{user.totalBookings || 0}}</span></div>
+            <div class="stat"><span class="label">Apartments</span><span class="value">{{user.totalApartments || 0}}</span></div>
+          </div>
+          <div class="actions">
+            <button mat-raised-button color="primary" (click)="openEditUseCases(user)">
+              Edit Use Cases
+            </button>
+          </div>
+        </mat-card>
+      }
+    </div>
+  }
+  @else {
+   <div class="empty">No users found.</div>
+  }
+
+</div>

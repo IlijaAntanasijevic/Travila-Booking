@@ -10,6 +10,7 @@ import { AdminBookingsComponent } from './components/admin-bookings/admin-bookin
 import { AdminSettingsComponent } from './components/admin-settings/admin-settings.component';
 import { AdminReportsComponent } from './components/admin-reports/admin-reports.component';
 import { ApartmentDetailsDialogComponent } from './components/admin-apartments/apartment-details-dialog/apartment-details-dialog.component';
+import { EditUserUseCasesDialogComponent } from './components/admin-users/edit-user-usecases-dialog/edit-user-usecases-dialog.component';
 
 @NgModule({
   declarations: [
@@ -20,12 +21,13 @@ import { ApartmentDetailsDialogComponent } from './components/admin-apartments/a
     AdminBookingsComponent,
     AdminSettingsComponent,
     AdminReportsComponent,
-    ApartmentDetailsDialogComponent
+    ApartmentDetailsDialogComponent,
+    EditUserUseCasesDialogComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
-    SharedModule
+    SharedModule,
   ]
 })
 export class AdminModule { }

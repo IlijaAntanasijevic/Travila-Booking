@@ -25,6 +25,8 @@ export class ApartmentDetailsDialogComponent implements OnInit, OnDestroy {
 
   //data: IApartmentDetail;
   data: any;
+  phoneNumber: string;
+  email: string;
   featuresFirstColum: IBase[];
   featuresSecondColum: IBase[];
   selectedCoordinates: ILocationCoordinates = {
@@ -54,9 +56,23 @@ export class ApartmentDetailsDialogComponent implements OnInit, OnDestroy {
 
           this.selectedCoordinates.latitude = data.lattitude
           this.selectedCoordinates.longitude = data.longitude
+
+          this.getUserData(data.userId);
           
         },
         error: err => Spinner.hide()
+      })
+    )
+  }
+
+  getUserData(userId: number): void {
+    this.subscription.add(
+      this.requestsService.getUserById(userId).subscribe({
+        next: (data) => {
+          this.email = data.email;
+          this.phoneNumber = data.phone;
+        },
+        error: err => {}
       })
     )
   }

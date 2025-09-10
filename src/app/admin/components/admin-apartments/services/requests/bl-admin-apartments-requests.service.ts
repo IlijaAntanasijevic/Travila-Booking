@@ -4,6 +4,7 @@ import { AdminApartmentFiltersService } from '../api/admin-apartment-filters.ser
 import { IAdminApartmentFiltersData, IAdminApartments, IAdminFiltersRequest } from '../interfaces/i-admin-apartments';
 import { Observable } from 'rxjs';
 import { ApartmentService } from '../../../../../apartment/services/api/apartment.service';
+import { UserService } from '../../../../../user/services/api/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class BlAdminApartmentsRequestsService {
   constructor(
     private apiService: AdminApartmentsService,
     private filterService: AdminApartmentFiltersService,
-    private apartmentService: ApartmentService
+    private apartmentService: ApartmentService,
+    private userService: UserService
   ) { }
 
   getAllApartments(search: IAdminFiltersRequest): Observable<IAdminApartments[]> {
@@ -26,5 +28,9 @@ export class BlAdminApartmentsRequestsService {
 
   getApartmentDetails(id: number): Observable<any> {
     return this.apartmentService.getOne(id)
+  }
+
+  getUserById(id: number): Observable<any> {
+    return this.userService.getOne(id)
   }
 }
