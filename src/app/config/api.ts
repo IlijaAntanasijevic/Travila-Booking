@@ -47,6 +47,8 @@ export const apiPaths = {
   admin: {
     dashboard: "api/admin/dashboard",
     apartments: "api/admin/apartments",
-    apartmentFilters: "api/admin/apartments/filters"
+    apartmentFilters: "api/admin/apartments/filters",
+    allUsers: "api/admin/users",
+    userUseCases: "api/admin/users/use-cases"
   }
 }

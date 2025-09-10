@@ -1,4 +1,4 @@
-export const enum AllUseCases {
+export enum AllUseCases {
     CreateApartmentType = 1,
     RegisterUser = 2,
     GetAllUsers = 4,
@@ -54,6 +54,8 @@ export const enum AllUseCases {
     GetAdminDashboard = 54, 
     GetAdminApartments = 55, 
     GetAdminApartmentFilters = 56, 
+    GetAdminUsers = 57, 
+    GetUserUseCases = 58, 
 
 }
 
@@ -114,6 +116,8 @@ export enum AdminUseCases {
   AdminDashboard = AllUseCases.GetAdminDashboard,
   GetAdminApartments = AllUseCases.GetAdminApartments,
   GetAdminApartmentFilters = AllUseCases.GetAdminApartmentFilters,
+  GetAdminUsers = AllUseCases.GetAdminUsers,
+  GetUserUseCases = AllUseCases.GetUserUseCases 
 }
 
 

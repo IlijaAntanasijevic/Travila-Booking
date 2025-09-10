@@ -1,0 +1,55 @@
+<h2 mat-dialog-title>Edit user use cases</h2>
+<div mat-dialog-content class="dialog-content">
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Admin use cases</mat-label>
+    <mat-select multiple [value]="selectedUseCases" (selectionChange)="onSelectChange($event)">
+      @for(useCase of allUseCases; track useCase){
+        <mat-option [value]="useCase.id">{{useCase.label}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  
+  @if(hasAdminUseCases()){
+    <div class="selected-chips">
+      @if(getExistingUseCases().length > 0){
+        <div >
+          <h4>Current admin use cases:</h4>
+          <mat-chip-set>
+            @for(useCase of getExistingUseCases(); track useCase){
+              <mat-chip (removed)="removeUseCase(useCase.id)">
+                {{useCase.label}}
+                <button matChipRemove aria-label="Remove">✕</button>
+              </mat-chip>
+            }
+     
+          </mat-chip-set>
+        </div>
+      }
+      @if(getNewlySelectedUseCases().length > 0){
+        <div>
+          <h4>Newly selected admin use cases:</h4>
+          <mat-chip-set>
+            @for(useCase of getNewlySelectedUseCases(); track useCase){
+              <mat-chip (removed)="removeUseCase(useCase.id)">
+                {{useCase.label}}
+                <button matChipRemove aria-label="Remove">✕</button>
+              </mat-chip>
+            }
+     
+          </mat-chip-set>
+        </div>
+      }
+
+    </div>
+  }
+ @else {
+  <div class="no-use-cases">
+    <p>This user has no admin use cases assigned.</p>
+  </div>
+ }
+</div>
+<div mat-dialog-actions class="actions">
+  <button mat-button (click)="close()">Cancel</button>
+  <button mat-flat-button color="primary" (click)="save()">Save</button>
+</div>
+

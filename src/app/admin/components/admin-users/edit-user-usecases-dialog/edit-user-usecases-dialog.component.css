@@ -1,0 +1,148 @@
+.dialog-content {
+  min-width: 520px;
+  background: #1a1a1a;
+  color: #ffffff;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.selected-chips {
+  margin-top: 16px;
+}
+
+.selected-chips > div {
+  margin-bottom: 16px;
+}
+
+.selected-chips > div:last-child {
+  margin-bottom: 0;
+}
+
+.selected-chips h4 {
+  color: #ffffff;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.no-use-cases {
+  margin-top: 16px;
+  padding: 16px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 8px;
+  text-align: center;
+}
+
+.no-use-cases p {
+  color: rgba(255,255,255,0.7);
+  margin: 0;
+}
+
+::ng-deep .mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled) .mdc-evolution-chip__text-label {
+  color: white !important;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+::ng-deep .mat-mdc-dialog-container .mat-mdc-dialog-title+.mat-mdc-dialog-content {
+  padding-top: 20px;
+}
+
+::ng-deep .mat-mdc-dialog-container .mat-mdc-dialog-title {
+  background: #1a1a1a !important;
+  margin-bottom: 0px;
+}
+
+::ng-deep .mat-mdc-dialog-actions {
+  background: #1a1a1a !important;
+
+}
+
+::ng-deep .mat-mdc-dialog-container {
+  background: #1a1a1a !important;
+  color: #ffffff !important;
+}
+
+::ng-deep .mat-mdc-dialog-title {
+  color: #ffffff !important;
+}
+
+::ng-deep .dialog-content .mat-mdc-form-field {
+  --mdc-outlined-text-field-outline-color: #404040;
+  --mdc-outlined-text-field-label-text-color: rgba(255,255,255,0.7);
+  --mdc-outlined-text-field-input-text-color: #ffffff;
+}
+
+::ng-deep .dialog-content .mat-mdc-form-field .mat-mdc-text-field-wrapper {
+  background-color: #2d2d2d;
+}
+
+::ng-deep .mat-mdc-select-panel {
+  background: #2d2d2d !important;
+  color: #ffffff !important;
+}
+
+::ng-deep .mat-mdc-option {
+  color: #ffffff !important;
+}
+
+::ng-deep .mat-mdc-select {
+  color: #ffffff !important;
+
+}
+
+::ng-deep .mat-mdc-option:hover {
+  background: rgba(255,255,255,0.1) !important;
+}
+
+::ng-deep .mat-mdc-option.mdc-list-item--selected {
+  background: rgba(255,255,255,0.2) !important;
+}
+
+::ng-deep .mat-mdc-chip-set {
+  background: transparent;
+}
+
+::ng-deep .mat-mdc-chip {
+  background: #404040 !important;
+  color: #ffffff !important;
+  cursor: default !important;
+}
+
+::ng-deep .mat-mdc-chip:hover {
+  background: #404040 !important;
+}
+
+::ng-deep .mat-mdc-chip.mdc-evolution-chip--selected {
+  background: #404040 !important;
+}
+
+/* Remove selection ripple effect */
+::ng-deep .mat-mdc-chip .mdc-evolution-chip__ripple {
+  display: none !important;
+}
+
+/* Remove focus outline */
+::ng-deep .mat-mdc-chip:focus {
+  outline: none !important;
+}
+
+/* Remove selection state */
+::ng-deep .mat-mdc-chip.mdc-evolution-chip--selected .mdc-evolution-chip__checkmark {
+  display: none !important;
+}
+
+::ng-deep .mat-mdc-dialog-actions .mat-mdc-button {
+  color: #ffffff !important;
+}
+
+::ng-deep .mat-mdc-dialog-actions .mat-mdc-raised-button {
+  background: #404040 !important;
+  color: #ffffff !important;
+}
+
