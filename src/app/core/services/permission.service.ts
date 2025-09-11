@@ -20,6 +20,13 @@ export class PermissionService {
     this.allowed.next(new Set(useCaseIds.concat(globalIds)));
   }
 
+  getPermissions(): Set<number> {
+    if (this.allowed.value.size === 0) {
+      this.loadPermissionsFromToken();
+    }
+    return this.allowed.value;
+  }
+
   //update permissions?
 
   has(useCaseIds: number[]): boolean {

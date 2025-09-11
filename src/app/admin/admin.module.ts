@@ -11,6 +11,7 @@ import { AdminSettingsComponent } from './components/admin-settings/admin-settin
 import { AdminReportsComponent } from './components/admin-reports/admin-reports.component';
 import { ApartmentDetailsDialogComponent } from './components/admin-apartments/apartment-details-dialog/apartment-details-dialog.component';
 import { EditUserUseCasesDialogComponent } from './components/admin-users/edit-user-usecases-dialog/edit-user-usecases-dialog.component';
+import { AdminRedirectComponent } from './components/admin-redirect/admin-redirect.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { EditUserUseCasesDialogComponent } from './components/admin-users/edit-u
     AdminSettingsComponent,
     AdminReportsComponent,
     ApartmentDetailsDialogComponent,
-    EditUserUseCasesDialogComponent
+    EditUserUseCasesDialogComponent,
+    AdminRedirectComponent
   ],
   imports: [
     CommonModule,

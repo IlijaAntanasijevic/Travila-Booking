@@ -110,12 +110,17 @@ export class ApiService<T> {
         }
         break;
       default:
+        if(error && error.error && error.error.message){
+          errorMessage = error.error.message;
+          break;
+        }
         if(error.error && errorFromBack) {
           errorMessage = errorFromBack;
+          break;
         }
-        else {
+        
         errorMessage = "Server error!";
-        }
+          break;
     }
 
     

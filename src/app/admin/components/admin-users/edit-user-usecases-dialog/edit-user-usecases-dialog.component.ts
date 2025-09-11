@@ -44,6 +44,17 @@ export class EditUserUseCasesDialogComponent implements OnInit, OnDestroy{
   }
 
   save(): void {
+    this.subscription.add(
+      this.requestsService.updateUserUseCases(this.userdId, this.selectedUseCases).subscribe({
+        next: () => {
+          this.alertService.success("User use cases updated successfully.");
+          this.dialogRef.close(true);
+        },
+        error: () => {
+          this.alertService.error("Failed to update user use cases. Please try again.");
+        }
+      })
+    )
     console.log(this.selectedUseCases);
   }
 

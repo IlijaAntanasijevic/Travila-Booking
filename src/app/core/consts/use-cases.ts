@@ -108,8 +108,8 @@ export enum GloballyAllowedUseCases {
 }
 
 export enum AdminUseCases {
-  GetAllUsers = AllUseCases.GetAllUsers,
-  DeleteUser = AllUseCases.DeleteUser,
+  //GetAllUsers = AllUseCases.GetAllUsers,
+  //DeleteUser = AllUseCases.DeleteUser,
   UpdateUserUseCases = AllUseCases.UpdateUserUseCases,
   GetUseCaseLogs = AllUseCases.GetUseCaseLogs,
   GetErrorLogs = AllUseCases.GetErrorLogs,
