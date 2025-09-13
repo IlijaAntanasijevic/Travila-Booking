@@ -6,6 +6,7 @@ import { EditUserUseCasesDialogComponent } from './edit-user-usecases-dialog/edi
 import { IMAGE_TYPE } from '../../../shared/helpers/image-url.pipe';
 import { IAdminUser } from './services/interface/i-admin-users';
 import { BlAdminUsersRequestsService } from './services/requests/bl-admin-users-requests.service';
+import { AdminUseCases } from '../../../core/consts/use-cases';
 
 @Component({
   selector: 'app-admin-users',
@@ -25,6 +26,7 @@ export class AdminUsersComponent implements OnInit {
   searchTerm: string = '';
   imageType = IMAGE_TYPE;
   isInitLoad: boolean = true;
+  adminUseCases = AdminUseCases;
 
   ngOnInit(): void {
     this.loadUsers();
@@ -50,13 +52,6 @@ export class AdminUsersComponent implements OnInit {
     const dialogRef = this.dialog.open(EditUserUseCasesDialogComponent, {
       width: '600px',
       data: user.id
-    });
-
-    dialogRef.afterClosed().subscribe((updated: boolean) => {
-      if (updated) {
-        this.alertService.success('User use cases updated');
-        this.loadUsers();
-      }
     });
   }
 }

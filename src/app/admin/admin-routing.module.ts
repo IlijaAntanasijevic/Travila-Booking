@@ -10,6 +10,7 @@ import { AdminUsersComponent } from './components/admin-users/admin-users.compon
 import { AdminSettingsComponent } from './components/admin-settings/admin-settings.component';
 import { AdminReportsComponent } from './components/admin-reports/admin-reports.component';
 import { AdminBookingsComponent } from './components/admin-bookings/admin-bookings.component';
+import { AdminRedirectComponent } from './components/admin-redirect/admin-redirect.component';
 
 const routes: Routes = [
   {
@@ -20,14 +21,14 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'dashboard',
-        pathMatch: 'full'
+        pathMatch: 'full',
+        component: AdminRedirectComponent
       },
       {
         path: 'dashboard',
         component: AdminDashboardComponent,
-        canActivate: [PermissionGuard],
-        data: {useCaseId: [AdminUseCases.AdminDashboard] }
+        // canActivate: [PermissionGuard],
+        // data: {useCaseId: [AdminUseCases.AdminDashboard] }
       },
       {
         path: 'apartments',

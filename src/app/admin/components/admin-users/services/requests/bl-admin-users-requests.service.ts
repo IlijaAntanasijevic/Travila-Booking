@@ -22,4 +22,8 @@ export class BlAdminUsersRequestsService {
   getUserUseCases(userId: number): Observable<any> {
     return this.userUseCasesService.getOne(userId);
   }
+
+  updateUserUseCases(userId: number, useCaseIds: number[]): Observable<any> {
+    return this.userUseCasesService.update(userId, { useCaseIds });
+  }
 }

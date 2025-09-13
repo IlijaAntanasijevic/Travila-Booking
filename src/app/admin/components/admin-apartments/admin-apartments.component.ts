@@ -6,6 +6,7 @@ import { ApartmentStatus, IAdminApartmentFiltersData, IAdminApartments, IAdminFi
 import { IMAGE_TYPE } from '../../../shared/helpers/image-url.pipe';
 import { MatDialog } from '@angular/material/dialog';
 import { ApartmentDetailsDialogComponent } from './apartment-details-dialog/apartment-details-dialog.component';
+import { AdminUseCases } from '../../../core/consts/use-cases';
 
 @Component({
   selector: 'app-admin-apartments',
@@ -31,6 +32,7 @@ export class AdminApartmentsComponent implements OnInit, OnDestroy {
   apartmentsData: IAdminApartments[] = [];
   imageType = IMAGE_TYPE;
   apartmentStatus = ApartmentStatus;
+  adminUseCases = AdminUseCases;
 
   ngOnInit(): void {
     this.getApartments();

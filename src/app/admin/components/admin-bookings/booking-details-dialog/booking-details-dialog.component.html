@@ -1,0 +1,126 @@
+<div class="dialog-header">
+  <h2 mat-dialog-title>
+    <mat-icon>receipt_long</mat-icon>
+    Booking Details #{{ data.id }}
+  </h2>
+</div>
+
+<mat-dialog-content>
+  <div class="details">
+    <!-- Apartment Section -->
+    <div class="card-section">
+      <div class="section-header">
+        <mat-icon>home</mat-icon>
+        <span>Apartment Information</span>
+      </div>
+      <div class="apartment-card">
+        <img [src]="data.apartmentImage | imageUrl: imageType.ApartmentMain" alt="apartment" />
+        <div class="apartment-info">
+          <h3>{{ data.apartmentName }}</h3>
+          <p class="location">
+            <mat-icon>location_on</mat-icon>
+            {{ data.city }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- People Section -->
+    <div class="card-section">
+      <div class="section-header">
+        <mat-icon>people</mat-icon>
+        <span>People Involved</span>
+      </div>
+      <div class="people-grid">
+        <div class="person-card">
+          <div class="person-header">
+            <mat-icon>person</mat-icon>
+            <span>Owner</span>
+          </div>
+          <div class="person-name">{{ data.ownerFullName }}</div>
+        </div>
+        <div class="person-card">
+          <div class="person-header">
+            <mat-icon>person_outline</mat-icon>
+            <span>Guest</span>
+          </div>
+          <div class="person-name">{{ data.guestFullName }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Booking Details Section -->
+    <div class="card-section">
+      <div class="section-header">
+        <mat-icon>event</mat-icon>
+        <span>Booking Details</span>
+      </div>
+      <div class="details-grid">
+        <div class="detail-item">
+          <div class="detail-icon">
+            <mat-icon>event_available</mat-icon>
+          </div>
+          <div class="detail-content">
+            <div class="detail-label">Check-in</div>
+            <div class="detail-value">{{ data.checkIn | date:'fullDate' }}</div>
+          </div>
+        </div>
+        
+        <div class="detail-item">
+          <div class="detail-icon">
+            <mat-icon>event_busy</mat-icon>
+          </div>
+          <div class="detail-content">
+            <div class="detail-label">Check-out</div>
+            <div class="detail-value">{{ data.checkOut | date:'fullDate' }}</div>
+          </div>
+        </div>
+        
+        <div class="detail-item">
+          <div class="detail-icon">
+            <mat-icon>group</mat-icon>
+          </div>
+          <div class="detail-content">
+            <div class="detail-label">Total Guests</div>
+            <div class="detail-value">{{ data.totalGuests }} {{ data.totalGuests === 1 ? 'Guest' : 'Guests' }}</div>
+          </div>
+        </div>
+        
+        <div class="detail-item">
+          <div class="detail-icon">
+            <mat-icon>info</mat-icon>
+          </div>
+          <div class="detail-content">
+            <div class="detail-label">Status</div>
+            <div class="detail-value">
+              <span class="status-badge" [ngClass]="'status-' + data.status">
+                {{ getStatusLabel(data.status) }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Price Section -->
+    <div class="card-section price-section">
+      <div class="section-header">
+        <mat-icon>attach_money</mat-icon>
+        <span>Total Amount</span>
+      </div>
+      <div class="price-display">
+        <div class="price-amount">${{ data.totalPrice }}</div>
+        <div class="price-label">Total Booking Cost</div>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" (click)="dialogRef.close()">
+    <mat-icon>close</mat-icon>
+    Close
+  </button>
+</mat-dialog-actions>
+
+

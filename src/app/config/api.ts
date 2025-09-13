@@ -49,6 +49,7 @@ export const apiPaths = {
     apartments: "api/admin/apartments",
     apartmentFilters: "api/admin/apartments/filters",
     allUsers: "api/admin/users",
-    userUseCases: "api/admin/users/use-cases"
+    userUseCases: "api/admin/users/use-cases",
+    bookings: "api/admin/bookings"
   }
 }

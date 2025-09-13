@@ -28,7 +28,7 @@ export const USER_OVERVIEW_LINKS: IUserOverviewLinks[] = [
   },
     {
     name: "Admin Panel",
-    link: "admin/dashboard",
+    link: "/admin",
     icon: "settings"
   },
 ]

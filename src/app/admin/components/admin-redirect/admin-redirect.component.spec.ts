@@ -1,17 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AdminBookingsComponent } from './admin-bookings.component';
 
-describe('AdminBookingsComponent', () => {
-  let component: AdminBookingsComponent;
-  let fixture: ComponentFixture<AdminBookingsComponent>;
+import { AdminRedirectComponent } from './admin-redirect.component';
+
+describe('AdminRedirectComponent', () => {
+  let component: AdminRedirectComponent;
+  let fixture: ComponentFixture<AdminRedirectComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AdminBookingsComponent]
+      declarations: [AdminRedirectComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AdminBookingsComponent);
+    fixture = TestBed.createComponent(AdminRedirectComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
