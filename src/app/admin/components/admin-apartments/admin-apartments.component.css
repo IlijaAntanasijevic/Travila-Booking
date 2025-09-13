@@ -89,7 +89,7 @@
   top: 70% !important;
 }
 
-/* Make dropdown outline and label white within the filters row */
+
 ::ng-deep .filters .mdc-notched-outline__leading,
 ::ng-deep .filters .mdc-notched-outline__notch,
 ::ng-deep .filters .mdc-notched-outline__trailing {
@@ -100,7 +100,6 @@
   color: white !important;
 }
 
-/* Keep outline white on hover and focus */
 ::ng-deep .filters .mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
 ::ng-deep .filters .mat-mdc-form-field.mat-focused .mdc-notched-outline__notch,
 ::ng-deep .filters .mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing,

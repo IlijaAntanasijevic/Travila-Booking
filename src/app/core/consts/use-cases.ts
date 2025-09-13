@@ -56,6 +56,7 @@ export enum AllUseCases {
     GetAdminApartmentFilters = 56, 
     GetAdminUsers = 57, 
     GetUserUseCases = 58, 
+    GetBookingsAdmin = 59, 
 
 }
 
@@ -117,7 +118,8 @@ export enum AdminUseCases {
   GetAdminApartments = AllUseCases.GetAdminApartments,
   GetAdminApartmentFilters = AllUseCases.GetAdminApartmentFilters,
   GetAdminUsers = AllUseCases.GetAdminUsers,
-  GetUserUseCases = AllUseCases.GetUserUseCases 
+  GetUserUseCases = AllUseCases.GetUserUseCases,
+  GetBookingsAdmin = AllUseCases.GetBookingsAdmin
 }
 
 

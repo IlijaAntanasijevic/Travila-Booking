@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { AdminBookingsComponent } from './admin-bookings.component';
 
 describe('AdminBookingsComponent', () => {

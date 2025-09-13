@@ -1,1 +1,118 @@
-<p>admin-bookings works!</p>
+<div class="admin-bookings">
+  <div class="filters" *appCan="adminUseCases.AdminDashboard">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Search…</mat-label>
+      <input matInput [(ngModel)]="searchText" (input)="applyFilter()" placeholder="Apartment name" />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Owner</mat-label>
+      <mat-select [(ngModel)]="selectedOwner" (selectionChange)="applyFilter()">
+        <mat-option [value]="0">Any</mat-option>
+        @for(user of filters?.users; track user){
+          <mat-option [value]="user.id">{{ user.name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Guest</mat-label>
+      <mat-select [(ngModel)]="selectedGuest" (selectionChange)="applyFilter()">
+        <mat-option [value]="0">Any</mat-option>
+        @for(user of filters?.users; track user){
+          <mat-option [value]="user.id">{{ user.name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>City</mat-label>
+      <mat-select [(ngModel)]="selectedCity" (selectionChange)="applyFilter()">
+        <mat-option [value]="0">Any</mat-option>
+        @for(item of filters?.cities; track item){
+          <mat-option [value]="item.id">{{ item.name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Status</mat-label>
+      <mat-select [(ngModel)]="selectedStatus" (selectionChange)="applyFilter()">
+        <mat-option [value]="0">Any</mat-option>
+        @for(item of filters?.statuses; track item){
+          <mat-option [value]="item.id">{{ item.name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="table-wrapper">
+    <table mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>#</th>
+        <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="apartment">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Apartment</th>
+        <td mat-cell *matCellDef="let row">
+          <div class="apt-cell">
+            <img [src]="row.apartmentImage | imageUrl: imageType.ApartmentMain" alt="apartment" />
+            <div class="apt-meta">
+              <div class="name">{{ row.apartmentName }}</div>
+              <div class="city">{{ row.cityName }}</div>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="owner">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Owner</th>
+        <td mat-cell *matCellDef="let row">{{ row.ownerFullName }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="guest">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Guest</th>
+        <td mat-cell *matCellDef="let row">{{ row.guestFullName }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="checkIn">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Check-in</th>
+        <td mat-cell *matCellDef="let row">{{ row.checkIn | date:'mediumDate' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="checkOut">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Check-out</th>
+        <td mat-cell *matCellDef="let row">{{ row.checkOut | date:'mediumDate' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="guests">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Guests</th>
+        <td mat-cell *matCellDef="let row">{{ row.totalGuests }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+        <td mat-cell *matCellDef="let row">
+          <span class="status" [ngClass]="'status-' + row.status">{{ getStatusLabel(row.status) }}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="total">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Total</th>
+        <td mat-cell *matCellDef="let row">${{ row.totalPrice }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-button color="primary" (click)="openDetails(row)">Details</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</div>

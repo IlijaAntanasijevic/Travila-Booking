@@ -12,6 +12,7 @@ import { AdminReportsComponent } from './components/admin-reports/admin-reports.
 import { ApartmentDetailsDialogComponent } from './components/admin-apartments/apartment-details-dialog/apartment-details-dialog.component';
 import { EditUserUseCasesDialogComponent } from './components/admin-users/edit-user-usecases-dialog/edit-user-usecases-dialog.component';
 import { AdminRedirectComponent } from './components/admin-redirect/admin-redirect.component';
+import { BookingDetailsDialogComponent } from './components/admin-bookings/booking-details-dialog/booking-details-dialog.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { AdminRedirectComponent } from './components/admin-redirect/admin-redire
     AdminReportsComponent,
     ApartmentDetailsDialogComponent,
     EditUserUseCasesDialogComponent,
-    AdminRedirectComponent
+    AdminRedirectComponent,
+    BookingDetailsDialogComponent
   ],
   imports: [
     CommonModule,
