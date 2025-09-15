@@ -57,7 +57,11 @@ export enum AllUseCases {
     GetAdminUsers = 57, 
     GetUserUseCases = 58, 
     GetBookingsAdmin = 59, 
-
+    GetAdminCities = 60, 
+    UpdatePaymentMethod = 61, 
+    UpdateCity = 62, 
+    UpdateApartmentType = 63,
+    UpdateApartmentFeature = 64,
 }
 
 
@@ -106,6 +110,7 @@ export enum GloballyAllowedUseCases {
   GoogleOAuth = AllUseCases.GoogleOAuth,
   InitOpenAiMessage = AllUseCases.InitOpenAiMessage,
   ContinueOpenAiConversation = AllUseCases.ContinueOpenAiConversation,
+  GetAdminCities = AllUseCases.GetAdminCities,
 }
 
 export enum AdminUseCases {
@@ -119,7 +124,15 @@ export enum AdminUseCases {
   GetAdminApartmentFilters = AllUseCases.GetAdminApartmentFilters,
   GetAdminUsers = AllUseCases.GetAdminUsers,
   GetUserUseCases = AllUseCases.GetUserUseCases,
-  GetBookingsAdmin = AllUseCases.GetBookingsAdmin
+  GetBookingsAdmin = AllUseCases.GetBookingsAdmin,
+  UpdatePaymentMethod = AllUseCases.UpdatePaymentMethod,
+  AddPaymentMethod = AllUseCases.CreatePayment,
+  AddCityInCountry = AllUseCases.AddCityInCountry,
+  UpdateCity = AllUseCases.UpdateCity,
+  AddApartmentType = AllUseCases.CreateApartmentType,
+  UpdateApartmentType = AllUseCases.UpdateApartmentType,
+  AddFeatures = AllUseCases.CreateFeatures,
+  UpdateApartmentFeature = AllUseCases.UpdateApartmentFeature,
 }
 
 

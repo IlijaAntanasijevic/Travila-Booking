@@ -1,0 +1,55 @@
+.full-width { 
+  width: 100%; 
+  margin-bottom: 16px; 
+}
+
+.checkbox-container { 
+  margin: 16px 0; 
+  display: flex; 
+  gap: 16px; 
+}
+
+::ng-deep .mat-mdc-dialog-surface {
+  background-color: #333;
+}
+
+::ng-deep .mat-mdc-dialog-container {
+  background: #333 !important;
+  color: white !important;
+}
+
+::ng-deep .mat-mdc-dialog-title {
+  color: white !important;
+}
+
+::ng-deep .mat-mdc-dialog-content {
+  color: white !important;
+}
+
+::ng-deep .mat-mdc-form-field {
+  color: white !important;
+}
+
+::ng-deep .mat-mdc-form-field .mat-mdc-text-field-wrapper {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+::ng-deep .mat-mdc-form-field .mat-mdc-form-field-label {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+::ng-deep .mat-mdc-form-field .mat-mdc-input-element {
+  color: white !important;
+}
+
+::ng-deep .mat-mdc-select-value {
+  color: white !important;
+}
+
+::ng-deep .mat-mdc-select-arrow {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+::ng-deep .mat-mdc-checkbox .mat-mdc-checkbox-label {
+  color: white !important;
+}

@@ -23,7 +23,8 @@ export class EditUserUseCasesDialogComponent implements OnInit, OnDestroy{
 
   allUseCases = Permission.getPermissionIds(AdminUseCases).map(id => ({ id, label: AllUseCases[id] as string }));
   userAdminUseCases: number[] = [];
-  selectedUseCases: number[] = [];
+  userAllUseCases: number[] = []; // All usecases the user currently has (including non-admin)
+  selectedAdminUseCases: number[] = []; // Only admin usecases selected in UI
   private subscription: Subscription = new Subscription();
   
   ngOnInit(): void {
@@ -34,18 +35,32 @@ export class EditUserUseCasesDialogComponent implements OnInit, OnDestroy{
     this.subscription.add(
       this.requestsService.getUserUseCases(this.userdId).subscribe({
         next: (data) => {
+          // Store all user usecases (including non-admin ones)
+          this.userAllUseCases = [...data];
+          
+          // Filter only admin usecases for display
           this.userAdminUseCases = data.filter((id: number) => 
             this.allUseCases.some(uc => uc.id === id)
           );
-          this.selectedUseCases = [...this.userAdminUseCases];
+          
+          // Initialize selected admin usecases with current admin usecases
+          this.selectedAdminUseCases = [...this.userAdminUseCases];
         }
       })
     )
   }
 
   save(): void {
+    // Get all non-admin usecases that the user currently has
+    const nonAdminUseCases = this.userAllUseCases.filter(id => 
+      !this.allUseCases.some(uc => uc.id === id)
+    );
+    
+    // Combine non-admin usecases with selected admin usecases
+    const allUseCasesToSend = [...nonAdminUseCases, ...this.selectedAdminUseCases];
+    
     this.subscription.add(
-      this.requestsService.updateUserUseCases(this.userdId, this.selectedUseCases).subscribe({
+      this.requestsService.updateUserUseCases(this.userdId, allUseCasesToSend).subscribe({
         next: () => {
           this.alertService.success("User use cases updated successfully.");
           this.dialogRef.close(true);
@@ -55,7 +70,9 @@ export class EditUserUseCasesDialogComponent implements OnInit, OnDestroy{
         }
       })
     )
-    console.log(this.selectedUseCases);
+    console.log('Sending all usecases:', allUseCasesToSend);
+    console.log('Non-admin usecases:', nonAdminUseCases);
+    console.log('Selected admin usecases:', this.selectedAdminUseCases);
   }
 
   close(): void {
@@ -63,30 +80,30 @@ export class EditUserUseCasesDialogComponent implements OnInit, OnDestroy{
   }
 
   onSelectChange(evt: any): void {
-    this.selectedUseCases = evt.value || [];
+    this.selectedAdminUseCases = evt.value || [];
   }
 
   removeUseCase(useCaseId: number): void {
-    this.selectedUseCases = this.selectedUseCases.filter(id => id !== useCaseId);
+    this.selectedAdminUseCases = this.selectedAdminUseCases.filter(id => id !== useCaseId);
   }
 
   getSelectedUseCases(): any[] {
-    return this.allUseCases.filter(uc => this.selectedUseCases.includes(uc.id));
+    return this.allUseCases.filter(uc => this.selectedAdminUseCases.includes(uc.id));
   }
 
   hasAdminUseCases(): boolean {
-    return this.selectedUseCases.length > 0;
+    return this.selectedAdminUseCases.length > 0;
   }
 
   getExistingUseCases(): any[] {
     return this.allUseCases.filter(uc => 
-      this.selectedUseCases.includes(uc.id) && this.userAdminUseCases.includes(uc.id)
+      this.selectedAdminUseCases.includes(uc.id) && this.userAdminUseCases.includes(uc.id)
     );
   }
 
   getNewlySelectedUseCases(): any[] {
     return this.allUseCases.filter(uc => 
-      this.selectedUseCases.includes(uc.id) && !this.userAdminUseCases.includes(uc.id)
+      this.selectedAdminUseCases.includes(uc.id) && !this.userAdminUseCases.includes(uc.id)
     );
   }
 

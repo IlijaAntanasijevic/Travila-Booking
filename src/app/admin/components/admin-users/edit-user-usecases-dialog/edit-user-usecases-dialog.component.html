@@ -2,7 +2,7 @@
 <div mat-dialog-content class="dialog-content">
   <mat-form-field appearance="outline" class="full-width">
     <mat-label>Admin use cases</mat-label>
-    <mat-select multiple [value]="selectedUseCases" (selectionChange)="onSelectChange($event)">
+    <mat-select multiple [value]="selectedAdminUseCases" (selectionChange)="onSelectChange($event)">
       @for(useCase of allUseCases; track useCase){
         <mat-option [value]="useCase.id">{{useCase.label}}</mat-option>
       }
