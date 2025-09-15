@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>{{ dialogTitle }}</h2>
+<mat-dialog-content>
+  <form [formGroup]="form">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Payment Method Name</mat-label>
+      <input matInput formControlName="name" placeholder="e.g., Credit Card">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Processing Fee (%)</mat-label>
+      <input matInput type="number" formControlName="processingFee" placeholder="2.9">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Icon</mat-label>
+      <input matInput formControlName="icon" placeholder="e.g., credit_card">
+    </mat-form-field>
+
+    <div class="checkbox-container">
+      <mat-checkbox formControlName="isActive">Active</mat-checkbox>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onSave()" [disabled]="!form.valid">
+    {{ isEditMode ? 'Update' : 'Save' }}
+  </button>
+</mat-dialog-actions>

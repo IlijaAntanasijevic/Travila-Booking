@@ -13,6 +13,10 @@ import { ApartmentDetailsDialogComponent } from './components/admin-apartments/a
 import { EditUserUseCasesDialogComponent } from './components/admin-users/edit-user-usecases-dialog/edit-user-usecases-dialog.component';
 import { AdminRedirectComponent } from './components/admin-redirect/admin-redirect.component';
 import { BookingDetailsDialogComponent } from './components/admin-bookings/booking-details-dialog/booking-details-dialog.component';
+import { AddPaymentMethodDialogComponent } from './components/admin-settings/dialogs/add-payment-method-dialog/add-payment-method-dialog.component';
+import { AddCityDialogComponent } from './components/admin-settings/dialogs/add-city-dialog/add-city-dialog.component';
+import { AddApartmentTypeDialogComponent } from './components/admin-settings/dialogs/add-apartment-type-dialog/add-apartment-type-dialog.component';
+import { AddApartmentFeatureDialogComponent } from './components/admin-settings/dialogs/add-apartment-feature-dialog/add-apartment-feature-dialog.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +30,11 @@ import { BookingDetailsDialogComponent } from './components/admin-bookings/booki
     ApartmentDetailsDialogComponent,
     EditUserUseCasesDialogComponent,
     AdminRedirectComponent,
-    BookingDetailsDialogComponent
+    BookingDetailsDialogComponent,
+    AddPaymentMethodDialogComponent,
+    AddCityDialogComponent,
+    AddApartmentTypeDialogComponent,
+    AddApartmentFeatureDialogComponent
   ],
   imports: [
     CommonModule,

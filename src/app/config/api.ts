@@ -15,6 +15,7 @@ export const apiPaths = {
   },
   lookup: {
     cities: "api/city",
+    cityCountry: "api/city-country",
     countries: "api/country",
     paymentType: "api/payment",
     features: "api/features",
@@ -50,6 +51,7 @@ export const apiPaths = {
     apartmentFilters: "api/admin/apartments/filters",
     allUsers: "api/admin/users",
     userUseCases: "api/admin/users/use-cases",
-    bookings: "api/admin/bookings"
+    bookings: "api/admin/bookings",
+    cities: "api/admin/cities",
   }
 }

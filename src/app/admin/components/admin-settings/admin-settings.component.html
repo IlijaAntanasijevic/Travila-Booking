@@ -1,1 +1,242 @@
-<p>admin-settings works!</p>
+<div class="admin-settings-container">
+  <!-- Header -->
+  <div class="settings-header">
+    <h1>
+      <mat-icon>settings</mat-icon>
+      Platform Settings
+    </h1>
+    <p>Manage booking platform configuration and preferences</p>
+  </div>
+
+  <!-- Navigation Tabs -->
+  <mat-tab-group [(selectedIndex)]="activeTab" class="settings-tabs">
+
+    <!-- Payment Methods Tab -->
+    <mat-tab label="Payment Methods">
+      <div class="tab-content">
+        <div class="section-header">
+          <div class="section-title">
+            <div>
+              <h2>
+                <mat-icon>payment</mat-icon>
+                Payment Methods Configuration
+              </h2>
+              <p>Manage available payment options and processing fees</p>
+            </div>
+            <button mat-raised-button color="primary" (click)="openPaymentMethodDialog()">
+              <mat-icon>add</mat-icon>
+              Add Payment Method
+            </button>
+          </div>
+        </div>
+
+        <div class="cards-grid">
+          @for (payment of paymentMethods; let i = $index; track i) {
+          <mat-card class="payment-card" [class.inactive]="!payment.isActive">
+            <mat-card-header>
+              <mat-card-title>
+                <mat-icon class="payment-icon">{{ payment.icon }}</mat-icon>
+                {{ payment.name }}
+              </mat-card-title>
+            </mat-card-header>
+
+            <mat-card-content (click)="openPaymentMethodDialog(payment)">
+              <div class="payment-details">
+                <div class="detail-row">
+                  <span class="label">Processing Fee:</span>
+                  <span class="value">{{ payment.processingFee }}%</span>
+                </div>
+                <div class="detail-row">
+                  <span class="label">Status:</span>
+                  <span class="status" [class.active]="payment.isActive" [class.inactive]="!payment.isActive">
+                    {{ payment.isActive ? 'Active' : 'Inactive' }}
+                  </span>
+                </div>
+              </div>
+            </mat-card-content>
+
+            <mat-card-actions>
+              <button mat-button (click)="togglePaymentMethod(payment)">
+                <mat-icon>{{ payment.isActive ? 'toggle_on' : 'toggle_off' }}</mat-icon>
+                {{ payment.isActive ? 'Disable' : 'Enable' }}
+              </button>
+            </mat-card-actions>
+          </mat-card>
+          }
+
+        </div>
+      </div>
+    </mat-tab>
+
+    <!-- Cities Tab -->
+    <mat-tab label="Cities & Locations">
+      <div class="tab-content">
+        <div class="section-header">
+          <div class="section-title">
+            <div>
+              <h2>
+                <mat-icon>location_city</mat-icon>
+                Cities & Locations Management
+              </h2>
+              <p>Manage available cities and their booking configurations</p>
+            </div>
+            <button mat-raised-button color="primary" (click)="openCityDialog()">
+              <mat-icon>add</mat-icon>
+              Add City
+            </button>
+          </div>
+        </div>
+
+        <div class="cities-grid">
+          @for(city of cities; let i = $index; track i) {
+            <mat-card class="city-card" [class.inactive]="!city.isActive">
+            <mat-card-header>
+              <mat-card-title>
+                <mat-icon>location_on</mat-icon>
+                {{ city.name }}
+              </mat-card-title>
+              <mat-card-subtitle>{{ city.country }}</mat-card-subtitle>
+            </mat-card-header>
+
+            <mat-card-content (click)="openCityDialog(city)">
+              <div class="city-details">
+                <div class="detail-row">
+                  <span class="label">Currency:</span>
+                  <span class="value">{{ city.currency }}</span>
+                </div>
+                <div class="detail-row">
+                  <span class="label">Apartments:</span>
+                  <span class="value">{{ city.totalApartments | number }}</span>
+                </div>
+                <div class="detail-row">
+                  <span class="label">Avg. Price:</span>
+                  <span class="value">${{ city.avgPrice | number:'1.2-2' }}/night</span>
+                </div>
+                <div class="detail-row">
+                  <span class="label">Status:</span>
+                  <span class="status" [class.active]="city.isActive" [class.inactive]="!city.isActive">
+                    {{ city.isActive ? 'Active' : 'Inactive' }}
+                  </span>
+                </div>
+              </div>
+            </mat-card-content>
+
+            <mat-card-actions>
+              <button mat-button (click)="toggleCity(city)">
+                <mat-icon>{{ city.isActive ? 'toggle_on' : 'toggle_off' }}</mat-icon>
+                {{ city.isActive ? 'Disable' : 'Enable' }}
+              </button>
+            </mat-card-actions>
+          </mat-card>
+          }
+
+        </div>
+      </div>
+    </mat-tab>
+
+    <!-- Apartment Types Tab -->
+    <mat-tab label="Apartment Types">
+      <div class="tab-content">
+        <div class="section-header">
+          <div class="section-title">
+            <div>
+              <h2>
+                <mat-icon>home</mat-icon>
+                Apartment Types Configuration
+              </h2>
+              <p>Manage different apartment types and their pricing multipliers</p>
+            </div>
+            <button mat-raised-button color="primary" (click)="openApartmentTypeDialog()">
+              <mat-icon>add</mat-icon>
+              Add Apartment Type
+            </button>
+          </div>
+        </div>
+
+        <div class="apartment-types-grid">
+          @for (type of apartmentTypes; let i = $index; track i) {
+            <mat-card class="apartment-type-card" [class.inactive]="!type.isActive">
+            <mat-card-header>
+              <mat-card-title>
+                <mat-icon>{{ type.icon }}</mat-icon>
+                {{ type.name }}
+              </mat-card-title>
+            </mat-card-header>
+
+            <mat-card-content (click)="openApartmentTypeDialog(type)">
+              <div class="detail-row">
+                <span class="label">Status:</span>
+                <span class="status" [class.active]="type.isActive" [class.inactive]="!type.isActive">
+                  {{ type.isActive ? 'Active' : 'Inactive' }}
+                </span>
+              </div>
+            </mat-card-content>
+
+            <mat-card-actions>
+              <button mat-button (click)="toggleApartmentType(type)">
+                <mat-icon>{{ type.isActive ? 'toggle_on' : 'toggle_off' }}</mat-icon>
+                {{ type.isActive ? 'Disable' : 'Enable' }}
+              </button>
+            </mat-card-actions>
+          </mat-card>
+          }
+        </div>
+      </div>
+    </mat-tab>
+
+    <!-- Apartment Features Tab -->
+    <mat-tab label="Apartment Features">
+      <div class="tab-content">
+        <div class="section-header">
+          <div class="section-title">
+            <div>
+              <h2>
+                <mat-icon>star</mat-icon>
+                Apartment Features & Amenities
+              </h2>
+              <p>Manage available features and their price impact</p>
+            </div>
+            <button mat-raised-button color="primary" (click)="openApartmentFeatureDialog()">
+              <mat-icon>add</mat-icon>
+              Add Feature
+            </button>
+          </div>
+        </div>
+
+        <div class="features-grid">
+          @for (feature of apartmentFeatures; let i = $index; track i) {
+            <mat-card class="feature-card" [class.inactive]="!feature.isActive">
+            <mat-card-header>
+              <mat-card-title>
+                <mat-icon>{{ feature.icon }}</mat-icon>
+                {{ feature.name }}
+
+              </mat-card-title>
+            </mat-card-header>
+
+            <mat-card-content (click)="openApartmentFeatureDialog(feature)">
+              <div class="feature-details">
+
+                <div class="detail-row">
+                  <span class="label">Status:</span>
+                  <span class="status" [class.active]="feature.isActive" [class.inactive]="!feature.isActive">
+                    {{ feature.isActive ? 'Active' : 'Inactive' }}
+                  </span>
+                </div>
+              </div>
+            </mat-card-content>
+
+            <mat-card-actions>
+              <button mat-button (click)="toggleApartmentFeature(feature)">
+                <mat-icon>{{ feature.isActive ? 'toggle_on' : 'toggle_off' }}</mat-icon>
+                {{ feature.isActive ? 'Disable' : 'Enable' }}
+              </button>
+            </mat-card-actions>
+          </mat-card>
+          }
+        </div>
+      </div>
+    </mat-tab>
+
+  </mat-tab-group>
+</div>
