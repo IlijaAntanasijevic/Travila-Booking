@@ -48,6 +48,19 @@
 
 .share-dialog-panel .mat-mdc-dialog-container {
   border-radius: 16px;
+}
+
+/* Custom Dialog Container Styles */
+.custom-dialog-container .mat-mdc-dialog-container {
+  background-color: #2a2a2a;
+  color: #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.custom-dialog-container .mat-mdc-dialog-surface {
+  background-color: #2a2a2a;
+  color: #e0e0e0;
   overflow: hidden;
 }
 

@@ -1,0 +1,120 @@
+.dialog-container {
+  min-width: 700px;
+  max-width: 900px;
+  max-height: 80vh;
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px 0;
+  border-bottom: 1px solid #404040;
+  margin-bottom: 16px;
+}
+
+.dialog-header h2 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.close-button {
+  color: #b0b0b0;
+}
+
+.close-button:hover {
+  color: #ffffff;
+}
+
+.dialog-content {
+  padding: 0 24px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.info-section {
+  margin-bottom: 24px;
+}
+
+.info-item {
+  display: flex;
+  margin-bottom: 12px;
+  align-items: center;
+}
+
+.info-item label {
+  font-weight: 600;
+  color: #b0b0b0;
+  min-width: 100px;
+  margin-right: 12px;
+}
+
+.info-item span {
+  color: #e0e0e0;
+}
+
+.error-id {
+  background-color: #f44336;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.message-section, .stack-trace-section {
+  margin-bottom: 20px;
+}
+
+.message-section label, .stack-trace-section label {
+  display: block;
+  font-weight: 600;
+  color: #b0b0b0;
+  margin-bottom: 8px;
+}
+
+.error-message-container, .stack-trace-container {
+  background-color: #1a1a1a;
+  border: 1px solid #404040;
+  border-radius: 6px;
+  overflow: auto;
+  max-height: 200px;
+}
+
+.stack-trace-container {
+  max-height: 300px;
+}
+
+.error-message-container pre, .stack-trace-container pre {
+  margin: 0;
+  padding: 16px;
+  font-size: 13px;
+  color: #e0e0e0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.5;
+}
+
+.error-message-container pre {
+  color: #ff6b6b;
+  font-weight: 500;
+}
+
+.dialog-actions {
+  padding: 16px 24px;
+  border-top: 1px solid #404040;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.dialog-actions button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: white;
+}

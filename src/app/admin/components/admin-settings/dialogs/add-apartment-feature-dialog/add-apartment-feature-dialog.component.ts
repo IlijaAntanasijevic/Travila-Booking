@@ -31,8 +31,9 @@ export class AddApartmentFeatureDialogComponent implements OnInit, OnDestroy{
   private subscription: Subscription = new Subscription();
 
   ngOnInit(): void {
-        this.isEditMode = !!this.data?.apartmentFeature;
+    this.isEditMode = !!this.data?.apartmentFeature;
     this.dialogTitle = this.isEditMode ? 'Edit Apartment Feature' : 'Add New Apartment Feature';
+    
     if (this.isEditMode && this.data.apartmentFeature) {
       this.form.patchValue({
         name: this.data.apartmentFeature.name,
