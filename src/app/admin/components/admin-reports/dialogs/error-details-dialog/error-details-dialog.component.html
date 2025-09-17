@@ -1,0 +1,44 @@
+<div class="dialog-container">
+    <div class="dialog-header">
+      <h2 mat-dialog-title>Error Details</h2>
+      <button mat-icon-button (click)="onClose()" class="close-button">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    
+    <mat-dialog-content class="dialog-content">
+      <div class="info-section">
+        <div class="info-item">
+          <label>Error ID:</label>
+          <span class="error-id">{{ data.errorId }}</span>
+        </div>
+        <div class="info-item">
+          <label>Email:</label>
+          <span>{{ data.email }}</span>
+        </div>
+        <div class="info-item">
+          <label>Time:</label>
+          <span>{{ formatDate(data.time) }}</span>
+        </div>
+      </div>
+      
+      <div class="message-section">
+        <label>Error Message:</label>
+        <div class="error-message-container">
+          <pre>{{ data.message }}</pre>
+        </div>
+      </div>
+      
+      <div class="stack-trace-section">
+        <label>Stack Trace:</label>
+        <div class="stack-trace-container">
+          <pre>{{ data.stackTrace }}</pre>
+        </div>
+      </div>
+    </mat-dialog-content>
+    
+    <mat-dialog-actions class="dialog-actions">
+      <button mat-button (click)="onClose()">Close</button>
+    </mat-dialog-actions>
+  </div>
+  

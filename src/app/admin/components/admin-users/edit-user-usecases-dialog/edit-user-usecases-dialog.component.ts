@@ -1,7 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Permission } from '../../../../core/helpers/utility';
-import { AdminUseCases, AllUseCases } from '../../../../core/consts/use-cases';
+import { AdminUseCases } from '../../../../core/consts/use-cases';
 import { ToastrService } from 'ngx-toastr';
 import { BlAdminUsersRequestsService } from '../services/requests/bl-admin-users-requests.service';
 import { Subscription } from 'rxjs';
@@ -21,10 +20,10 @@ export class EditUserUseCasesDialogComponent implements OnInit, OnDestroy{
     private requestsService: BlAdminUsersRequestsService
   ) { }
 
-  allUseCases = Permission.getPermissionIds(AdminUseCases).map(id => ({ id, label: AllUseCases[id] as string }));
+  allUseCases = this.createUseCasesWithSplitLabels();
   userAdminUseCases: number[] = [];
-  userAllUseCases: number[] = []; // All usecases the user currently has (including non-admin)
-  selectedAdminUseCases: number[] = []; // Only admin usecases selected in UI
+  userAllUseCases: number[] = []; 
+  selectedAdminUseCases: number[] = []; 
   private subscription: Subscription = new Subscription();
   
   ngOnInit(): void {
@@ -35,15 +34,11 @@ export class EditUserUseCasesDialogComponent implements OnInit, OnDestroy{
     this.subscription.add(
       this.requestsService.getUserUseCases(this.userdId).subscribe({
         next: (data) => {
-          // Store all user usecases (including non-admin ones)
           this.userAllUseCases = [...data];
-          
-          // Filter only admin usecases for display
           this.userAdminUseCases = data.filter((id: number) => 
             this.allUseCases.some(uc => uc.id === id)
           );
           
-          // Initialize selected admin usecases with current admin usecases
           this.selectedAdminUseCases = [...this.userAdminUseCases];
         }
       })
@@ -51,12 +46,10 @@ export class EditUserUseCasesDialogComponent implements OnInit, OnDestroy{
   }
 
   save(): void {
-    // Get all non-admin usecases that the user currently has
     const nonAdminUseCases = this.userAllUseCases.filter(id => 
       !this.allUseCases.some(uc => uc.id === id)
     );
     
-    // Combine non-admin usecases with selected admin usecases
     const allUseCasesToSend = [...nonAdminUseCases, ...this.selectedAdminUseCases];
     
     this.subscription.add(
@@ -70,9 +63,18 @@ export class EditUserUseCasesDialogComponent implements OnInit, OnDestroy{
         }
       })
     )
-    console.log('Sending all usecases:', allUseCasesToSend);
-    console.log('Non-admin usecases:', nonAdminUseCases);
-    console.log('Selected admin usecases:', this.selectedAdminUseCases);
+  }
+
+  private createUseCasesWithSplitLabels(): { id: number, label: string }[] {
+    const useCases: { id: number, label: string }[] = [];
+    Object.entries(AdminUseCases).forEach(([key, value]) => {
+      if (typeof value === 'number' && value !== AdminUseCases.AdminSettings) {
+        const splitLabel = key.split(/(?=[A-Z])/).join(' ');
+        useCases.push({ id: value, label: splitLabel });
+      }
+    });
+    
+    return useCases;
   }
 
   close(): void {

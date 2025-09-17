@@ -17,6 +17,8 @@ import { AddPaymentMethodDialogComponent } from './components/admin-settings/dia
 import { AddCityDialogComponent } from './components/admin-settings/dialogs/add-city-dialog/add-city-dialog.component';
 import { AddApartmentTypeDialogComponent } from './components/admin-settings/dialogs/add-apartment-type-dialog/add-apartment-type-dialog.component';
 import { AddApartmentFeatureDialogComponent } from './components/admin-settings/dialogs/add-apartment-feature-dialog/add-apartment-feature-dialog.component';
+import { UseCaseDetailsDialogComponent } from './components/admin-reports/dialogs/use-case-details-dialog/use-case-details-dialog.component';
+import { ErrorDetailsDialogComponent } from './components/admin-reports/dialogs/error-details-dialog/error-details-dialog.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { AddApartmentFeatureDialogComponent } from './components/admin-settings/
     AddPaymentMethodDialogComponent,
     AddCityDialogComponent,
     AddApartmentTypeDialogComponent,
-    AddApartmentFeatureDialogComponent
+    AddApartmentFeatureDialogComponent,
+    UseCaseDetailsDialogComponent,
+    ErrorDetailsDialogComponent
   ],
   imports: [
     CommonModule,

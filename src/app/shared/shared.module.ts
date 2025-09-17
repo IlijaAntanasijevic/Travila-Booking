@@ -44,6 +44,7 @@ import { AiAgentComponent } from './components/ai-agent/ai-agent.component';
 import { AiApartmentService } from './api/ai-apartment.service';
 import {MatBadgeModule} from '@angular/material/badge';
 import { CanDirective } from '../core/helpers/can.directive';
+import { CanMustBothDirective } from '../core/helpers/can.directive';
 import { PermissionPipe } from '../core/helpers/permission.pipe';
 
 
@@ -56,6 +57,7 @@ import { PermissionPipe } from '../core/helpers/permission.pipe';
     ImageUrlPipe,
     AiAgentComponent,
     CanDirective,
+    CanMustBothDirective,
     PermissionPipe
   ],
   imports: [
@@ -135,6 +137,7 @@ import { PermissionPipe } from '../core/helpers/permission.pipe';
     AiAgentComponent,
     MatBadgeModule,
     CanDirective,
+    CanMustBothDirective,
     PermissionPipe
   ],
   providers: [

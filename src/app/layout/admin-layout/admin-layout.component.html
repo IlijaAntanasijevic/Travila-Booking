@@ -17,8 +17,13 @@
         <h2>Admin</h2>
       </div>
       <div class="admin-user-info">
+        <a routerLink="/home" class="menu-link" style="cursor: pointer;">
+          <mat-icon>home</mat-icon>
+          <span class="menu-text">Home</span>
+        </a>
         <span>Welcome, {{userName}}</span>
-        <span (click)="logout()">Logout</span>
+
+        <span style="cursor: pointer;" (click)="logout()">Logout</span>
       </div>
     </div>
   </header>
@@ -46,19 +51,19 @@
           </a>
         </li>
         <li class="menu-item">
-          <a routerLink="/admin/bookings" routerLinkActive="active" class="menu-link">
+          <a routerLink="/admin/bookings" *appCan="adminUseCases.GetBookingsAdmin" routerLinkActive="active" class="menu-link">
             <mat-icon>calendar_month</mat-icon>
             <span class="menu-text">Bookings</span>
           </a>
         </li>
         <li class="menu-item">
-          <a routerLink="/admin/settings" routerLinkActive="active" class="menu-link">
+          <a routerLink="/admin/settings" *appCan="adminUseCases.AdminSettings" routerLinkActive="active" class="menu-link">
             <mat-icon>settings</mat-icon>
             <span class="menu-text">Settings</span>
           </a>
         </li>
         <li class="menu-item">
-          <a routerLink="/admin/reports" routerLinkActive="active" class="menu-link">
+          <a routerLink="/admin/reports" *appCan="[adminUseCases.GetUseCaseLogs, adminUseCases.GetErrorLogs]" routerLinkActive="active" class="menu-link">
             <mat-icon>bug_report</mat-icon>
             <span class="menu-text">Reports</span>
           </a>

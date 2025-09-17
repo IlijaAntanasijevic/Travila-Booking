@@ -23,7 +23,7 @@
               </h2>
               <p>Manage available payment options and processing fees</p>
             </div>
-            <button mat-raised-button color="primary" (click)="openPaymentMethodDialog()">
+            <button mat-raised-button color="primary" (click)="openPaymentMethodDialog()" *appCan="adminUseCases.AddPaymentMethod">
               <mat-icon>add</mat-icon>
               Add Payment Method
             </button>
@@ -56,7 +56,7 @@
             </mat-card-content>
 
             <mat-card-actions>
-              <button mat-button (click)="togglePaymentMethod(payment)">
+              <button mat-button (click)="togglePaymentMethod(payment)" *appCan="adminUseCases.UpdatePaymentMethod">
                 <mat-icon>{{ payment.isActive ? 'toggle_on' : 'toggle_off' }}</mat-icon>
                 {{ payment.isActive ? 'Disable' : 'Enable' }}
               </button>
@@ -80,7 +80,7 @@
               </h2>
               <p>Manage available cities and their booking configurations</p>
             </div>
-            <button mat-raised-button color="primary" (click)="openCityDialog()">
+            <button mat-raised-button color="primary" (click)="openCityDialog()" *appCan="adminUseCases.AddCityInCountry">
               <mat-icon>add</mat-icon>
               Add City
             </button>
@@ -122,7 +122,7 @@
             </mat-card-content>
 
             <mat-card-actions>
-              <button mat-button (click)="toggleCity(city)">
+              <button mat-button (click)="toggleCity(city)" *appCan="adminUseCases.UpdateCity">
                 <mat-icon>{{ city.isActive ? 'toggle_on' : 'toggle_off' }}</mat-icon>
                 {{ city.isActive ? 'Disable' : 'Enable' }}
               </button>
@@ -146,7 +146,7 @@
               </h2>
               <p>Manage different apartment types and their pricing multipliers</p>
             </div>
-            <button mat-raised-button color="primary" (click)="openApartmentTypeDialog()">
+            <button mat-raised-button color="primary" (click)="openApartmentTypeDialog()" *appCan="adminUseCases.AddApartmentType">
               <mat-icon>add</mat-icon>
               Add Apartment Type
             </button>
@@ -173,7 +173,7 @@
             </mat-card-content>
 
             <mat-card-actions>
-              <button mat-button (click)="toggleApartmentType(type)">
+              <button mat-button (click)="toggleApartmentType(type)" *appCan="adminUseCases.UpdateApartmentType">
                 <mat-icon>{{ type.isActive ? 'toggle_on' : 'toggle_off' }}</mat-icon>
                 {{ type.isActive ? 'Disable' : 'Enable' }}
               </button>
@@ -196,7 +196,7 @@
               </h2>
               <p>Manage available features and their price impact</p>
             </div>
-            <button mat-raised-button color="primary" (click)="openApartmentFeatureDialog()">
+            <button mat-raised-button color="primary" (click)="openApartmentFeatureDialog()" *appCan="adminUseCases.AddFeatures">
               <mat-icon>add</mat-icon>
               Add Feature
             </button>
@@ -227,7 +227,7 @@
             </mat-card-content>
 
             <mat-card-actions>
-              <button mat-button (click)="toggleApartmentFeature(feature)">
+              <button mat-button (click)="toggleApartmentFeature(feature)" *appCan="adminUseCases.UpdateApartmentFeature">
                 <mat-icon>{{ feature.isActive ? 'toggle_on' : 'toggle_off' }}</mat-icon>
                 {{ feature.isActive ? 'Disable' : 'Enable' }}
               </button>

@@ -22,16 +22,22 @@ export class AdminRedirectComponent implements OnInit {
     console.log("AAAA");
     
     
-     let routeMap: { path: string, useCase: AdminUseCases }[] = [
+     let routeMap: { path: string, useCase: AdminUseCases | AdminUseCases[] }[] = [
       { path: 'dashboard', useCase: AdminUseCases.AdminDashboard },
       { path: 'apartments', useCase: AdminUseCases.GetAdminApartments },
       { path: 'users', useCase: AdminUseCases.GetAdminUsers },
-      { path: 'bookings', useCase: AdminUseCases.GetUserUseCases },
-      { path: 'settings', useCase: AdminUseCases.GetErrorLogs },
-      { path: 'reports', useCase: AdminUseCases.GetUseCaseLogs }
+      { path: 'bookings', useCase: AdminUseCases.GetBookingsAdmin },
+      { path: 'settings', useCase: AdminUseCases.AdminSettings},
+      { path: 'reports', useCase: [AdminUseCases.GetUseCaseLogs, AdminUseCases.GetErrorLogs]}
     ];
-
-    let target = routeMap.find(r => userCases.has(r.useCase));
+    
+    let target = routeMap.find(r => {
+      if (Array.isArray(r.useCase)) {
+        return r.useCase.some(useCase => userCases.has(useCase));
+      } else {
+        return userCases.has(r.useCase);
+      }
+    });
     console.log(target);
     console.log(routeMap);
     

@@ -15,22 +15,57 @@ export class CanDirective  {
     private permissionService: PermissionService,
   ) { }
 
-  private useCaseId: number = 0;
-  @Input() set appCan(permission: number) {
-    this.useCaseId = permission;
+  private useCaseIds: number | number[] = 0;
+  @Input() set appCan(permission: number | number[]) {
+    this.useCaseIds = permission;
     this.updateView();
   }
 
    private updateView() {
     this.viewContainer.clear();
-    if (this.permissionService.has([this.useCaseId])) {
-      console.log('Permission granted for useCaseId:', this.useCaseId);
-      
+    let hasPermission = false;
+    
+    if (Array.isArray(this.useCaseIds)) {
+      hasPermission = this.useCaseIds.some(useCaseId => this.permissionService.has([useCaseId]));
+    } 
+    else {
+      hasPermission = this.permissionService.has([this.useCaseIds]);
+    }
+    
+    if (hasPermission) {
       this.viewContainer.createEmbeddedView(this.templateRef);
     }
-    else {
-      console.log('Permission denied for useCaseId:', this.useCaseId);
-      
+  }
+}
+
+
+@Directive({
+  selector: '[appMustCanBoth]',
+  standalone: false
+})
+export class CanMustBothDirective  {
+
+  constructor(
+    private templateRef: TemplateRef<any>,
+    private viewContainer: ViewContainerRef,
+    private permissionService: PermissionService,
+  ) { }
+
+  private useCaseIds: number[] = [];
+  @Input() set appMustCanBoth(permission: number[]) {
+    this.useCaseIds = permission;
+    this.updateView();
+  }
+
+   private updateView() {
+    this.viewContainer.clear();
+    let hasPermission = false;
+    console.log(this.useCaseIds);
+    
+    hasPermission = this.useCaseIds.every(useCaseId => this.permissionService.has([useCaseId]));
+    
+    if (hasPermission) {
+      this.viewContainer.createEmbeddedView(this.templateRef);
     }
   }
 

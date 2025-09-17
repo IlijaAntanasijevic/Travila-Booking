@@ -8,6 +8,8 @@ import { IApartmentFeature, IApartmentType, ICity, IPaymentMethod } from './inte
 import { BlAdminSettingsRequestsService } from './services/requests/bl-admin-settings-requests.service';
 import { Subscription } from 'rxjs';
 import { Spinner } from '../../../core/functions/spinner';
+import { AdminUseCases } from '../../../core/consts/use-cases';
+import { PermissionService } from '../../../core/services/permission.service';
 
 @Component({
   selector: 'app-admin-settings',
@@ -19,7 +21,8 @@ export class AdminSettingsComponent implements OnInit, OnDestroy {
 
   constructor(
     private dialog: MatDialog,
-    private requestsService: BlAdminSettingsRequestsService
+    private requestsService: BlAdminSettingsRequestsService,
+    private permissionService: PermissionService
   ) { }
 
 
@@ -31,6 +34,7 @@ export class AdminSettingsComponent implements OnInit, OnDestroy {
   cities: ICity[] = [];
   apartmentFeatures: IApartmentFeature[] = [];
   apartmentTypes: IApartmentType[] = [];
+  adminUseCases = AdminUseCases;
 
   ngOnInit(): void {
     this.getAllData();
@@ -118,6 +122,7 @@ export class AdminSettingsComponent implements OnInit, OnDestroy {
   }
 
   openPaymentMethodDialog(paymentMethod: IPaymentMethod = null): void {
+    if(!this.permissionService.has([this.adminUseCases.UpdatePaymentMethod])) return;
     let dialogRef = this.dialog.open(AddPaymentMethodDialogComponent, {
       width: '600px',
       data: { paymentMethod: paymentMethod || null }
@@ -131,6 +136,7 @@ export class AdminSettingsComponent implements OnInit, OnDestroy {
   }
 
   openCityDialog(city: ICity = null): void {
+    if(!this.permissionService.has([this.adminUseCases.UpdateCity])) return;
     let dialogRef = this.dialog.open(AddCityDialogComponent, {
       width: '600px',
       data: { city: city || null }
@@ -145,6 +151,7 @@ export class AdminSettingsComponent implements OnInit, OnDestroy {
 
 
   openApartmentTypeDialog(apartmentType: IApartmentType = null): void {
+    if(!this.permissionService.has([this.adminUseCases.UpdateApartmentType])) return;
     let dialogRef = this.dialog.open(AddApartmentTypeDialogComponent, {
       width: '600px',
       data: { apartmentType: apartmentType || null }
@@ -158,6 +165,7 @@ export class AdminSettingsComponent implements OnInit, OnDestroy {
   }
 
   openApartmentFeatureDialog(apartmentFeature: IApartmentFeature = null): void {
+    if(!this.permissionService.has([this.adminUseCases.UpdateApartmentFeature])) return;
     const dialogRef = this.dialog.open(AddApartmentFeatureDialogComponent, {
       width: '600px',
       data: { apartmentFeature: apartmentFeature || null }

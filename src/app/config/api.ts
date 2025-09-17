@@ -53,5 +53,7 @@ export const apiPaths = {
     userUseCases: "api/admin/users/use-cases",
     bookings: "api/admin/bookings",
     cities: "api/admin/cities",
+    reports: "api/admin",
+    errors: "api/admin/errors"
   }
 }

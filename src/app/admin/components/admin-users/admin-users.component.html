@@ -23,7 +23,7 @@
             <div class="stat"><span class="label">Bookings</span><span class="value">{{user.totalBookings || 0}}</span></div>
             <div class="stat"><span class="label">Apartments</span><span class="value">{{user.totalApartments || 0}}</span></div>
           </div>
-          <div class="actions" *appCan="adminUseCases.UpdateUserUseCases" >
+          <div class="actions" *appMustCanBoth="[adminUseCases.UpdateUserUseCases, adminUseCases.GetUserUseCases]" >
             <button mat-raised-button color="primary" (click)="openEditUseCases(user)">
               Edit Use Cases
             </button>

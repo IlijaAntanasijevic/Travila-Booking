@@ -20,7 +20,8 @@ export class PaginatorComponent {
 
   ngOnChanges(changes: SimpleChanges): void {
     if(changes['data'] && changes['data'].currentValue){
-      this.totalPages = this.data.pages;     
+      this.totalPages = this.data.pages;
+      this.currentPage = this.data.currentPage;
     }
   }
 

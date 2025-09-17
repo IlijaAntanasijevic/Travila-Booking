@@ -1,0 +1,37 @@
+<div class="dialog-container">
+    <div class="dialog-header">
+      <h2 mat-dialog-title>Use Case Details</h2>
+      <button mat-icon-button (click)="onClose()" class="close-button">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    
+    <mat-dialog-content class="dialog-content">
+      <div class="info-section">
+        <div class="info-item">
+          <label>Use Case Name:</label>
+          <span class="use-case-name">{{ data.useCaseName }}</span>
+        </div>
+        <div class="info-item">
+          <label>Email:</label>
+          <span>{{ data.email }}</span>
+        </div>
+        <div class="info-item">
+          <label>ID:</label>
+          <span>{{ data.id }}</span>
+        </div>
+      </div>
+      
+      <div class="data-section">
+        <label>Request Data:</label>
+        <div class="json-container">
+          <pre>{{ formatData(data.useCaseData) }}</pre>
+        </div>
+      </div>
+    </mat-dialog-content>
+    
+    <mat-dialog-actions class="dialog-actions">
+      <button mat-button (click)="onClose()">Close</button>
+    </mat-dialog-actions>
+  </div>
+  

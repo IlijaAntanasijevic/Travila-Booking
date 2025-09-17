@@ -1,1 +1,164 @@
-<p>admin-reports works!</p>
+<div class="admin-reports-container">
+  <div class="reports-header">
+    <h2>Admin Reports & Logs</h2>
+    <p>Monitor use case executions and system errors</p>
+  </div>
+
+  <!-- Tab Navigation -->
+  <div class="tab-navigation">
+    <button class="tab-button" [class.active]="activeTab === 'useCases'" (click)="onTabChange('useCases')" *appCan="adminUseCases.GetUseCaseLogs">
+      Use Case Logs
+      <span class="badge">{{ useCaseLogs?.totalCount }}</span>
+    </button>
+    <button class="tab-button" [class.active]="activeTab === 'errors'" (click)="onTabChange('errors')" *appCan="adminUseCases.GetErrorLogs">
+      Error Logs
+      <span class="badge error">{{ errorLogs?.totalCount }}</span>
+    </button>
+  </div>
+
+  @if(activeTab === 'useCases'){
+  <div class="tab-content">
+    <div class="search-section">
+      <div class="search-input-group">
+        <input type="text" [(ngModel)]="useCaseLogsSearch.keyword" placeholder="Search by email or use case name..." class="search-input"
+          (keyup.enter)="onUseCaseLogsSearch()">
+        <button class="search-button" (click)="onUseCaseLogsSearch()" [disabled]="useCaseLogsLoading">
+          <mat-icon>search</mat-icon>
+        </button>
+        @if(useCaseLogsSearch.keyword){
+          <button class="clear-button" (click)="clearUseCaseLogsSearch()">
+            <mat-icon>close</mat-icon>
+          </button>
+        }
+    
+      </div>
+    </div>
+
+    <div class="table-container">
+      @if(useCaseLogsLoading){
+      <div class="loading-spinner">
+        <i class="fas fa-spinner fa-spin"></i>
+        Loading use case logs...
+      </div>
+      }
+
+      @if(!useCaseLogsLoading && useCaseLogs?.totalCount === 0){
+      <div class="no-data">
+        <i class="fas fa-info-circle"></i>
+        No use case logs found
+      </div>
+      }
+
+      @if(!useCaseLogsLoading && useCaseLogs?.totalCount > 0){
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Use Case Name</th>
+            <th>Request Data</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(log of useCaseLogs.data; track log.id){
+          <tr>
+            <td>{{ log.id }}</td>
+            <td>{{ log.email }}</td>
+            <td class="use-case-name-cell">
+              <span class="use-case-name">{{ log.useCaseName }}</span>
+            </td>
+            <td>
+              <div class="json-data">
+                <pre>{{ truncateUseCaseData(log.useCaseData) }}</pre>
+              </div>
+            </td>
+            <td class="actions-cell">
+              <button class="action-btn" (click)="openUseCaseDialog(log)" mat-icon-button matTooltip="View Details">
+                <mat-icon>info</mat-icon>
+              </button>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+
+      <app-paginator [data]="useCaseLogs" (pageChange)="onUseCaseLogsPageChange($event)"></app-paginator>
+      }
+
+
+    </div>
+  </div>
+  }
+
+
+  <!-- Error Logs Tab -->
+  @if(activeTab === 'errors'){
+  <div class="tab-content">
+    <div class="search-section">
+      <div class="search-input-group">
+        <input type="text" [(ngModel)]="errorLogsSearch.keyword" placeholder="Search by email or error id..." class="search-input"
+          (keyup.enter)="onErrorLogsSearch()">
+          <button class="search-button" (click)="onErrorLogsSearch()" [disabled]="useCaseLogsLoading">
+            <mat-icon>search</mat-icon>
+          </button>
+          @if(errorLogsSearch.keyword){
+            <button class="clear-button" (click)="clearErrorLogsSearch()">
+              <mat-icon>close</mat-icon>
+            </button>
+          }
+      
+      </div>
+    </div>
+
+    <div class="table-container">
+      @if(errorLogsLoading){
+      <div class="loading-spinner">
+        <i class="fas fa-spinner fa-spin"></i>
+        Loading error logs...
+      </div>
+      }
+
+      @if(!errorLogsLoading && errorLogs?.totalCount === 0){
+      <div class="no-data">
+        <i class="fas fa-info-circle"></i>
+        No error logs found
+      </div>
+      }
+
+      @if(!errorLogsLoading && errorLogs?.totalCount > 0){
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Error ID</th>
+            <th>Email</th>
+            <th>Time</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(error of errorLogs.data; track error.errorId){
+            <tr>
+              <td>{{ error.errorId }}</td>
+              <td>{{ error.email }}</td>
+              <td>{{ formatDate(error.time) }}</td>
+              <td class="actions-cell">
+                <button class="action-btn" (click)="openErrorDialog(error)" mat-icon-button matTooltip="View Details">
+                  <mat-icon>info</mat-icon>
+                </button>
+              </td>
+            </tr>
+          }
+    
+        </tbody>
+      </table>
+
+      <app-paginator [data]="errorLogs" (pageChange)="onErrorLogsPageChange($event)"></app-paginator>
+      }
+
+
+    </div>
+  </div>
+  }
+
+</div>
