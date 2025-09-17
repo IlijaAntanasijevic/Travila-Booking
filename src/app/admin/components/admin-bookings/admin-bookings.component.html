@@ -1,5 +1,5 @@
 <div class="admin-bookings">
-  <div class="filters" *appCan="adminUseCases.AdminDashboard">
+  <div class="filters" *appCan="adminUseCases.GetAdminFilters">
     <mat-form-field appearance="outline" class="search-field">
       <mat-label>Search…</mat-label>
       <input matInput [(ngModel)]="searchText" (input)="applyFilter()" placeholder="Apartment name" />

@@ -6,6 +6,8 @@ import { IErrorLog } from './interfaces/error-log.interface';
 import { ErrorDetailsDialogComponent } from './dialogs/error-details-dialog/error-details-dialog.component';
 import { UseCaseDetailsDialogComponent } from './dialogs/use-case-details-dialog/use-case-details-dialog.component';
 import { IPaginatedResponse } from '../../../core/interfaces/i-base';
+import { PermissionService } from '../../../core/services/permission.service';
+import { AdminUseCases } from '../../../core/consts/use-cases';
 
 @Component({
   selector: 'app-admin-reports',
@@ -17,11 +19,12 @@ export class AdminReportsComponent implements OnInit {
   
   constructor(
     private reportsService: BlAdminReportsRequestsService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private permissionService: PermissionService
   ) { }
 
   activeTab: 'useCases' | 'errors' = 'useCases';
-  
+  adminUseCases = AdminUseCases;
   useCaseLogs: IPaginatedResponse<IUseCaseLog> = null;
   useCaseLogsLoading = false;
   useCaseLogsSearch: IUseCaseLogSearch = {
@@ -41,6 +44,7 @@ export class AdminReportsComponent implements OnInit {
 
 
   ngOnInit(): void {
+    if(!this.permissionService.has([AdminUseCases.GetUseCaseLogs, AdminUseCases.GetErrorLogs])) return;
     this.loadUseCaseLogs();
     this.loadErrorLogs();
   }
@@ -50,6 +54,7 @@ export class AdminReportsComponent implements OnInit {
   }
 
   loadUseCaseLogs(): void {
+    if(!this.permissionService.has([AdminUseCases.GetUseCaseLogs])) return;
     this.useCaseLogsLoading = true;
     this.reportsService.getUseCaseLogs(this.useCaseLogsSearch || undefined)
       .subscribe({
@@ -65,6 +70,7 @@ export class AdminReportsComponent implements OnInit {
   }
 
   loadErrorLogs(): void {
+    if(!this.permissionService.has([AdminUseCases.GetErrorLogs])) return;
     this.errorLogsLoading = true;
     this.reportsService.getErrorLogs(this.errorLogsSearch)
       .subscribe({

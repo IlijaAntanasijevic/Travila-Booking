@@ -1,4 +1,4 @@
-<div class="filters" *appCan="adminUseCases.GetAdminApartmentFilters">
+<div class="filters" *appCan="adminUseCases.GetAdminFilters">
   <mat-form-field appearance="outline" class="ddl-filter">
     <mat-label>User</mat-label>
     <mat-select [(ngModel)]="selectedOwner" (selectionChange)="applyFilter()">

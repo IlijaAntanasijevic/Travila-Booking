@@ -121,7 +121,7 @@ export enum AdminUseCases {
   GetErrorLogs = AllUseCases.GetErrorLogs,
   AdminDashboard = AllUseCases.GetAdminDashboard,
   GetAdminApartments = AllUseCases.GetAdminApartments,
-  GetAdminApartmentFilters = AllUseCases.GetAdminApartmentFilters,
+  GetAdminFilters = AllUseCases.GetAdminApartmentFilters,
   GetAdminUsers = AllUseCases.GetAdminUsers,
   GetUserUseCases = AllUseCases.GetUserUseCases,
   GetBookingsAdmin = AllUseCases.GetBookingsAdmin,
@@ -133,6 +133,7 @@ export enum AdminUseCases {
   UpdateApartmentType = AllUseCases.UpdateApartmentType,
   AddFeatures = AllUseCases.CreateFeatures,
   UpdateApartmentFeature = AllUseCases.UpdateApartmentFeature,
+  AdminSettings = AllUseCases.RegisterUser, // fixed to enable settings page
 }
 
 

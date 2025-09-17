@@ -9,6 +9,7 @@ import { BlAdminBookingsRequestsService } from './services/requests/bl-admin-boo
 import { IAdminBooking, IAdminBookingFilters } from './services/interfaces/i-admin-bookings';
 import { BookingDetailsDialogComponent } from './booking-details-dialog/booking-details-dialog.component';
 import { IMAGE_TYPE } from '../../../shared/helpers/image-url.pipe';
+import { PermissionService } from '../../../core/services/permission.service';
 
 @Component({
   selector: 'app-admin-bookings',
@@ -20,7 +21,8 @@ export class AdminBookingsComponent implements OnInit, OnDestroy, AfterViewInit 
 
   constructor(
     private requestsService: BlAdminBookingsRequestsService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private permissionService: PermissionService
   ) {}
 
   displayedColumns: string[] = ['id', 'apartment', 'owner', 'guest', 'checkIn', 'checkOut', 'guests', 'status', 'total', 'actions'];
@@ -52,6 +54,7 @@ export class AdminBookingsComponent implements OnInit, OnDestroy, AfterViewInit 
   }
 
   loadFilters(): void {
+    if(!this.permissionService.has([AdminUseCases.GetAdminFilters])) return;
     this.subscription.add(
       this.requestsService.getFilters().subscribe({
         next: (data) => 

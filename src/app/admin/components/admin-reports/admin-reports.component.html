@@ -6,11 +6,11 @@
 
   <!-- Tab Navigation -->
   <div class="tab-navigation">
-    <button class="tab-button" [class.active]="activeTab === 'useCases'" (click)="onTabChange('useCases')">
+    <button class="tab-button" [class.active]="activeTab === 'useCases'" (click)="onTabChange('useCases')" *appCan="adminUseCases.GetUseCaseLogs">
       Use Case Logs
       <span class="badge">{{ useCaseLogs?.totalCount }}</span>
     </button>
-    <button class="tab-button" [class.active]="activeTab === 'errors'" (click)="onTabChange('errors')">
+    <button class="tab-button" [class.active]="activeTab === 'errors'" (click)="onTabChange('errors')" *appCan="adminUseCases.GetErrorLogs">
       Error Logs
       <span class="badge error">{{ errorLogs?.totalCount }}</span>
     </button>

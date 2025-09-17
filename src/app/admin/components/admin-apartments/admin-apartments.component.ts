@@ -7,6 +7,7 @@ import { IMAGE_TYPE } from '../../../shared/helpers/image-url.pipe';
 import { MatDialog } from '@angular/material/dialog';
 import { ApartmentDetailsDialogComponent } from './apartment-details-dialog/apartment-details-dialog.component';
 import { AdminUseCases } from '../../../core/consts/use-cases';
+import { PermissionService } from '../../../core/services/permission.service';
 
 @Component({
   selector: 'app-admin-apartments',
@@ -18,7 +19,8 @@ export class AdminApartmentsComponent implements OnInit, OnDestroy {
 
   constructor(
     private requestsService: BlAdminApartmentsRequestsService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private permissionService: PermissionService
   ) {}
 
   selectedOwner: number  = 0;
@@ -47,6 +49,7 @@ export class AdminApartmentsComponent implements OnInit, OnDestroy {
   }
 
   getApartments(): void {
+    if(!this.permissionService.has([AdminUseCases.GetAdminApartments])) return;
     Spinner.show();
     this.subscription.add(
       this.requestsService.getAllApartments(this.search).subscribe({
@@ -60,6 +63,7 @@ export class AdminApartmentsComponent implements OnInit, OnDestroy {
   }
 
   getFilters(): void {
+    if(!this.permissionService.has([AdminUseCases.GetAdminFilters])) return;
     Spinner.show();
     this.subscription.add(
       this.requestsService.getAllFilters().subscribe({
@@ -73,6 +77,7 @@ export class AdminApartmentsComponent implements OnInit, OnDestroy {
   }
 
   applyFilter(): void {
+    if(!this.permissionService.has([AdminUseCases.GetAdminFilters])) return;
     this.search = {
       userId: this.selectedOwner,
       cityId: this.selectedCity,
