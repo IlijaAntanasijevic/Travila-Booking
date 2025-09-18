@@ -6,8 +6,3 @@ export const config = {
   apartmentMainImagePath: "http://localhost:5000/apartments/mainImages/",
   apartmentImagesPath: "http://localhost:5000/apartments/images/",
 }
-
-
-export const mapConfig = {
-  
-}

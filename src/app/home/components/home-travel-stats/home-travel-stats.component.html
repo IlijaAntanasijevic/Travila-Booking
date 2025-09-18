@@ -1,0 +1,62 @@
+@if(data) {
+  <section class="section-box box-travel-stats background-100 mt-50">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-12 mb-30 text-center text-lg-start">
+          <h2 class="neutral-1000">Trusted by Travelers Worldwide</h2>
+          <p class="text-xl-medium neutral-500">Join thousands of satisfied customers who have discovered amazing places to stay</p>
+        </div>
+      </div>
+      <div class="row">
+  
+        <div class="col-lg-3 col-md-6 mb-30">
+          <div class="card-stat text-center">
+            <div class="stat-icon mb-20">
+              <mat-icon>people</mat-icon>
+            </div>
+            <h3 class="heading-3 neutral-1000 mb-10">{{data.totalUsers}}</h3>
+            <h6 class="heading-6 neutral-1000 mb-10">Travelers</h6>
+            <p class="text-sm-medium">Customers who found their perfect stay</p>
+          </div>
+        </div>
+  
+        <div class="col-lg-3 col-md-6 mb-30">
+          <div class="card-stat text-center">
+            <div class="stat-icon mb-20">
+              <mat-icon>apartment</mat-icon>
+            </div>
+            <h3 class="heading-3 neutral-1000 mb-10">{{data.totalApartments}}</h3>
+            <h6 class="heading-6 neutral-1000 mb-10">Apartments</h6>
+            <p class="text-sm-medium">Carefully curated accommodations worldwide</p>
+          </div>
+        </div>
+  
+  
+        <div class="col-lg-3 col-md-6 mb-30">
+          <div class="card-stat text-center">
+            <div class="stat-icon mb-20">
+              <mat-icon>book</mat-icon>
+            </div>
+            <h3 class="heading-3 neutral-1000 mb-10">{{data.totalBookings}}</h3>
+            <h6 class="heading-6 neutral-1000 mb-10">Bookings</h6>
+            <p class="text-sm-medium">Bookings made worldwide</p>
+          </div>
+        </div>
+  
+        <div class="col-lg-3 col-md-6 mb-30">
+          <div class="card-stat text-center">
+            <div class="stat-icon mb-20">
+              <mat-icon>star</mat-icon>
+            </div>
+            <h3 class="heading-3 neutral-1000 mb-10">{{data.avgRating | number: '1.1-1'}}</h3>
+            <h6 class="heading-6 neutral-1000 mb-10">Average Rating</h6>
+            <p class="text-sm-medium">Based on {{data.totalReviews}}+ verified reviews</p>
+          </div>
+        </div>
+  
+  
+      </div>
+    </div>
+  </section>
+  
+}

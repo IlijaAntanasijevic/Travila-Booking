@@ -1,7 +1,9 @@
 export const apiPaths = {
   home: {
     search: "api/apartment?",
-    featuredApartments: "api/apartment?"
+    featuredApartments: "api/apartment?",
+    stats: "api/home/stats",
+    testimonials: "api/home/testimonials"
   },
   apartment: {
     api: "api/apartment",

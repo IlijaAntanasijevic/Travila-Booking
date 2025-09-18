@@ -33,7 +33,6 @@ export class AdminReportsComponent implements OnInit {
     keyword: '',
   };
   
-  // Error Logs
   errorLogs: IPaginatedResponse<IErrorLog> = null;
   errorLogsLoading = false;
   errorLogsSearch: IErrorLogSearch = {

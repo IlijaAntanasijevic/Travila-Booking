@@ -1,0 +1,65 @@
+<section class="section-box box-testimonials background-body mt-50">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-12 mb-30 text-center text-lg-start">
+        <h2 class="neutral-1000">What Our Guests Say</h2>
+        <p class="text-xl-medium neutral-500">Real experiences from travelers who found their perfect stay with us</p>
+      </div>
+    </div>
+    
+    <div class="testimonials-carousel">
+      <div class="row">
+        @for(testimonial of visibleTestimonials; track testimonial.id) {
+        <div class="col-lg-4 col-md-6 mb-30" routerLink="/apartments/{{testimonial.apartmentId}}" target="_blank">
+          <div class="card-testimonial">
+            <div class="testimonial-header">
+              <div class="guest-info">
+                <div class="guest-avatar">
+                  <img [src]="testimonial.avatar | imageUrl: imageType.Avatar" alt="{{testimonial.userFullName}}" width="60" height="60">
+                </div>
+                <div class="guest-details">
+                  <h6 class="guest-name">{{testimonial.userFullName}}</h6>
+                  <p class="guest-location">{{testimonial.location}}</p>
+                </div>
+              </div>
+              <div class="rating">
+                @for(type of getStarArray(testimonial.rating); track $index) {
+                  <span class="star" [ngClass]="type"></span>
+              }
+              </div>
+            </div>
+            
+            <div class="testimonial-content">
+              <p class="review-text">"{{testimonial.ratingInfo}}"</p>
+            </div>
+            
+            <div class="testimonial-footer">
+              <div class="apartment-info">
+                <p class="apartment-name">{{testimonial.apartmentName}}</p>
+                <p class="stay-date">{{testimonial.created}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-12">
+        <div class="testimonial-controls">
+          <button class="btn-control" (click)="previous()" [disabled]="currentIndex === 0">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button class="btn-control" (click)="next()" [disabled]="currentIndex + itemsPerView >= testimonials.length">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
