@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { ApartmentService } from '../../../../../apartment/services/api/apartment.service';
+import { ApartmentService } from '../../../apartment/services/api/apartment.service';
 import { map, Observable } from 'rxjs';
-import { IApartment } from '../../../../../apartment/interfaces/i-apartment';
-import { IPaginatedResponse } from '../../../../../core/interfaces/i-base';
-import { BlFavoriteApartmentsRequestsService } from '../../../../../user/components/favorite-apartments/services/requests/bl-favorite-apartments-requests.service';
+import { IApartment } from '../../../apartment/interfaces/i-apartment';
+import { IPaginatedResponse } from '../../../core/interfaces/i-base';
+import { BlFavoriteApartmentsRequestsService } from '../../../user/components/favorite-apartments/services/requests/bl-favorite-apartments-requests.service';
 
 @Injectable({
   providedIn: 'root'

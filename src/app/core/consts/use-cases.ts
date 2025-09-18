@@ -62,6 +62,8 @@ export enum AllUseCases {
     UpdateCity = 62, 
     UpdateApartmentType = 63,
     UpdateApartmentFeature = 64,
+    GetHomeStats = 65,
+    GetHomeTestimonials = 66,
 }
 
 
@@ -111,6 +113,8 @@ export enum GloballyAllowedUseCases {
   InitOpenAiMessage = AllUseCases.InitOpenAiMessage,
   ContinueOpenAiConversation = AllUseCases.ContinueOpenAiConversation,
   GetAdminCities = AllUseCases.GetAdminCities,
+  GetHomeStats = AllUseCases.GetHomeStats,
+  GetHomeTestimonials = AllUseCases.GetHomeTestimonials,
 }
 
 export enum AdminUseCases {

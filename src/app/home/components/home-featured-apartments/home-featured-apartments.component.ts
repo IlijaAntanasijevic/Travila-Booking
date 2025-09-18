@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BlHomeFeaturedApartmentsRequestsService } from './services/requests/bl-home-featured-apartments-requests.service';
+import { BlHomeFeaturedApartmentsRequestsService } from '../../services/requests/bl-home-featured-apartments-requests.service';
 import { IApartment } from '../../../apartment/interfaces/i-apartment';
 import { Subscription } from 'rxjs';
 import { IPaginatedResponse } from '../../../core/interfaces/i-base';
