@@ -7,6 +7,7 @@ import { BlUserProfileFormService } from './services/form/bl-user-profile-form.s
 import { IUser } from '../../interfaces/i-user';
 import { ToastrService } from 'ngx-toastr';
 import { UserUseCases } from '../../../core/consts/use-cases';
+import { IMAGE_TYPE } from '../../../shared/helpers/image-url.pipe';
 
 @Component({
     selector: 'app-profile',
@@ -25,6 +26,8 @@ export class ProfileComponent implements OnInit {
 
   private subscription: Subscription = new Subscription();
   id: number = this.authService.getUserId();
+  imageType = IMAGE_TYPE;
+  isOAuth = this.authService.isOAuth();
 
   form = this.formService.getForm();
   user: IUser = null;

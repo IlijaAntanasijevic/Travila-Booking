@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { config } from '../../config/global';
+import { AuthService } from '../../auth/services/shared/auth.service';
 
 export enum IMAGE_TYPE {
   Avatar = 0,
@@ -14,10 +15,16 @@ export enum IMAGE_TYPE {
 
 export class ImageUrlPipe implements PipeTransform {
 
+  constructor(
+    private authService: AuthService) {} 
+
   transform(imageName: string, type: IMAGE_TYPE): string {
     
     switch (type) {
       case IMAGE_TYPE.Avatar:
+        if(this.authService.isOAuth()) {
+          return `${imageName}`;
+        }
         return `${config.avatarImagesPath}${imageName}`;
 
       case IMAGE_TYPE.ApartmentMain:

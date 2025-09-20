@@ -1,8 +1,7 @@
 export interface IAiApartmentRequest {
   adults: number;
   childrens: number;
-  city: string;
-  country: string;
+  cityId: number;
   checkIn: Date;
   checkOut: Date;
 }
