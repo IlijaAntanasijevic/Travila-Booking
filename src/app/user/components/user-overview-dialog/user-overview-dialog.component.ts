@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 import { AdminUseCases } from '../../../core/consts/use-cases';
 import { Permission } from '../../../core/helpers/utility';
 import { PermissionService } from '../../../core/services/permission.service';
+import { IMAGE_TYPE } from '../../../shared/helpers/image-url.pipe';
 
 @Component({
     selector: 'app-user-overview-dialog',
@@ -32,6 +33,7 @@ export class UserOverviewDialogComponent implements OnInit, OnDestroy {
   adminUseCases = AdminUseCases;
   userLinks: IUserOverviewLinks[] = USER_OVERVIEW_LINKS;
   private subscription: Subscription = new Subscription();
+  imageType = IMAGE_TYPE;
 
   ngOnInit(): void {
     this.userData = this.userRequestService.getUserDataFromLS();

@@ -11,7 +11,7 @@
     <div class="box-author-profile">
       <div class="card-author" routerLink="/user/profile">
         <div class="card-image">
-          <img src="{{userData.avatar}}" alt="userAvatar">
+          <img [src]="userData.avatar | imageUrl: imageType.Avatar" alt="userAvatar">
         </div>
         <div class="card-info">
           <p class="text-md-bold neutral-1000">{{userData.firstName}} {{userData.lastName}}</p>

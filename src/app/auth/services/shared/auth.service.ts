@@ -43,6 +43,10 @@ export class AuthService {
     this.permissionService.setPermissions(useCaseIds);
   }
 
+  isOAuth(): boolean {
+    return this.getJwtTokenData()?.IsOAuth === "True";
+  }
+
   logout(): void {
     localStorage.removeItem("token");
     this.router.navigateByUrl("/auth/login");

@@ -67,6 +67,9 @@ export enum AllUseCases {
     GetAdminTestimonials = 67,
     UpdateTestimonial = 68,
     AdminSettings = 69, 
+    GetOpenAIConfig = 70,
+    UpdateOpenAIConfig = 71,
+    GetOpenAiUserConversations = 72,
   }
 
 
@@ -144,6 +147,9 @@ export enum AdminUseCases {
   GetTestimonials = AllUseCases.GetAdminTestimonials,
   UpdateTestimonial = AllUseCases.UpdateTestimonial,
   AdminSettings = AllUseCases.AdminSettings,
+  GetOpenAiConfig = AllUseCases.GetOpenAIConfig,
+  CreateOpenAiConfig = AllUseCases.UpdateOpenAIConfig,
+  GetOpenAiUserConversations = AllUseCases.GetOpenAiUserConversations,
 }
 
 

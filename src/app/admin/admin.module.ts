@@ -8,6 +8,7 @@ import { AdminApartmentsComponent } from './components/admin-apartments/admin-ap
 import { AdminUsersComponent } from './components/admin-users/admin-users.component';
 import { AdminBookingsComponent } from './components/admin-bookings/admin-bookings.component';
 import { AdminSettingsComponent } from './components/admin-settings/admin-settings.component';
+import { AdminOpenAIComponent } from './components/admin-openai/admin-openai.component';
 import { AdminReportsComponent } from './components/admin-reports/admin-reports.component';
 import { ApartmentDetailsDialogComponent } from './components/admin-apartments/apartment-details-dialog/apartment-details-dialog.component';
 import { EditUserUseCasesDialogComponent } from './components/admin-users/edit-user-usecases-dialog/edit-user-usecases-dialog.component';
@@ -28,6 +29,7 @@ import { ErrorDetailsDialogComponent } from './components/admin-reports/dialogs/
     AdminUsersComponent,
     AdminBookingsComponent,
     AdminSettingsComponent,
+    AdminOpenAIComponent,
     AdminReportsComponent,
     ApartmentDetailsDialogComponent,
     EditUserUseCasesDialogComponent,

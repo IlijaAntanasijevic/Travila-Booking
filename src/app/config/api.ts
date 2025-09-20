@@ -57,6 +57,8 @@ export const apiPaths = {
     cities: "api/admin/cities",
     reports: "api/admin",
     errors: "api/admin/errors",
-    testimonials: "api/admin/testimonials"
+    testimonials: "api/admin/testimonials",
+    openai: "api/admin/openai",
+    openAiConversations: "api/admin/openai-conversations"
   }
 }

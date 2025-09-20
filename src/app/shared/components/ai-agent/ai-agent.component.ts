@@ -58,32 +58,20 @@ export class AiAgentComponent implements OnInit, OnDestroy {
   }
 
   getInitialAiRecommendation(): void {
+    console.log(this.searchData);
     if (!this.searchData) return;
 
     this.isLoading = true;
     
-    this.subscription.add(
-      this.cityService.getAllByCountryId(this.searchData.cityId).subscribe({
-        next: (data) => {
-          console.log(data);
-          
-          let request: IAiApartmentRequest = {
-            adults: this.searchData.adults || 1,
-            childrens: this.searchData.childrens || 0,
-            city: data.find((city: IBase) => city.id == this.searchData.cityId).name,
-            country: 'Unknown', 
-            checkIn: new Date(this.searchData.checkIn),
-            checkOut: new Date(this.searchData.checkOut)
-          };
+    let request: IAiApartmentRequest = {
+      adults: this.searchData.adults || 1,
+      childrens: this.searchData.childrens || 0,
+      cityId: this.searchData.cityId,
+      checkIn: new Date(this.searchData.checkIn),
+      checkOut: new Date(this.searchData.checkOut)
+    };
 
-          this.getInitialAiMessage(request);
-        },
-        error: (error) => {
-          this.isLoading = false;
-          this.toastr.error('Failed to get city information');
-        }
-      })
-    );
+    this.getInitialAiMessage(request);
   }
 
   getInitialAiMessage(request: IAiApartmentRequest): void {

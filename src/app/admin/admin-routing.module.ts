@@ -8,6 +8,7 @@ import { Permission } from '../core/helpers/utility';
 import { AdminApartmentsComponent } from './components/admin-apartments/admin-apartments.component';
 import { AdminUsersComponent } from './components/admin-users/admin-users.component';
 import { AdminSettingsComponent } from './components/admin-settings/admin-settings.component';
+import { AdminOpenAIComponent } from './components/admin-openai/admin-openai.component';
 import { AdminReportsComponent } from './components/admin-reports/admin-reports.component';
 import { AdminBookingsComponent } from './components/admin-bookings/admin-bookings.component';
 import { AdminRedirectComponent } from './components/admin-redirect/admin-redirect.component';
@@ -45,6 +46,10 @@ const routes: Routes = [
       {
         path: 'settings',
         component: AdminSettingsComponent
+      },
+      {
+        path: 'openai',
+        component: AdminOpenAIComponent
       },
       {
         path: 'reports',

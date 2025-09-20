@@ -1,7 +1,7 @@
 <section class="background-body pt-35">
   <div class="row justify-content-center mx-auto">
     <div class="col-sm-12 text-center">
-      <img src="{{user?.avatar}}" id="avatar" alt="avatar" /><br>
+      <img [src]="user?.avatar | imageUrl: imageType.Avatar" id="avatar" alt="avatar" /><br>
       <button mat-flat-button class="light mt-35" (click)="fileInput.click()">Change photo</button>
       <input type="file" #fileInput style="display: none;" (change)="updateAvatar($event)">
 
@@ -66,36 +66,39 @@
 
 
       <!-- Third row -->
-      <div class="col-12 d-flex justify-content-center">
-        <div class="d-flex justify-content-center w-50">
-          <mat-form-field class="w-50 mx-2">
-            <mat-label class="neutral-1000">Old password</mat-label>
-            <input matInput [type]="hideOld() ? 'password' : 'text'" formControlName="oldPassword" />
-            <button mat-icon-button matSuffix (click)="clickEventOldPassword($event)"
-              [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideOld()">
-              <mat-icon>{{hideOld() ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
-          </mat-form-field>
-
-          <mat-form-field class="w-50 mx-2">
-            <mat-label class="neutral-1000">New password</mat-label>
-            <input matInput [type]="hideNew() ? 'password' : 'text'" formControlName="newPassword" autocomplete="off" />
-            <button mat-icon-button matSuffix (click)="clickEventNewPassword($event)"
-              [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideNew()" >
-              <mat-icon>{{hideNew() ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
-          </mat-form-field>
-
-          <!-- 
-          <mat-form-field class="w-50 mx-2">
-            <mat-label class="neutral-1000">New password</mat-label>
-            <input matInput class="form-control" type="password" formControlName="newPassword">
-          </mat-form-field> -->
+       @if(!isOAuth) {
+        <div class="col-12 d-flex justify-content-center">
+          <div class="d-flex justify-content-center w-50">
+            <mat-form-field class="w-50 mx-2">
+              <mat-label class="neutral-1000">Old password</mat-label>
+              <input matInput [type]="hideOld() ? 'password' : 'text'" formControlName="oldPassword" />
+              <button mat-icon-button matSuffix (click)="clickEventOldPassword($event)"
+                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideOld()">
+                <mat-icon>{{hideOld() ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
+  
+            <mat-form-field class="w-50 mx-2">
+              <mat-label class="neutral-1000">New password</mat-label>
+              <input matInput [type]="hideNew() ? 'password' : 'text'" formControlName="newPassword" autocomplete="off" />
+              <button mat-icon-button matSuffix (click)="clickEventNewPassword($event)"
+                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideNew()" >
+                <mat-icon>{{hideNew() ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
+  
+            <!-- 
+            <mat-form-field class="w-50 mx-2">
+              <mat-label class="neutral-1000">New password</mat-label>
+              <input matInput class="form-control" type="password" formControlName="newPassword">
+            </mat-form-field> -->
+          </div>
         </div>
-      </div>
+       }
+
 
       <div class="col-12 d-flex justify-content-center mt-55 mb-35">
-        <button mat-flat-button class="w-25 submitBtn" [disabled]="form.invalid" (click)="save()" *appCan="userUseCases.UpdateUser">Submit</button>
+        <button mat-flat-button class="w-25 submitBtn" [disabled]="form.invalid" (click)="save()">Submit</button>
       </div>
       <!-- @if(success){
       <p class="text-success text-center mt-35 h5">Successfully updated</p>
