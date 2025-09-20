@@ -46,11 +46,11 @@ export class EditUserUseCasesDialogComponent implements OnInit, OnDestroy{
   }
 
   save(): void {
-    const nonAdminUseCases = this.userAllUseCases.filter(id => 
+    let nonAdminUseCases = this.userAllUseCases.filter(id => 
       !this.allUseCases.some(uc => uc.id === id)
     );
     
-    const allUseCasesToSend = [...nonAdminUseCases, ...this.selectedAdminUseCases];
+    let allUseCasesToSend = [...nonAdminUseCases, ...this.selectedAdminUseCases];
     
     this.subscription.add(
       this.requestsService.updateUserUseCases(this.userdId, allUseCasesToSend).subscribe({
@@ -66,9 +66,9 @@ export class EditUserUseCasesDialogComponent implements OnInit, OnDestroy{
   }
 
   private createUseCasesWithSplitLabels(): { id: number, label: string }[] {
-    const useCases: { id: number, label: string }[] = [];
+    let useCases: { id: number, label: string }[] = [];
     Object.entries(AdminUseCases).forEach(([key, value]) => {
-      if (typeof value === 'number' && value !== AdminUseCases.AdminSettings) {
+      if (typeof value === 'number') {
         const splitLabel = key.split(/(?=[A-Z])/).join(' ');
         useCases.push({ id: value, label: splitLabel });
       }

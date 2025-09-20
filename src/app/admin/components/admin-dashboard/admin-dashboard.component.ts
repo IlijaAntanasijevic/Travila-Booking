@@ -38,16 +38,25 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  getStatusLabel(status: number, isApartment = false): string {
-    if (status === 1) { return 'Active'; }
-    if (status === 2) { return 'Pending'; }
-    return isApartment ? 'Deleted' : 'Canceled';
+  getStatusLabelBookings(status: number): string {
+    if (status === 1) { return 'Upcoming'; }
+    if (status === 2) { return 'Completed'; }
+    return 'Canceled';
   }
 
-  getStatusClass(status: number): string {
+  getStatusLabelApartments(status: number): string {
+    if (status === 1) { return 'Active'; }
+    if (status === 2) { return 'Deleted'; }
+    return 'Archived';
+  }
+
+  getStatusClass(status: number, isApartment = false): string {
     if (status === 1) { return 'badge-success'; }
-    if (status === 2) { return 'badge-warning'; }
-    return 'badge-danger';
+    if (status === 2 && !isApartment) { return 'badge-warning'; }
+    if (status === 2 && isApartment) { return 'badge-danger'; }
+    if (status === 3 && isApartment) { return 'badge-warning'; }
+    if (status === 3 && !isApartment) { return 'badge-danger'; }
+    return 'badge-warning';
   }
 
 

@@ -15,6 +15,7 @@ export interface IAdminApartmentFiltersData {
     cities: IBase[];
     users: IBase[];
     statuses: IBase[];
+    bookingStatuses: IBase[];
     totalBookings: IBase[];
 }
 

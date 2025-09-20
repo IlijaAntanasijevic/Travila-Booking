@@ -64,7 +64,10 @@ export enum AllUseCases {
     UpdateApartmentFeature = 64,
     GetHomeStats = 65,
     GetHomeTestimonials = 66,
-}
+    GetAdminTestimonials = 67,
+    UpdateTestimonial = 68,
+    AdminSettings = 69, 
+  }
 
 
 export enum UserUseCases {
@@ -137,7 +140,10 @@ export enum AdminUseCases {
   UpdateApartmentType = AllUseCases.UpdateApartmentType,
   AddFeatures = AllUseCases.CreateFeatures,
   UpdateApartmentFeature = AllUseCases.UpdateApartmentFeature,
-  AdminSettings = AllUseCases.RegisterUser, // fixed to enable settings page
+ // AdminSettings = AllUseCases.RegisterUser, // fixed to enable settings page
+  GetTestimonials = AllUseCases.GetAdminTestimonials,
+  UpdateTestimonial = AllUseCases.UpdateTestimonial,
+  AdminSettings = AllUseCases.AdminSettings,
 }
 
 

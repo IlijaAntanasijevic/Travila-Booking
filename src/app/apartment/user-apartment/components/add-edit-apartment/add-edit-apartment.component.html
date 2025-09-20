@@ -196,9 +196,10 @@
             @if(files.length == 0) {
             <mat-error>Images is required</mat-error>
             }
-            @else {
-            <p></p>
+            @else if(files.length < 5) {
+            <mat-error>At least 5 more images are required</mat-error>
             }
+
             <p class="text-secondary">The first uploaded image will be set as the main display image.</p>
           </div>
 

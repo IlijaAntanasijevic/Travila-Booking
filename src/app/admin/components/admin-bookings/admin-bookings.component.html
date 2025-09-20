@@ -40,7 +40,7 @@
       <mat-label>Status</mat-label>
       <mat-select [(ngModel)]="selectedStatus" (selectionChange)="applyFilter()">
         <mat-option [value]="0">Any</mat-option>
-        @for(item of filters?.statuses; track item){
+        @for(item of filters?.bookingStatuses; track item){
           <mat-option [value]="item.id">{{ item.name }}</mat-option>
         }
       </mat-select>

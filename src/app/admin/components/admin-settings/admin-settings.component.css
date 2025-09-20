@@ -131,6 +131,150 @@
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
 }
 
+/* Testimonials Management */
+.testimonials-summary {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.summary-item {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px 16px;
+  border-radius: 20px;
+  color: white;
+  font-size: 0.9rem;
+}
+
+.testimonials-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+}
+
+.testimonial-card {
+  background: #666;
+  color: white;
+}
+
+.testimonial-card .mat-mdc-card-header {
+  color: white;
+}
+
+.testimonial-card .mat-mdc-card-subtitle {
+  color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.testimonial-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.guest-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.guest-details h6 {
+  margin: 0;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.guest-details p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.85rem;
+}
+
+.rating {
+  display: flex;
+  gap: 2px;
+}
+
+.rating .star {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.rating .star.filled {
+  color: #ffd700;
+}
+
+.apartment-name {
+  font-weight: 500;
+  color: white;
+}
+
+.date {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.8rem;
+}
+
+.review-text {
+  color: white;
+  font-style: italic;
+  margin: 12px 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.testimonial-details {
+  margin-top: 12px;
+}
+
+/* Toggle Button States */
+mat-card-actions button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.toggle-hint {
+  margin-left: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.8rem;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: white;
+}
+
+.empty-state mat-icon {
+  font-size: 4rem;
+  width: 4rem;
+  height: 4rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 16px;
+}
+
+.empty-state h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.empty-state p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1rem;
+}
+
 /* Card Styles */
 mat-card {
   border-radius: 12px;
@@ -398,7 +542,8 @@ mat-card-actions button:hover {
   .apartment-types-grid,
   .features-grid,
   .rules-grid,
-  .platform-settings-grid {
+  .platform-settings-grid,
+  .testimonials-grid {
     grid-template-columns: 1fr;
     gap: 16px;
   }

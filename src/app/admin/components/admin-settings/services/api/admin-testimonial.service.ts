@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { IAdminApartmentFiltersData } from '../interfaces/i-admin-apartments';
 import { ApiService } from '../../../../../core/services/api.service';
+import { ITestimonialItem } from '../../interfaces/i-settings';
 import { HttpClient } from '@angular/common/http';
 import { apiPaths } from '../../../../../config/api';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AdminApartmentFiltersService extends ApiService<IAdminApartmentFiltersData> {
+export class AdminTestimonialService extends ApiService<ITestimonialItem> {
 
   constructor(http: HttpClient) {
-    super(apiPaths.admin.filters, http)
-   }
+    super(apiPaths.admin.testimonials, http)
+  }
 }

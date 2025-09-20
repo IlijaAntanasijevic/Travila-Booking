@@ -17,16 +17,13 @@
 
             <div class="additional-images">
                 <h4>Gallery</h4>
-                <p>SLIKEE</p>
-                <!--
           <div class="image-grid">
-            @for(image of data.images.slice(0, 4); track image){
-              <img [src]="image.fileName | imageUrl: imageType.ApartmentMain" 
+            @for(image of data.images; track image){
+              <img [src]="image.fileName | imageUrl: imageType.Apartment" 
                    [alt]="data.name" 
                    class="gallery-image">
             }
           </div>
-          -->
             </div>
 
             <div class="map-section">
@@ -190,17 +187,6 @@
         </button>
     </div>
     }
-
-    <div class="dialog-actions">
-        <button mat-raised-button color="warn" (click)="rejectApartment()">
-            <mat-icon>cancel</mat-icon>
-            Reject
-        </button>
-        <button mat-raised-button color="primary" (click)="approveApartment()">
-            <mat-icon>check_circle</mat-icon>
-            Approve
-        </button>
-    </div>
 
 </div>
 }

@@ -12,6 +12,7 @@ import { ReservationInfoDialogComponent } from '../reservation-info-dialog/reser
 import { IMAGE_TYPE } from '../../../../../shared/helpers/image-url.pipe';
 import { IPaginatedResponse } from '../../../../../core/interfaces/i-base';
 import { ToastrService } from 'ngx-toastr';
+import { SimpleConfirmationDialogComponent } from '../../../../../shared/components/simple-confirmation-dialog/simple-confirmation-dialog.component';
 
 @Component({
   selector: 'app-my-bookings',
@@ -87,17 +88,33 @@ export class MyBookingsComponent implements OnInit, AfterViewInit {
   }
 
   cancelBooking(bookingId: number): void {
-    Spinner.show();
-    this.bookingRequestsService.cancelBooking(bookingId).subscribe({
-      next: () => {
-        Spinner.hide();
-        this.getData();
-        this.alertService.success('Booking cancelled successfully.');
-      },
-      error: err => {
-        Spinner.hide();
+    
+    let dialogRef = this.matDialog.open(SimpleConfirmationDialogComponent, {
+      width: '700px',
+      height: 'auto',
+      data: {
+        title: 'Cancel Booking',
+        message: 'Are you sure you want to cancel this booking?'
       }
     });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        Spinner.show();
+        this.bookingRequestsService.cancelBooking(bookingId).subscribe({
+          next: () => {
+            Spinner.hide();
+            this.getData();
+            this.alertService.success('Booking cancelled successfully.');
+          },
+          error: err => {
+            Spinner.hide();
+          }
+        });
+      }
+    });
+    
+
   }
   disableCancelationButton(bookingId: number): boolean {
     const booking = this.reservationData.find(x => x.bookingId === bookingId);

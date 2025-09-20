@@ -1,3 +1,5 @@
+import { IHomeTestimonials } from "../../../../home/services/interfaces/i-home-stats";
+
 export interface ISettings {
 }
 
@@ -32,5 +34,9 @@ export interface IPaymentMethod {
     name: string;
     icon: string;
     isActive: boolean;
+  }
+
+  export interface ITestimonialItem extends IHomeTestimonials {
+    isVisibleOnHome: boolean;
   }
   
