@@ -4,17 +4,6 @@ import { BlHomeRequestsService } from '../../services/requests/bl-home-requests.
 import { IHomeTestimonials } from '../../services/interfaces/i-home-stats';
 import { IMAGE_TYPE } from '../../../shared/helpers/image-url.pipe';
 
-interface ITestimonial {
-  id: number;
-  name: string;
-  location: string;
-  rating: number;
-  review: string;
-  avatar: string;
-  apartmentName: string;
-  stayDate: string;
-}
-
 @Component({
   selector: 'app-home-testimonials',
   templateUrl: './home-testimonials.component.html',

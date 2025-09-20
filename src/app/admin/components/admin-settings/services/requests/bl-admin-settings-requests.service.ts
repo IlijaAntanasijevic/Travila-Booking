@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { PaymentTypeService } from '../../../../../shared/api/lookup/payment-type.service';
 import { ApartmentTypesService } from '../../../../../shared/api/lookup/apartment-types.service';
 import { FeaturesService } from '../../../../../shared/api/lookup/features.service';
-import { forkJoin, Observable } from 'rxjs';
-import { IApartmentFeature, ICity, IPaymentMethod } from '../../interfaces/i-settings';
+import { forkJoin, Observable, of } from 'rxjs';
+import { IApartmentFeature, ICity, IPaymentMethod, ITestimonialItem } from '../../interfaces/i-settings';
 import { AdminCityService } from '../../services/api/admin-city.service';
 import { CityService } from '../../../../../shared/api/lookup/city.service';
 import { CountryService } from '../../../../../shared/api/lookup/country.service';
 import { IBase } from '../../../../../core/interfaces/i-base';
 import { CityCountryService } from '../../../../../shared/api/lookup/city-country.service';
+import { AdminTestimonialService } from '../api/admin-testimonial.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,15 +23,23 @@ export class BlAdminSettingsRequestsService {
     private countryService: CountryService,
     private paymentTypeService: PaymentTypeService,
     private apartmentTypeService: ApartmentTypesService,
-    private featuresService: FeaturesService
+    private featuresService: FeaturesService,
+    private adminTestimonialService: AdminTestimonialService
   ) { }
 
-  getAllData(): Observable<any> {
+  getAllData(canViewTestimonials: boolean = false): Observable<any> {
     return forkJoin({
       cities: this.adminCityService.getAll(),
-      paymentTypes: this.paymentTypeService.getAll(),
-      apartmentTypes: this.apartmentTypeService.getAll(),
-      features: this.featuresService.getAll()
+      paymentTypes: this.paymentTypeService.getAllByQueryParams({
+        isActive: false
+      }),
+      apartmentTypes: this.apartmentTypeService.getAllByQueryParams({
+        isActive: false
+      }),
+      features: this.featuresService.getAllByQueryParams({
+        isActive: false
+      }),
+      testimonials: canViewTestimonials ? this.getAllTestimonials() : of([])
     });
   }
 
@@ -72,6 +81,14 @@ export class BlAdminSettingsRequestsService {
 
   updateFeature(data: IApartmentFeature): Observable<any> {
     return this.featuresService.update(data.id, data);
+  }
+
+  getAllTestimonials(): Observable<any> {
+    return this.adminTestimonialService.getAll();
+  }
+
+  updateTestimonial(data: ITestimonialItem): Observable<any> {
+    return this.adminTestimonialService.update(data.id, data);
   }
 
 }

@@ -32,7 +32,7 @@ export class BlAddEditApartmentFormService implements IFormService<IAddEditApart
       // location: new FormControl(null, Validators.required),
       longitude: new FormControl(null, Validators.required),
       lattitude: new FormControl(null, Validators.required),
-      images: new FormControl([], Validators.required),
+      images: new FormControl([], [Validators.required, Validators.minLength(5)]),
       country: new FormControl("", Validators.required),
       price: new FormControl(30, Validators.required),
       mainImage: new FormControl("", Validators.required),

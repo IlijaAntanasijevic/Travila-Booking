@@ -65,7 +65,7 @@
                       <span>{{ item.location }}</span>
                     </div>
                     <div class="badges">
-                      <span class="badge" [ngClass]="getStatusClass(item.status)">{{ getStatusLabel(item.status) }}</span>
+                      <span class="badge" [ngClass]="getStatusClass(item.status)">{{ getStatusLabelBookings(item.status) }}</span>
                       <span class="badge">{{ item.totalNights }} nights</span>
                       <span class="badge">{{ item.totalGuests }} guests</span>
                       <span class="badge">{{ item.totalPrice }} USD</span>
@@ -90,7 +90,7 @@
                       <span>{{ apartment.apartmentName }}</span>
                     </div>
                     <div class="badges">
-                      <span class="badge" [ngClass]="getStatusClass(apartment.status)">{{ getStatusLabel(apartment.status, true) }}</span>
+                      <span class="badge" [ngClass]="getStatusClass(apartment.status, true)">{{ getStatusLabelApartments(apartment.status) }}</span>
                       <span class="badge">{{ apartment.totalRoomns }} rooms</span>
                       <span class="badge">{{ apartment.price }} USD/night</span>
                     </div>

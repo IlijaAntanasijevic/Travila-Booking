@@ -84,9 +84,7 @@ export class AdminApartmentsComponent implements OnInit, OnDestroy {
       status: this.selectedStatus,
       totalBookings: this.minBookings
     }
-
     this.getApartments();
-    
   }
 
   openApartmentDialog(data: IAdminApartments): void {

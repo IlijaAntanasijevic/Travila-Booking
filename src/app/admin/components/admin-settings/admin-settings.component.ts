@@ -4,12 +4,14 @@ import { AddPaymentMethodDialogComponent } from './dialogs/add-payment-method-di
 import { AddCityDialogComponent } from './dialogs/add-city-dialog/add-city-dialog.component';
 import { AddApartmentTypeDialogComponent } from './dialogs/add-apartment-type-dialog/add-apartment-type-dialog.component';
 import { AddApartmentFeatureDialogComponent } from './dialogs/add-apartment-feature-dialog/add-apartment-feature-dialog.component';
-import { IApartmentFeature, IApartmentType, ICity, IPaymentMethod } from './interfaces/i-settings';
+import { IApartmentFeature, IApartmentType, ICity, IPaymentMethod, ITestimonialItem } from './interfaces/i-settings';
 import { BlAdminSettingsRequestsService } from './services/requests/bl-admin-settings-requests.service';
 import { Subscription } from 'rxjs';
 import { Spinner } from '../../../core/functions/spinner';
 import { AdminUseCases } from '../../../core/consts/use-cases';
 import { PermissionService } from '../../../core/services/permission.service';
+import { IMAGE_TYPE } from '../../../shared/helpers/image-url.pipe';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-admin-settings',
@@ -22,7 +24,8 @@ export class AdminSettingsComponent implements OnInit, OnDestroy {
   constructor(
     private dialog: MatDialog,
     private requestsService: BlAdminSettingsRequestsService,
-    private permissionService: PermissionService
+    private permissionService: PermissionService,
+    private alertService: ToastrService
   ) { }
 
 
@@ -34,9 +37,13 @@ export class AdminSettingsComponent implements OnInit, OnDestroy {
   cities: ICity[] = [];
   apartmentFeatures: IApartmentFeature[] = [];
   apartmentTypes: IApartmentType[] = [];
+  testimonials: ITestimonialItem[] = [];
   adminUseCases = AdminUseCases;
+  imageType = IMAGE_TYPE;
+  canViewTestimonials: boolean = false;
 
   ngOnInit(): void {
+    this.canViewTestimonials = this.permissionService.has([this.adminUseCases.GetTestimonials]);
     this.getAllData();
     this.isInitialized = true;
   }
@@ -44,13 +51,14 @@ export class AdminSettingsComponent implements OnInit, OnDestroy {
   getAllData(): void {
     !this.isInitialized ? Spinner.show() : null;
     this.subscription.add(
-      this.requestsService.getAllData().subscribe({
+      this.requestsService.getAllData(this.canViewTestimonials).subscribe({
         next: (data) => {
 
           this.paymentMethods = data.paymentTypes;
           this.cities = data.cities;
           this.apartmentTypes = data.apartmentTypes;
           this.apartmentFeatures = data.features;
+          this.testimonials = this.canViewTestimonials ? data.testimonials : [];
           Spinner.hide();
         },
         error: (err) => {
@@ -115,6 +123,52 @@ export class AdminSettingsComponent implements OnInit, OnDestroy {
         }
       })
     )
+  }
+
+  toggleTestimonial(testimonial: ITestimonialItem): void {
+    let currentlyEnabled = this.testimonials.filter(t => t.isVisibleOnHome).length;
+    let willBeEnabled = testimonial.isVisibleOnHome ? currentlyEnabled - 1 : currentlyEnabled + 1;
+    
+    if (!testimonial.isVisibleOnHome && willBeEnabled > 12) {
+      this.alertService.warning("Maximum 12 testimonials can be enabled");
+      return;
+    }
+    
+    if (testimonial.isVisibleOnHome && willBeEnabled < 3) {
+      this.alertService.warning("Minimum 3 testimonials must be enabled");
+      return;
+    }
+
+    testimonial.isVisibleOnHome = !testimonial.isVisibleOnHome;
+    this.subscription.add(
+      this.requestsService.updateTestimonial(testimonial).subscribe({
+        next: (data) => {
+          this.getAllData();
+        },
+        error: (err) => {
+          this.alertService.error("Failed to update testimonial");
+          testimonial.isVisibleOnHome = !testimonial.isVisibleOnHome;
+        }
+      })
+    )
+  }
+
+  enabledTestimonialsCount(): number {
+    return this.testimonials.filter(t => t.isVisibleOnHome).length;
+  }
+
+  canToggleTestimonial(testimonial: ITestimonialItem): boolean {
+    let currentlyEnabled = this.testimonials.filter(t => t.isVisibleOnHome).length;
+    
+    if (testimonial.isVisibleOnHome && currentlyEnabled <= 3) {
+      return false;
+    }
+    
+    if (!testimonial.isVisibleOnHome && currentlyEnabled >= 12) {
+      return false;
+    }
+    
+    return true;
   }
 
   setActiveTab(tab: string): void {

@@ -238,5 +238,90 @@
       </div>
     </mat-tab>
 
+    <!-- Testimonials Tab -->
+    <mat-tab label="Testimonials" *appCan="adminUseCases.GetTestimonials">
+      <div class="tab-content">
+        <div class="section-header">
+          <div class="section-title">
+            <div>
+              <h2>
+                <mat-icon>rate_review</mat-icon>
+                Testimonials Management
+              </h2>
+              <p>Manage individual testimonials display on the home page (Min: 3, Max: 12)</p>
+            </div>
+            <div class="testimonials-summary">
+              <span class="summary-item">
+                <strong>{{ enabledTestimonialsCount }}</strong> / {{ testimonials.length }} Enabled
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonials-grid">
+          @for (testimonial of testimonials; track testimonial.id) {
+            <mat-card class="testimonial-card" [class.inactive]="!testimonial.isVisibleOnHome">
+              <mat-card-header>
+                <mat-card-title>
+                  <div class="testimonial-header">
+                    <div class="guest-info">
+                      <img [src]="testimonial.avatar | imageUrl: imageType.Avatar" alt="{{testimonial.userFullName}}" width="40" height="40" class="avatar">
+                      <div class="guest-details">
+                        <h6>{{ testimonial.userFullName }}</h6>
+                        <p>{{ testimonial.location }}</p>
+                      </div>
+                    </div>
+                    <div class="rating">
+                      @for (i of [1,2,3,4,5]; track i) {
+                        <mat-icon class="star" [class.filled]="i <= testimonial.rating">star</mat-icon>
+                      }
+                    </div>
+                  </div>
+                </mat-card-title>
+                <mat-card-subtitle>
+                  <span class="apartment-name">{{ testimonial.apartmentName }}</span>
+                  <span class="date">{{ testimonial.created }}</span>
+                </mat-card-subtitle>
+              </mat-card-header>
+
+              <mat-card-content>
+                <p class="review-text">"{{ testimonial.ratingInfo }}"</p>
+                <div class="testimonial-details">
+                  <div class="detail-row">
+                    <span class="label">Status:</span>
+                    <span class="status" [class.active]="testimonial.isVisibleOnHome" [class.inactive]="!testimonial.isVisibleOnHome">
+                      {{ testimonial.isVisibleOnHome ? 'Active' : 'Inactive' }}
+                    </span>
+                  </div>
+                </div>
+              </mat-card-content>
+
+              <mat-card-actions>
+                <button *appCan="adminUseCases.UpdateTestimonial"
+                  mat-button 
+                  (click)="toggleTestimonial(testimonial)" 
+                  [disabled]="!canToggleTestimonial(testimonial)"
+                  [class.disabled]="!canToggleTestimonial(testimonial)">
+                  <mat-icon>{{ testimonial.isVisibleOnHome ? 'toggle_on' : 'toggle_off' }}</mat-icon>
+                  {{ testimonial.isVisibleOnHome ? 'Disable' : 'Enable' }}
+                </button>
+                <span class="toggle-hint" *ngIf="!canToggleTestimonial(testimonial)">
+                  <small *ngIf="testimonial.isVisibleOnHome && enabledTestimonialsCount <= 3">Minimum 3 required</small>
+                  <small *ngIf="!testimonial.isVisibleOnHome && enabledTestimonialsCount >= 10">Maximum 12 allowed</small>
+                </span>
+              </mat-card-actions>
+            </mat-card>
+          }
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" *ngIf="testimonials.length === 0">
+          <mat-icon>rate_review</mat-icon>
+          <h3>No Testimonials Available</h3>
+          <p>There are currently no testimonials to manage.</p>
+        </div>
+      </div>
+    </mat-tab>
+
   </mat-tab-group>
 </div>
