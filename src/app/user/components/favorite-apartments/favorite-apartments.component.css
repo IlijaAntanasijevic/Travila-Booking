@@ -1,3 +1,7 @@
+.empty-state {
+  height: 40vh;
+}
+
 .card-journey-small .card-info .card-rating .card-right .rating {
   display: inline-block;
   padding: 6px 16px 6px 30px;

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BlApartmentDashboardDataService } from '../../../apartment/apartment-dashboard/services/shared/bl-apartment-dashboard-data.service';
 import { Subscription } from 'rxjs';
 
@@ -18,14 +18,13 @@ export class ReservationsComponent implements OnInit, OnDestroy {
     private subscription: Subscription = new Subscription();
 
     ngOnInit(): void {
-
         this.subscription.add(
             this.dataService.isApartmentBooked.subscribe({
                 next: (isBooked) => {
                     if (isBooked) {
                         this.selectedTabIndex = 1;
                     } else {
-                        this.selectedTabIndex = 0; 
+                        this.selectedTabIndex = 0;
                     }
                 }
             })
@@ -36,7 +35,5 @@ export class ReservationsComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.subscription.unsubscribe();
     }
-
- 
 
 }

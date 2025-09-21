@@ -28,6 +28,9 @@
             <div class="col-md-12">
               <div class="form-group">
                 <textarea class="form-control" formControlName="comment" placeholder="Your comment"></textarea>
+                @if(form.get('comment').hasError('minlength')){
+                <mat-error class="text-danger">Comment must be at least 10 characters</mat-error>
+                }
               </div>
             </div>
             <div class="col-md-12 d-flex justify-content-end mt-3">

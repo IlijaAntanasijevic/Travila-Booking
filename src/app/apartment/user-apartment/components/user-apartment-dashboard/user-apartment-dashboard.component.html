@@ -42,7 +42,9 @@
       </div>
       }
       @empty {
-        <h3 class="neutral-1000 mt-5">You don't have any apartments</h3>
+        <div class="empty-state">
+          <h3 class="neutral-1000 mt-5">You don't have any apartments</h3>
+        </div>
       }
     </div>
     <app-paginator [data]="apartments" (pageChange)="onPageChange($event)"></app-paginator>

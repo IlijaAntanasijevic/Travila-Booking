@@ -46,10 +46,6 @@ export class AiAgentComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
-
   toggleExpanded(): void {
     this.isExpanded = !this.isExpanded;
     if (this.isExpanded && this.hasNewMessage) {
@@ -138,5 +134,9 @@ export class AiAgentComponent implements OnInit, OnDestroy {
       event.preventDefault();
       this.sendMessage();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

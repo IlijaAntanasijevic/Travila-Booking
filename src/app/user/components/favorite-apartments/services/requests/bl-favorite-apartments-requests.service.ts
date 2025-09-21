@@ -25,6 +25,6 @@ export class BlFavoriteApartmentsRequestsService {
   }
 
   removeFromFavorite(apartmentId: number): Observable<any> {
-    return this.apiService.delete(apartmentId);
+    return this.apiService.update(apartmentId, null);
   }
 }
