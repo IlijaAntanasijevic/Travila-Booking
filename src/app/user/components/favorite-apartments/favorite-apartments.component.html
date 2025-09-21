@@ -1,4 +1,4 @@
-<section class="background-body pt-25 pb-50">
+<section class="background-body pt-25 pb-50 favorite-apartments">
   <div class="container">
 
 
@@ -47,7 +47,9 @@
       </div>
       }
       @empty {
-      <h3 class="neutral-1000">You don't have any favorite apartments</h3>
+        <div class="empty-state">
+          <h3 class="neutral-1000">You don't have any favorite apartments</h3>
+        </div>
       }
     </div>
     <app-paginator [data]="data" (pageChange)="onPageChange($event)"></app-paginator>

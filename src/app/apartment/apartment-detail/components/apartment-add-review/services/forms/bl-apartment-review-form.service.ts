@@ -18,7 +18,7 @@ export class BlApartmentReviewFormService implements IFormService<IApartmentRevi
 
   init(): FormGroup {
     return new FormGroup({
-      comment: new FormControl(null, [Validators.required]),
+      comment: new FormControl(null, [Validators.required, Validators.minLength(10)]),
       apartmentId: new FormControl(null),
       values: new FormArray([
       new FormGroup({

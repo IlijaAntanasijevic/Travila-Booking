@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 import { IApartment } from '../../../apartment/interfaces/i-apartment';
 import { IPagination } from '../../../shared/interfaces/i-pagination';
 import { IMAGE_TYPE } from '../../../shared/helpers/image-url.pipe';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-favorite-apartments',
@@ -16,7 +17,8 @@ import { IMAGE_TYPE } from '../../../shared/helpers/image-url.pipe';
 export class FavoriteApartmentsComponent implements OnInit {
 
   constructor(
-    private requestsService: BlFavoriteApartmentsRequestsService
+    private requestsService: BlFavoriteApartmentsRequestsService,
+    private alertService: ToastrService
   ) { }
 
   data: IPaginatedResponse<IApartment> = null;
@@ -53,10 +55,11 @@ export class FavoriteApartmentsComponent implements OnInit {
   remove(apartmentId: number): void {
     this.requestsService.removeFromFavorite(apartmentId).subscribe({
       next: (data) => {
-
+        this.getData();
+        this.alertService.success("Apartment removed from favorites");
       },
       error: (error) => {
-
+        this.alertService.error("Failed to remove apartment from favorites");
       }
     })
   }
