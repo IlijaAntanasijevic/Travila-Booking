@@ -37,7 +37,9 @@
       </div>
       }
       @empty {
+        <div class="empty-state">
         <h5 class="text-light mt-5">You don’t have any archived apartments.</h5>
+        </div>
       }
     </div>
     <app-paginator [data]="data" (pageChange)="onPageChange($event)"></app-paginator>
