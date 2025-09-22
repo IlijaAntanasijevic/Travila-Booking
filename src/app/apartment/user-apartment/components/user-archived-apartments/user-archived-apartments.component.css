@@ -48,3 +48,7 @@
   font-size: 1.2rem !important;
   color: #EAEAEA;
 }
+
+.empty-state {
+  height: 40vh;
+}
