@@ -24,11 +24,11 @@ export class BlRegisterFormService implements IFormService<IRegister>{
 
   init(): FormGroup {
     return new FormGroup({
-      email: new FormControl("ilijatest10@test.com", [Validators.required, Validators.email]),
-      password: new FormControl("Ilija123!", [Validators.required, passwordValidator()] ),
-      firstName: new FormControl("Ilija", [Validators.required, Validators.minLength(3), charactersOnlyValidator()]),
-      lastName: new FormControl("Test", [Validators.required, Validators.minLength(3), charactersOnlyValidator()]),
-      phone: new FormControl("213213123", [Validators.required, Validators.minLength(5), Validators.maxLength(17)]),
+      email: new FormControl("", [Validators.required, Validators.email]),
+      password: new FormControl("", [Validators.required, passwordValidator()] ),
+      firstName: new FormControl("", [Validators.required, Validators.minLength(3), charactersOnlyValidator()]),
+      lastName: new FormControl("", [Validators.required, Validators.minLength(3), charactersOnlyValidator()]),
+      phone: new FormControl("", [Validators.required, Validators.minLength(5), Validators.maxLength(17)]),
       avatar: new FormControl(null),
     })
   }

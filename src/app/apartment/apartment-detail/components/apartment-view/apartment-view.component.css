@@ -93,6 +93,10 @@
   padding: 0 24px 16px;
 } */
 
+.html-content {
+  word-wrap: break-word;
+}
+
 ::ng-deep .mat-expansion-panel-body .html-content ol,
 ::ng-deep .mat-expansion-panel-body .html-content ul {
   padding-left: 16px;

@@ -11,6 +11,7 @@ import { IReservation, IReservationInfo } from '../../interfaces/i-reservation';
 import { BlBookingsRequestsService } from '../../services/requests/bl-bookings-requests.service';
 import { ReservationInfoDialogComponent } from '../reservation-info-dialog/reservation-info-dialog.component';
 import { ToastrService } from 'ngx-toastr';
+import { SimpleConfirmationDialogComponent } from '../../../../../shared/components/simple-confirmation-dialog/simple-confirmation-dialog.component';
 
 @Component({
   selector: 'app-guest-bookings',
@@ -82,16 +83,29 @@ export class GuestBookingsComponent implements OnInit, AfterViewInit {
 
   cancelBooking(bookingId: number): void {
     Spinner.show();
-    this.bookingRequestsService.cancelBooking(bookingId).subscribe({
-      next: () => {
-        Spinner.hide();
-        this.getData();
-        this.alertService.success('Booking cancelled successfully.');
-      },
-      error: err => {
-        Spinner.hide();
+    this.matDialog.open(SimpleConfirmationDialogComponent, {
+      width: '400px',
+      height: 'auto',
+      data: { message: 'Are you sure you want to cancel this booking?' }
+    }).afterClosed().subscribe({
+      next: (result) => {
+        if (result) {
+          this.bookingRequestsService.cancelBooking(bookingId).subscribe({
+            next: () => {
+              Spinner.hide();
+              this.getData();
+              this.alertService.success('Booking cancelled successfully.');
+            },
+            error: err => {
+              Spinner.hide();
+            }
+          });
+        }
       }
-    });
+    })
+
+    Spinner.hide();
+
   }
 
   disableCancelationButton(bookingId: number): boolean {

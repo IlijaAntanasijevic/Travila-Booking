@@ -20,8 +20,8 @@ export class BlAddEditApartmentFormService implements IFormService<IAddEditApart
 
   init(): FormGroup {
     return new FormGroup({
-      name: new FormControl("Test 1", Validators.required),
-      description: new FormControl("Test aaa 20 karaktera aaaa pp", Validators.required),
+      name: new FormControl("", Validators.required),
+      description: new FormControl("Ovo je test opisa za apartman za testiranje koji je dodat u kodu!", Validators.required),
       address: new FormControl({ value: "", disabled: true }, Validators.required),
       city: new FormControl({ value: "", disabled: true }, Validators.required),
       guests: new FormGroup({
@@ -34,7 +34,7 @@ export class BlAddEditApartmentFormService implements IFormService<IAddEditApart
       lattitude: new FormControl(null, Validators.required),
       images: new FormControl([], [Validators.required, Validators.minLength(5)]),
       country: new FormControl("", Validators.required),
-      price: new FormControl(30, Validators.required),
+      price: new FormControl(null, Validators.required),
       mainImage: new FormControl("", Validators.required),
       apartmentTypeId: new FormControl("", Validators.required),
       featureIds: new FormControl(null),

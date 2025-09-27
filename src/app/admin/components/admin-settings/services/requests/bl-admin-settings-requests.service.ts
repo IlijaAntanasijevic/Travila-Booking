@@ -56,7 +56,7 @@ export class BlAdminSettingsRequestsService {
   }
 
   getAllCountries(): Observable<IBase[]> {
-    return this.countryService.getAll();
+    return this.countryService.getAllAdminCountries();
   }
 
   createCity(data: ICity): Observable<any> {

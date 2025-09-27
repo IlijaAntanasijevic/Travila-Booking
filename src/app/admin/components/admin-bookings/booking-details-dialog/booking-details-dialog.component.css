@@ -261,22 +261,22 @@
   letter-spacing: 0.5px;
 }
 
-.status-badge.status-1 {
-  background: rgba(156, 163, 175, 0.2);
-  color: #9ca3af;
-  border: 1px solid rgba(156, 163, 175, 0.3);
+.status-1 { 
+  background: rgba(34, 197, 94, 0.2); 
+  color: #22c55e; 
+  border: 1px solid rgba(34, 197, 94, 0.3);
 }
 
-.status-badge.status-2 {
-  background: rgba(156, 163, 175, 0.2);
-  color: #9ca3af;
-  border: 1px solid rgba(156, 163, 175, 0.3);
+.status-2 { 
+  background: rgba(251, 191, 36, 0.2); 
+  color: #fbbf24; 
+  border: 1px solid rgba(251, 191, 36, 0.3);
 }
 
-.status-badge.status-0 {
-  background: rgba(156, 163, 175, 0.2);
-  color: #9ca3af;
-  border: 1px solid rgba(156, 163, 175, 0.3);
+.status-3 { 
+  background: rgba(239, 68, 68, 0.2); 
+  color: #ef4444; 
+  border: 1px solid rgba(239, 68, 68, 0.3);
 }
 
 /* Price Section */
