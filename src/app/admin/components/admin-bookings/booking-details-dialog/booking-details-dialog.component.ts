@@ -18,8 +18,8 @@ export class BookingDetailsDialogComponent {
   imageType = IMAGE_TYPE;
 
   getStatusLabel(status: number): string {
-    if (status === 1) { return 'Active'; }
-    if (status === 2) { return 'Pending'; }
+    if (status === 1) { return 'Upcoming'; }
+    if (status === 2) { return 'Completed'; }
     return 'Canceled';
   }
 

@@ -16,6 +16,10 @@
   color: white !important;
 }
 
+::ng-deep .mat-mdc-card-lg-image {
+  object-fit: cover !important;
+}
+
 .cardSubtitle p {
   font-size: 1rem;
   line-height: 1.7;
