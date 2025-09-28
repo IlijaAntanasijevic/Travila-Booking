@@ -22,7 +22,7 @@ export class BlApartmentFilterFormService implements IFormService<IFilter>{
       sorts: new FormArray([ 
         new FormGroup({
           sortProperty: new FormControl(null),
-          direction: new FormControl(SortDirection.Asc),
+          direction: new FormControl(null),
         }),
       ]),
       perPage: new FormControl(6),
